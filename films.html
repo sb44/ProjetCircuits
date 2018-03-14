@@ -1,0 +1,64 @@
+<html>
+	<head>
+		<script language="javascript" src="js/jquery-3.3.1.min.js"></script>
+		<script language="javascript" src="js/global.js"></script>
+		<script language="javascript" src="Films/filmsRequetes.js"></script>
+		<script language="javascript" src="Films/filmsControleurVue.js"></script>
+		<link rel="stylesheet" href="css/films.css" type="text/css" />
+		<link rel="stylesheet" href="css/table.css" type="text/css" />
+		<link rel="stylesheet" href="css/normalize.min.css" type="text/css" />
+	</head>
+	<body>
+		<h2>Gestion des films</h2><br><br>
+		<input type="button" value="Enregistrer(C)" onClick="rendreVisible('divEnreg');">
+		<input type="button" value="Lister(R)" onClick="lister();$('#contenu').show();">
+		<input type="button" value="Modifier(U)" onClick="rendreVisible('divFiche');">
+		<input type="button" value="Enlever(D)" onClick="rendreVisible('divEnlever');">
+		<div id="divEnreg">
+			<form id="formEnreg">  <!-- invisible au départ-->
+				<h3>Enregistrer film</h3><br><br>
+				<span onClick="rendreInvisible('divEnreg')">X</span><br>
+				Titre:<input type="text" id="titre" name="titre"><br>
+				Duree:<input type="text" id="duree" name="duree"><br>
+				Realisateur:<input type="text" id="res" name="res"><br><br>
+				Pochette:<input type="file" id="pochette" name="pochette"><br><br>
+				<!--<input type="hidden" name="action" value="enregistrer"> -->
+				<input type="button" value="Envoyer" onClick="enregistrer();"><br>
+			</form>
+		</div>
+		
+		<div id="divEnlever">
+			<form id="formEnlever">  <!-- invisible au départ-->
+				<h3>Enlever film</h3><br><br>
+				<span onClick="rendreInvisible('divEnlever')">X</span><br>
+				Numero:<input type="text" id="numE" name="numE"><br>
+				<!--<input type="hidden" name="action" value="enlever"> pour serialize() dans Requetes -->
+				<input type="button" value="Envoyer" onClick="enlever();"><br>
+			</form>
+		</div>
+		<div id="divFiche">  <!-- invisible au départ-->
+			<form id="formFiche">
+				<h3>Obtenir fiche film</h3><br><br>
+				<span onClick="rendreInvisible('divFiche')">X</span><br>
+				Numero:<input type="text" id="numF" name="numF"><br>
+				<input type="button" value="Envoyer" onClick="obtenirFiche();"><br>
+			</form>
+		</div>
+		
+		
+		<div id="contenu" style="position:absolute;top:25%;left:20%;"></div>
+		<div id="messages" style="position:absolute;top:2%;left:80%;color:red;"></div>
+		<div id="divFormFiche" style="position:absolute;top:10%;left:50%; display:none"> <!-- invisible au départ-->
+			<form id="formFicheF">
+				<h3></h3><br><br>
+				<span onClick="rendreInvisible('divFormFiche')">X</span><br>
+				<input type="hidden" id="idf" name="idf">
+				Titre:<input type="text" id="titreF" name="titreF"><br>
+				Duree:<input type="text" id="dureeF" name="dureeF"><br>
+				Realisateur:<input type="text" id="resF" name="resF"><br><br>
+				Pochette:<input type="file" id="pochette" name="pochette"><br><br>
+				<input type="button" value="Modifier" onClick="modifier();"><br>
+			</form>
+		</div>
+	</body>
+</html>
