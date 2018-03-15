@@ -43,7 +43,20 @@ mapLegendItem {
 #mapLegend h3 {
 	text-align: center
 }
+/* Fin Maps */
 
+/* 	Couleur du Hamburger
+	https://stackoverflow.com/questions/37243577/change-bootstrap-hamburger-color-only-on-collapse?rq=1 */
+.custom-toggler .navbar-toggler-icon {
+	background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(205,90,179, 0.5)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+  }
+  
+  .custom-toggler.navbar-toggler {
+	border-color: rgb(205, 90, 179);
+  } 
+/* Fin Couleur du Hamburger */ 
+
+/* CSS Boutons Override Bootstrap */
 body .btn-primary {
     background-color: #CD5AB3 !important;
     border-color: #CD5AB3 !important;
@@ -80,18 +93,9 @@ body .btn-secondary {
 	color: #FFF !important;
 	background: #444444  !important;
 }
+/* FIN CSS Boutons Override Bootstrap */
 
-.row {
-	margin: 0;
-  }
-  
-div.vertical-line{
-	width: 1px; /* Line width */
-	background-color: #FBB3FF; /* Line color */
-	height: 100%; /* Override in-line if you want specific height. */
-}
-
-
+/* Style navbar dropdown connexion et déconnexion */
 .login-dp {
 	min-width: 310px;
 	padding: 14px 14px 0;
@@ -142,10 +146,20 @@ div.vertical-line{
 		border-top:0 none;
 	}
 }
+/* FIN Style navbar dropdown connexion et déconnexion */
 
-
+/* Varia */
 .error {color: #FF0000;}
 
+.row {
+	margin: 0;
+  }
+  
+div.vertical-line{
+	width: 1px; /* Line width */
+	background-color: #FBB3FF; /* Line color */
+	height: 100%; /* Override in-line if you want specific height. */
+}
 
-
+/* Fin Varia */
 
