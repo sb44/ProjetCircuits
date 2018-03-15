@@ -20,6 +20,11 @@
 	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 	<!--  <link rel="stylesheet" href="library/font-awesome/css/font-awesome.min.css"> -->
 	
+	<!-- Latest compiled and minified CSS ... https://silviomoreto.github.io/bootstrap-select/ -->
+	<!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css"> -->
+	<!-- https://github.com/silviomoreto/bootstrap-select/issues/1135 -->
+	<link rel="stylesheet" href="https://cdn.rawgit.com/infostreams/bootstrap-select/fd227d46de2afed300d97fd0962de80fa71afb3b/dist/css/bootstrap-select.min.css" />
+	
 	<style type="text/css">
 	</style> 
 	
@@ -188,7 +193,7 @@
 
 	
 	<!-- CAROUSSEL-->
-	<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+	<div id="carouselExampleIndicators" class="carousel slide mt-4" data-ride="carousel">
 	  <ol class="carousel-indicators">
 		<li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
 		<li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
@@ -230,21 +235,68 @@
 </div>	
 
 <div id="contenu" class="container">
+
 </div>	
 
+<div id="map" class="h-50 col-md-10 offset-md-1 mt-4">
+	<div id="mapLegend" style="visibility : hidden;">
+		<h4 class="mt-1">Nos circuits!</h4>
+	</div>
+</div>
+
+<div id="consulterCircuitsContainer" class="col-md-10 offset-md-1" style="border:2px solid #FBB3FF;">
+	<div id="consulterCircuits" class="container mt-3">
+			<form role="form" id="formRechercheCircuit" name="formRechercheCircuit">
+				<input type="hidden" name="monAction" value="rechercheCircuit">
+				<div class="form-group row">
+					<label for="themeCircuit" class="h4 col-sm-2 col-md-2 offset-md-1 col-form-label-lg" title="Sélectionner les circuits à afficher par thème(s)...">Thème(s)</label>
+					<div class="col-sm-10 col-md-8">
+						<!-- <select class="form-control form-control-lg" id="themeCircuits" placeholder="Sélectionner un thème de circuits"> -->
+						<select id="themeCircuits" name="themeCircuit" class="selectpicker form-control form-control-lg" data-style="btn-secondary" multiple title="Sélectionner les circuits à afficher par thème(s)...">		
+							<option value="1">Tous</option>
+							<option value="2">Courts-Séjours</option>
+							<option value="3">Safari</option>
+							<option value="4">Voyages et Randonnées</option>
+							<option value="5">Yoga et Méditation</option>
+						</select>							  
+					</div>
+				</div>
+
+				<div class="form-group row">
+						<label for="datedepartCircuit" class="h4 col-sm-2 col-md-2 offset-md-1 col-form-label-lg" title="Afficher les circuits à partir d'une date de départ...">Départ</label>
+						<div class="col-sm-10 col-md-8">
+							<!-- <select class="form-control form-control-lg" id="themeCircuits" placeholder="Sélectionner un thème de circuits"> -->
+							<select id="datedepartCircuit" name="datedepartCircuit" class="selectpicker form-control form-control-lg" data-style="btn-secondary" title="Afficher les circuits à partir d'une date de départ...">		
+								<option value="1">Tous</option>
+								<option value="2">Courts-Séjours</option>
+								<option value="3">Safari</option>
+								<option value="4">Voyages et Randonnées</option>
+								<option value="5">Yoga et Méditation</option>
+							</select>							  
+						</div>
+				</div>
+
+				<div class="form-group row mb-3">
+					<label class="h4 col-0 col-sm-2 col-md-2 offset-md-1"></label>
+					<div class="col-4 col-sm-3 col-md-2" title="Lancer la requête">
+						<input type="button" class="btn btn-primary form-control" value="Go"/>
+					</div>
+					<div class="col-0 vertical-line" style="height: 40px;"></div>
+					<div class="col-7 col-sm-4 col-md-3" title="Réinitialiser la recherche">
+						<input type="button" class="btn btn-outline-secondary form-control" value="Recommencer"/>
+					</div>
+				</div>
+			</form>
+	</div>
+</div>
 
 <div id="lesCards">
 </div>
+
+
+
+
 <!-- DIV  ADMIN test -->	
-
-
-
-
-
-
-
-
-
 
 <!--<div id="tempAdmin">
 <!--	<div class="container">
@@ -365,8 +417,8 @@
 
 
 <!-- FOOTER -->
-<br>
- <nav class="navbar navbar-inverse navbar-fixed-bottom navbar-dark" style="background-color: #333333;">
+
+ <nav class="navbar navbar-inverse navbar-fixed-bottom navbar-dark mt-4" style="background-color: #333333;">
   <div class="container-fluid">
     <div class="navbar-header">
       <a class="navbar-brand" href="#">Films</a>
@@ -375,11 +427,432 @@
 </nav> 
 <!-- FIN FOOTER -->
 
-    <!-- Optional JavaScript -->
+	<!-- Optional JavaScript -->
+	<script>
+	// variables globales
+	var infowindow = null; // info window open quand user click dessus. Global pour closer l'existant à chaque click sur autre marker
+	var montreal = null;
 	
+	function initMap() {
+	//debugger;
+	//localistations lat et long.
+	var centerMap = {lat: 45.870847, lng: -14.000323};
+	montreal = {lat: 45.50884, lng: -73.58781};
+	var lasvegas = {lat: 36.114647, lng: -115.172813};
+	var washington = {lat: 38.907214, lng: -77.036872}; 
+	var tanzanie = {lat: -3.386925, lng: 36.682995};
+	var india = {lat: 20.593684, lng: 78.96288};
+	var spain = {lat: 40.416775, lng: -3.703790};
+
+	//base pour les icones des destinations
+	var iconBase = 'https://maps.google.com/mapfiles/kml/shapes/';
+
+	//contenu pour les infoWindows
+	var contentStringMtl = '<div id="content">'+
+		'<div id="siteNotice">'+
+		'</div>'+
+		'<h2 id="firstHeading" class="firstHeading">Montréal (Québec, Canada)</h2>'+
+		'<div id="bodyContent">'+
+		'<p>La ville de <b>Montréal</b> est votre point de départ à tout les circuits de voyages que nous vous proposons à partir de l\'<b>Aéroport Pierre-Élliote Trudeau</b> à Dorval! Bon voyage!</p>'+
+		'</div>'+
+		'</div>';
+	var contentStringNY = '<div id="content">'+
+			'<div id="siteNotice">'+
+		'</div>'+
+		'<h2 id="firstHeading" class="firstHeading">Las-Vegas (États-Unis, Nevada)</h2>'+
+		'<div id="bodyContent">'+
+		'<p>Le circuit de <b>Las-Vegas</b> est le premier proposé parmi les <b>Courts-Séjours</b>. Situé à proximité, il vous épatera par sa splendeur! Bon voyage!</p>'+
+		'</div>'+
+		'</div>';
+	var contentStringWashington = '<div id="content">'+
+		'<div id="siteNotice">'+
+		'</div>'+
+		'<h2 id="firstHeading" class="firstHeading">Washington (États-Unis, Washington)</h2>'+
+		'<div id="bodyContent">'+
+		'<p>Le circuit de <b>Washington</b> est le premier proposé parmi les <b>Courts-Séjours</b>. Situé à proximité, il vous épatera par sa splendeur! Bon voyage!</p>'+
+		'</div>'+
+		'</div>';		
+		
+	var contentStringTanzanie = '<div id="content">'+
+		'<div id="siteNotice">'+
+		'</div>'+
+		'<h2 id="firstHeading" class="firstHeading">Tanzanie (États-Unis, Washington)</h2>'+
+		'<div id="bodyContent">'+
+		'<p>Le circuit de <b>Tanzanie</b> est le premier proposé parmi les <b>Courts-Séjours</b>. Situé à proximité, il vous épatera par sa splendeur! Bon voyage!</p>'+
+		'</div>'+
+		'</div>';
+		
+	var contentStringIndia = '<div id="content">'+
+		'<div id="siteNotice">'+
+		'</div>'+
+		'<h2 id="firstHeading" class="firstHeading">India (États-Unis, Washington)</h2>'+
+		'<div id="bodyContent">'+
+		'<p>Le circuit de <b>Tanzanie</b> est le premier proposé parmi les <b>Courts-Séjours</b>. Situé à proximité, il vous épatera par sa splendeur! Bon voyage!</p>'+
+		'</div>'+
+		'</div>';
+		
+	var contentStringSpain = '<div id="content">'+
+		'<div id="siteNotice">'+
+		'</div>'+
+		'<h2 id="firstHeading" class="firstHeading">Spain (États-Unis, Washington)</h2>'+
+		'<div id="bodyContent">'+
+		'<p>Le circuit de <b>Spain</b> est le premier proposé parmi les <b>Courts-Séjours</b>. Situé à proximité, il vous épatera par sa splendeur! Bon voyage!</p>'+
+		'</div>'+
+		'</div>'; 
+
+	/* Adding Map Legends */
+	var legend = document.getElementById('mapLegend');
+	div= document.createElement('div');
+	div.innerHTML = '<span><img src=' + iconBase + 'sunny.png' + '> Courts-Séjours</span>';
+	div.setAttribute("align", "left");
+	legend.appendChild(div);
+	var div = document.createElement('div');
+	div.setAttribute("align", "left");
+	div.innerHTML = '<span><img src=' + iconBase + 'horsebackriding.png' + '> Safari</span>';
+	legend.appendChild(div);
+	var div = document.createElement('div');
+		div.setAttribute("align", "left");
+	div.innerHTML = '<span><img src=' + iconBase + 'hiker.png' + '> Voyages et Randonnées</span>';
+	legend.appendChild(div);
+	var div = document.createElement('div');
+	div.setAttribute("align", "left");
+	div.innerHTML = '<span><img src=' + iconBase + 'lodging.png' + '> Yoga et Méditation</span>';
+	legend.appendChild(div);
+	/* Push Legend to Right Top */
+	//map.controls[google.maps.ControlPosition.RIGHT_TOP].push(legend);
+	
+	var map = new google.maps.Map(document.getElementById('map'), {
+		zoom: 2,
+		zoomControl: false,
+		scaleControl: false,
+		scrollwheel: false,
+		disableDoubleClickZoom: true,
+		center: centerMap,
+		styles: 
+
+[
+	{
+		"featureType": "all",
+		"elementType": "labels.text.fill",
+		"stylers": [
+			{
+				"saturation": 36
+			},
+			{
+				"color": "#000000"
+			},
+			{
+				"lightness": 40
+			}
+		]
+	},
+	{
+		"featureType": "all",
+		"elementType": "labels.text.stroke",
+		"stylers": [
+			{
+				"visibility": "on"
+			},
+			{
+				"color": "#000000"
+			},
+			{
+				"lightness": 16
+			}
+		]
+	},
+	{
+		"featureType": "all",
+		"elementType": "labels.icon",
+		"stylers": [
+			{
+				"visibility": "off"
+			}
+		]
+	},
+	{
+		"featureType": "administrative",
+		"elementType": "geometry",
+		"stylers": [
+			{
+				"color": "#ff0000"
+			}
+		]
+	},
+	{
+		"featureType": "administrative",
+		"elementType": "geometry.fill",
+		"stylers": [
+			{
+				"color": "#FF66DD" 
+			},
+			{
+				"lightness": 20
+			}
+		]
+	},
+	{
+		"featureType": "administrative",
+		"elementType": "geometry.stroke",
+		"stylers": [
+			{
+				"color": "#FF66DD"
+			},
+			{
+				"lightness": 17
+			},
+			{
+				"weight": 1.2
+			}
+		]
+	},
+	{
+		"featureType": "administrative",
+		"elementType": "labels.text.fill",
+		"stylers": [
+			{
+				"color": "#ef8bc0"
+			}
+		]
+	},
+	{
+		"featureType": "administrative",
+		"elementType": "labels.text.stroke",
+		"stylers": [
+			{
+				"hue": "#ff0000"
+			}
+		]
+	},
+	{
+		"featureType": "administrative",
+		"elementType": "labels.icon",
+		"stylers": [
+			{
+				"color": "#FF66DD"
+			}
+		]
+	},
+	{
+		"featureType": "administrative.country",
+		"elementType": "geometry",
+		"stylers": [
+			{
+				"color": "#FF66DD"
+			}
+		]
+	},
+	{
+		"featureType": "administrative.country",
+		"elementType": "geometry.fill",
+		"stylers": [
+			{
+				"color": "#ff0000"
+			}
+		]
+	},
+	{
+		"featureType": "landscape",
+		"elementType": "geometry",
+		"stylers": [
+			{
+				"color": "#000000"
+			},
+			{
+				"lightness": 20
+			}
+		]
+	},
+	{
+		"featureType": "poi",
+		"elementType": "geometry",
+		"stylers": [
+			{
+				"color": "#000000"
+			},
+			{
+				"lightness": 21
+			}
+		]
+	},
+	{
+		"featureType": "road.highway",
+		"elementType": "geometry.fill",
+		"stylers": [
+			{
+				"color": "#000000"
+			},
+			{
+				"lightness": 17
+			}
+		]
+	},
+	{
+		"featureType": "road.highway",
+		"elementType": "geometry.stroke",
+		"stylers": [
+			{
+				"color": "#000000"
+			},
+			{
+				"lightness": 29
+			},
+			{
+				"weight": 0.2
+			}
+		]
+	},
+	{
+		"featureType": "road.arterial",
+		"elementType": "geometry",
+		"stylers": [
+			{
+				"color": "#000000"
+			},
+			{
+				"lightness": 18
+			}
+		]
+	},
+	{
+		"featureType": "road.local",
+		"elementType": "geometry",
+		"stylers": [
+			{
+				"color": "#000000"
+			},
+			{
+				"lightness": 16
+			}
+		]
+	},
+	{
+		"featureType": "transit",
+		"elementType": "geometry",
+		"stylers": [
+			{
+				"color": "#000000"
+			},
+			{
+				"lightness": 19
+			}
+		]
+	},
+	{
+		"featureType": "water",
+		"elementType": "geometry",
+		"stylers": [
+			{
+				"color": "#F9A3FF"
+			},
+			{
+				"lightness": 17
+			}
+		]
+	}
+]
+	});
+	
+	//addMarker(map, position, contentString, animation, title, icon);
+	// TODO for looping fichier XML ou BD mysql...
+	addMarker(map, montreal, contentStringMtl, google.maps.Animation.DROP, 'Montréal (Point de départ)', iconBase + 'airports.png');
+	addMarker(map, lasvegas, contentStringNY, google.maps.Animation.DROP, 'Las-Vegas (Courts-Séjours)', iconBase + 'sunny.png');
+	addMarker(map, washington, contentStringWashington, google.maps.Animation.DROP, 'Washington (Courts-Séjours)', iconBase + 'sunny.png');
+			
+	addMarker(map, tanzanie, contentStringTanzanie, google.maps.Animation.DROP, 'Tanzanie (Safari)', iconBase + 'horsebackriding.png');
+	addMarker(map, india, contentStringIndia, google.maps.Animation.DROP, 'India du Nord (Yoga et Méditation)', iconBase + 'lodging.png');
+	addMarker(map, spain, contentStringSpain, google.maps.Animation.DROP, 'Espagne (Voyages et Randonnées)', iconBase + 'hiker.png');
+	//fin for looping
+	
+	
+	/* Push Legend to Right Top */
+	map.controls[google.maps.ControlPosition.RIGHT_TOP].push(legend);
+	//Mettre la légend visible:
+	legend.style.visibility='visible';	
+		
+	
+	}
+	// Adds a marker to the map.
+	function addMarker(map, position, contentString, animation, title, icon) {
+		
+		//resize icon
+		var icon = {
+			url: icon, // url
+			scaledSize: new google.maps.Size(25, 25), // scaled size
+		};
+		
+		var marker = new google.maps.Marker({
+			position: position,
+			map: map,
+			icon: icon,
+			title: title
+		});
+		marker.addListener('click', function() {
+			if (infowindow) { // fermer le marker ouvert en clickant sur une autre https://stackoverflow.com/questions/4539905/close-all-infowindows-in-google-maps-api-v3
+				infowindow.close();
+			}
+			infowindow = new google.maps.InfoWindow({
+				content: contentString,
+				maxWidth: 200
+			});
+			infowindow.open(map, marker)
+		});
+		
+		
+		if (position != montreal) {
+		//debugger;
+			//tracer ligne
+			var latit = position.lat;
+			var longit = position.lng;
+			var curvLine = null;
+			var montrealLatlng = new google.maps.LatLng(45.50884, -73.58781);
+					/* var lineSymbol = {
+						path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
+						scale: 4,
+						strokeColor: '#7B68EE'
+					}; */
+				var line = new google.maps.Polyline({
+					path: [montrealLatlng, new google.maps.LatLng(latit, longit)],
+					strokeColor: "#FFFFFF",
+					strokeOpacity: 1.0,
+					strokeWeight: 2,
+					geodesic: true,
+					map: map,
+					icons: [{
+						//icon: lineSymbol,
+						offset: '100%'
+						}],
+
+				});
+			//debugger;
+			//  fin tracer ligne
+			//animateCircle(line);
+		}
+		/* function animateCircle(line) {
+			var count = 0;
+			window.setInterval(function() {
+			count = (count + 1) % 250;
+
+			var icons = line.get('icons');
+			icons[0].offset = (count / 2) + '%';
+			line.set('icons', icons);
+		}, 20);
+		} */
+
+	}
+	</script>
+	<!-- Chargement de la carte google -->
+	<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCwcI1pUmRdfxrdGid6Lb9S_jz6fduMZkA&libraries=geometry&callback=initMap"></script>
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-  </body>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+	
+	<!-- https://silviomoreto.github.io/bootstrap-select/ -->
+	<!-- Latest compiled and minified JavaScript -->
+	<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script> -->
+	<!-- https://github.com/silviomoreto/bootstrap-select/issues/1135 -->
+	<script src="https://cdn.rawgit.com/infostreams/bootstrap-select/fd227d46de2afed300d97fd0962de80fa71afb3b/dist/js/bootstrap-select.min.js"></script>
+  
+</body>
 </html>

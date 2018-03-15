@@ -1,15 +1,94 @@
-﻿  body .btn-primary {
-    background-color: #CD5AB3;
-    border-color: #CD5AB3;
-    color: #FFF; }
+﻿/* Always set the map height explicitly to define the size of the div
+* element that contains the map.
+#map {
+	height: 100%;
+	margin: 0%;
+	padding: 0%;
+}
+*/
+#map {
+	height: 100%;
+}
+/* Optional: Makes the sample page fill the window.   */
+html, body {
+	height: 100%;
+}
+
+mapLegendItem {
+
+}
+/* http://thedebuggers.com/add-multiple-custom-markers-legend-gmap/ */
+#mapLegend {
+	background: #fdfdfd;
+	color: #3c4750;
+	padding: 0 8px 0 8px;
+	margin-right: 50px;
+	margin-top: -35px;
+	font-weight: bold;
+	filter: alpha(opacity=70);
+	opacity: 0.7;
+	border: 1px solid #7C9BDE;
+}
+#mapLegend div {
+	height: 25px;
+	line-height: 20px;
+	font-size: 1em;
+}
+#mapLegend div img {
+	float: left;
+	margin-right: 10px;
+	height: 20px;
+	width: 20px
+}
+#mapLegend h3 {
+	text-align: center
+}
+
+body .btn-primary {
+    background-color: #CD5AB3 !important;
+    border-color: #CD5AB3 !important;
+    color: #FFF !important; }
     body .btn-primary:hover, body .btn-primary:focus {
-      border-color: #FBB3FF;
-      background-color: #FBB3FF;
-      color: #FFF; }
+      border-color: #FBB3FF !important;
+      background-color: #FBB3FF !important;
+      color: #FFF !important; }
     body .btn-primary:active, body .btn-primary:visited, body .btn-primary:active:focus, body .btn-primary:active:hover {
-      border-color: #639d34;
-      background-color: #639d34;
-      color: #FFF; 
+      border-color: #CD5AB3 !important;
+      background-color: #CD5AB3 !important;
+      color: #FFF !important; 
+}
+
+body .btn-secondary {
+    background-color: #333333 !important;
+    border-color: #333333 !important;
+    color: #FFF !important; }
+    body .btn-secondary:hover, body .btn-secondary:focus {
+      border-color: #444444 !important;
+      background-color: #444444 !important;
+      color: #FFF !important; }
+    body .btn-secondary:active, body .btn-secondary:visited, body .btn-secondary:active:focus, body .btn-secondary:active:hover {
+      border-color: #333333 !important;
+      background-color: #333333 !important;
+      color: #FFF !important; 
+}
+
+.bootstrap-select.btn-group .dropdown-menu li a {
+	color: #FFF !important;
+	background: #333333  !important;
+}
+.bootstrap-select.btn-group .dropdown-menu li a:hover {
+	color: #FFF !important;
+	background: #444444  !important;
+}
+
+.row {
+	margin: 0;
+  }
+  
+div.vertical-line{
+	width: 1px; /* Line width */
+	background-color: #FBB3FF; /* Line color */
+	height: 100%; /* Override in-line if you want specific height. */
 }
 
 
