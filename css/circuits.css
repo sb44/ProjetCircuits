@@ -182,7 +182,7 @@ div.vertical-line{
 #myFooter {
     background-color: #3c3d41;
     color: white;
-    padding-top: 30px;
+    padding-top: 15px;
 }
 
 #myFooter .footer-copyright {
@@ -193,7 +193,7 @@ div.vertical-line{
 }
 
 #myFooter .row {
-    margin-bottom: 60px;
+    margin-bottom: 20px;
 }
 
 #myFooter .navbar-brand {
@@ -239,13 +239,13 @@ div.vertical-line{
 #myFooter .social-networks {
     text-align: center;
     padding-top: 30px;
-    padding-bottom: 16px;
+    padding-bottom: 10px;
 }
 
 #myFooter .social-networks a {
     font-size: 32px;
     color: #f9f9f9;
-    padding: 10px;
+    padding: 5px;
     transition: 0.2s;
 }
 
@@ -266,17 +266,39 @@ div.vertical-line{
 }
 
 #myFooter .btn {
-    color: white;
+  margin: 0 auto;
+    margin-top: 10px;
+      color: white;
     background-color: #d84b6b;
     border-radius: 20px;
     border: none;
     width: 150px;
     display: block;
-    margin: 0 auto;
-    margin-top: 10px;
     line-height: 25px;
 }
 
+
+#myFooter h4 a{
+    font-size: 10px;
+    text-align: center;
+    color: #fff;
+}
+
+#myFooter .mapAdr {
+    height:100px;
+	margin-top:20px;
+	padding:0;
+}
+#myFooter .adresse {
+	padding-left:6px;
+	font-size: 5px;
+	line-height: 10px;
+}
+#myFooter .logo {
+	width:365px;
+	margin:0;
+	padding:0;
+}
 @media screen and (max-width: 767px) {
     #myFooter {
         text-align: center;
