@@ -18,6 +18,8 @@
 	<link rel="stylesheet" href="css/circuits.css" type="text/css"/>
 	<!-- -Font Awesome CSS -->
 	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+	<!-- -Font Sans Worker -->
+	<link href="https://fonts.googleapis.com/css?family=Work+Sans:600" rel="stylesheet">
 	<!--  <link rel="stylesheet" href="library/font-awesome/css/font-awesome.min.css"> -->
 	
 	<!-- Latest compiled and minified CSS ... https://silviomoreto.github.io/bootstrap-select/ -->
@@ -43,90 +45,94 @@
 	
 	<script language="javascript" type="text/javascript">
 	</script>
-	
-	
   </head>
+  
   <body>
-	<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #333333;">
-	<a class="navbar-brand" href="./circuits.html">TOURISTIA</a>
+
+	  <!--***********************************-HEADER *************************************** -->
+	  <!--********************************************************************************** -->
+	  <header>
+	  <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #333333;">
+		  <a class="navbar-brand" href="./circuits.html">TOURISTIA</a>
 	<!--<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-	<span class="navbar-toggler-icon"></span> -->
-	<button class="navbar-toggler ml-auto custom-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+		<span class="navbar-toggler-icon"></span> -->
+		<button class="navbar-toggler ml-auto custom-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
-	</button>
+		</button>
 		<div class="collapse navbar-collapse" id="navbarNavDropdown">
-		<ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-			<li class="nav-item active">
-				<div title="Acceuil">		  
-					<a class="nav-link" href="./circuits.html"><span class="oi oi-home" ></span> <span class="sr-only">(current)</span></a>
-				</div>
-			</li>
-		</ul>
-		<ul class="navbar-nav mx-auto">
+			<ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+				<li class="nav-item active">
+					<div title="Acceuil">		  
+						<a class="nav-link" href="./circuits.html"><span class="oi oi-home" ></span> <span class="sr-only">(current)</span></a>
+					</div>
+				</li>
+			</ul>
+			<ul class="navbar-nav mx-auto">
 				<li class="nav-item dropdown">
 					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							<img id="imgNavDeu" src="images/icon-francais.gif" alt="..." class="img-thumbnail icon-small"> FR</a>
-					<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+						<img id="imgNavDeu" src="images/icon-francais.gif" alt="..." class="img-thumbnail icon-small"> FR</a>
+						<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 							<a id="navFr" href="#" class="dropdown-item"><img id="imgNavDeu" src="images/icon-francais.gif" alt="..." class="img-thumbnail icon-small"><span id="lanNavFr">Francais</span></a>
 							<a id="navAng" href="#" class="dropdown-item"><img id="imgNavFra" src="images/icon-anglais.gif" alt="..." class="img-thumbnail icon-small"><span id="lanNavang">Anglais</span></a>
 							<a id="navEsp" href="#" class="dropdown-item"><img id="imgNavEng" src="images/icon-espagnol.gif" alt="..." class="img-thumbnail icon-small"><span id="lanNavEsp">Espagnole</span></a>
-					</div>
-				</li>
-		</ul>
-		
-		<ul class="navbar-nav">
-			<li class="nav-item" id="navConnecteAdmin" >
-				<a href="#" class="nav-link" onClick="handleAdminDiv()"><span class="nav-link">Administration</span></a>
-				<!--
-					<a href="#" class="nav-link" onClick="envoyerFormulaire(admin);"><span class="nav-link">Administration</span></a>
-					<form name="admin" action="serveur/gestionFilms.php" method="post">
-						<input type="hidden" name="monAction" value="admin">
-					</form>
-				-->
-			</li>
-			<li class="nav-item" id="navEstConnecte" >
-				<a href="#" class="nav-link" onClick="envoyerFormulaire(deconn);"><span class="nav-link">Déconnexion</span></a>
-				<form name="deconn" action="serveur/gestionFilms.php" method="post">
-					<input type="hidden" name="monAction" value="deconn">
-				</form>
-			</li>
-			<li class="nav-item" id="navConnecteUser" >
-				<div title="Mon panier">	
-					<a href="#" class="nav-link" onClick="envoyerFormulaire(panier);"><span class="nav-link"><span class="oi oi-cart id" id="nbItemPanier"> (0)</span> Panier</span></a>
-				</div>	
-				<form name="panier" action="serveur/gestionFilms.php" method="post">
-					<input type="hidden" name="monAction" value="panier">
-				</form>
-			</li>
-			<li class="nav-item dropdown"  id="navConnexion">
-				  <a href="#" id="connect" class="nav-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-					<button type="button" class="btn btn-link dropdown-toggle text-white">Se connecter </button><span class="caret"></span></a>
-					<ul class="dropdown-menu dropdown-menu-right login-dp" aria-labelledby="navbarDropdownMenuLink">
-						<li>
-							 <div class="row">
-									<div class="col-md-12">
-										 <form class="form" role="form" id="formConn" name="formConn"> <!--  onSubmit="return validerConnexion('');" method="post" action="serveur/gestionMembres.php" accept-charset="UTF-8" -->
+						</div>
+					</li>
+				</ul>
+				
+				<ul class="navbar-nav">
+					<li class="nav-item" id="navConnecteAdmin" >
+						<a href="#" class="nav-link" onClick="handleAdminDiv()"><span class="nav-link">Administration</span></a>
+						<!--
+							<a href="#" class="nav-link" onClick="envoyerFormulaire(admin);"><span class="nav-link">Administration</span></a>
+							<form name="admin" action="serveur/gestionFilms.php" method="post">
+								<input type="hidden" name="monAction" value="admin">
+							</form>
+						-->
+					</li>
+					<li class="nav-item" id="navEstConnecte" >
+						<a href="#" class="nav-link" onClick="envoyerFormulaire(deconn);"><span class="nav-link">Déconnexion</span></a>
+						<form name="deconn" action="serveur/gestionFilms.php" method="post">
+							<input type="hidden" name="monAction" value="deconn">
+						</form>
+					</li>
+					<li class="nav-item" id="navConnecteUser" >
+						<div title="Mon panier">	
+							<a href="#" class="nav-link" onClick="envoyerFormulaire(panier);"><span class="nav-link"><span class="oi oi-cart id" id="nbItemPanier"> (0)</span> Panier</span></a>
+						</div>	
+						<form name="panier" action="serveur/gestionFilms.php" method="post">
+							<input type="hidden" name="monAction" value="panier">
+						</form>
+					</li>
+					<li class="nav-item dropdown"  id="navConnexion">
+						<a href="#" id="connect" class="nav-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							<button type="button" class="btn btn-link dropdown-toggle text-white">Se connecter </button><span class="caret"></span></a>
+							<ul class="dropdown-menu dropdown-menu-right login-dp" aria-labelledby="navbarDropdownMenuLink">
+								<li>
+									<div class="row">
+										<div class="col-md-12">
+											<form class="form" role="form" id="formConn" name="formConn"> <!--  onSubmit="return validerConnexion('');" method="post" action="serveur/gestionMembres.php" accept-charset="UTF-8" -->
 												<h4>Connexion</h4>
+												<hr>
 												<input type="hidden" name="monAction" value="connexion">
 												<label for="inputCourConn">Courriel</label>
 												<div class="form-group">
-													 <input type="text" class="form-control" id="inputCourConn" name="inputCourConn" placeholder="votreAdresse@courriel.com"> 
-													 <span id="errCourConn" class="text-danger"></span>
+													<input type="text" class="form-control" id="inputCourConn" name="inputCourConn" placeholder="votreAdresse@courriel.com"> 
+													<span id="errCourConn" class="text-danger"></span>
 												</div>
 												<div class="form-group">
 													<label for="inputMotPasseConn">Mot de passe</label>
-													 <input type="password" class="form-control" id="inputMotPasseConn" name="inputMotPasseConn" placeholder="Mot de passe">
-													 <span id="errMotPasseConn" class="text-danger"></span>
-													 <!-- <div class="help-block text-right"><a href="">Forget the password ?</a></div> -->
+													<input type="password" class="form-control" id="inputMotPasseConn" name="inputMotPasseConn" placeholder="Mot de passe">
+													<span id="errMotPasseConn" class="text-danger"></span>
+													<!-- <div class="help-block text-right"><a href="">Forget the password ?</a></div> -->
 												</div>
 												<div class="form-group">
 													<!-- <button type="submit" class="btn btn-primary btn-block">Connexion</button> -->
 													<input type="button" class="btn btn-primary btn-block" value="Connexion" onClick="validerConnexion();">
 												</div>
 												<!--<div class="checkbox">
-													 <label>
-													 <input type="checkbox"> keep me logged-in
-													 </label> 
+													<label>
+														<input type="checkbox"> keep me logged-in
+													</label> 
 												</div> -->
 												ou
 												<div class="social-buttons">
@@ -135,84 +141,126 @@
 												</div>
 												<hr>
 												<div class="form-group">
-													 <input class="btn btn-outline-secondary" type="button" value="Recommencer" onclick="resetForm(formConn)">
+													<input class="btn btn-outline-secondary" type="button" value="Recommencer" onclick="resetForm(formConn)">
 												</div>
-										 </form>
+											</form>
+										</div>
+										<!--<div class="bottom text-center">
+											Nouveau? <a href="#" onclick="return document.getElementById('enregistrer').click();"><b>Devenir membre</b></a>
+										</div> -->
 									</div>
-									<!--<div class="bottom text-center">
-										Nouveau? <a href="#" onclick="return document.getElementById('enregistrer').click();"><b>Devenir membre</b></a>
-									</div> -->
-							 </div>
+								</li>
+							</ul>
 						</li>
-					</ul>
-			</li>
-			<li class="nav-item dropdown" id="navEnregistrement">
-			  <a href="#" id="enregistrer" class="nav-link " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-				<!--<button class="btn btn-outline-primary dropdown-toggle text-white" id="btnEnregistrer">Devenir membre </button><span class="caret"></span></a>-->
-				<button class="btn btn-primary dropdown-toggle text-white" id="btnEnregistrer">Devenir membre </button><span class="caret"></span></a>
-
-				
-				<ul class="dropdown-menu dropdown-menu-right login-dp" aria-labelledby="navbarDropdownMenuLink">
-					<li>
-						 <div class="row">
-								<div class="col-md-12">
-									 <form class="form" role="form" id="formEnr" name="formEnr" > <!-- onSubmit="return validerEnregistrement('');" method="post" action="serveur/gestionMembres.php" accept-charset="UTF-8" -->
-											<h4>Enregistrement</h4>
-											<input type="hidden" name="monAction" value="enregistrer">
-											<div class="form-group">
-												 <label for="inputCourEnr">Courriel</label>
-												 <input type="text" class="form-control" id="inputCourEnr" name="inputCourEnr" placeholder="votreAdresse@courriel.com">
-												 <span id="errCourEnr" class="text-danger"></span>
+						<li class="nav-item dropdown" id="navEnregistrement">
+							<a href="#" id="enregistrer" class="nav-link " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								<!--<button class="btn btn-outline-primary dropdown-toggle text-white" id="btnEnregistrer">Devenir membre </button><span class="caret"></span></a>-->
+								<button class="btn btn-primary dropdown-toggle text-white" id="btnEnregistrer">Devenir membre </button><span class="caret"></span></a>
+								
+								
+								<ul class="dropdown-menu dropdown-menu-right inscription-dp" aria-labelledby="navbarDropdownMenuLink">
+									<li>
+										<div class="row">
+											<div class="col-md-12">
+												<form class="form" role="form" id="formEnr" name="formEnr" > <!-- onSubmit="return validerEnregistrement('');" method="post" action="serveur/gestionMembres.php" accept-charset="UTF-8" -->
+													<div class="InscTitre"><h4>Enregistrement</h4></div>
+													<hr>
+													<input type="hidden" name="monAction" value="enregistrer">
+													<div class="row">
+														<div class="col-6 nomP">
+														<div class="form-group">
+															<label for="inputPrenom">Prénom</label>
+															<input type="text" class="form-control" id="inputPrenom" name="inputPrenom" placeholder="votre prénom">
+															<span id="errPrenom" class="text-danger"></span>
+														</div>
+														</div>
+														<div class="col-6 nomP">
+														<div class="form-group">
+															<label for="inputNom">Nom</label>
+															<input type="text" class="form-control" id="inputNom" name="inputNom" placeholder="votre nom">
+															<span id="errNom" class="text-danger"></span>
+														</div>
+														</div>
+													</div>
+													<div class="row">
+														<div class="col-6 nomP">
+														<div class="form-group">
+															<label for="inputDateNaissance">Date Naissance</label>
+															<input type="date" class="form-control" id="inputDateNaissance" name="inputDateNaissance" placeholder="votre prénom">
+															<span id="errDateNaissance" class="text-danger"></span>
+														</div>
+														</div>
+														<div class="col-6 nomP">
+															<label for="inputSexe">Sexe</label>
+														<div class="form-group sexe">
+															<select id="inputSexe" name="inputSexe" class="form-control input-lg">
+																	<option value="F">Femme</option>
+																	<option value="H">Homme</option>
+																</select>
+														</div>
+														</div>
+													</div>
+													<div class="form-group">
+														<label for="inputCourEnr">Courriel</label>
+														<input type="email" class="form-control" id="inputCourEnr" name="inputCourEnr" placeholder="votreAdresse@courriel.com">
+														<span id="errCourEnr" class="text-danger"></span>
+													</div>
+													<label for="inputMotPasseEnr">Mot de passe</label>
+													<div class="row">
+															<div class="col-6 nomP">
+																<div class="form-group">
+																	<input type="password" class="form-control" id="inputMotPasseEnr" placeholder="Mot de passe">
+																	<span id="errMotPasseEnr" class="text-danger"></span>
+																</div>
+															</div>
+															<div class="col-6 nomP">
+																<div class="form-group">
+																	<input type="password" class="form-control" id="inputMotPasseConfEnr" placeholder="Confirmer Mot de passe">
+																	<span id="errMotPasseConfEnr" class="text-danger"></span>
+																</div>
+															</div>
+													</div>
+													<div class="row">
+															En vous inscrivant, vous acceptez les Conditions générales d’utilisation et la Politique de confidentialité.
+													</div>
+													<div class="form-group">
+														<input type="button" class="btn btn-primary btn-block" value="Soumettre" onClick="validerEnregistrement();">
+														<!-- <button type="submit" class="btn btn-primary btn-block">Soumettre</button> -->
+													</div>
+													<hr>
+													<div class="form-group">
+														<input class="btn btn-outline-secondary" type="button" value="Recommencer" onclick="resetForm(formEnr)">
 											</div>
-											<div class="form-group">
-												<label for="inputMotPasseEnr">Mot de passe</label>
-												<input type="password" class="form-control" id="inputMotPasseEnr" placeholder="Mot de passe">
-												<span id="errMotPasseEnr" class="text-danger"></span>
-											</div>
-											<div class="form-group">
-												<input type="password" class="form-control" id="inputMotPasseConfEnr" placeholder="Mot de passe confirmation">
-												<span id="errMotPasseConfEnr" class="text-danger"></span>
-											</div>
-											<div class="form-group">
-												<input type="button" class="btn btn-primary btn-block" value="Soumettre" onClick="validerEnregistrement();">
-												<!-- <button type="submit" class="btn btn-primary btn-block">Soumettre</button> -->
-											</div>
-											<hr>
-											<div class="form-group">
-												 <input class="btn btn-outline-secondary" type="button" value="Recommencer" onclick="resetForm(formEnr)">
-											</div>
-											<!--<div class="checkbox">
-												 <label>
-												 <input type="checkbox"> keep me logged-in
-												 </label> 
-											</div> -->
-									 </form>
+										</form>
+									</div>
 								</div>
-						 </div>
+							</li>
+						</ul>
 					</li>
 				</ul>
-			</li>
-		</ul>
-		</div>
-	</nav>
-
-	
-	<!-- CAROUSSEL-->
-	<div id="carouselExampleIndicators" class="carousel slide mt-4" data-ride="carousel">
-	  <ol class="carousel-indicators">
-		<li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-		<li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-		<li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-		<li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
-		<li data-target="#carouselExampleIndicators" data-slide-to="4"></li>
-	  </ol>
-	  <div class="carousel-inner">
-		<div class="carousel-item active">
-		  <img class="d-block w-100" src="images/1-travel.jpg" alt="First slide">
-		</div>
-		<div class="carousel-item">
-		  <img class="d-block w-100" src="images/2-travel.jpg" alt="Second slide">
-		</div>
+			</div>
+		</nav>
+		</header>
+		<!--***********************************FIN - HEADER *************************************** -->
+		<!--********************************************************************************** -->
+		
+		
+		<!-- CAROUSSEL-->
+		<div id="carouselExampleIndicators" class="carousel slide mt-4" data-ride="carousel">
+			<ol class="carousel-indicators">
+				<li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+				<li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+				<li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+				<li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
+				<li data-target="#carouselExampleIndicators" data-slide-to="4"></li>
+			</ol>
+			<div class="carousel-inner">
+				<div class="carousel-item active">
+					<img class="d-block w-100" src="images/1-travel.jpg" alt="First slide">
+				</div>
+				<div class="carousel-item">
+					<img class="d-block w-100" src="images/2-travel.jpg" alt="Second slide">
+				</div>
 		<div class="carousel-item">
 		  <img class="d-block w-100" src="images/3-travel.jpg" alt="Third slide">
 		</div>
@@ -431,7 +479,7 @@
 <!-- FOOTER -->
 <footer id="myFooter">
         <div class="container">
-			<div class="row">
+			<div class="row footer-brand animated fadeInLeft">
 				<div class="col-sm-6">
 					<img id="imgLogo" src="images/icon-circuit.png" alt="..." class="logo"/>
 				</div>
@@ -444,7 +492,7 @@
 						<button type="button" class="btn btn-default">Contactez nous</button>
 				</div>
 			</div>
-			<div class="dropdown-divider"></div>
+		<hr>
 			<div class="row">
 				<div class="col-sm-3 col-xs-12 mapAdr">
 						<img id="imgAdresse" src="images/map-adresse.png" alt="..." class="img-responsive">

@@ -97,10 +97,21 @@ body .btn-secondary {
 
 /* Style navbar dropdown connexion et déconnexion */
 .login-dp {
-	min-width: 310px;
+	min-width: 350px;
 	padding: 14px 14px 0;
 	overflow:hidden;
 	background-color:rgba(255,255,255,.8);
+}
+.inscription-dp {
+	min-width: 450px;
+	padding: 14px 14px 0;
+	overflow:hidden;
+	background-color:rgba(255,255,255,.8);
+}
+label{
+	margin-bottom:0.1rem;
+	font-family: 'Work Sans', sans-serif;
+
 }
 .login-dp .help-block{
 	font-size:12px    
@@ -118,8 +129,13 @@ body .btn-secondary {
 	width: 49%;
 }
 .login-dp .form-group {
-	margin-bottom: 10px;
+	margin-bottom: 0.7rem;
+	padding:0px;
 }
+.nomP{
+	padding:3px;
+}
+
 .btn-fb{
 	color: #fff;
 	background-color:#3b5998;
@@ -170,7 +186,6 @@ div.vertical-line{
     margin:0;
 	padding:0;
 }
-
 .icon-medium
 {
     height:22px;
@@ -178,6 +193,13 @@ div.vertical-line{
 	padding:0;
 }
 /* fin Menu langage */
+
+
+
+
+/* Inscription */
+
+/* Fin-Inscription */
 
 
 /* FOOTER */
@@ -197,7 +219,11 @@ div.vertical-line{
 #myFooter .row {
     margin-bottom: 20px;
 }
-
+hr {
+	height: 5px;
+	border: 0;
+	box-shadow: 0 10px 10px -10px #8c8b8b inset;
+}
 #myFooter .navbar-brand {
     margin-top: 45px;
     height: 65px;
