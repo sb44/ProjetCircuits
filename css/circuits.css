@@ -162,6 +162,7 @@ div.vertical-line{
 }
 /* Fin Varia */
 
+
 /* Menu langage */
 .icon-small
 {
@@ -177,6 +178,7 @@ div.vertical-line{
 	padding:0;
 }
 /* fin Menu langage */
+
 
 /* FOOTER */
 #myFooter {
@@ -285,9 +287,8 @@ div.vertical-line{
 }
 
 #myFooter .mapAdr {
-    height:100px;
 	margin-top:20px;
-	padding:0;
+	padding-left:30px;
 }
 #myFooter .adresse {
 	padding-left:6px;
@@ -299,9 +300,64 @@ div.vertical-line{
 	margin:0;
 	padding:0;
 }
+@media screen and (max-width: 1200px) {
+	#myFooter .mapAdr {
+		margin-top:20px;
+		padding-left:0px;
+	}
+}
+@media screen and (max-width: 984px) {
+	#myFooter h5 {
+		font-size: 15px;
+		margin-top: 20px;
+	}
+	#myFooter li {
+		line-height: 1.7;
+		font-size: 11px;
+	}	
+	#myFooter .adresse {
+		margin-top:20px;
+		padding-left:70px;
+	}
+}
 @media screen and (max-width: 767px) {
     #myFooter {
         text-align: center;
-    }
+	}
+	#myFooter h5 {
+		font-size: 13px;
+		margin-top: 20px;
+	}
+	#myFooter li {
+		line-height: 1.5;
+		font-size: 9px;
+	}
+	#myFooter .adresse {
+		margin-top:0px;
+		display:none;
+		padding-left:15px;
+	}
+	#myFooter .mapAdr {
+		margin-right:120px;
+
+	}
+	
 }
+@media screen and (max-width: 750px) {
+
+	#myFooter h5 {
+		font-size: 13px;
+		margin-top: 20px;
+	}
+	#myFooter li {
+		line-height: 1.5;
+		font-size: 9px;
+	}
+	#myFooter .adresse {
+		display:block;
+		padding-left:15px;
+	}
+	
+}
+
 /* FIN FOOTER */
