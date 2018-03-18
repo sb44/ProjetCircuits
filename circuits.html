@@ -317,17 +317,26 @@
 							<option value="4">Voyages et Randonnées</option>
 							<option value="5">Yoga et Méditation</option>
 						</select>
-						<p class="small">Raffinez votre recherche aux <strong>circuits selon un thème!</strong></p>							  
+						<p class="small">Afficher les circuits <strong>par thème!</strong></p>							  
 					</div>
 				</div>
 				
+
+				<div class="col-sm-2 col-md-2 offset-md-1 mb-3 d-flex" title="Raffiner votre recherche..." onclick="formRechercheCircuit.reset();">
+						<a data-toggle="collapse" class="collapsed btn btn-primary" href="#lesDates" aria-label="Expand/Collapse Card 1" aria-expanded="false" role="button">
+							<i class="fa" aria-hidden="true"></i>
+							<span class="sr-only">Expand/Collapse Card 1</span>
+						</a>
+						<span data-toggle="collapse" class="collapsed btn btn-outline" href="#lesDates" aria-label="Expand/Collapse Card 1" aria-expanded="false">Raffiner...</span>
+				</div>
+
 				
 				<div id="lesDates" class="collapse">
 					<div class="form-group row">
-							<label for="datedepartCircuit" class="h4 col-sm-2 col-md-2 offset-md-1 col-form-label-lg" title="Afficher les circuits avec départ à partir/après d'une date de départ...">Départ</label>
+							<label for="datedepartCircuit" class="h4 col-sm-2 col-md-2 offset-md-1 col-form-label-lg" title="Afficher les circuits avec départ à partir d'une date de départ...">Départ</label>
 							<div class="col-sm-10 col-md-8 col-lg-6">
 								<input type="date" class="form-control" id="inputDateDepart" name="inputDateDepart">
-								<p class="small">Raffinez votre recherche aux circuits ayant <strong>un départ à partir/après une date!</strong></p>							  
+								<p class="small">Afficher les circuits ayant <strong>un départ à partir d'une date!</strong></p>							  
 							</div>
 					</div>
 
@@ -335,7 +344,7 @@
 							<label for="datearriveCircuit" class="h4 col-sm-2 col-md-2 offset-md-1 col-form-label-lg" title="Afficher les circuits avec retour à/avant une date d'arrivée...">Retour</label>
 							<div class="col-sm-10 col-md-8 col-lg-6">
 								<input type="date" class="form-control" id="inputDateArrivee" name="inputDateArrivee">
-								<p class="small">Raffinez votre recherche aux circuits ayant <strong>un retour à/avant une date!</strong></p>							  
+								<p class="small">Afficher les circuits ayant <strong>un retour à ou avant une date!</strong></p>							  
 							</div>
 					</div>
 
@@ -352,14 +361,7 @@
 				</div>
 			</form>
 
-			<div class="col-sm-2 col-md-2 offset-md-1 mb-3 d-flex" title="Raffiner votre recherche...">
-				<div>
-					<a data-toggle="collapse" class="collapsed btn btn-primary" href="#lesDates" aria-label="Expand/Collapse Card 1" aria-expanded="false" role="button">
-						<i class="fa" aria-hidden="true"></i>
-						<span class="sr-only">Expand/Collapse Card 1</span>
-					</a>
-				</div>
-			</div>
+
 
 	</div>
 </div>
@@ -949,21 +951,7 @@
 						}],
 
 				});
-			//debugger;
-			//  fin tracer ligne
-			//animateCircle(line);
 		}
-		/* function animateCircle(line) {
-			var count = 0;
-			window.setInterval(function() {
-			count = (count + 1) % 250;
-
-			var icons = line.get('icons');
-			icons[0].offset = (count / 2) + '%';
-			line.set('icons', icons);
-		}, 20);
-		} */
-
 	}
 	</script>
 	<!-- Chargement de la carte google -->
