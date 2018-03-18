@@ -1,352 +1,372 @@
 // variables globales Pour maps
 var infowindow = null; // info window open quand user click dessus. Global pour closer l'existant à chaque click sur autre ma
 var montreal = null;
+var CIRCUITS = [];
 // Fin variables globales Pour maps
 
-//vue circuits
-function afficherCarte(listeCircuits) {
+function afficherCarteEnsemble(listeCircuits) {
+	CIRCUITS.splice(0, CIRCUITS.length); //vider le tableau
+	for(var x in listeCircuits){
+		CIRCUITS.push(listeCircuits[x]);
+	}	
+	construireCarte(listeCircuits);			
+}
+
+function filterThemeCircuits() {
 	debugger;
-	
-			//localistations lat et long.
-			var centerMap = {lat: 45.870847, lng: -14.000323};
-			montreal = {lat: 45.50884, lng: -73.58781};
-			//base pour les icones des destinations
-			var iconBase = 'https://maps.google.com/mapfiles/kml/shapes/';
-			//contenu pour les infoWindows
+	var selectionne = document.getElementById("themeCircuits").value;
+	if (selectionne != "0") {
+		var lstCircuits = CIRCUITS.filter(function (el) {
+			  return el.idTheme == selectionne;
+		});
+	} else {
+		lstCircuits = CIRCUITS;
+	}
+    construireCarte(lstCircuits);
+}
+//vue circuits
+function construireCarte(listeCircuits) {
+	//localistations lat et long.
+	var centerMap = {lat: 45.870847, lng: -14.000323};
+	montreal = {lat: 45.50884, lng: -73.58781};
+	//base pour les icones des destinations
+	var iconBase = 'https://maps.google.com/mapfiles/kml/shapes/';
+	//contenu pour les infoWindows
 
-			var contentStringMtl = '<p><strong>Montréal</strong> est votre point de départ!</p>';
+	var contentStringMtl = '<p><strong>Montréal</strong> est votre point de départ!</p>';
 
-			//Hard codé... OK	
-			/* Adding Map Legends */
-			var legend = document.getElementById('mapLegend');
-			div= document.createElement('div');
-			div.innerHTML = '<span><img src=' + iconBase + 'sunny.png' + '> Courts-Séjours</span>';
-			div.setAttribute("align", "left");
-			legend.appendChild(div);
-			var div = document.createElement('div');
-			div.setAttribute("align", "left");
-			div.innerHTML = '<span><img src=' + iconBase + 'horsebackriding.png' + '> Safari</span>';
-			legend.appendChild(div);
-			var div = document.createElement('div');
-			div.setAttribute("align", "left");
-			div.innerHTML = '<span><img src=' + iconBase + 'hiker.png' + '> Voyages et Randonnées</span>';
-			legend.appendChild(div);
-			var div = document.createElement('div');
-			div.setAttribute("align", "left");
-			div.innerHTML = '<span><img src=' + iconBase + 'lodging.png' + '> Yoga et Méditation</span>';
-			legend.appendChild(div);
-			/* Push Legend to Right Top */
-			//map.controls[google.maps.ControlPosition.RIGHT_TOP].push(legend);
-			
-			var map = new google.maps.Map(document.getElementById('map'), {
-				zoom: 2,
-				zoomControl: false,
-				scaleControl: false,
-				scrollwheel: false,
-				disableDoubleClickZoom: true,
-				center: centerMap,
-				styles: 
-		[
+	//Hard codé... OK	
+	/* Adding Map Legends */
+	var legend = document.getElementById('mapLegend');
+	if (legend.style.visibility === "hidden") {
+		div= document.createElement('div');
+		div.innerHTML = '<span><img src=' + iconBase + 'sunny.png' + '> Courts-Séjours</span>';
+		div.setAttribute("align", "left");
+		legend.appendChild(div);
+		var div = document.createElement('div');
+		div.setAttribute("align", "left");
+		div.innerHTML = '<span><img src=' + iconBase + 'horsebackriding.png' + '> Safari</span>';
+		legend.appendChild(div);
+		var div = document.createElement('div');
+		div.setAttribute("align", "left");
+		div.innerHTML = '<span><img src=' + iconBase + 'hiker.png' + '> Voyages et Randonnées</span>';
+		legend.appendChild(div);
+		var div = document.createElement('div');
+		div.setAttribute("align", "left");
+		div.innerHTML = '<span><img src=' + iconBase + 'lodging.png' + '> Yoga et Méditation</span>';
+		legend.appendChild(div);
+	}
+	/* Push Legend to Right Top */
+	//map.controls[google.maps.ControlPosition.RIGHT_TOP].push(legend);
+
+	var map = new google.maps.Map(document.getElementById('map'), {
+		zoom: 2,
+		zoomControl: false,
+		scaleControl: false,
+		scrollwheel: false,
+		disableDoubleClickZoom: true,
+		center: centerMap,
+		styles: 
+	[
+	{
+		"featureType": "all",
+		"elementType": "labels.text.fill",
+		"stylers": [
 			{
-				"featureType": "all",
-				"elementType": "labels.text.fill",
-				"stylers": [
-					{
-						"saturation": 36
-					},
-					{
-						"color": "#000000"
-					},
-					{
-						"lightness": 40
-					}
-				]
+				"saturation": 36
 			},
 			{
-				"featureType": "all",
-				"elementType": "labels.text.stroke",
-				"stylers": [
-					{
-						"visibility": "on"
-					},
-					{
-						"color": "#000000"
-					},
-					{
-						"lightness": 16
-					}
-				]
+				"color": "#000000"
 			},
 			{
-				"featureType": "all",
-				"elementType": "labels.icon",
-				"stylers": [
-					{
-						"visibility": "off"
-					}
-				]
-			},
-			{
-				"featureType": "administrative",
-				"elementType": "geometry",
-				"stylers": [
-					{
-						"color": "#ff0000"
-					}
-				]
-			},
-			{
-				"featureType": "administrative",
-				"elementType": "geometry.fill",
-				"stylers": [
-					{
-						"color": "#FF66DD" 
-					},
-					{
-						"lightness": 20
-					}
-				]
-			},
-			{
-				"featureType": "administrative",
-				"elementType": "geometry.stroke",
-				"stylers": [
-					{
-						"color": "#FF66DD"
-					},
-					{
-						"lightness": 17
-					},
-					{
-						"weight": 1.2
-					}
-				]
-			},
-			{
-				"featureType": "administrative",
-				"elementType": "labels.text.fill",
-				"stylers": [
-					{
-						"color": "#ef8bc0"
-					}
-				]
-			},
-			{
-				"featureType": "administrative",
-				"elementType": "labels.text.stroke",
-				"stylers": [
-					{
-						"hue": "#ff0000"
-					}
-				]
-			},
-			{
-				"featureType": "administrative",
-				"elementType": "labels.icon",
-				"stylers": [
-					{
-						"color": "#FF66DD"
-					}
-				]
-			},
-			{
-				"featureType": "administrative.country",
-				"elementType": "geometry",
-				"stylers": [
-					{
-						"color": "#FF66DD"
-					}
-				]
-			},
-			{
-				"featureType": "administrative.country",
-				"elementType": "geometry.fill",
-				"stylers": [
-					{
-						"color": "#ff0000"
-					}
-				]
-			},
-			{
-				"featureType": "landscape",
-				"elementType": "geometry",
-				"stylers": [
-					{
-						"color": "#000000"
-					},
-					{
-						"lightness": 20
-					}
-				]
-			},
-			{
-				"featureType": "poi",
-				"elementType": "geometry",
-				"stylers": [
-					{
-						"color": "#000000"
-					},
-					{
-						"lightness": 21
-					}
-				]
-			},
-			{
-				"featureType": "road.highway",
-				"elementType": "geometry.fill",
-				"stylers": [
-					{
-						"color": "#000000"
-					},
-					{
-						"lightness": 17
-					}
-				]
-			},
-			{
-				"featureType": "road.highway",
-				"elementType": "geometry.stroke",
-				"stylers": [
-					{
-						"color": "#000000"
-					},
-					{
-						"lightness": 29
-					},
-					{
-						"weight": 0.2
-					}
-				]
-			},
-			{
-				"featureType": "road.arterial",
-				"elementType": "geometry",
-				"stylers": [
-					{
-						"color": "#000000"
-					},
-					{
-						"lightness": 18
-					}
-				]
-			},
-			{
-				"featureType": "road.local",
-				"elementType": "geometry",
-				"stylers": [
-					{
-						"color": "#000000"
-					},
-					{
-						"lightness": 16
-					}
-				]
-			},
-			{
-				"featureType": "transit",
-				"elementType": "geometry",
-				"stylers": [
-					{
-						"color": "#000000"
-					},
-					{
-						"lightness": 19
-					}
-				]
-			},
-			{
-				"featureType": "water",
-				"elementType": "geometry",
-				"stylers": [
-					{
-						"color": "#F9A3FF"
-					},
-					{
-						"lightness": 17
-					}
-				]
+				"lightness": 40
 			}
 		]
-			});
-			// TODO for looping fichier XML ou BD mysql...
-			// addMarker(map, lasvegas, contentStringNY, google.maps.Animation.DROP, 'Las-Vegas (Courts-Séjours)', iconBase + 'sunny.png');
-			
-			taille=listeCircuits.length;
-			var contentString, localisation;
-			debugger;
-			//Ajout de MTL:
-			addMarker(map, montreal, contentStringMtl, google.maps.Animation.DROP, 'Montréal (Point de départ)', iconBase + 'airports.png');
-			for(var i=0; i<taille; i++){
-				localisation = {lat: parseFloat(listeCircuits[i].latitude), lng: parseFloat(listeCircuits[i].longitude)};
-				contentString = '<a href="">' + listeCircuits[i].nomCircuit + ' (' + listeCircuits[i].nomTheme + ')</a><br>'+
-								'<a href="#" onClick="ajouterAuPanier(' + listeCircuits[i].idCircuit +');"><span class="nav-link"><span class="oi oi-cart id"></span> Ajouter au panier!</span></a>';
+	},
+	{
+		"featureType": "all",
+		"elementType": "labels.text.stroke",
+		"stylers": [
+			{
+				"visibility": "on"
+			},
+			{
+				"color": "#000000"
+			},
+			{
+				"lightness": 16
+			}
+		]
+	},
+	{
+		"featureType": "all",
+		"elementType": "labels.icon",
+		"stylers": [
+			{
+				"visibility": "off"
+			}
+		]
+	},
+	{
+		"featureType": "administrative",
+		"elementType": "geometry",
+		"stylers": [
+			{
+				"color": "#ff0000"
+			}
+		]
+	},
+	{
+		"featureType": "administrative",
+		"elementType": "geometry.fill",
+		"stylers": [
+			{
+				"color": "#FF66DD" 
+			},
+			{
+				"lightness": 20
+			}
+		]
+	},
+	{
+		"featureType": "administrative",
+		"elementType": "geometry.stroke",
+		"stylers": [
+			{
+				"color": "#FF66DD"
+			},
+			{
+				"lightness": 17
+			},
+			{
+				"weight": 1.2
+			}
+		]
+	},
+	{
+		"featureType": "administrative",
+		"elementType": "labels.text.fill",
+		"stylers": [
+			{
+				"color": "#ef8bc0"
+			}
+		]
+	},
+	{
+		"featureType": "administrative",
+		"elementType": "labels.text.stroke",
+		"stylers": [
+			{
+				"hue": "#ff0000"
+			}
+		]
+	},
+	{
+		"featureType": "administrative",
+		"elementType": "labels.icon",
+		"stylers": [
+			{
+				"color": "#FF66DD"
+			}
+		]
+	},
+	{
+		"featureType": "administrative.country",
+		"elementType": "geometry",
+		"stylers": [
+			{
+				"color": "#FF66DD"
+			}
+		]
+	},
+	{
+		"featureType": "administrative.country",
+		"elementType": "geometry.fill",
+		"stylers": [
+			{
+				"color": "#ff0000"
+			}
+		]
+	},
+	{
+		"featureType": "landscape",
+		"elementType": "geometry",
+		"stylers": [
+			{
+				"color": "#000000"
+			},
+			{
+				"lightness": 20
+			}
+		]
+	},
+	{
+		"featureType": "poi",
+		"elementType": "geometry",
+		"stylers": [
+			{
+				"color": "#000000"
+			},
+			{
+				"lightness": 21
+			}
+		]
+	},
+	{
+		"featureType": "road.highway",
+		"elementType": "geometry.fill",
+		"stylers": [
+			{
+				"color": "#000000"
+			},
+			{
+				"lightness": 17
+			}
+		]
+	},
+	{
+		"featureType": "road.highway",
+		"elementType": "geometry.stroke",
+		"stylers": [
+			{
+				"color": "#000000"
+			},
+			{
+				"lightness": 29
+			},
+			{
+				"weight": 0.2
+			}
+		]
+	},
+	{
+		"featureType": "road.arterial",
+		"elementType": "geometry",
+		"stylers": [
+			{
+				"color": "#000000"
+			},
+			{
+				"lightness": 18
+			}
+		]
+	},
+	{
+		"featureType": "road.local",
+		"elementType": "geometry",
+		"stylers": [
+			{
+				"color": "#000000"
+			},
+			{
+				"lightness": 16
+			}
+		]
+	},
+	{
+		"featureType": "transit",
+		"elementType": "geometry",
+		"stylers": [
+			{
+				"color": "#000000"
+			},
+			{
+				"lightness": 19
+			}
+		]
+	},
+	{
+		"featureType": "water",
+		"elementType": "geometry",
+		"stylers": [
+			{
+				"color": "#F9A3FF"
+			},
+			{
+				"lightness": 17
+			}
+		]
+	}
+	]
+	});
+	// TODO for looping fichier XML ou BD mysql...
+	// addMarker(map, lasvegas, contentStringNY, google.maps.Animation.DROP, 'Las-Vegas (Courts-Séjours)', iconBase + 'sunny.png');
 
-				//addMarker(map, position, contentString, animation, title, icon);
-				addMarker(map, localisation, contentString, google.maps.Animation.DROP, listeCircuits[i].nom, listeCircuits[i].iconUrl + '');
+	taille=listeCircuits.length;
+	var contentString, localisation;
+	debugger;
+	//Ajout de MTL:
+	addMarker(map, montreal, contentStringMtl, google.maps.Animation.DROP, 'Montréal (Point de départ)', iconBase + 'airports.png');
+	for(var i=0; i<taille; i++){
+		localisation = {lat: parseFloat(listeCircuits[i].latitude), lng: parseFloat(listeCircuits[i].longitude)};
+		contentString = '<a href="">' + listeCircuits[i].nomCircuit + ' (' + listeCircuits[i].nomTheme + ')</a><br>'+
+						'<a href="#" onClick="ajouterAuPanier(' + listeCircuits[i].idCircuit +');"><span class="nav-link"><span class="oi oi-cart id"></span> Ajouter au panier!</span></a>';
+
+		//addMarker(map, position, contentString, animation, title, icon);
+		addMarker(map, localisation, contentString, google.maps.Animation.DROP, listeCircuits[i].nom, listeCircuits[i].iconUrl + '');
+	}
+	//fin for looping
+
+	/* Push Legend to Right Top */
+	map.controls[google.maps.ControlPosition.RIGHT_TOP].push(legend);
+	//Mettre la légend visible:
+	legend.style.visibility='visible';				
+
+	//}
+	// Adds a marker to the map.
+	function addMarker(map, position, contentString, animation, title, icon) {
+		
+		//resize icon
+		var icon = {
+			url: icon, // url
+			scaledSize: new google.maps.Size(25, 25), // scaled size
+		};
+		
+		var marker = new google.maps.Marker({
+			position: position,
+			map: map,
+			icon: icon,
+			title: title
+		});
+		marker.addListener('click', function() {
+			if (infowindow) { // fermer le marker ouvert en clickant sur une autre https://stackoverflow.com/questions/4539905/cl
+				infowindow.close();
 			}
-			//fin for looping
-			
-			/* Push Legend to Right Top */
-			map.controls[google.maps.ControlPosition.RIGHT_TOP].push(legend);
-			//Mettre la légend visible:
-			legend.style.visibility='visible';				
-			
-			//}
-			// Adds a marker to the map.
-			function addMarker(map, position, contentString, animation, title, icon) {
-				
-				//resize icon
-				var icon = {
-					url: icon, // url
-					scaledSize: new google.maps.Size(25, 25), // scaled size
-				};
-				
-				var marker = new google.maps.Marker({
-					position: position,
+			infowindow = new google.maps.InfoWindow({
+				content: contentString,
+				maxWidth: 200
+			});
+			infowindow.open(map, marker)
+		});
+		
+		
+		if (position != montreal) {
+		//debugger;
+			//tracer ligne
+			var latit = position.lat;
+			var longit = position.lng;
+			var curvLine = null;
+			var montrealLatlng = new google.maps.LatLng(45.50884, -73.58781);
+					/* var lineSymbol = {
+						path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
+						scale: 4,
+						strokeColor: '#7B68EE'
+					}; */
+				var line = new google.maps.Polyline({
+					path: [montrealLatlng, new google.maps.LatLng(latit, longit)],
+					strokeColor: "#FFFFFF",
+					strokeOpacity: 1.0,
+					strokeWeight: 2,
+					geodesic: true,
 					map: map,
-					icon: icon,
-					title: title
+					icons: [{
+						//icon: lineSymbol,
+						offset: '100%'
+						}],
 				});
-				marker.addListener('click', function() {
-					if (infowindow) { // fermer le marker ouvert en clickant sur une autre https://stackoverflow.com/questions/4539905/cl
-						infowindow.close();
-					}
-					infowindow = new google.maps.InfoWindow({
-						content: contentString,
-						maxWidth: 200
-					});
-					infowindow.open(map, marker)
-				});
-				
-				
-				if (position != montreal) {
-				//debugger;
-					//tracer ligne
-					var latit = position.lat;
-					var longit = position.lng;
-					var curvLine = null;
-					var montrealLatlng = new google.maps.LatLng(45.50884, -73.58781);
-							/* var lineSymbol = {
-								path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
-								scale: 4,
-								strokeColor: '#7B68EE'
-							}; */
-						var line = new google.maps.Polyline({
-							path: [montrealLatlng, new google.maps.LatLng(latit, longit)],
-							strokeColor: "#FFFFFF",
-							strokeOpacity: 1.0,
-							strokeWeight: 2,
-							geodesic: true,
-							map: map,
-							icons: [{
-								//icon: lineSymbol,
-								offset: '100%'
-								}],
-						});
-				}
-			}
-	
-	
+		}
+}
+
 }
 
 function listerF(listFilms){
@@ -387,7 +407,7 @@ var circuitsVue=function(reponse){
 	var action=reponse.action; 
 	switch(action){
 		case "listerCarte" :
-			afficherCarte(reponse.listeCircuits);
+			afficherCarteEnsemble(reponse.listeCircuits);
 		case "enregistrer" :
 		case "enlever" :
 		case "modifier" :

@@ -318,12 +318,12 @@
 					<label for="themeCircuit" class="h4 col-sm-2 col-md-2 offset-md-1 col-form-label-lg" title="Sélectionner les circuits à afficher par thème(s)...">Thème(s)</label>
 					<div class="col-sm-10 col-md-8 col-lg-6">
 						<!-- <select class="form-control form-control-lg" id="themeCircuits" placeholder="Sélectionner un thème de circuits"> -->
-						<select id="themeCircuits" name="themeCircuit" class="selectpicker form-control form-control-lg" data-style="btn-secondary" title="Sélectionner les circuits à afficher par thème...">		
-							<option value="1" selected>Tous</option>
-							<option value="2">Courts-Séjours</option>
-							<option value="3">Safari</option>
-							<option value="4">Voyages et Randonnées</option>
-							<option value="5">Yoga et Méditation</option>
+						<select id="themeCircuits" name="themeCircuit" onchange="filterThemeCircuits()" class="selectpicker form-control form-control-lg" data-style="btn-secondary" title="Sélectionner les circuits à afficher par thème...">		
+							<option value="0" selected>Tous</option>
+							<option value="1">Safari</option>
+							<option value="2">Yoga et Méditation</option>
+							<option value="3">Voyages et Randonnées</option>
+							<option value="4">Courts-Séjours</option>
 						</select>
 						<p class="small">Afficher les circuits <strong>par thème!</strong></p>							  
 					</div>
