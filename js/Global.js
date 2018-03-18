@@ -1,10 +1,12 @@
 //GLOBALES
 //-EXPRESSIONS RÉGULIÈRES:
-var REG_EMAIL = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9-]{2,}[.][a-zA-Z]{2,3}$/;
+var REG_EMAIL = /^([_a-zA-Z0-9-]+)(\.[_a-zA-Z0-9-]+)*@([a-zA-Z0-9-]+\.)+([a-zA-Z]{2,3})$/;
 var REG_PASSWORD = /^[A-Za-z\d]{5,20}.{1}$/;
 var REG_DUREE = /^[0-9]{2,3}$/;
 var REG_URL = /[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi;
 var REG_PRIX = /^\d{1,3}\.\d{2}\s*$/;
+var REG_NOM = /^[a-zA-Z]+\s*$/ ;
+var REG_DATE = /^\d{4}-\d{2}-\d{2}$/;
 //-FIN EXPRESSIONSRÉGULIÈRES
 //var FILMS = [];
 //var NO_FILM; //no Film à supprimer
@@ -14,6 +16,84 @@ window.onload = function() {
 	//alert("hello");
 
 }
+
+///////////////////  Validation menu Inscription ///////////////////////
+
+function validerNom(txt){
+	txt.value = txt.value.replace(/[^a-zA-Z-'\n\r.]+/g, '');
+}
+function validerCourriel(courriel){
+	var msg=document.getElementById("errCourEnr");
+    if(REG_EMAIL.test(courriel.value) == false && courriel.value != "")
+    {
+		msg.innerHTML = "Adresse courriel non-valide";
+		msg.className = "text-danger";	
+    }else{
+		msg.innerHTML	= "";
+    }
+}
+function validerDate(date){
+	var msg=document.getElementById("errDateNaissance");
+    if(REG_DATE.test(date.value) == false)
+    {
+		msg.innerHTML = "date non-valide";
+		msg.className = "text-danger";	
+    }else{
+		msg.innerHTML	= "";
+    }
+}
+function checkRegPass(passe){
+	var msg=document.getElementById("errMotPasseEnr");
+    if(REG_PASSWORD.test(passe.value) == false)
+    {
+		msg.innerHTML = "Vous devez entrez un mot de passe valide de 5 à 20 caractères de composé de lettres et chiffres. Un caractère spéciale est permis à la fin.";
+    }else{
+		msg.innerHTML	= "";
+    }
+} 
+function checkPass(){
+	var goodColor = "#66cc66";
+	var badColor = "#ff6666";
+	var pass1 = document.getElementById('inputMotPasseEnr');
+    var pass2 = document.getElementById('inputMotPasseConfEnr');
+    var message = document.getElementById('errMotPasseConfEnr');
+	
+    if(pass1.value == pass2.value){
+		pass2.style.backgroundColor = goodColor;
+        message.style.color = goodColor;
+        message.innerHTML = "";
+    }else{
+		pass2.style.backgroundColor = badColor;
+        message.style.color = badColor;
+        message.innerHTML = "Répetition incorrécte!";
+    }
+} 
+ function validerEnregistrement() {   // fonction qui retour true ou false
+	//debugger;
+	var prenomEnr = document.getElementById('inputPrenom').value;
+	var nomEnr = document.getElementById('inputNom').value;
+	var dateEnr = document.getElementById('inputDateNaissance').value.trim();
+	var sexeEnr = document.getElementById('inputSexe').value;
+	var courrielEnr = document.getElementById('inputCourEnr').value.trim();
+	var motDePasseEnr = document.getElementById('inputMotPasseEnr').value.trim(); 
+	
+	var errDateEnr = document.getElementById('errDateNaissance').innerHTML;
+	var errCourrielEnr = document.getElementById('errCourEnr').innerHTML;
+	var errMotDePasseEnr = document.getElementById('errMotPasseEnr').innerHTML; 
+	var errMotDePasseconf = document.getElementById('errMotPasseConfEnr').innerHTML; 
+
+	if (errCourrielEnr=="" && errDateEnr=="" && errMotDePasseEnr=="" && errMotDePasseconf=="" && prenomEnr !="" && nomEnr !="" && dateEnr!=""  && sexeEnr!="" && courrielEnr !=""  && motDePasseEnr !="") 
+	{
+		document.getElementById('errenr').innerHTML = "";
+		alert("On a vérifié le formulaire");
+		enregUsager();
+	} else {
+		document.getElementById('errenr').innerHTML = "Vous devez remplir tous les champ";
+	}
+}
+/////////////////// Fin Validation Inscription ///////////////////////
+
+/////////////////// Validation connexion ///////////////////////
 function validerConnexion() {  // fonction qui retour true ou false
 	debugger;
 	var courriel = document.getElementById('username').value.trim();
@@ -29,58 +109,23 @@ function validerConnexion() {  // fonction qui retour true ou false
 		errCourConn.innerHTML = "Vous devez entrez un courriel valide.";
 		estValide = false;
 	} else 
-		errCourConn.innerHTML = "";
+	errCourConn.innerHTML = "";
 	
 	var regex = new RegExp(REG_PASSWORD);	
 	if (!regex.test(motDePasse)) {
 		errMotPasseConn.innerHTML = "Vous devez entrez un mot de passe valide de 5 à 20 caractères de composé de lettres et chiffres. Un caractère spéciale est permis à la fin.";
 		estValide = false;
 	} else 
-		errMotPasseConn.innerHTML = "";
+	errMotPasseConn.innerHTML = "";
 	
 	if (estValide)			
-		return true;
+	return true;
 	else
-		return false;	
-		
+	return false;	
+	
 }
-function validerEnregistrement() {   // fonction qui retour true ou false
-	debugger;
-	var courrielEnr = document.getElementById('username').value.trim();
-	var motDePasseEnr = document.getElementById('password').value.trim();
-	var motDePasseConfEnr = document.getElementById('confirm_password').value.trim(); 
-	
-	var errCourEnr = document.getElementById('errCourEnr');
-	var errMotPasseEnr = document.getElementById('errMotPasseEnr');
-	var errMotPasseConfEnr = document.getElementById('errMotPasseConfEnr');
-	
-	var estValide = true;
-	var regex = new RegExp(REG_EMAIL);
-	if (!regex.test(courrielEnr)) {
-		errCourEnr.innerHTML = "Vous devez entrez un courriel valide.";
-		estValide = false;
-	} else
-		errCourEnr.innerHTML = "";
-	
-	var regex = new RegExp(REG_PASSWORD);
-	if (!regex.test(motDePasseEnr)) {
-		errMotPasseEnr.innerHTML = "Vous devez entrez un mot de passe valide de 5 à 20 caractères composé de lettres et chiffres. Un caractère spéciale est permis à la fin.";
-		estValide = false;
-	} else 
-		errMotPasseEnr.innerHTML = "";
-		
-	if (motDePasseConfEnr !== motDePasseEnr) {
-		errMotPasseConfEnr.innerHTML = "Le mot de passe de confirmation ne correspond pas.";
-		estValide = false;
-	} else 
-		errMotPasseConfEnr.innerHTML = "";
-	
-	if (estValide)
-		return true;
-	else
-		return false;	
-		
-}
+/////////////////// Fin Validation connexion ///////////////////////
+
 function validerAjoutModifFilm() {
 	//debugger;
 	var titre = document.getElementById('titre').value.trim();

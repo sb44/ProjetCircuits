@@ -1,23 +1,23 @@
 //requ�tes films
-function enregistrer(){
-	var formFilm = new FormData(document.getElementById('formEnreg'));
-	formFilm.append('action','enregistrer');
-	$.ajax({
+function enregUsager(){
+	var formUsager = new FormData(document.getElementById('formEnr'));
+	formUsager.append('action','enregistrer');
+	alert("SVP attendere pour construit la partie submit");
+/* 	$.ajax({
 		type : 'POST',
-		url : 'Films/filmsControleur.php',
-		data : formFilm,
+		url : 'Usagers/UsagersControleur.php',
+		data : formUsager,
 		dataType : 'json', //text pour le voir en format de string
 		//async : false,
 		//cache : false,
 		contentType : false,
 		processData : false,
-		success : function (reponse){//alert(reponse);
-					filmsVue(reponse); //appel de fonction javascript défini dans filmsControleurVue.js
+		success : function (reponse){ alert(reponse);
+					//filmsVue(reponse); //appel de fonction javascript défini dans filmsControleurVue.js
 		},
 		fail : function (err){
-		   
 		}
-	});
+	}); */
 	
 }
 
