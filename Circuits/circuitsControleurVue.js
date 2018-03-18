@@ -7,70 +7,16 @@ var montreal = null;
 function afficherCarte(listeCircuits) {
 	debugger;
 	
-			//function initMap() {
-			//debugger;
 			//localistations lat et long.
 			var centerMap = {lat: 45.870847, lng: -14.000323};
 			montreal = {lat: 45.50884, lng: -73.58781};
-			var lasvegas = {lat: 36.114647, lng: -115.172813};
-			var washington = {lat: 38.907214, lng: -77.036872}; 
-			var tanzanie = {lat: -3.386925, lng: 36.682995};
-			var india = {lat: 20.593684, lng: 78.96288};
-			var spain = {lat: 40.416775, lng: -3.703790};
 			//base pour les icones des destinations
 			var iconBase = 'https://maps.google.com/mapfiles/kml/shapes/';
 			//contenu pour les infoWindows
-			var contentStringMtl = '<div id="content">'+
-				'<div id="siteNotice">'+
-				'</div>'+
-				'<h2 id="firstHeading" class="firstHeading">Montréal (Québec, Canada)</h2>'+
-				'<div id="bodyContent">'+
-				'<p>La ville de <b>Montréal</b> est votre point de départ à tout les circuits de voyages que nous vous proposons!</p>'+
-				'</div>'+
-				'</div>';
-			var contentStringNY = '<div id="content">'+
-					'<div id="siteNotice">'+
-				'</div>'+
-				'<h2 id="firstHeading" class="firstHeading">Las-Vegas (États-Unis, Nevada)</h2>'+
-				'<div id="bodyContent">'+
-				'<p>Le circuit de <b>Las-Vegas</b> est le premier proposé parmi les <b>Courts-Séjours</b>. Situé à proximité, il vous épatera par sa splendeur! Bon voyage!</p>'+
-				'</div>'+
-				'</div>';
-			var contentStringWashington = '<div id="content">'+
-				'<div id="siteNotice">'+
-				'</div>'+
-				'<h2 id="firstHeading" class="firstHeading">Washington (États-Unis, Washington)</h2>'+
-				'<div id="bodyContent">'+
-				'<p>Le circuit de <b>Washington</b> est le premier proposé parmi les <b>Courts-Séjours</b>. Situé à proximité, il vous épatera par sa splendeur! Bon voyage!</p>'+
-				'</div>'+
-				'</div>';		
-				
-			var contentStringTanzanie = '<div id="content">'+
-				'<div id="siteNotice">'+
-				'</div>'+
-				'<h2 id="firstHeading" class="firstHeading">Tanzanie (États-Unis, Washington)</h2>'+
-				'<div id="bodyContent">'+
-				'<p>Le circuit de <b>Tanzanie</b> est le premier proposé parmi les <b>Courts-Séjours</b>. Situé à proximité, il vous épatera par sa splendeur! Bon voyage!</p>'+
-				'</div>'+
-				'</div>';
-				
-			var contentStringIndia = '<div id="content">'+
-				'<div id="siteNotice">'+
-				'</div>'+
-				'<h2 id="firstHeading" class="firstHeading">India (États-Unis, Washington)</h2>'+
-				'<div id="bodyContent">'+
-				'<p>Le circuit de <b>Tanzanie</b> est le premier proposé parmi les <b>Courts-Séjours</b>. Situé à proximité, il vous épatera par sa splendeur! Bon voyage!</p>'+
-				'</div>'+
-				'</div>';
-				
-			var contentStringSpain = '<div id="content">'+
-				'<div id="siteNotice">'+
-				'</div>'+
-				'<h2 id="firstHeading" class="firstHeading">Spain (États-Unis, Washington)</h2>'+
-				'<div id="bodyContent">'+
-				'<p>Le circuit de <b>Spain</b> est le premier proposé parmi les <b>Courts-Séjours</b>. Situé à proximité, il vous épatera par sa splendeur! Bon voyage!</p>'+
-				'</div>'+
-				'</div>'; 
+
+			var contentStringMtl = '<p><strong>Montréal</strong> est votre point de départ!</p>';
+
+			//Hard codé... OK	
 			/* Adding Map Legends */
 			var legend = document.getElementById('mapLegend');
 			div= document.createElement('div');
@@ -82,7 +28,7 @@ function afficherCarte(listeCircuits) {
 			div.innerHTML = '<span><img src=' + iconBase + 'horsebackriding.png' + '> Safari</span>';
 			legend.appendChild(div);
 			var div = document.createElement('div');
-				div.setAttribute("align", "left");
+			div.setAttribute("align", "left");
 			div.innerHTML = '<span><img src=' + iconBase + 'hiker.png' + '> Voyages et Randonnées</span>';
 			legend.appendChild(div);
 			var div = document.createElement('div');
@@ -322,24 +268,28 @@ function afficherCarte(listeCircuits) {
 			}
 		]
 			});
-			
-			//addMarker(map, position, contentString, animation, title, icon);
 			// TODO for looping fichier XML ou BD mysql...
-			addMarker(map, montreal, contentStringMtl, google.maps.Animation.DROP, 'Montréal (Point de départ)', iconBase + 'airports.png');
-			addMarker(map, lasvegas, contentStringNY, google.maps.Animation.DROP, 'Las-Vegas (Courts-Séjours)', iconBase + 'sunny.png');
-			addMarker(map, washington, contentStringWashington, google.maps.Animation.DROP, 'Washington (Courts-Séjours)', iconBase + 'sunny.png');
-					
-			addMarker(map, tanzanie, contentStringTanzanie, google.maps.Animation.DROP, 'Tanzanie (Safari)', iconBase + 'horsebackriding.png');
-			addMarker(map, india, contentStringIndia, google.maps.Animation.DROP, 'India du Nord (Yoga et Méditation)', iconBase + 'lodging.png');
-			addMarker(map, spain, contentStringSpain, google.maps.Animation.DROP, 'Espagne (Voyages et Randonnées)', iconBase + 'hiker.png');
-			//fin for looping
+			// addMarker(map, lasvegas, contentStringNY, google.maps.Animation.DROP, 'Las-Vegas (Courts-Séjours)', iconBase + 'sunny.png');
 			
+			taille=listeCircuits.length;
+			var contentString, localisation;
+			debugger;
+			//Ajout de MTL:
+			addMarker(map, montreal, contentStringMtl, google.maps.Animation.DROP, 'Montréal (Point de départ)', iconBase + 'airports.png');
+			for(var i=0; i<taille; i++){
+				localisation = {lat: parseFloat(listeCircuits[i].latitude), lng: parseFloat(listeCircuits[i].longitude)};
+				contentString = '<a href="">' + listeCircuits[i].nomCircuit + ' (' + listeCircuits[i].nomTheme + ')</a><br>'+
+								'<a href="#" onClick="ajouterAuPanier(' + listeCircuits[i].idCircuit +');"><span class="nav-link"><span class="oi oi-cart id"></span> Ajouter au panier!</span></a>';
+
+				//addMarker(map, position, contentString, animation, title, icon);
+				addMarker(map, localisation, contentString, google.maps.Animation.DROP, listeCircuits[i].nom, listeCircuits[i].iconUrl + '');
+			}
+			//fin for looping
 			
 			/* Push Legend to Right Top */
 			map.controls[google.maps.ControlPosition.RIGHT_TOP].push(legend);
 			//Mettre la légend visible:
-			legend.style.visibility='visible';	
-				
+			legend.style.visibility='visible';				
 			
 			//}
 			// Adds a marker to the map.
@@ -433,7 +383,7 @@ function afficherFiche(reponse){
 }
 // ********************** selon l'action, on appelle la méthode concerné *******************
 var circuitsVue=function(reponse){
-	debugger;
+	//debugger;
 	var action=reponse.action; 
 	switch(action){
 		case "listerCarte" :
@@ -450,7 +400,8 @@ var circuitsVue=function(reponse){
 		case "fiche" :
 			afficherFiche(reponse);
 		break;
-		
+		default :
+			alert("Erreur. on doit définir l'action pour le fichier circuitsControleurVue.js");
 	}
 }
 
