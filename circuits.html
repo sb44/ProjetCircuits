@@ -200,9 +200,9 @@
 															<label for="inputSexe">Sexe</label>
 														<div class="form-group sexe">
 															<select id="inputSexe" name="inputSexe" class="form-control input-lg">
-																	<option value="F">Femme</option>
-																	<option value="H">Homme</option>
-																</select>
+																<option value="F">Femme</option>
+																<option value="H">Homme</option>
+															</select>
 														</div>
 														</div>
 													</div>
@@ -309,54 +309,69 @@
 
 <div id="consulterCircuitsContainer" class="col-md-10 offset-md-1" style="border:2px solid #FBB3FF;">
 	<div id="consulterCircuits" class="container mt-3">
+			
 			<form role="form" id="formRechercheCircuit" name="formRechercheCircuit">
 				<input type="hidden" name="monAction" value="rechercheCircuit">
 				<div class="form-group row">
 					<label for="themeCircuit" class="h4 col-sm-2 col-md-2 offset-md-1 col-form-label-lg" title="Sélectionner les circuits à afficher par thème(s)...">Thème(s)</label>
-					<div class="col-sm-10 col-md-8">
+					<div class="col-sm-10 col-md-8 col-lg-6">
 						<!-- <select class="form-control form-control-lg" id="themeCircuits" placeholder="Sélectionner un thème de circuits"> -->
-						<select id="themeCircuits" name="themeCircuit" class="selectpicker form-control form-control-lg" data-style="btn-secondary" multiple title="Sélectionner les circuits à afficher par thème(s)...">		
+						<select id="themeCircuits" name="themeCircuit" class="selectpicker form-control form-control-lg" data-style="btn-secondary" title="Sélectionner les circuits à afficher par thème...">		
 							<option value="1" selected>Tous</option>
 							<option value="2">Courts-Séjours</option>
 							<option value="3">Safari</option>
 							<option value="4">Voyages et Randonnées</option>
 							<option value="5">Yoga et Méditation</option>
 						</select>
-						<p class="small">Raffinez votre recherche aux circuits selon <strong>un ou plusieurs thèmes!</strong></p>							  
+						<p class="small">Raffinez votre recherche aux <strong>circuits selon un thème!</strong></p>							  
+					</div>
+				</div>
+				
+				
+				<div id="lesDates" class="collapse">
+					<div class="form-group row">
+							<label for="datedepartCircuit" class="h4 col-sm-2 col-md-2 offset-md-1 col-form-label-lg" title="Afficher les circuits avec départ à partir/après d'une date de départ...">Départ</label>
+							<div class="col-sm-10 col-md-8 col-lg-6">
+								<input type="date" class="form-control" id="inputDateDepart" name="inputDateDepart">
+								<p class="small">Raffinez votre recherche aux circuits ayant <strong>un départ à partir/après une date!</strong></p>							  
+							</div>
 					</div>
 
-				</div>
+					<div class="form-group row">
+							<label for="datearriveCircuit" class="h4 col-sm-2 col-md-2 offset-md-1 col-form-label-lg" title="Afficher les circuits avec retour à/avant une date d'arrivée...">Retour</label>
+							<div class="col-sm-10 col-md-8 col-lg-6">
+								<input type="date" class="form-control" id="inputDateArrivee" name="inputDateArrivee">
+								<p class="small">Raffinez votre recherche aux circuits ayant <strong>un retour à/avant une date!</strong></p>							  
+							</div>
+					</div>
 
-				<div class="form-group row">
-						<label for="datedepartCircuit" class="h4 col-sm-2 col-md-2 offset-md-1 col-form-label-lg" title="Afficher les circuits à partir d'une date de départ...">Départ</label>
-						<div class="col-sm-10 col-md-8">
-							<!-- <select class="form-control form-control-lg" id="themeCircuits" placeholder="Sélectionner un thème de circuits"> -->
-							<select id="datedepartCircuit" name="datedepartCircuit" class="selectpicker form-control form-control-lg" data-style="btn-secondary" title="Afficher les circuits à partir d'une date de départ...">		
-								<option value="1" selected>Tous</option>
-								<option value="2">Courts-Séjours</option>
-								<option value="3">Safari</option>
-								<option value="4">Voyages et Randonnées</option>
-								<option value="5">Yoga et Méditation</option>
-							</select>
-							<p class="small">Raffinez votre recherche aux circuits ayant <strong>un départ à partir d'une date!</strong></p>							  
+					<div class="form-group row mb-3">
+						<label class="h4 col-0 col-sm-2 col-md-2 offset-md-1"></label>
+						<div class="col-4 col-sm-3 col-md-2" title="Lancer la requête">
+							<input type="button" class="btn btn-primary form-control" value="Go"/>
 						</div>
-				</div>
-
-				<div class="form-group row mb-3">
-					<label class="h4 col-0 col-sm-2 col-md-2 offset-md-1"></label>
-					<div class="col-4 col-sm-3 col-md-2" title="Lancer la requête">
-						<input type="button" class="btn btn-primary form-control" value="Go"/>
-					</div>
-					<div class="col-0 vertical-line" style="height: 40px;"></div>
-					<div class="col-7 col-sm-4 col-md-3" title="Réinitialiser la recherche">
-						<input type="button" class="btn btn-outline-secondary form-control" value="Recommencer"/>
+						<div class="col-0 vertical-line" style="height: 40px;"></div>
+						<div class="col-7 col-sm-4 col-md-3" title="Réinitialiser la recherche">
+							<input type="reset" class="btn btn-outline-secondary form-control" value="Recommencer"/>
+						</div>
 					</div>
 				</div>
 			</form>
+
+			<div class="col-sm-2 col-md-2 offset-md-1 mb-3 d-flex" title="Raffiner votre recherche...">
+				<div>
+					<a data-toggle="collapse" class="collapsed btn btn-primary" href="#lesDates" aria-label="Expand/Collapse Card 1" aria-expanded="false" role="button">
+						<i class="fa" aria-hidden="true"></i>
+						<span class="sr-only">Expand/Collapse Card 1</span>
+					</a>
+				</div>
+			</div>
+
 	</div>
 </div>
 
 <div id="lesCards">
+
 </div>
 
 
@@ -483,7 +498,7 @@
 
 
 <!-- FOOTER -->
-<footer id="myFooter">
+<footer id="myFooter" class="mt-4">
         <div class="container">
 			<div class="row footer-brand animated fadeInLeft">
 				<div class="col-sm-6">

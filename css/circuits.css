@@ -71,6 +71,21 @@ body .btn-primary {
       color: #FFF !important; 
 }
 
+body .btn-outline-primary {
+    background-color: #FFF !important;
+    border-color: #CD5AB3 !important;
+    color: #CD5AB3 !important; }
+    body .btn-primary:hover, body .btn-primary:focus {
+      border-color: #CD5AB3 !important;
+      background-color: #CD5AB3 !important;
+      color: #FFF !important; }
+    body .btn-primary:active, body .btn-primary:visited, body .btn-primary:active:focus, body .btn-primary:active:hover {
+      border-color: #CD5AB3 !important;
+      background-color: #CD5AB3 !important;
+      color: #FFF !important; 
+}
+
+
 body .btn-secondary {
     background-color: #333333 !important;
     border-color: #333333 !important;
@@ -177,7 +192,19 @@ div.vertical-line{
 	height: 100%; /* Override in-line if you want specific height. */
 }
 /* Fin Varia */
+#inputDateDepart, #inputDateArrivee {
+		color: #FFF;
+		background: #333333
+} 
 
+/* Bouton collapse */
+[data-toggle="collapse"] i:before{
+    content: "\f146";
+}
+
+[data-toggle="collapse"].collapsed i:before{
+    content: "\f0fe";
+}
 
 /* Menu langage */
 .icon-small
