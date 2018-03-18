@@ -1,4 +1,5 @@
 //requ�tes films
+
 function enregistrer(){
 	var formFilm = new FormData(document.getElementById('formEnreg'));
 	formFilm.append('action','enregistrer');
@@ -20,6 +21,30 @@ function enregistrer(){
 	});
 	
 }
+
+function listerCarte(){
+	debugger;
+	var formFilm = new FormData();
+	formFilm.append('action','listerCarte');//alert(formFilm.get("action"));
+	$.ajax({
+		type : 'POST',
+		url : 'Circuits/circuitsControleur.php',
+		data : formFilm,
+		contentType : false,
+		processData : false,
+		dataType : 'json', //text pour le voir en format de string
+		success : function (reponse){alert(reponse);
+		/////////////////*****
+					debugger;
+					circuitsVue(reponse);
+		},
+		fail : function (err){
+			alert(err);
+			debugger;
+		}
+	});
+}
+
 
 function lister(){
 	var formFilm = new FormData();

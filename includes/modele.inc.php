@@ -1,6 +1,6 @@
 <?php
 require_once("connexion.inc.php");
-class filmsModele {
+class circuitsModele {
 	private $requete;
 	private $params;
 	private $connexion;
@@ -11,7 +11,7 @@ function __construct($requete=null,$params=null){
 }
 	
 function obtenirConnexion(){
-	$maConnexion = new Connexion("localhost", "root", "", "h18bdfilms");
+	$maConnexion = new Connexion("localhost", "root", "", "circuit");
 	$maConnexion->connecter();
 	return $maConnexion->getConnexion();
 }

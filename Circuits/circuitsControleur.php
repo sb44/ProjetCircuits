@@ -1,4 +1,5 @@
 <?php
+
 	require_once("../includes/modele.inc.php");
 	$tabRes=array();
 
@@ -20,6 +21,26 @@
 			unset($unModele);
 		}
 	}
+	
+	function listerCarte(){
+		global $tabRes;
+		$tabRes['action']="listerCarte";
+		//$requete="SELECT idCircuit FROM circuit";
+		//$requete="SELECT theme.nom FROM circuit, theme WHERE circuit.idTheme = theme.idTheme";
+		$requete="SELECT description FROM jour";
+		try{
+			 $unModele=new circuitsModele($requete,array());
+			 $stmt=$unModele->executer();
+			 $tabRes['listeCircuits']=array();
+			 while($ligne=$stmt->fetch(PDO::FETCH_OBJ)){
+			    $tabRes['listeCircuits'][]=$ligne;
+			 }
+		}catch(Exception $e){
+		}finally{
+			unset($unModele);
+		}
+	}
+	
 	
 	function lister(){
 		global $tabRes;
@@ -117,6 +138,9 @@
 		case "enregistrer" :
 			enregistrer();
 		break;
+		case "listerCarte" :
+			listerCarte();
+		break;
 		case "lister" :
 			lister();
 		break;
@@ -130,5 +154,6 @@
 			modifier();
 		break;
 	}
-    echo json_encode($tabRes); // json_encode --> Retourne la représentation JSON d'une valeur 
+	echo json_encode($tabRes); // json_encode --> Retourne la représentation JSON d'une valeur 
+	//echo $tabRes; 
 ?>
