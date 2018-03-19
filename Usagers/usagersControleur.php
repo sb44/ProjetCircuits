@@ -4,23 +4,41 @@
 
 	function enregistrer(){
 		global $tabRes;	
-		$titre=$_POST['titre'];
-		$duree=$_POST['duree'];
-		$res=$_POST['res'];
+		$prenom=$_POST['inputPrenom'];
+		$nom=$_POST['inputNom'];
+		$dateNaissance=$_POST['inputDateNaissance'];
+		$courriel=$_POST['inputCourEnr'];
+		$mdp=$_POST['inputMotPasseEnr'];
+		$hash = password_hash($mdp, PASSWORD_DEFAULT);
 		try{
-			$unModele=new filmsModele();
-			$pochete=$unModele->verserFichier("pochettes", "pochette", "avatar.jpg",$titre);
-			$requete="INSERT INTO films VALUES(0,?,?,?,?)";
-			$unModele=new filmsModele($requete,array($titre,$duree,$res,$pochete));
+			$requete="SELECT * FROM connexion WHERE courriel = ?";
+			$unModele=new circuitsModele($requete,array($courriel));
 			$stmt=$unModele->executer();
 			$tabRes['action']="enregistrer";
-			$tabRes['msg']="Film bien enregistre";
+			$tabRes['msg']="ok";
+			if($ligne=$stmt->fetch(PDO::FETCH_OBJ)){ // si courriel existe
+				$tabRes['action']="enregistrer";
+				$tabRes['msg']="existe";
+			}else{
+
+					$requete="INSERT INTO connexion VALUES(0,?,?,?)";
+					$unModele=new circuitsModele($requete,array($courriel,$hash,"utilisateur"));
+					$stmt=$unModele->executer();
+					$lasId=$unModele->LAST_ID;
+					$requete="INSERT INTO utilisateur VALUES(0,?,?,?,?)";
+					$unModele=new circuitsModele($requete,array($nom,$prenom,$dateNaissance,$lasId));
+					$stmt=$unModele->executer();
+
+					$tabRes['action']="enregistrer";
+					$tabRes['msg']="ok";
+			}
 		}catch(Exception $e){
+			$tabRes['action']="enregistrer";
+			$tabRes['msg']="probleme connexion";
 		}finally{
 			unset($unModele);
 		}
 	}
-	
 	function lister(){
 		global $tabRes;
 		$tabRes['action']="lister";
