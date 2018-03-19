@@ -4,7 +4,7 @@ class circuitsModele {
 	private $requete;
 	private $params;
 	private $connexion;
-	private $LAST_ID = 0;
+	public $LAST_ID = 0;
 	
 function __construct($requete=null,$params=null){
 		$this->requete=$requete;
@@ -21,8 +21,8 @@ function executer(){
 		$this->connexion = $this->obtenirConnexion(); // connexion
 		$stmt = $this->connexion->prepare($this->requete);
 		$stmt->execute($this->params);
-		if(strpos($this->requete,'INSERT') !== false)
-			$this->$LAST_ID = $this->connexion->lastInsertId();
+		//if(strpos($this->requete,'INSERT') !== false)
+			//$this->LAST_ID = $this->connexion->lastInsertId();
 		
 		$this->deconnecter(); // déconnexion
 
