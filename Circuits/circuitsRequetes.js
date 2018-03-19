@@ -44,7 +44,6 @@ function listerCarte(){
 	});
 }
 
-
 function lister(){
 	var formFilm = new FormData();
 	formFilm.append('action','lister');//alert(formFilm.get("action"));

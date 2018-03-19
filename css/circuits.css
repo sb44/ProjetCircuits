@@ -14,9 +14,6 @@ html, body {
 	height: 100%;
 }
 
-mapLegendItem {
-
-}
 /* http://thedebuggers.com/add-multiple-custom-markers-legend-gmap/ */
 #mapLegend {
 	background: #fdfdfd;

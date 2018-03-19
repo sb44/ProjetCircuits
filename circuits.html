@@ -315,7 +315,7 @@
 			<form role="form" id="formRechercheCircuit" name="formRechercheCircuit">
 				<input type="hidden" name="monAction" value="rechercheCircuit">
 				<div class="form-group row">
-					<label for="themeCircuit" class="h4 col-sm-2 col-md-2 offset-md-1 col-form-label-lg" title="Sélectionner les circuits à afficher par thème(s)...">Thème(s)</label>
+					<label for="themeCircuit" class="h4 col-sm-2 col-md-2 offset-md-1 col-form-label-lg" title="Sélectionner les circuits à afficher par thème...">Thème</label>
 					<div class="col-sm-10 col-md-8 col-lg-6">
 						<!-- <select class="form-control form-control-lg" id="themeCircuits" placeholder="Sélectionner un thème de circuits"> -->
 						<select id="themeCircuits" name="themeCircuit" onchange="filterThemeCircuits()" class="selectpicker form-control form-control-lg" data-style="btn-secondary" title="Sélectionner les circuits à afficher par thème...">		
@@ -359,7 +359,7 @@
 					<div class="form-group row mb-3">
 						<label class="h4 col-0 col-sm-2 col-md-2 offset-md-1"></label>
 						<div class="col-4 col-sm-3 col-md-2" title="Lancer la requête">
-							<input type="button" class="btn btn-primary form-control" value="Go"/>
+							<input type="button" class="btn btn-primary form-control" value="Go" onClick="afficherGroupesVoyagesPourTheme()"/>
 						</div>
 						<div class="col-0 vertical-line" style="height: 40px;"></div>
 						<div class="col-7 col-sm-4 col-md-3" title="Réinitialiser la recherche">
@@ -374,8 +374,98 @@
 	</div>
 </div>
 
-<div id="lesCards">
+<div id="lesCards" class="card-deck mt-4">
+	<div class="col-md-10 offset-md-1"> 
+		<!-- foreach circuit-->
+		<div class="card bg-light border-light mb-3"> 
+		  <h6 class="card-header bg-dark text-white">Voyage organisé à Washington (Courts Séjours)</h6>  
+			  <img class="card-img-top mt-3 px-3 img-fluid rounded-0" src='./pochettes/tanzaniemain.jpg' alt="Card image cap">
+				<div class="card-body"> 
+					<p class="card-text center">
+						Une ville riche en histoire. Ouest américain: L’Ouest américain, que l’on connait aussi sous le nom de Far West, est depuis toujours symbolisé par des déserts rouges et ocre s’étendant à perte de vue, ainsi que des montagnes sculptées par l’érosion. La conquête de l’Ouest transforma grandement les [...]\r\n\r\nWashington: Voyages Traditours vous invite à une escapade dans la capitale fédérale des États-Unis d’Amérique : Washington D.C. Voici une occasion unique de découvrir de grandes institutions américaines, de [...]
+					</p>
 
+
+			   <div id="lesCardsEtape" class="card-deck mt-2">
+
+				<!-- foreach ÉTAPE -->
+				<div class="col-10 offset-1 mb-3 d-flex" title="Afficher l'étape...">
+						<a data-toggle="collapse" class="collapsed btn btn-secondary" href="#idEtapeI" aria-label="Expand/Collapse Card 1" aria-expanded="false" role="button">
+							<i class="fa" aria-hidden="true"></i>
+							<span class="sr-only">Expand/Collapse Card 1</span>
+						</a>
+						<span data-toggle="collapse" class="collapsed btn btn-outline" href="#idEtapeI" aria-label="Expand/Collapse Card 1" aria-expanded="false">
+							<h6>Étape i : Départ de Montréal (Canada)</h6>
+						</span>				
+				</div>
+				
+
+
+					<div class="col-10 offset-1">
+							<!-- foreach jour d'ÉTAPE -->
+							<div class="collapse" id="idEtapeI">
+								<div class="card bg-light border-light mb-3"> 
+									<h6 class="card-header bg-light">JOURS 1 - Départ de Montréal</h6>  
+										<img class="card-img-top mt-3 px-3 img-fluid rounded-circle" src='./pochettes/tanzaniemain.jpg' alt="Card image cap">
+										<div class="card-body"> 
+											<p class="card-text center">Rencontre avec notre accompagnateur de l’équipe Traditours à l’aéroport de Montréal. Assistance aux formalités d’enregistrement et envol à destination de Kilimandjaro. Repas et nuits à bord.</p>
+									</div>
+								</div>
+							</div>
+							<!-- fin foreach jour d'ÉTAPE -->
+					</div>
+
+				<!-- Fin foreach ÉTAPE -->
+
+				<!-- Text en bas du card de circuit -->
+				<p class="card-text center">
+					<small class="text-muted">&nbsp;&nbsp;&nbsp;&nbsp;<span class="oi oi-dollar">&nbsp;&nbsp;</span>Valeur du circuit: 60.00 $ </small>
+
+					<div class="col-12 d-flex" title="Afficher les départs de ce circuit...">
+							<a data-toggle="collapse" class="collapsed btn btn-success" href="#idDeparts" aria-label="Expand/Collapse Card 1" aria-expanded="false" role="button">
+								<i class="fa" aria-hidden="true"></i>
+								<span class="sr-only">Expand/Collapse Card 1</span>
+							</a>
+							
+							<span data-toggle="collapse" class="collapsed btn btn-outline" href="#idDeparts" aria-label="Expand/Collapse Card 1" aria-expanded="false">
+								<h6>Afficher les départs!</h6>
+							</span>
+					</div>
+				</p>
+					
+					<div class="col-10 offset-1 col-lg-8 offset-lg-2">
+						<div class="collapse" id="idDeparts">
+								<!-- for each départs de circuit spécifique-->
+								<div class="card bg-light border-light mb-3"> 
+									<h6 class="card-header bg-light">Départ 1</h6>  
+										<div class="card-body"> 
+											<h6 class="card-title">Date Départ: </h6> 
+											<h6 class="card-title">Date Retour: <h6>
+											<p class="card-text center">Capacité: </p>
+											<p class="card-text center">Prix pour un adulte: </p>
+											<p class="card-text center">Prix pour un enfant: </p>
+											<p class="card-text center">Prix pour un bébé: </p>
+											<a href="" onClick="ajouterAuPanier(' + listeCircuits[i].idCircuit +');"><span class="nav-link"><span class="oi oi-cart id"></span> Ajouter au panier!</span></a>
+										</div>
+								</div>
+								<!-- fin for each départs de circuit spécifique -->
+						</div>
+					</div>
+
+
+
+
+			   </div> 
+
+			  </div>
+			  <div class="card-footer bg-dark text-white">
+					Bon voyage!
+			  </div> 
+		</div> <!-- FIN foreach circuit-->
+
+
+
+	</div>
 </div>
 
 

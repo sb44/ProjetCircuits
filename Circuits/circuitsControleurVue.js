@@ -13,16 +13,18 @@ function afficherCarteEnsemble(listeCircuits) {
 }
 
 function filterThemeCircuits() {
-	debugger;
-	var selectionne = document.getElementById("themeCircuits").value;
-	if (selectionne != "0") {
-		var lstCircuits = CIRCUITS.filter(function (el) {
-			  return el.idTheme == selectionne;
-		});
-	} else {
-		lstCircuits = CIRCUITS;
-	}
-    construireCarte(lstCircuits);
+	//debugger;
+	$( "#map" ).hide( 500, function() {
+		var selectionne = document.getElementById("themeCircuits").value;
+		if (selectionne != "0") {
+			var lstCircuits = CIRCUITS.filter(function (el) {
+				return el.idTheme == selectionne;
+			});
+		} else {
+			lstCircuits = CIRCUITS;
+		}
+		construireCarte(lstCircuits);
+	});
 }
 //vue circuits
 function construireCarte(listeCircuits) {
@@ -40,12 +42,12 @@ function construireCarte(listeCircuits) {
 	var legend = document.getElementById('mapLegend');
 	if (legend.style.visibility === "hidden") {
 		div= document.createElement('div');
-		div.innerHTML = '<span><img src=' + iconBase + 'sunny.png' + '> Courts-Séjours</span>';
+		div.innerHTML = '<span><img src=' + iconBase + 'horsebackriding.png' + '> Safari</span>';
 		div.setAttribute("align", "left");
 		legend.appendChild(div);
 		var div = document.createElement('div');
 		div.setAttribute("align", "left");
-		div.innerHTML = '<span><img src=' + iconBase + 'horsebackriding.png' + '> Safari</span>';
+		div.innerHTML = '<span><img src=' + iconBase + 'lodging.png' + '> Yoga et Méditation</span>';
 		legend.appendChild(div);
 		var div = document.createElement('div');
 		div.setAttribute("align", "left");
@@ -53,7 +55,7 @@ function construireCarte(listeCircuits) {
 		legend.appendChild(div);
 		var div = document.createElement('div');
 		div.setAttribute("align", "left");
-		div.innerHTML = '<span><img src=' + iconBase + 'lodging.png' + '> Yoga et Méditation</span>';
+		div.innerHTML = '<span><img src=' + iconBase + 'sunny.png' + '> Courts-Séjours</span>';
 		legend.appendChild(div);
 	}
 	/* Push Legend to Right Top */
@@ -299,11 +301,12 @@ function construireCarte(listeCircuits) {
 	addMarker(map, montreal, contentStringMtl, google.maps.Animation.DROP, 'Montréal (Point de départ)', iconBase + 'airports.png');
 	for(var i=0; i<taille; i++){
 		localisation = {lat: parseFloat(listeCircuits[i].latitude), lng: parseFloat(listeCircuits[i].longitude)};
-		contentString = '<a href="">' + listeCircuits[i].nomCircuit + ' (' + listeCircuits[i].nomTheme + ')</a><br>'+
-						'<a href="#" onClick="ajouterAuPanier(' + listeCircuits[i].idCircuit +');"><span class="nav-link"><span class="oi oi-cart id"></span> Ajouter au panier!</span></a>';
+		contentString = '<a href="" onClick="afficherDetailCircuit(' + listeCircuits[i].idCircuit +');">' + listeCircuits[i].nomCircuit + ' (' + listeCircuits[i].nomTheme + ')</a><br>'+
+		'<a href="" onClick="afficherGroupesVoyagesPourCircuit(' + listeCircuits[i].idCircuit +');"><span class="nav-link"><span class="oi oi-eye"></span> Afficher les départs!</span></a>';
+		//'<a href="#" onClick="ajouterAuPanier(' + listeCircuits[i].idCircuit +');"><span class="nav-link"><span class="oi oi-cart id"></span> Ajouter au panier!</span></a>';
 
 		//addMarker(map, position, contentString, animation, title, icon);
-		addMarker(map, localisation, contentString, google.maps.Animation.DROP, listeCircuits[i].nom, listeCircuits[i].iconUrl + '');
+		addMarker(map, localisation, contentString, google.maps.Animation.DROP, listeCircuits[i].nomCircuit, listeCircuits[i].iconUrl + '');
 	}
 	//fin for looping
 
@@ -354,7 +357,7 @@ function construireCarte(listeCircuits) {
 					}; */
 				var line = new google.maps.Polyline({
 					path: [montrealLatlng, new google.maps.LatLng(latit, longit)],
-					strokeColor: "#FFFFFF",
+					strokeColor: "#1B48FF",
 					strokeOpacity: 1.0,
 					strokeWeight: 2,
 					geodesic: true,
@@ -367,7 +370,18 @@ function construireCarte(listeCircuits) {
 		}
 }
 
+	$( "#map" ).show( 500, function() {
+
+	});
 }
+
+function afficherDetailCircuit() {
+	
+}
+
+
+
+
 
 function listerF(listFilms){
 	var taille;
