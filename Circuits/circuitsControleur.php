@@ -41,6 +41,24 @@
 		}
 	}
 	
+	 function afficherGroupesVoyagesDeCircuit(){
+		global $tabRes;
+		$idCircuit=$_POST['noCircuit'];
+		$tabRes['action']="afficherDetailCircuit";
+		$requete="SELECT circuit.idCircuit, circuit.nom AS nomCircuit, circuit.description, circuit.capacite, circuit.urlImage, circuit.prix, theme.idTheme, theme.nom AS nomTheme, theme.iconUrl, circuit.latitude, circuit.longitude FROM circuit, theme WHERE circuit.idTheme = theme.idTheme AND circuit.enVigueur = 1";
+		//$requete="SELECT description FROM jour";
+		try{
+			 $unModele=new circuitsModele($requete,array());
+			 $stmt=$unModele->executer();
+			 $tabRes['listeCircuits']=array();
+			 while($ligne=$stmt->fetch(PDO::FETCH_OBJ)){
+			    $tabRes['listeCircuits'][]=$ligne;
+			 }
+		}catch(Exception $e){
+		}finally{
+			unset($unModele);
+		}
+	}
 	
 	function lister(){
 		global $tabRes;

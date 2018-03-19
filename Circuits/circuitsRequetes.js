@@ -44,6 +44,30 @@ function listerCarte(){
 	});
 }
 
+ function afficherGroupesVoyagesDeCircuit(noCircuit){
+	debugger;
+	var formFilm = new FormData();
+	formFilm.append('action','afficherGroupesVoyagesDeCircuit');//alert(formFilm.get("action"));
+	formFilm.append('noCircuit',noCircuit);//alert(formFilm.get("action"));
+	$.ajax({
+		type : 'POST',
+		url : 'Circuits/circuitsControleur.php',
+		data : formFilm,
+		contentType : false,
+		processData : false,
+		dataType : 'json', //text pour le voir en format de string
+		success : function (reponse){//alert(reponse);
+					debugger;
+					circuitsVue(reponse);
+		},
+		fail : function (err){
+			//alert(err);
+			//debugger;
+		}
+	});
+}
+
+
 function lister(){
 	var formFilm = new FormData();
 	formFilm.append('action','lister');//alert(formFilm.get("action"));

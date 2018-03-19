@@ -301,8 +301,8 @@ function construireCarte(listeCircuits) {
 	addMarker(map, montreal, contentStringMtl, google.maps.Animation.DROP, 'Montréal (Point de départ)', iconBase + 'airports.png');
 	for(var i=0; i<taille; i++){
 		localisation = {lat: parseFloat(listeCircuits[i].latitude), lng: parseFloat(listeCircuits[i].longitude)};
-		contentString = '<a href="" onClick="afficherDetailCircuit(' + listeCircuits[i].idCircuit +');">' + listeCircuits[i].nomCircuit + ' (' + listeCircuits[i].nomTheme + ')</a><br>'+
-		'<a href="" onClick="afficherGroupesVoyagesPourCircuit(' + listeCircuits[i].idCircuit +');"><span class="nav-link"><span class="oi oi-eye"></span> Afficher les départs!</span></a>';
+		contentString = '<a href="javascript:void(0);" title="Consulter ce circuit!" onClick="afficherCardCircuit(' + listeCircuits[i].idCircuit +');">' + '<span class="oi oi-eye"></span> ' + listeCircuits[i].nomCircuit + ' (' + listeCircuits[i].nomTheme + ')</a>'; //''+
+		//'<a href="" onClick="afficherGroupesVoyagesPourCircuit(' + listeCircuits[i].idCircuit +');"><span class="nav-link"><span class="oi oi-eye"></span> Afficher les départs!</span></a>';
 		//'<a href="#" onClick="ajouterAuPanier(' + listeCircuits[i].idCircuit +');"><span class="nav-link"><span class="oi oi-cart id"></span> Ajouter au panier!</span></a>';
 
 		//addMarker(map, position, contentString, animation, title, icon);
@@ -375,10 +375,117 @@ function construireCarte(listeCircuits) {
 	});
 }
 
-function afficherDetailCircuit() {
+function afficherCardCircuit(noCircuit) {
+	var circuit = CIRCUITS.filter(function (el) {
+		return el.idCircuit == noCircuit;
+	});
+
+	var leCircuit =" 	<div class=\"col-md-10 offset-md-1\"> ";
+	leCircuit +=" 		<!-- foreach circuit-->";
+	leCircuit +=" 		<div class=\"card bg-light border-light mb-3\"> ";
+	leCircuit +=" 		  <h6 class=\"card-header bg-dark text-white\">"+circuit[0].nomCircuit + " (" + circuit[0].nomTheme + ")</h6>  ";
+	leCircuit +=" 			  <img class=\"card-img-top mt-3 px-3 img-fluid rounded-0\" src='./pochettes/tanzaniemain.jpg' alt=\"Card image cap\">";
+	leCircuit +=" 				<div class=\"card-body\"> ";
+	leCircuit +=" 					<p class=\"card-text center\">";
+	leCircuit +=" 						" + circuit[0].description + "";
+	leCircuit +=" 					</p>";
+	leCircuit +=" ";
+	leCircuit +=" ";
+	leCircuit +=" 			   <div id=\"lesCardsEtape\" class=\"card-deck mt-2\">";
+	leCircuit +=" ";
+	leCircuit +=" 				";
+	leCircuit +=" 				<div class=\"col-10 offset-1 mb-3 d-flex\" title=\"Afficher les étapes...\">";
+	leCircuit +=" 						<a data-toggle=\"collapse\" class=\"collapsed btn btn-secondary\" href=\"#idEtapes\" aria-label=\"Expand/Collapse Card 1\" aria-expanded=\"false\" role=\"button\">";
+	leCircuit +=" 							<i class=\"fa\" aria-hidden=\"true\"></i>";
+	leCircuit +=" 							<span class=\"sr-only\">Expand/Collapse Card 1</span>";
+	leCircuit +=" 						</a>";
+	leCircuit +=" 						<span data-toggle=\"collapse\" class=\"collapsed btn btn-outline\" href=\"#idEtapes\" aria-label=\"Expand/Collapse Card 1\" aria-expanded=\"false\">";
+	leCircuit +=" 							<h6>Afficher les étapes!</h6>";
+	leCircuit +=" 						</span>				";
+	leCircuit +=" 				</div>";
+	leCircuit +=" 				";
+	leCircuit +=" ";
+	leCircuit +=" 				";
+	leCircuit +=" 					<div class=\"col-10 offset-1\">";
+	leCircuit +=" 							<div class=\"collapse\" id=\"idEtapes\">";
+	//leCircuit +=" 								<!-- foreach ÉTAPE -->";
+	//leCircuit +=" 								<h5>LE NOM DE L'ÉTAPE</h5> ";
+	//leCircuit +=" 								<!-- foreach jour d'ÉTAPE -->";
+	//leCircuit +=" 								<div class=\"card bg-light border-light mb-3\"> ";
+	//leCircuit +=" 									<h6 class=\"card-header bg-light\">JOURS 1 - Départ de Montréal</h6>  ";
+	//leCircuit +=" 										<img class=\"card-img-top mt-3 px-3 img-fluid rounded-circle\" src='./pochettes/tanzaniemain.jpg' alt=\"Card image cap\">";
+	//leCircuit +=" 										<div class=\"card-body\"> ";
+	//leCircuit +=" 											<p class=\"card-text center\">Rencontre avec notre accompagnateur de l’équipe Traditours à l’aéroport de Montréal. Assistance aux formalités d’enregistrement et envol à destination de Kilimandjaro. Repas et nuits à bord.</p>";
+	//leCircuit +=" 									</div>";
+	//leCircuit +=" 								</div>";
+	//leCircuit +=" 							<!-- fin foreach jour d'ÉTAPE -->";
+	//leCircuit +=" 							<!-- Fin foreach ÉTAPE -->";
+	leCircuit +=" 							</div>";
+	leCircuit +=" 					</div>";
+	leCircuit +=" ";
+	leCircuit +=" ";
+	leCircuit +=" 				<!-- Text en bas du card de circuit -->";
+	leCircuit +=" 				<p class=\"card-text center\">";
+	leCircuit +=" 					<small class=\"text-muted\">&nbsp;&nbsp;&nbsp;&nbsp;<span class=\"oi oi-dollar\">&nbsp;&nbsp;</span>Valeur du circuit: 60.00 $ </small>";
+	leCircuit +=" ";
+	leCircuit +=" 					<div class=\"col-12 d-flex\" title=\"Afficher les départs de ce circuit...\">";
+	leCircuit +=" 							<a data-toggle=\"collapse\" class=\"collapsed btn btn-success\" href=\"#idDeparts\" aria-label=\"Expand/Collapse Card 1\" aria-expanded=\"false\" role=\"button\">";
+	leCircuit +=" 								<i class=\"fa\" aria-hidden=\"true\"></i>";
+	leCircuit +=" 								<span class=\"sr-only\">Expand/Collapse Card 1</span>";
+	leCircuit +=" 							</a>";
+	leCircuit +=" 							";
+	leCircuit +=" 							<span data-toggle=\"collapse\" class=\"collapsed btn btn-outline\" href=\"#idDeparts\" aria-label=\"Expand/Collapse Card 1\" aria-expanded=\"false\">";
+	leCircuit +=" 								<h6>Afficher les départs!</h6>";
+	leCircuit +=" 							</span>";
+	leCircuit +=" 					</div>";
+	leCircuit +=" 				</p>";
+	leCircuit +=" 					";
+	leCircuit +=" 					<div class=\"col-10 offset-1 col-lg-8 offset-lg-2\">";
+	leCircuit +=" 						<div class=\"collapse\" id=\"idDeparts\">";
+	//leCircuit +=" 								<!-- for each départs de circuit spécifique-->";
+	//leCircuit +=" 								<div class=\"card bg-light border-light mb-3\"> ";
+	//leCircuit +=" 									<h6 class=\"card-header bg-light\">Départ 1</h6>  ";
+	//leCircuit +=" 										<div class=\"card-body\"> ";
+	//leCircuit +=" 											<h6 class=\"card-title\">Date Départ: </h6> ";
+	//leCircuit +=" 											<h6 class=\"card-title\">Date Retour: <h6>";
+	//leCircuit +=" 											<p class=\"card-text center\">Capacité: </p>";
+	//leCircuit +=" 											<p class=\"card-text center\">Prix pour un adulte: </p>";
+	//leCircuit +=" 											<p class=\"card-text center\">Prix pour un enfant: </p>";
+	//leCircuit +=" 											<p class=\"card-text center\">Prix pour un bébé: </p>";
+	//leCircuit +=" 											<a href=\"\" onClick=\"ajouterAuPanier(' + listeCircuits[i].idCircuit +');\"><span class=\"nav-link\"><span class=\"oi oi-cart id\"></span> Ajouter au panier!</span></a>";
+	//leCircuit +=" 										</div>";
+	//leCircuit +=" 								</div>";
+	//leCircuit +=" 								<!-- fin for each départs de circuit spécifique -->";
+	leCircuit +=" 						</div>";
+	leCircuit +=" 					</div>";
+	leCircuit +=" ";
+	leCircuit +=" ";
+	leCircuit +=" ";
+	leCircuit +=" ";
+	leCircuit +=" 			   </div> ";
+	leCircuit +=" ";
+	leCircuit +=" 			  </div>";
+	leCircuit +=" 			  <div class=\"card-footer bg-dark text-white\">";
+	leCircuit +=" 					Bon voyage!";
+	leCircuit +=" 			  </div> ";
+	leCircuit +=" 		</div> <!-- FIN foreach circuit-->";
+	leCircuit +=" ";
+	leCircuit +=" 	</div> ";
+	$( "#lesCards" ).hide( 500, function() {
+
+	});
+	document.getElementById('lesCards').innerHTML = leCircuit;
+
+
 	
+	$( "#lesCards" ).show( 500, function() {
+
+	});
 }
 
+function afficherGroupesVoyagesDeCircuit() {
+	
+}
 
 
 
@@ -417,11 +524,13 @@ function afficherFiche(reponse){
 }
 // ********************** selon l'action, on appelle la méthode concerné *******************
 var circuitsVue=function(reponse){
-	//debugger;
+	debugger;
 	var action=reponse.action; 
 	switch(action){
 		case "listerCarte" :
 			afficherCarteEnsemble(reponse.listeCircuits);
+		case "afficherGroupesVoyagesDeCircuit":
+			afficherGroupesVoyagesDeCircuit();
 		case "enregistrer" :
 		case "enlever" :
 		case "modifier" :
