@@ -45,7 +45,7 @@ function listerCarte(){
 }
 
  function afficherGroupesVoyagesDeCircuit(noCircuit){
-	debugger;
+	//debugger;
 	var formFilm = new FormData();
 	formFilm.append('action','afficherGroupesVoyagesDeCircuit');//alert(formFilm.get("action"));
 	formFilm.append('noCircuit',noCircuit);//alert(formFilm.get("action"));
@@ -57,7 +57,7 @@ function listerCarte(){
 		processData : false,
 		dataType : 'json', //text pour le voir en format de string
 		success : function (reponse){//alert(reponse);
-					debugger;
+					//debugger;
 					circuitsVue(reponse);
 		},
 		fail : function (err){
@@ -66,7 +66,6 @@ function listerCarte(){
 		}
 	});
 }
-
 
 function lister(){
 	var formFilm = new FormData();
