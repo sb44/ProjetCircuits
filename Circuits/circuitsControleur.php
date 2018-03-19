@@ -44,15 +44,14 @@
 	 function afficherGroupesVoyagesDeCircuit(){
 		global $tabRes;
 		$idCircuit=$_POST['noCircuit'];
-		$tabRes['action']="afficherDetailCircuit";
-		$requete="SELECT circuit.idCircuit, circuit.nom AS nomCircuit, circuit.description, circuit.capacite, circuit.urlImage, circuit.prix, theme.idTheme, theme.nom AS nomTheme, theme.iconUrl, circuit.latitude, circuit.longitude FROM circuit, theme WHERE circuit.idTheme = theme.idTheme AND circuit.enVigueur = 1";
-		//$requete="SELECT description FROM jour";
+		$tabRes['action']="afficherGroupesVoyagesDeCircuit";
+		$requete="SELECT groupevoyage.capacite, groupevoyage.idGroupeVoyage, groupevoyage.nbInscrit, groupevoyage.dateDepart, groupevoyage.dateRetour, groupevoyage.prixAdulte, groupevoyage.prixEnfant, groupevoyage.prixBebe FROM groupevoyage WHERE groupevoyage.idCircuit=?";
 		try{
-			 $unModele=new circuitsModele($requete,array());
+			 $unModele=new circuitsModele($requete,array($idCircuit));
 			 $stmt=$unModele->executer();
-			 $tabRes['listeCircuits']=array();
+			 $tabRes['listeGroupesVoyage']=array();
 			 while($ligne=$stmt->fetch(PDO::FETCH_OBJ)){
-			    $tabRes['listeCircuits'][]=$ligne;
+			    $tabRes['listeGroupesVoyage'][]=$ligne;
 			 }
 		}catch(Exception $e){
 		}finally{
@@ -153,11 +152,14 @@
 	//Contr�leur
 	$action=$_POST['action'];
 	switch($action){
-		case "enregistrer" :
-			enregistrer();
-		break;
 		case "listerCarte" :
 			listerCarte();
+		break;
+		case "afficherGroupesVoyagesDeCircuit":
+			afficherGroupesVoyagesDeCircuit();
+		break;
+		case "enregistrer" :
+			enregistrer();
 		break;
 		case "lister" :
 			lister();

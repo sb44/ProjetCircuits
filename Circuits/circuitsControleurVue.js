@@ -384,7 +384,7 @@ function afficherCardCircuit(noCircuit) {
 	leCircuit +=" 		<!-- foreach circuit-->";
 	leCircuit +=" 		<div class=\"card bg-light border-light mb-3\"> ";
 	leCircuit +=" 		  <h6 class=\"card-header bg-dark text-white\">"+circuit[0].nomCircuit + " (" + circuit[0].nomTheme + ")</h6>  ";
-	leCircuit +=" 			  <img class=\"card-img-top mt-3 px-3 img-fluid rounded-0\" src='./pochettes/tanzaniemain.jpg' alt=\"Card image cap\">";
+	leCircuit +=" 			  <img class=\"card-img-top mt-3 px-3 img-fluid rounded-0\" src='./pochettes/" + circuit[0].urlImage + "' alt=\"Card image cap\">";
 	leCircuit +=" 				<div class=\"card-body\"> ";
 	leCircuit +=" 					<p class=\"card-text center\">";
 	leCircuit +=" 						" + circuit[0].description + "";
@@ -429,12 +429,12 @@ function afficherCardCircuit(noCircuit) {
 	leCircuit +=" 					<small class=\"text-muted\">&nbsp;&nbsp;&nbsp;&nbsp;<span class=\"oi oi-dollar\">&nbsp;&nbsp;</span>Valeur du circuit: 60.00 $ </small>";
 	leCircuit +=" ";
 	leCircuit +=" 					<div class=\"col-12 d-flex\" title=\"Afficher les départs de ce circuit...\">";
-	leCircuit +=" 							<a data-toggle=\"collapse\" class=\"collapsed btn btn-success\" href=\"#idDeparts\" aria-label=\"Expand/Collapse Card 1\" aria-expanded=\"false\" role=\"button\">";
+	leCircuit +=" 							<a data-toggle=\"collapse\" class=\"collapsed btn btn-success\" href=\"#idDeparts\" aria-label=\"Expand/Collapse Card 1\" aria-expanded=\"false\" role=\"button\" onClick=\"afficherGroupesVoyagesDeCircuit(" + circuit[0].idCircuit + ")\">";
 	leCircuit +=" 								<i class=\"fa\" aria-hidden=\"true\"></i>";
 	leCircuit +=" 								<span class=\"sr-only\">Expand/Collapse Card 1</span>";
 	leCircuit +=" 							</a>";
 	leCircuit +=" 							";
-	leCircuit +=" 							<span data-toggle=\"collapse\" class=\"collapsed btn btn-outline\" href=\"#idDeparts\" aria-label=\"Expand/Collapse Card 1\" aria-expanded=\"false\">";
+	leCircuit +=" 							<span data-toggle=\"collapse\" class=\"collapsed btn btn-outline\" href=\"#idDeparts\" aria-label=\"Expand/Collapse Card 1\" aria-expanded=\"false\" onClick=\"afficherGroupesVoyagesDeCircuit(" + circuit[0].idCircuit + ")\">";
 	leCircuit +=" 								<h6>Afficher les départs!</h6>";
 	leCircuit +=" 							</span>";
 	leCircuit +=" 					</div>";
@@ -471,20 +471,41 @@ function afficherCardCircuit(noCircuit) {
 	leCircuit +=" 		</div> <!-- FIN foreach circuit-->";
 	leCircuit +=" ";
 	leCircuit +=" 	</div> ";
-	$( "#lesCards" ).hide( 500, function() {
+	$( "#lesCards" ).hide( 400, function() {
 
 	});
 	document.getElementById('lesCards').innerHTML = leCircuit;
 
 
 	
-	$( "#lesCards" ).show( 500, function() {
+	$( "#lesCards" ).show( 400, function() {
 
 	});
 }
 
-function afficherGroupesVoyagesDeCircuit() {
-	
+function afficherGroupesVoyage(listeGroupesVoyage) {
+	debugger;
+
+	var taille=listeGroupesVoyage.length;
+	var groupeVoy;
+
+	for(var i=0; i < taille; i++){
+		groupeVoy ="  								<div class=\"card bg-light border-light mb-3\"> ";
+		groupeVoy +=" 									<h5 class=\"card-header bg-light\">Départ " + i+1 + "</h5>  ";
+		groupeVoy +=" 										<div class=\"card-body\"> ";
+		groupeVoy +=" 											<h6 class=\"card-title\">Date Départ: " + listeGroupesVoyage[i].dateDepart + "</h6> ";
+		groupeVoy +=" 											<h6 class=\"card-title\">Date Retour: " + listeGroupesVoyage[i].dateRetour + "</h6>";
+		groupeVoy +=" 											<p class=\"card-text center\">Capacité: </h6><strong>" + listeGroupesVoyage[i].capacite + " personnes.</strong></p>";
+		groupeVoy +=" 											<p class=\"card-text center\">Prix pour un adulte: </h6><strong>" + listeGroupesVoyage[i].prixAdulte + " $</strong></p>";
+		groupeVoy +=" 											<p class=\"card-text center\">Prix pour un enfant: </h6><strong>" + listeGroupesVoyage[i].prixEnfant + " $</strong></p>";
+		groupeVoy +=" 											<p class=\"card-text center\">Prix pour un bébé: </h6><strong>" + listeGroupesVoyage[i].prixBebe + " $</strong></p>";
+		groupeVoy +=" 											<a href=\"javascript:void(0);\" onClick=\"ajouterAuPanier(" + listeGroupesVoyage[i].idGroupeVoyage + ");\"><span class=\"nav-link\"><span class=\"oi oi-cart id\"></span> Ajouter au panier!</span></a>";
+		groupeVoy +=" 										</div>";
+		groupeVoy +=" 								</div>";
+	}
+
+	document.getElementById('idDeparts').innerHTML = groupeVoy;
+
 }
 
 
@@ -529,8 +550,10 @@ var circuitsVue=function(reponse){
 	switch(action){
 		case "listerCarte" :
 			afficherCarteEnsemble(reponse.listeCircuits);
-		case "afficherGroupesVoyagesDeCircuit":
-			afficherGroupesVoyagesDeCircuit();
+		break;
+		case "afficherGroupesVoyagesDeCircuit" :
+			afficherGroupesVoyage(reponse.listeGroupesVoyage);
+		break;
 		case "enregistrer" :
 		case "enlever" :
 		case "modifier" :
