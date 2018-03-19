@@ -484,11 +484,19 @@ function afficherCardCircuit(noCircuit) {
 }
 
 function afficherGroupesVoyage(listeGroupesVoyage) {
-	debugger;
+	//debugger;
 
 	var taille=listeGroupesVoyage.length;
-	var groupeVoy;
 
+	if (taille == 0) {
+		var errorMess = "<p class=\"text-danger text-left\">";
+		errorMess += "Désolé! Aucun départ n'est actuellement offert pour ce circuit. Veuillez vérifer plus tard!"
+		errorMess += "</p>";
+		document.getElementById('idDeparts').innerHTML = errorMess;
+		return;
+	}
+
+	var groupeVoy;
 	for(var i=0; i < taille; i++){
 		groupeVoy ="  								<div class=\"card bg-light border-light mb-3\"> ";
 		groupeVoy +=" 									<h5 class=\"card-header bg-light\">Départ " + i+1 + "</h5>  ";
