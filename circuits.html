@@ -217,12 +217,12 @@
 													<div class="row">
 															<div class="col-6 nomP">
 																<div class="form-group">
-																	<input type="password" class="form-control" id="inputMotPasseEnr" placeholder="Mot de passe"  onkeyup="checkRegPass(this);">
+																	<input type="password" class="form-control" id="inputMotPasseEnr" name="inputMotPasseEnr" placeholder="Mot de passe"  onkeyup="checkRegPass(this);">
 																</div>
 															</div>
 															<div class="col-6 nomP">
 																<div class="form-group">
-																	<input type="password" class="form-control" id="inputMotPasseConfEnr" placeholder="Confirmer Mot de passe"  onkeyup="checkPass(); return false;">
+																	<input type="password" class="form-control" id="inputMotPasseConfEnr" name="inputMotPasseConfEnr" placeholder="Confirmer Mot de passe"  onkeyup="checkPass(); return false;">
 																	<small><span id="errMotPasseConfEnr"></span></small>
 																</div>
 															</div>
@@ -232,7 +232,7 @@
 															En vous inscrivant, vous acceptez les Conditions générales d’utilisation et la Politique de confidentialité.
 													</div>
 													<div class="form-group">
-														<input type="button" class="btn btn-primary btn-block" value="Soumettre" onClick="validerEnregistrement();">
+														<input type="submit" class="btn btn-primary btn-block" value="Soumettre" onClick="validerEnregistrement();">
 														<!-- <button type="submit" class="btn btn-primary btn-block">Soumettre</button> -->
 													</div>
 													<hr>

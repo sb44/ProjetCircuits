@@ -3,11 +3,11 @@ function enregUsager(){
 	var formUsager = new FormData(document.getElementById('formEnr'));
 	formUsager.append('action','enregistrer');
 	alert("SVP attendere pour construit la partie submit");
-/* 	$.ajax({
+	$.ajax({
 		type : 'POST',
-		url : 'Usagers/UsagersControleur.php',
+		url : 'Usagers/usagersControleur.php',
 		data : formUsager,
-		dataType : 'json', //text pour le voir en format de string
+		dataType : 'text', //text pour le voir en format de string
 		//async : false,
 		//cache : false,
 		contentType : false,
@@ -16,11 +16,17 @@ function enregUsager(){
 					//filmsVue(reponse); //appel de fonction javascript défini dans filmsControleurVue.js
 		},
 		fail : function (err){
+			alert(1111);
+		},
+		error : function(erreur){
+         	alert(2222);
+		},
+		complete : function(statut){
+			alert(33333);
 		}
-	}); */
-	
+	}); 
+	alert("apres ajax");
 }
-
 function lister(){
 	var formFilm = new FormData();
 	formFilm.append('action','lister');//alert(formFilm.get("action"));
@@ -38,7 +44,6 @@ function lister(){
 		}
 	});
 }
-
 function enlever(){
 	var leForm=document.getElementById('formEnlever');
 	var formFilm = new FormData(leForm);
@@ -57,7 +62,6 @@ function enlever(){
 		}
 	});
 }
-
 function obtenirFiche(){
 	$('#divFiche').hide();
 	var leForm=document.getElementById('formFiche');
@@ -77,7 +81,6 @@ function obtenirFiche(){
 		}
 	});
 }
-
 function modifier(){
 	var leForm=document.getElementById('formFicheF');
 	var formFilm = new FormData(leForm);

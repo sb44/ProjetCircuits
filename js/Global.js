@@ -17,7 +17,6 @@ $(document).ready(function () {
 });
 
 ///////////////////  Validation menu Inscription ///////////////////////
-
 function validerNom(txt){
 	txt.value = txt.value.replace(/[^a-zA-Z-'\n\r.]+/g, '');
 }
@@ -87,6 +86,7 @@ function checkPass(){
 		alert("On a vérifié le formulaire");
 		enregUsager();
 	} else {
+		alert("il y un probleme avec formulaire")
 		document.getElementById('errenr').innerHTML = "Vous devez remplir tous les champ";
 	}
 }
