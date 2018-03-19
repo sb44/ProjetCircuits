@@ -25,7 +25,6 @@ function enregUsager(){
 			alert(33333);
 		}
 	}); 
-	alert("apres ajax");
 }
 function lister(){
 	var formFilm = new FormData();

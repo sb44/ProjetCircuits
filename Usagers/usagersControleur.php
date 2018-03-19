@@ -14,8 +14,7 @@
 			$requete="SELECT * FROM connexion WHERE courriel = ?";
 			$unModele=new circuitsModele($requete,array($courriel));
 			$stmt=$unModele->executer();
-			$tabRes['action']="enregistrer";
-			$tabRes['msg']="ok";
+			
 			if($ligne=$stmt->fetch(PDO::FETCH_OBJ)){ // si courriel existe
 				$tabRes['action']="enregistrer";
 				$tabRes['msg']="existe";
