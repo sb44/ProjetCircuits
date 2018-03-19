@@ -83,7 +83,7 @@ function checkPass(){
 	if (errCourrielEnr=="" && errDateEnr=="" && errMotDePasseEnr=="" && errMotDePasseconf=="" && prenomEnr !="" && nomEnr !="" && dateEnr!=""  && sexeEnr!="" && courrielEnr !=""  && motDePasseEnr !="") 
 	{
 		document.getElementById('errenr').innerHTML = "";
-		alert("On a vérifié le formulaire");
+		//alert("On a vérifié le formulaire");
 		enregUsager();
 	} else {
 		alert("il y un probleme avec formulaire")

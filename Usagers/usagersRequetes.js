@@ -2,13 +2,12 @@
 function enregUsager(){
 	var formUsager = new FormData(document.getElementById('formEnr'));
 	formUsager.append('action','enregistrer');
-	alert("SVP attendere pour construit la partie submit");
 	$.ajax({
 		type : 'POST',
 		url : 'Usagers/usagersControleur.php',
 		data : formUsager,
 		dataType : 'text', //text pour le voir en format de string
-		//async : false,
+		async : false,
 		//cache : false,
 		contentType : false,
 		processData : false,
@@ -17,12 +16,6 @@ function enregUsager(){
 		},
 		fail : function (err){
 			alert(1111);
-		},
-		error : function(erreur){
-         	alert(2222);
-		},
-		complete : function(statut){
-			alert(33333);
 		}
 	}); 
 }

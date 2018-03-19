@@ -4,38 +4,41 @@
 
 	function enregistrer(){
 		global $tabRes;	
-		$prenom=$_POST['inputPrenom'];
+ 		$prenom=$_POST['inputPrenom'];
 		$nom=$_POST['inputNom'];
 		$dateNaissance=$_POST['inputDateNaissance'];
 		$courriel=$_POST['inputCourEnr'];
 		$mdp=$_POST['inputMotPasseEnr'];
-		$hash = password_hash($mdp, PASSWORD_DEFAULT);
+		//$hash = password_hash($mdp, PASSWORD_DEFAULT); 
 		try{
-			$requete="SELECT * FROM connexion WHERE courriel = ?";
+/*  			$requete="SELECT * FROM connexion WHERE courriel = ? ";
 			$unModele=new circuitsModele($requete,array($courriel));
 			$stmt=$unModele->executer();
+			$tabRes['msg']=$stmt->fetch(PDO::FETCH_OBJ);
 			
 			if($ligne=$stmt->fetch(PDO::FETCH_OBJ)){ // si courriel existe
 				$tabRes['action']="enregistrer";
-				$tabRes['msg']="existe";
-			}else{
-
-					$requete="INSERT INTO connexion VALUES(0,?,?,?)";
-					$unModele=new circuitsModele($requete,array($courriel,$hash,"utilisateur"));
-					$stmt=$unModele->executer();
-					$lasId=$unModele->LAST_ID;
+				$tabRes['msg2']="existe";
+			}
+			else
+			{ */
+				//$tabRes['action']=$courriel;
+				//$tabRes['msg']=$mdp;
+					$requete=" INSERT INTO connexion VALUES(0,?,?,?) ";
+					$unModele=new circuitsModele($requete,array($courriel,$mdp,"utilisateur"));
+					$unModele->executer();
+/* 					$lasId=$unModele->LAST_ID;
 					$requete="INSERT INTO utilisateur VALUES(0,?,?,?,?)";
 					$unModele=new circuitsModele($requete,array($nom,$prenom,$dateNaissance,$lasId));
-					$stmt=$unModele->executer();
-
+					$stmt=$unModele->executer();  */
 					$tabRes['action']="enregistrer";
-					$tabRes['msg']="ok";
-			}
+					$tabRes['msg2']="l'utilisateur inseree";
+		//	} 
 		}catch(Exception $e){
 			$tabRes['action']="enregistrer";
-			$tabRes['msg']="probleme connexion";
+			$tabRes['msg']="probleme";
 		}finally{
-			unset($unModele);
+			//unset($unModele);
 		}
 	}
 	function lister(){
