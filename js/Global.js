@@ -12,12 +12,9 @@ var REG_DATE = /^\d{4}-\d{2}-\d{2}$/;
 //var NO_FILM; //no Film à supprimer
 //var CONTENT_USER_LOGIN;
 
-//window.onload = function() {
 $(document).ready(function () {
-	debugger;
 	listerCarte();
 });
-//}
 
 ///////////////////  Validation menu Inscription ///////////////////////
 function validerNom(txt){

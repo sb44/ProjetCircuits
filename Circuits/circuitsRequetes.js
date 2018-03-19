@@ -23,7 +23,7 @@ function enregistrer(){
 }
 
 function listerCarte(){
-	debugger;
+	//debugger;
 	var formFilm = new FormData();
 	formFilm.append('action','listerCarte');//alert(formFilm.get("action"));
 	$.ajax({
@@ -33,18 +33,16 @@ function listerCarte(){
 		contentType : false,
 		processData : false,
 		dataType : 'json', //text pour le voir en format de string
-		success : function (reponse){alert(reponse);
-		/////////////////*****
-					debugger;
+		success : function (reponse){//alert(reponse);
+					//debugger;
 					circuitsVue(reponse);
 		},
 		fail : function (err){
-			alert(err);
-			debugger;
+			//alert(err);
+			//debugger;
 		}
 	});
 }
-
 
 function lister(){
 	var formFilm = new FormData();
