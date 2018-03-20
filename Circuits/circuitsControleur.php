@@ -148,6 +148,56 @@
 			unset($unModele);
 		}
 	}
+
+
+	function ajouterAuPanier(){
+		session_start();
+		global $tabRes;	
+		$id=$_POST['numeroItem'];
+	
+		try{
+			$requette="SELECT circuit.idCircuit,circuit.nom,circuit.description,circuit.urlImage,circuit.prix,groupevoyage.nbInscrit FROM circuit,groupevoyage WHERE groupevoyage.idGroupeVoyage = ? AND circuit.idCircuit= groupevoyage.idCircuit";
+			$unModele=new circuitsModele($requette,array($id));
+			$stmt=$unModele->executer();
+			$ligne=$stmt->fetch(PDO::FETCH_OBJ);
+			$tabRes['action']="ajouterAuPanier";	
+
+			if(isset($_SESSION["shopping_cart"]))  
+			{  
+				 $item_array_id = array_column($_SESSION["shopping_cart"], "item_id");  
+				 if(!in_array($id, $item_array_id))  
+				 {  
+					  $count = count($_SESSION["shopping_cart"]);  
+					  $item_array = array(  
+						   'item_id'    =>$ligne->idCircuit,  
+						   'item_title'  => $ligne->nom,  
+						   'item_price'  => $ligne->prix,  
+						   'item_quantity' => $ligne->nbInscrit 
+					  );  
+					  $_SESSION["shopping_cart"][$count] = $item_array;  
+				 } else {  
+					  $tabRes['msg']="Item déjà ajouté!";
+				 }  
+				 $tabRes['itemCount']= $count;	
+			}  
+			else  
+			{  
+				 $item_array = array(  
+					'item_id'    => $ligne->idCircuit,  
+					'item_title'  => $ligne->nom,  
+					'item_price'  => $ligne->prix,  
+					'item_quantity' => $ligne->nbInscrit
+				 );  
+				 $_SESSION["shopping_cart"][0] = $item_array;  
+			}  
+
+		}catch(Exception $e){
+		}finally{
+			unset($unModele);
+		}
+	}
+
+
 	//******************************************************
 	//Contr�leur
 	$action=$_POST['action'];
@@ -172,6 +222,9 @@
 		break;
 		case "modifier" :
 			modifier();
+		break;
+		case "ajouterAuPanier" :
+		      ajouterAuPanier();
 		break;
 	}
 	echo json_encode($tabRes); // json_encode --> Retourne la représentation JSON d'une valeur 
