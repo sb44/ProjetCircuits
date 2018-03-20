@@ -46,6 +46,9 @@ function listerCarte() {
 
 function afficherGroupesVoyagesDeCircuit(noCircuit) {
     //debugger;
+    if (document.getElementById('idDeparts').className == "collapse show")
+        return; // annuler si on cache pour éviter requête inutile
+
     var formFilm = new FormData();
     formFilm.append('action', 'afficherGroupesVoyagesDeCircuit'); //alert(formFilm.get("action"));
     formFilm.append('noCircuit', noCircuit); //alert(formFilm.get("action"));
@@ -69,6 +72,9 @@ function afficherGroupesVoyagesDeCircuit(noCircuit) {
 
 function afficherEtapesDeCircuit(noCircuit) {
     debugger;
+    if (document.getElementById('idEtapes').className == "collapse show")
+        return; // annuler si on cache pour éviter requête inutile
+
     var formFilm = new FormData();
     formFilm.append('action', 'afficherEtapesDeCircuit'); //alert(formFilm.get("action"));
     formFilm.append('noCircuit', noCircuit); //alert(formFilm.get("action"));

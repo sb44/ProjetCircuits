@@ -351,7 +351,7 @@ function afficherCardCircuit(noCircuit) {
     var leCircuit = " 	<div class=\"col-md-10 offset-md-1\"> ";
     leCircuit += " 		<!-- foreach circuit-->";
     leCircuit += " 		<div class=\"card bg-light border-light mb-3\"> ";
-    leCircuit += " 		  <h6 class=\"card-header bg-dark text-white\">" + circuit[0].nomCircuit + " (" + circuit[0].nomTheme + ")</h6>  ";
+    leCircuit += " 		  <h5 class=\"card-header bg-dark text-white\">" + circuit[0].nomCircuit + " (" + circuit[0].nomTheme + ")</h5>  ";
     leCircuit += " 			  <img class=\"card-img-top mt-3 px-3 img-fluid rounded-0\" src='./pochettes/" + circuit[0].urlImage + "' alt=\"Card image cap\">";
     leCircuit += " 				<div class=\"card-body\"> ";
     leCircuit += " 					<p class=\"card-text center\">";
@@ -423,11 +423,6 @@ function afficherCardCircuit(noCircuit) {
     leCircuit += " 						</div>";
     leCircuit += " 					</div>";
     leCircuit += " ";
-    leCircuit += " ";
-    leCircuit += " ";
-    leCircuit += " ";
-    //leCircuit += " 			   </div> ";
-    leCircuit += " ";
     leCircuit += " 			  </div>";
     leCircuit += " 			  <div class=\"card-footer bg-dark text-white\">";
     leCircuit += " 					Bon voyage!";
@@ -463,7 +458,7 @@ function afficherEtapes(listeJours) {
     for (var i = 0; i < taille; i++) {
         //leCircuit +=" 								<!-- foreach ÉTAPE -->";
         if (idEtape == "" || idEtape != leCircuit[i].idEtape)
-            leCircuit +=" 								<h5 class=\"bg-dark text-white p-2\">L'étape " + noEtape++ + " : " + listeJours[i].etapeDescription + "</h5> ";
+            leCircuit +=" 								<h5 class=\"bg-dark text-white p-2 rounded-top\">L'étape " + noEtape++ + " : " + listeJours[i].etapeDescription + "</h5> ";
         //leCircuit +=" 								<!-- foreach jour d'ÉTAPE -->";
         leCircuit +=" 								<div class=\"card bg-light border-light mb-3\"> ";
         leCircuit +=" 									<h6 class=\"card-header bg-light\">" + listeJours[i].jourDescription + "</h6>  ";
