@@ -63,7 +63,7 @@
 		$tabRes['action']="afficherEtapesDeCircuit";
 
 		// $requete="SELECT etape.description AS etapeDescription, etape.pays AS etapePays, etape.photo AS etapePhoto, jour.description AS jourDescription, jour.photo AS jourPhoto, jour.Activites AS jourActivites, jour.ville AS jourVille FROM etape, jour WHERE etape.idEtape = jour.idEtape AND etape.idCircuit = ?"; 
-		$requete="SELECT etape.description AS etapeDescription, etape.pays AS etapePays, etape.photo AS etapePhoto, jour.description AS jourDescription, jour.photo AS jourPhoto, jour.Activites AS jourActivites, jour.ville AS jourVille, restaurant.nom AS jourrestaurantNom, restaurant.urlRestaurant AS joururlRestaurant FROM etape, jour, hotel, restaurant WHERE etape.idEtape = jour.idEtape AND jour.idHotel = hotel.idHotel AND jour.idRestaurant = restaurant.idRestaurant AND etape.idCircuit = ?";
+		$requete="SELECT etape.idEtape AS etapeId, etape.description AS etapeDescription, etape.pays AS etapePays, etape.photo AS etapePhoto, jour.description AS jourDescription, jour.photo AS jourPhoto, jour.Activites AS jourActivites, jour.ville AS jourVille, restaurant.nom AS jourrestaurantNom, restaurant.urlRestaurant AS joururlRestaurant FROM etape, jour, hotel, restaurant WHERE etape.idEtape = jour.idEtape AND jour.idHotel = hotel.idHotel AND jour.idRestaurant = restaurant.idRestaurant AND etape.idCircuit = ?";
 
 		try {
 			 $unModele=new circuitsModele($requete,array($idCircuit));

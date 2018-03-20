@@ -273,10 +273,7 @@ function construireCarte(listeCircuits) {
     addMarker(map, montreal, contentStringMtl, google.maps.Animation.DROP, 'Montréal (Point de départ)', iconBase + 'airports.png');
     for (var i = 0; i < taille; i++) {
         localisation = { lat: parseFloat(listeCircuits[i].latitude), lng: parseFloat(listeCircuits[i].longitude) };
-        contentString = '<a href="javascript:void(0);" title="Consulter ce circuit!" onClick="afficherCardCircuit(' + listeCircuits[i].idCircuit + ');">' + '<span class="oi oi-eye"></span> ' + listeCircuits[i].nomCircuit + ' (' + listeCircuits[i].nomTheme + ')</a>'; //''+
-        //'<a href="" onClick="afficherGroupesVoyagesPourCircuit(' + listeCircuits[i].idCircuit +');"><span class="nav-link"><span class="oi oi-eye"></span> Afficher les départs!</span></a>';
-        //'<a href="#" onClick="ajouterAuPanier(' + listeCircuits[i].idCircuit +');"><span class="nav-link"><span class="oi oi-cart id"></span> Ajouter au panier!</span></a>';
-
+        contentString = '<a href="javascript:void(0);" title="Consulter ce circuit!" onClick="afficherCardCircuit(' + listeCircuits[i].idCircuit + ');">' + '<span class="oi oi-eye"></span> ' + listeCircuits[i].nomCircuit + ' (' + listeCircuits[i].nomTheme + ')</a>';
         //addMarker(map, position, contentString, animation, title, icon);
         addMarker(map, localisation, contentString, google.maps.Animation.DROP, listeCircuits[i].nomCircuit, listeCircuits[i].iconUrl + '');
     }
@@ -287,7 +284,6 @@ function construireCarte(listeCircuits) {
     //Mettre la légend visible:
     legend.style.visibility = 'visible';
 
-    //}
     // Adds a marker to the map.
     function addMarker(map, position, contentString, animation, title, icon) {
 
@@ -362,6 +358,10 @@ function afficherCardCircuit(noCircuit) {
     leCircuit += " 						" + circuit[0].description + "";
     leCircuit += " 					</p>";
     leCircuit += " ";
+    leCircuit += " 				<!-- Text en bas du card de circuit -->";
+    leCircuit += " 				<p class=\"card-text center\">";
+    leCircuit += " 					<small class=\"text-muted\">&nbsp;&nbsp;&nbsp;&nbsp;<span class=\"oi oi-dollar\">&nbsp;&nbsp;</span>Valeur du circuit: 60.00 $ </small>";
+    leCircuit += " 				</p>";
     leCircuit += " 				<div class=\"col-12 mb-3\" title=\"Afficher les étapes...\">";
     leCircuit += " 						<a data-toggle=\"collapse\" class=\"collapsed btn btn-secondary\" href=\"#idEtapes\" aria-label=\"Expand/Collapse Card 1\" aria-expanded=\"false\" role=\"button\" onClick=\"afficherEtapesDeCircuit(" + circuit[0].idCircuit + ")\">";
     leCircuit += " 							<i class=\"fa\" aria-hidden=\"true\"></i>";
@@ -393,10 +393,6 @@ function afficherCardCircuit(noCircuit) {
     leCircuit += " 					</div>";
     leCircuit += " 			   </div> ";
     leCircuit += " ";
-    leCircuit += " 				<!-- Text en bas du card de circuit -->";
-    leCircuit += " 				<p class=\"card-text center\">";
-    leCircuit += " 					<small class=\"text-muted\">&nbsp;&nbsp;&nbsp;&nbsp;<span class=\"oi oi-dollar\">&nbsp;&nbsp;</span>Valeur du circuit: 60.00 $ </small>";
-    leCircuit += " 				</p>";
     leCircuit += " 					<div class=\"col-12\" title=\"Afficher les départs de ce circuit...\">";
     leCircuit += " 							<a data-toggle=\"collapse\" class=\"collapsed btn btn-success\" href=\"#idDeparts\" aria-label=\"Expand/Collapse Card 1\" aria-expanded=\"false\" role=\"button\" onClick=\"afficherGroupesVoyagesDeCircuit(" + circuit[0].idCircuit + ")\">";
     leCircuit += " 								<i class=\"fa\" aria-hidden=\"true\"></i>";
@@ -450,10 +446,41 @@ function afficherCardCircuit(noCircuit) {
 
     });
 }
-function afficherEtapes(listeEtapes) {
-    alert("arriver à afficherEtapes dans circuitsControleurVue.js");
-    
-    
+function afficherEtapes(listeJours) {
+    //alert("arriver à afficherEtapes dans circuitsControleurVue.js");
+    debugger;
+    var taille = listeJours.length;
+    if (taille == 0) {
+        var errorMess = "<p class=\"text-danger text-left\">";
+        errorMess += "Désolé! Ce circuit ne contient pas d'étapes! Veuillez vérifer plus tard!"
+        errorMess += "</p>";
+        document.getElementById('idEtapes').innerHTML = errorMess;
+        return;
+    }
+
+    var leCircuit = idEtape ="";
+    var noEtape = 1;
+    for (var i = 0; i < taille; i++) {
+        //leCircuit +=" 								<!-- foreach ÉTAPE -->";
+        if (idEtape == "" || idEtape != leCircuit[i].idEtape)
+            leCircuit +=" 								<h5 class=\"bg-dark text-white p-2\">L'étape " + noEtape++ + " : " + listeJours[i].etapeDescription + "</h5> ";
+        //leCircuit +=" 								<!-- foreach jour d'ÉTAPE -->";
+        leCircuit +=" 								<div class=\"card bg-light border-light mb-3\"> ";
+        leCircuit +=" 									<h6 class=\"card-header bg-light\">" + listeJours[i].jourDescription + "</h6>  ";
+        if (listeJours[i].jourPhoto != "null" && listeJours[i].jourPhoto != "" && listeJours[i].jourPhoto != null)
+            leCircuit +=" 										<img class=\"card-img-top mt-3 px-3 rounded\" src='./pochettes/" + listeJours[i].jourPhoto + "' alt=\"Card image cap\">";
+        leCircuit +=" 										<div class=\"card-body\"> ";
+        if (listeJours[i].jourActivites != "null" && listeJours[i].jourActivites != "" && listeJours[i].jourActivites != null)
+            leCircuit +=" 											<p class=\"card-text center\">" + listeJours[i].jourActivites + "</p>";
+        leCircuit +=" 									</div>";
+        leCircuit +=" 								</div>";
+        //leCircuit +=" 							<!-- fin foreach jour d'ÉTAPE -->";
+        //leCircuit +=" 							<!-- Fin foreach ÉTAPE -->";
+        idEtape = leCircuit[i].idEtape;
+    }
+
+    document.getElementById('idEtapes').innerHTML = leCircuit;
+
 }
 
 function afficherGroupesVoyage(listeGroupesVoyage) {
