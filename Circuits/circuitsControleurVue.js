@@ -362,22 +362,19 @@ function afficherCardCircuit(noCircuit) {
     leCircuit += " 						" + circuit[0].description + "";
     leCircuit += " 					</p>";
     leCircuit += " ";
-    leCircuit += " ";
-    leCircuit += " 			   <div id=\"lesCardsEtape\" class=\"card-deck mt-2\">";
-    leCircuit += " ";
-    leCircuit += " 				";
-    leCircuit += " 				<div class=\"col-10 offset-1 mb-3 d-flex\" title=\"Afficher les étapes...\">";
-    leCircuit += " 						<a data-toggle=\"collapse\" class=\"collapsed btn btn-secondary\" href=\"#idEtapes\" aria-label=\"Expand/Collapse Card 1\" aria-expanded=\"false\" role=\"button\">";
+    leCircuit += " 				<div class=\"col-12 mb-3\" title=\"Afficher les étapes...\">";
+    leCircuit += " 						<a data-toggle=\"collapse\" class=\"collapsed btn btn-secondary\" href=\"#idEtapes\" aria-label=\"Expand/Collapse Card 1\" aria-expanded=\"false\" role=\"button\" onClick=\"afficherEtapesDeCircuit(" + circuit[0].idCircuit + ")\">";
     leCircuit += " 							<i class=\"fa\" aria-hidden=\"true\"></i>";
     leCircuit += " 							<span class=\"sr-only\">Expand/Collapse Card 1</span>";
     leCircuit += " 						</a>";
-    leCircuit += " 						<span data-toggle=\"collapse\" class=\"collapsed btn btn-outline\" href=\"#idEtapes\" aria-label=\"Expand/Collapse Card 1\" aria-expanded=\"false\">";
+    leCircuit += " 						<span data-toggle=\"collapse\" class=\"collapsed btn btn-outline\" href=\"#idEtapes\" aria-label=\"Expand/Collapse Card 1\" aria-expanded=\"false\" onClick=\"afficherEtapesDeCircuit(" + circuit[0].idCircuit + ")\">";
     leCircuit += " 							<h6>Afficher les étapes!</h6>";
     leCircuit += " 						</span>				";
     leCircuit += " 				</div>";
     leCircuit += " 				";
     leCircuit += " ";
-    leCircuit += " 				";
+    leCircuit += " 			   <div id=\"lesCardsEtape\" class=\"card-deck mt-2\">";
+    leCircuit += " ";
     leCircuit += " 					<div class=\"col-10 offset-1\">";
     leCircuit += " 							<div class=\"collapse\" id=\"idEtapes\">";
     //leCircuit +=" 								<!-- foreach ÉTAPE -->";
@@ -394,13 +391,13 @@ function afficherCardCircuit(noCircuit) {
     //leCircuit +=" 							<!-- Fin foreach ÉTAPE -->";
     leCircuit += " 							</div>";
     leCircuit += " 					</div>";
-    leCircuit += " ";
+    leCircuit += " 			   </div> ";
     leCircuit += " ";
     leCircuit += " 				<!-- Text en bas du card de circuit -->";
     leCircuit += " 				<p class=\"card-text center\">";
     leCircuit += " 					<small class=\"text-muted\">&nbsp;&nbsp;&nbsp;&nbsp;<span class=\"oi oi-dollar\">&nbsp;&nbsp;</span>Valeur du circuit: 60.00 $ </small>";
-    leCircuit += " ";
-    leCircuit += " 					<div class=\"col-12 d-flex\" title=\"Afficher les départs de ce circuit...\">";
+    leCircuit += " 				</p>";
+    leCircuit += " 					<div class=\"col-12\" title=\"Afficher les départs de ce circuit...\">";
     leCircuit += " 							<a data-toggle=\"collapse\" class=\"collapsed btn btn-success\" href=\"#idDeparts\" aria-label=\"Expand/Collapse Card 1\" aria-expanded=\"false\" role=\"button\" onClick=\"afficherGroupesVoyagesDeCircuit(" + circuit[0].idCircuit + ")\">";
     leCircuit += " 								<i class=\"fa\" aria-hidden=\"true\"></i>";
     leCircuit += " 								<span class=\"sr-only\">Expand/Collapse Card 1</span>";
@@ -410,7 +407,6 @@ function afficherCardCircuit(noCircuit) {
     leCircuit += " 								<h6>Afficher les départs!</h6>";
     leCircuit += " 							</span>";
     leCircuit += " 					</div>";
-    leCircuit += " 				</p>";
     leCircuit += " 					";
     leCircuit += " 					<div class=\"col-10 offset-1 col-lg-8 offset-lg-2\">";
     leCircuit += " 						<div class=\"collapse\" id=\"idDeparts\">";
@@ -434,7 +430,7 @@ function afficherCardCircuit(noCircuit) {
     leCircuit += " ";
     leCircuit += " ";
     leCircuit += " ";
-    leCircuit += " 			   </div> ";
+    //leCircuit += " 			   </div> ";
     leCircuit += " ";
     leCircuit += " 			  </div>";
     leCircuit += " 			  <div class=\"card-footer bg-dark text-white\">";
@@ -454,10 +450,14 @@ function afficherCardCircuit(noCircuit) {
 
     });
 }
+function afficherEtapes(listeEtapes) {
+    alert("arriver à afficherEtapes dans circuitsControleurVue.js");
+    
+    
+}
 
 function afficherGroupesVoyage(listeGroupesVoyage) {
     //debugger;
-
     var taille = listeGroupesVoyage.length;
 
     if (taille == 0) {
@@ -485,10 +485,7 @@ function afficherGroupesVoyage(listeGroupesVoyage) {
     }
 
     document.getElementById('idDeparts').innerHTML = groupeVoy;
-
 }
-
-
 
 
 function listerF(listFilms) {
@@ -541,6 +538,9 @@ var circuitsVue = function(reponse) {
             break;
         case "afficherGroupesVoyagesDeCircuit":
             afficherGroupesVoyage(reponse.listeGroupesVoyage);
+            break;
+        case "afficherEtapesDeCircuit":
+            afficherEtapes(reponse.listeEtapes);
             break;
         case "enregistrer":
         case "enlever":

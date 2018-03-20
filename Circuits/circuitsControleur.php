@@ -25,9 +25,7 @@
 	function listerCarte(){
 		global $tabRes;
 		$tabRes['action']="listerCarte";
-		//$requete="SELECT idCircuit FROM circuit";
 		$requete="SELECT circuit.idCircuit, circuit.nom AS nomCircuit, circuit.description, circuit.capacite, circuit.urlImage, circuit.prix, theme.idTheme, theme.nom AS nomTheme, theme.iconUrl, circuit.latitude, circuit.longitude FROM circuit, theme WHERE circuit.idTheme = theme.idTheme AND circuit.enVigueur = 1";
-		//$requete="SELECT description FROM jour";
 		try{
 			 $unModele=new circuitsModele($requete,array());
 			 $stmt=$unModele->executer();
@@ -55,6 +53,27 @@
 			 }
 		}catch(Exception $e){
 		}finally{
+			unset($unModele);
+		}
+	}
+
+	function afficherEtapesDeCircuit() {
+		global $tabRes;
+		$idCircuit=$_POST['noCircuit'];
+		$tabRes['action']="afficherEtapesDeCircuit";
+
+		// $requete="SELECT etape.description AS etapeDescription, etape.pays AS etapePays, etape.photo AS etapePhoto, jour.description AS jourDescription, jour.photo AS jourPhoto, jour.Activites AS jourActivites, jour.ville AS jourVille FROM etape, jour WHERE etape.idEtape = jour.idEtape AND etape.idCircuit = ?"; 
+		$requete="SELECT etape.description AS etapeDescription, etape.pays AS etapePays, etape.photo AS etapePhoto, jour.description AS jourDescription, jour.photo AS jourPhoto, jour.Activites AS jourActivites, jour.ville AS jourVille, restaurant.nom AS jourrestaurantNom, restaurant.urlRestaurant AS joururlRestaurant FROM etape, jour, hotel, restaurant WHERE etape.idEtape = jour.idEtape AND jour.idHotel = hotel.idHotel AND jour.idRestaurant = restaurant.idRestaurant AND etape.idCircuit = ?";
+
+		try {
+			 $unModele=new circuitsModele($requete,array($idCircuit));
+			 $stmt=$unModele->executer();
+			 $tabRes['listeEtapes']=array();
+			 while($ligne=$stmt->fetch(PDO::FETCH_OBJ)) {
+			    $tabRes['listeEtapes'][]=$ligne;
+			 }
+		} catch(Exception $e) {
+		} finally {
 			unset($unModele);
 		}
 	}
@@ -207,6 +226,9 @@
 		break;
 		case "afficherGroupesVoyagesDeCircuit":
 			afficherGroupesVoyagesDeCircuit();
+		break;
+		case "afficherEtapesDeCircuit":
+			afficherEtapesDeCircuit();
 		break;
 		case "enregistrer" :
 			enregistrer();
