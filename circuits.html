@@ -118,20 +118,23 @@
                         </form>
                     </li>
                     <li class="nav-item dropdown" id="navConnexion">
-                        <a href="#" id="connect" class="nav-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <a data-target="#" id="connect" class="nav-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">
                             <button type="button" class="btn btn-link dropdown-toggle text-white"><i class="fa fa-user"> Se connecter</i> </button><span class="caret"></span></a>
                         <ul class="dropdown-menu dropdown-menu-right login-dp" aria-labelledby="navbarDropdownMenuLink">
                             <li>
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <form class="form" role="form" id="formConn" name="formConn" method="POST">
+                                        <form class="form" role="form" id="formConn" name="formConn" method="POST" onsubmit="event.preventDefault(); validerConnexion();">
                                             <!--  onSubmit="return validerConnexion('');" method="post" action="serveur/gestionMembres.php" accept-charset="UTF-8" -->
-                                            <h4>Connexion</h4>
+                                            <div class="InscTitre text-center">
+                                                <h4>Connexion</h4>
+                                            </div>
+                                            <h5><span id="errConn" class="text-danger"></span></h5>
                                             <hr>
                                             <input type="hidden" name="monAction" value="connexion">
                                             <label for="inputCourConn">Courriel</label>
                                             <div class="form-group">
-                                                <input type="text" class="form-control" id="inputCourConn" name="inputCourConn" placeholder="votreAdresse@courriel.com">
+                                                <input type="text" class="form-control" id="inputCourConn" name="inputCourConn" placeholder="votreAdresse@courriel.com" onkeyup="validerCourrielConn(this);">
                                                 <span id="errCourConn" class="text-danger"></span>
                                             </div>
                                             <div class="form-group">
@@ -142,7 +145,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <!-- <button type="submit" class="btn btn-primary btn-block">Connexion</button> -->
-                                                <input type="button" class="btn btn-primary btn-block" value="Connexion" onClick="validerConnexion();">
+                                                <input type="submit" class="btn btn-primary btn-block" value="Connexion" >
                                             </div>
                                             <!--<div class="checkbox">
 													<label>
@@ -180,7 +183,7 @@
                                         <form class="form" role="form" id="formEnr" name="formEnr" method="POST" onsubmit="event.preventDefault(); validerEnregistrement();">
                                             <!-- onSubmit="return validerEnregistrement('');" method="post" action="serveur/gestionMembres.php" accept-charset="UTF-8" -->
                                             <div class="InscTitre text-center">
-                                                <h4>Enregistrement</h4>
+                                                <h4>Inscription</h4>
                                             </div>
                                             <h5><span id="errenr" class="text-danger"></span></h5>
                                             <hr>
@@ -234,7 +237,6 @@
                                                 <div class="col-6 nomP">
                                                     <div class="form-group">
                                                         <input type="password" class="form-control" id="inputMotPasseConfEnr" name="inputMotPasseConfEnr" placeholder="Confirmer Mot de passe" onkeyup="checkPass(); return false;">
-                                                        <small><span id="errMotPasseConfEnr"></span></small>
                                                     </div>
                                                 </div>
                                             </div>
@@ -243,7 +245,7 @@
                                                 En vous inscrivant, vous acceptez les Conditions générales d’utilisation et la Politique de confidentialité.
                                             </div>
                                             <div class="form-group">
-                                                <input type="submit" class="btn btn-primary btn-block" value="Soumettre" ">
+                                                <input type="submit" class="btn btn-primary btn-block" value="Soumettre">
                                                 <!-- <button type="submit" class="btn btn-primary btn-block">Soumettre</button> -->
                                             </div>
                                             <hr>

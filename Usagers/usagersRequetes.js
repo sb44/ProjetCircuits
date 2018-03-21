@@ -19,7 +19,7 @@ function enregUsager(){
 		}
 	}); 
 }
-function lister(){
+function connUsager(){
 	var formconnexion = new FormData(document.getElementById('formConn'));
 	formconnexion.append('action','connecter');//alert(formFilm.get("action"));
 	$.ajax({
@@ -29,11 +29,12 @@ function lister(){
 		async : false,
 		contentType : false,
 		processData : false,
-		dataType : 'json', //text pour le voir en format de string
-		success : function (reponse){//alert(reponse);
-					filmsVue(reponse);
+		dataType : 'text', //text pour le voir en format de string
+		success : function (reponse){alert(reponse);
+					//filmsVue(reponse);
 		},
 		fail : function (err){
+			alert(1111);
 		}
 	});
 }

@@ -100,35 +100,29 @@ function checkPass(){
 /////////////////// Fin Validation Inscription ///////////////////////
 
 /////////////////// Validation connexion ///////////////////////
+function validerCourrielConn(courriel){
+	var msg=document.getElementById("errCourConn");
+    if(REG_EMAIL.test(courriel.value) == false && courriel.value != "")
+    {
+		msg.innerHTML = "Adresse courriel non-valide";
+		msg.className = "text-danger";	
+    }else{
+		msg.innerHTML	= "";
+    }
+}
 function validerConnexion() {  // fonction qui retour true ou false
-	debugger;
-	var courriel = document.getElementById('username').value.trim();
-	var motDePasse = document.getElementById('password').value.trim();
-	
-	var errCourConn = document.getElementById('errCourConn');
-	var errMotPasseConn = document.getElementById('errMotPasseConn');
-	
-	var estValide = true;
-	
-	var regex = new RegExp(REG_EMAIL);
-	if (!regex.test(courriel)) {
-		errCourConn.innerHTML = "Vous devez entrez un courriel valide.";
-		estValide = false;
-	} else 
-	errCourConn.innerHTML = "";
-	
-	var regex = new RegExp(REG_PASSWORD);	
-	if (!regex.test(motDePasse)) {
-		errMotPasseConn.innerHTML = "Vous devez entrez un mot de passe valide de 5 à 20 caractères de composé de lettres et chiffres. Un caractère spéciale est permis à la fin.";
-		estValide = false;
-	} else 
-	errMotPasseConn.innerHTML = "";
-	
-	if (estValide)			
-	return true;
-	else
-	return false;	
-	
+	//debugger;
+	var courriel = document.getElementById('inputCourConn').value.trim();
+	var errCourConn = document.getElementById('errCourConn').innerHTML;
+    if(errCourConn == "" && courriel !== "")
+    {
+		document.getElementById('connect').setAttribute("aria-expanded", "false");
+		//connUsager();
+		return true;
+    }else{
+		document.getElementById('errConn').innerHTML = "Il y un probleme de formulaire";
+		return false;	
+	}
 }
 /////////////////// Fin Validation connexion ///////////////////////
 
