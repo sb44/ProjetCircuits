@@ -14,6 +14,7 @@ var REG_DATE = /^\d{4}-\d{2}-\d{2}$/;
 
 $(document).ready(function () {
 	listerCarte();
+	// actualiserNumeroPanierNavBarPanier(); //TODO : mettre le bon numero du carte dans le navbar
 });
 
 ///////////////////  Validation menu Inscription ///////////////////////
