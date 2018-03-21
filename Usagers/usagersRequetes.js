@@ -6,13 +6,13 @@ function enregUsager(){
 		type : 'POST',
 		url : 'Usagers/usagersControleur.php',
 		data : formUsager,
-		dataType : 'text', //text pour le voir en format de string
+		dataType : 'json', //text pour le voir en format de string
 		async : false,
 		//cache : false,
 		contentType : false,
 		processData : false,
-		success : function (reponse){ alert(reponse);
-					//filmsVue(reponse); //appel de fonction javascript défini dans filmsControleurVue.js
+		success : function (reponse){ //alert(reponse);
+					InscritUsager(reponse); //appel de fonction javascript défini dans filmsControleurVue.js
 		},
 		fail : function (err){
 			alert(1111);

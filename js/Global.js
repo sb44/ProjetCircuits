@@ -90,9 +90,11 @@ function checkPass(){
 		document.getElementById('errenr').innerHTML = "";
 		//alert("On a vérifié le formulaire");
 		enregUsager();
+		return true;
 	} else {
 		//alert("il y un probleme avec formulaire")
 		document.getElementById('errenr').innerHTML = "Vous devez remplir tous les champ";
+		return false;
 	}
 }
 /////////////////// Fin Validation Inscription ///////////////////////

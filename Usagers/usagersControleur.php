@@ -14,11 +14,11 @@
   			$requete="SELECT * FROM connexion WHERE courriel = ? ";
 			$unModele=new circuitsModele($requete,array($courriel));
 			$stmt=$unModele->executer();
-			$tabRes['msg']=$stmt->fetch(PDO::FETCH_OBJ);
+			//$tabRes['msg']=$stmt->fetch(PDO::FETCH_OBJ);
 			
 			if($stmt->rowCount() > 0 ){ // si courriel existe
 				$tabRes['action']="enregistrer";
-				$tabRes['msg2']="existe";
+				$tabRes['msg']="existe";
 			}else{
 					$requete=" INSERT INTO connexion VALUES(0,?,?,?) ";
 					$unModele=new circuitsModele($requete,array($courriel,$mdp,"utilisateur"));
@@ -27,13 +27,12 @@
 					$requete="INSERT INTO utilisateur VALUES(0,?,?,?,?)";
 					$unModele=new circuitsModele($requete,array($nom,$prenom,$dateNaissance,$lasId));
 					$stmt=$unModele->executer();
-					
 					$tabRes['action']="enregistrer";
-					$tabRes['msg2']="l'utilisateur inseree";
+					$tabRes['msg']="ok";
 			} 
 		}catch(Exception $e){
 			$tabRes['action']="enregistrer";
-			$tabRes['msg']="probleme";
+			$tabRes['msg']="erreur";
 		}finally{
 			unset($unModele);
 		}
