@@ -22,6 +22,7 @@ function ajouterAuPanier(id) {
 
 
 function ouvrirPanier() {
+    debugger;
     var formFilm = new FormData();
     formFilm.append('action', 'ouvrirPanier');
     $.ajax({

@@ -169,25 +169,3 @@ function modifier() {
         fail: function(err) {}
     });
 }
-
-
-function ajouterAuPanier(id) {
-    var formFilm = new FormData();
-    formFilm.append('action', 'ajouterAuPanier');
-    formFilm.append('numeroItem', id);
-
-    $.ajax({
-        type: 'POST',
-        url: 'Circuits/circuitsControleur.php',
-        data: formFilm,
-        contentType: false,
-        processData: false,
-        dataType: 'json',
-        success: function(reponse) {
-            //alert(reponse);
-            circuitsVue(reponse);
-        },
-        fail: function(err) {}
-    });
-
-}
