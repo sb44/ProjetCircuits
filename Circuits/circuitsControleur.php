@@ -63,7 +63,7 @@
 		$tabRes['action']="afficherEtapesDeCircuit";
 
 		// $requete="SELECT etape.description AS etapeDescription, etape.pays AS etapePays, etape.photo AS etapePhoto, jour.description AS jourDescription, jour.photo AS jourPhoto, jour.Activites AS jourActivites, jour.ville AS jourVille FROM etape, jour WHERE etape.idEtape = jour.idEtape AND etape.idCircuit = ?"; 
-		$requete="SELECT etape.idEtape AS etapeId, etape.description AS etapeDescription, etape.pays AS etapePays, etape.photo AS etapePhoto, jour.description AS jourDescription, jour.photo AS jourPhoto, jour.Activites AS jourActivites, jour.ville AS jourVille, restaurant.nom AS jourrestaurantNom, restaurant.urlRestaurant AS joururlRestaurant FROM etape, jour, hotel, restaurant WHERE etape.idEtape = jour.idEtape AND jour.idHotel = hotel.idHotel AND jour.idRestaurant = restaurant.idRestaurant AND etape.idCircuit = ?";
+		$requete="SELECT etape.idEtape AS etapeId, etape.description AS etapeDescription, etape.pays AS etapePays, etape.photo AS etapePhoto, jour.description AS jourDescription, jour.photo AS jourPhoto, jour.Activites AS jourActivites, jour.ville AS jourVille, restaurant.nom AS jourrestaurantNom, restaurant.urlRestaurant AS joururlRestaurant, hotel.nom AS hotelNom, hotel.urlHotel AS joururlHotel FROM etape, jour, hotel, restaurant WHERE etape.idEtape = jour.idEtape AND jour.idHotel = hotel.idHotel AND jour.idRestaurant = restaurant.idRestaurant AND etape.idCircuit = ? ORDER BY jour.idJour";
 
 		try {
 			 $unModele=new circuitsModele($requete,array($idCircuit));
@@ -168,55 +168,6 @@
 		}
 	}
 
-
-	function ajouterAuPanier(){
-		session_start();
-		global $tabRes;	
-		$id=$_POST['numeroItem'];
-	
-		try{
-			$requette="SELECT circuit.idCircuit,circuit.nom,circuit.description,circuit.urlImage,circuit.prix,groupevoyage.nbInscrit FROM circuit,groupevoyage WHERE groupevoyage.idGroupeVoyage = ? AND circuit.idCircuit= groupevoyage.idCircuit";
-			$unModele=new circuitsModele($requette,array($id));
-			$stmt=$unModele->executer();
-			$ligne=$stmt->fetch(PDO::FETCH_OBJ);
-			$tabRes['action']="ajouterAuPanier";	
-
-			if(isset($_SESSION["shopping_cart"]))  
-			{  
-				 $item_array_id = array_column($_SESSION["shopping_cart"], "item_id");  
-				 if(!in_array($id, $item_array_id))  
-				 {  
-					  $count = count($_SESSION["shopping_cart"]);  
-					  $item_array = array(  
-						   'item_id'    =>$ligne->idCircuit,  
-						   'item_title'  => $ligne->nom,  
-						   'item_price'  => $ligne->prix,  
-						   'item_quantity' => $ligne->nbInscrit 
-					  );  
-					  $_SESSION["shopping_cart"][$count] = $item_array;  
-				 } else {  
-					  $tabRes['msg']="Item déjà ajouté!";
-				 }  
-				 $tabRes['itemCount']= $count;	
-			}  
-			else  
-			{  
-				 $item_array = array(  
-					'item_id'    => $ligne->idCircuit,  
-					'item_title'  => $ligne->nom,  
-					'item_price'  => $ligne->prix,  
-					'item_quantity' => $ligne->nbInscrit
-				 );  
-				 $_SESSION["shopping_cart"][0] = $item_array;  
-			}  
-
-		}catch(Exception $e){
-		}finally{
-			unset($unModele);
-		}
-	}
-
-
 	//******************************************************
 	//Contr�leur
 	$action=$_POST['action'];
@@ -229,24 +180,6 @@
 		break;
 		case "afficherEtapesDeCircuit":
 			afficherEtapesDeCircuit();
-		break;
-		case "enregistrer" :
-			enregistrer();
-		break;
-		case "lister" :
-			lister();
-		break;
-		case "enlever" :
-			enlever();
-		break;
-		case "fiche" :
-			fiche();
-		break;
-		case "modifier" :
-			modifier();
-		break;
-		case "ajouterAuPanier" :
-		      ajouterAuPanier();
 		break;
 	}
 	echo json_encode($tabRes); // json_encode --> Retourne la représentation JSON d'une valeur 

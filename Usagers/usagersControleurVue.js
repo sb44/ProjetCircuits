@@ -31,11 +31,31 @@ function afficherFiche(reponse){
   }
 
 }
+function InscritUsager(reponse){
+  var msg=document.getElementById('errenr');
+  debugger;
+	if(reponse.msg == "ok"){
+		msg.innerHTML = "Merci pour vous inscrire chez nous ! vous pouvez maintenant vous connecter";
+			msg.className = "text-success";
+
+	}
+	else if(reponse.msg == "existe") {
+		msg.innerHTML = "L'utilisateur avec ce courriel déja existe";
+		msg.className = "text-danger";
+	}
+	else if (reponse.msg == "erreur") {
+		msg.innerHTML = "Il y a un probléme d'inscription , veuillez commncer à nouveau";
+		msg.className = "text-danger";
+	}
+
+}
 // ********************** selon l'action, on appelle la méthode concerné *******************
-var filmsVue=function(reponse){
+var usagersVue=function(reponse){
 	var action=reponse.action; 
 	switch(action){
 		case "enregistrer" :
+
+		break;
 		case "enlever" :
 		case "modifier" :
 			$('#messages').html(reponse.msg);

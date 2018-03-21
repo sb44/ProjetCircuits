@@ -11,34 +11,70 @@
 		$mdp=$_POST['inputMotPasseEnr'];
 		//$hash = password_hash($mdp, PASSWORD_DEFAULT); 
 		try{
-/*  			$requete="SELECT * FROM connexion WHERE courriel = ? ";
+  			$requete="SELECT * FROM connexion WHERE courriel = ? ";
 			$unModele=new circuitsModele($requete,array($courriel));
 			$stmt=$unModele->executer();
-			$tabRes['msg']=$stmt->fetch(PDO::FETCH_OBJ);
+			//$tabRes['msg']=$stmt->fetch(PDO::FETCH_OBJ);
 			
-			if($ligne=$stmt->fetch(PDO::FETCH_OBJ)){ // si courriel existe
+			if($stmt->rowCount() > 0 ){ // si courriel existe
 				$tabRes['action']="enregistrer";
-				$tabRes['msg2']="existe";
-			}
-			else
-			{ */
-				//$tabRes['action']=$courriel;
-				//$tabRes['msg']=$mdp;
+				$tabRes['msg']="existe";
+			}else{
 					$requete=" INSERT INTO connexion VALUES(0,?,?,?) ";
-					$unModele=new circuitsModele($requete,array($courriel,$mdp,"utilisateur"));
+					$unModele=new circuitsModele($requete,array($courriel,$mdp,"administrateur"));
 					$unModele->executer();
-/* 					$lasId=$unModele->LAST_ID;
+ 					$lasId=$unModele->LAST_ID;
 					$requete="INSERT INTO utilisateur VALUES(0,?,?,?,?)";
 					$unModele=new circuitsModele($requete,array($nom,$prenom,$dateNaissance,$lasId));
-					$stmt=$unModele->executer();  */
+					$stmt=$unModele->executer();
 					$tabRes['action']="enregistrer";
-					$tabRes['msg2']="l'utilisateur inseree";
-		//	} 
+					$tabRes['msg']="ok";
+			} 
 		}catch(Exception $e){
 			$tabRes['action']="enregistrer";
-			$tabRes['msg']="probleme";
+			$tabRes['msg']="erreur";
 		}finally{
-			//unset($unModele);
+			unset($unModele);
+		}
+	}
+	function connecter(){
+		global $tabRes;	
+ 		$courriel=$_POST['inputCourConn'];
+		$mdp=$_POST['inputMotPasseConn'];
+		//$hash = password_hash($mdp, PASSWORD_DEFAULT); 
+		try{
+			$requete="SELECT * FROM connexion WHERE courriel = ? ";
+			$unModele=new circuitsModele($requete,array($courriel));
+			$stmt=$unModele->executer();
+			$tabRes['action']="connecter";
+			//$tabRes['msg']=$stmt->fetch(PDO::FETCH_OBJ);
+			
+			 if($stmt->rowCount() > 0){ // si courriel existe
+				$ligne=$stmt->fetch(PDO::FETCH_OBJ);
+				$mdpDB=$ligne->motDePasse;
+				$roleDB=$ligne->role;
+
+				if ($mdpDB == $mdp) {
+					$tabRes['action']="connecter";
+					$tabRes['msg']="ok";
+					if ($roleDB == 'utilisateur') {
+						$tabRes['role']="utilisateur";
+					} else {
+						$tabRes['role']="admin";
+					} 
+				} else {
+					$tabRes['action']="connecter";
+					$tabRes['msg']="mdpIncorrecte";
+				}
+			}else{
+					$tabRes['action']="connecter";
+					$tabRes['msg']="nonInscrit";
+			} 
+		}catch(Exception $e){
+			$tabRes['action']="connecter";
+			$tabRes['msg']="erreur";
+		}finally{
+			unset($unModele);
 		}
 	}
 	function lister(){
@@ -137,8 +173,8 @@
 		case "enregistrer" :
 			enregistrer();
 		break;
-		case "lister" :
-			lister();
+		case "connecter" :
+			connecter();
 		break;
 		case "enlever" :
 			enlever();
