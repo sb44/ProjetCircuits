@@ -20,12 +20,13 @@ function enregUsager(){
 	}); 
 }
 function lister(){
-	var formFilm = new FormData();
-	formFilm.append('action','lister');//alert(formFilm.get("action"));
+	var formconnexion = new FormData(document.getElementById('formConn'));
+	formconnexion.append('action','connecter');//alert(formFilm.get("action"));
 	$.ajax({
 		type : 'POST',
-		url : 'Films/filmsControleur.php',
-		data : formFilm,
+		url : 'Usagers/usagersControleur.php',
+		data : formconnexion,
+		async : false,
 		contentType : false,
 		processData : false,
 		dataType : 'json', //text pour le voir en format de string
