@@ -457,21 +457,32 @@ function afficherEtapes(listeJours) {
     var noEtape = 1;
     for (var i = 0; i < taille; i++) {
         //leCircuit +=" 								<!-- foreach ÉTAPE -->";
-        if (idEtape == "" || idEtape != leCircuit[i].idEtape)
+        if (idEtape == "" || idEtape != listeJours[i].etapeId)
             leCircuit +=" 								<h5 class=\"bg-dark text-white p-2 rounded-top\">L'étape " + noEtape++ + " : " + listeJours[i].etapeDescription + "</h5> ";
         //leCircuit +=" 								<!-- foreach jour d'ÉTAPE -->";
         leCircuit +=" 								<div class=\"card bg-light border-light mb-3\"> ";
         leCircuit +=" 									<h6 class=\"card-header bg-light\">" + listeJours[i].jourDescription + "</h6>  ";
-        if (listeJours[i].jourPhoto != "null" && listeJours[i].jourPhoto != "" && listeJours[i].jourPhoto != null)
-            leCircuit +=" 										<img class=\"card-img-top mt-3 px-3 rounded\" src='./pochettes/" + listeJours[i].jourPhoto + "' alt=\"Card image cap\">";
-        leCircuit +=" 										<div class=\"card-body\"> ";
-        if (listeJours[i].jourActivites != "null" && listeJours[i].jourActivites != "" && listeJours[i].jourActivites != null)
-            leCircuit +=" 											<p class=\"card-text center\">" + listeJours[i].jourActivites + "</p>";
-        leCircuit +=" 									</div>";
-        leCircuit +=" 								</div>";
+        leCircuit +=" <div class=\"row\">";  
+        leCircuit +=" 	<div class=\"col-sm-7\"> ";
+        if (listeJours[i].jourActivites != "null" && listeJours[i].jourActivites != "" && listeJours[i].jourActivites != null) {
+            leCircuit +=" 		<p class=\"card-text center mt-3 px-3\">" + listeJours[i].jourActivites + "</p>";
+        }
+        //hotel + resto:
+        leCircuit +=" 		<p class=\"card-text center mt-6 px-3\"><span class=\"oi oi-bug id\"></span>  Restaurant : <a href=" + listeJours[i].joururlRestaurant +">" + listeJours[i].jourrestaurantNom + "</a></p>";
+        leCircuit +=" 		<p class=\"card-text center mt-3 px-3\"><span class=\"oi oi-briefcase id\"></span>  Accomodement : <a href=" + listeJours[i].joururlHotel +">" + listeJours[i].hotelNom + "</a></p>";
+        
+        leCircuit +=" </div> ";
+
+        leCircuit +="   <div class=\"col-sm-5\">";
+            if (listeJours[i].jourPhoto != "null" && listeJours[i].jourPhoto != "" && listeJours[i].jourPhoto != null){
+                leCircuit +=" 		<img class=\"card-img-top mt-3 px-3 rounded\" src='./pochettes/" + listeJours[i].jourPhoto + "' alt=\"Card image cap\">";
+            }
+        leCircuit +=" </div> ";
+        leCircuit +=" </div>";
+        leCircuit +="</div>";
         //leCircuit +=" 							<!-- fin foreach jour d'ÉTAPE -->";
         //leCircuit +=" 							<!-- Fin foreach ÉTAPE -->";
-        idEtape = leCircuit[i].idEtape;
+        idEtape = listeJours[i].etapeId;
     }
 
     document.getElementById('idEtapes').innerHTML = leCircuit;
