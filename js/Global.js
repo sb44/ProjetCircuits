@@ -17,6 +17,7 @@ $(document).ready(function () {
 });
 
 ///////////////////  Validation menu Inscription ///////////////////////
+
 function validerNom(txt){
 	txt.value = txt.value.replace(/[^a-zA-Z-'\n\r.]+/g, '');
 }
@@ -32,7 +33,11 @@ function validerCourriel(courriel){
 }
 function validerDate(date){
 	var msg=document.getElementById("errDateNaissance");
-    if(REG_DATE.test(date.value) == false)
+	var d=date.value
+	var bday= d.split("-");
+	var annee=bday[0];
+
+    if(REG_DATE.test(date.value) == false || annee < 1900 || annee>2017)
     {
 		msg.innerHTML = "date non-valide";
 		msg.className = "text-danger";	
@@ -85,9 +90,11 @@ function checkPass(){
 		document.getElementById('errenr').innerHTML = "";
 		//alert("On a vérifié le formulaire");
 		enregUsager();
+		return true;
 	} else {
-		alert("il y un probleme avec formulaire")
+		//alert("il y un probleme avec formulaire")
 		document.getElementById('errenr').innerHTML = "Vous devez remplir tous les champ";
+		return false;
 	}
 }
 /////////////////// Fin Validation Inscription ///////////////////////

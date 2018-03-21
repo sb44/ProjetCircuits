@@ -119,12 +119,12 @@
                     </li>
                     <li class="nav-item dropdown" id="navConnexion">
                         <a href="#" id="connect" class="nav-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <button type="button" class="btn btn-link dropdown-toggle text-white">Se connecter </button><span class="caret"></span></a>
+                            <button type="button" class="btn btn-link dropdown-toggle text-white"><i class="fa fa-user"> Se connecter</i> </button><span class="caret"></span></a>
                         <ul class="dropdown-menu dropdown-menu-right login-dp" aria-labelledby="navbarDropdownMenuLink">
                             <li>
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <form class="form" role="form" id="formConn" name="formConn">
+                                        <form class="form" role="form" id="formConn" name="formConn" method="POST">
                                             <!--  onSubmit="return validerConnexion('');" method="post" action="serveur/gestionMembres.php" accept-charset="UTF-8" -->
                                             <h4>Connexion</h4>
                                             <hr>
@@ -170,19 +170,19 @@
                     <li class="nav-item dropdown" id="navEnregistrement">
                         <a href="#" id="enregistrer" class="nav-link " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <!--<button class="btn btn-outline-primary dropdown-toggle text-white" id="btnEnregistrer">Devenir membre </button><span class="caret"></span></a>-->
-                            <button class="btn btn-primary dropdown-toggle text-white" id="btnEnregistrer">Devenir membre </button><span class="caret"></span></a>
+                            <button class="btn btn-primary dropdown-toggle text-white" id="btnEnregistrer"><i class="fa fa-user-plus"></i> Devenir membre</button><span class="caret"></span></a>
 
 
                         <ul class="dropdown-menu dropdown-menu-right inscription-dp" aria-labelledby="navbarDropdownMenuLink">
                             <li>
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <form class="form" role="form" id="formEnr" name="formEnr" method="POST">
+                                        <form class="form" role="form" id="formEnr" name="formEnr" method="POST" onsubmit="event.preventDefault(); validerEnregistrement();">
                                             <!-- onSubmit="return validerEnregistrement('');" method="post" action="serveur/gestionMembres.php" accept-charset="UTF-8" -->
                                             <div class="InscTitre text-center">
                                                 <h4>Enregistrement</h4>
                                             </div>
-                                            <span id="errenr" class="text-danger"></span>
+                                            <h5><span id="errenr" class="text-danger"></span></h5>
                                             <hr>
                                             <input type="hidden" name="monAction" value="enregistrer">
                                             <div class="row">
@@ -243,7 +243,7 @@
                                                 En vous inscrivant, vous acceptez les Conditions générales d’utilisation et la Politique de confidentialité.
                                             </div>
                                             <div class="form-group">
-                                                <input type="submit" class="btn btn-primary btn-block" value="Soumettre" onClick="validerEnregistrement();">
+                                                <input type="submit" class="btn btn-primary btn-block" value="Soumettre" ">
                                                 <!-- <button type="submit" class="btn btn-primary btn-block">Soumettre</button> -->
                                             </div>
                                             <hr>

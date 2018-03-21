@@ -6,13 +6,13 @@ function enregUsager(){
 		type : 'POST',
 		url : 'Usagers/usagersControleur.php',
 		data : formUsager,
-		dataType : 'text', //text pour le voir en format de string
+		dataType : 'json', //text pour le voir en format de string
 		async : false,
 		//cache : false,
 		contentType : false,
 		processData : false,
-		success : function (reponse){ alert(reponse);
-					//filmsVue(reponse); //appel de fonction javascript défini dans filmsControleurVue.js
+		success : function (reponse){ //alert(reponse);
+					InscritUsager(reponse); //appel de fonction javascript défini dans filmsControleurVue.js
 		},
 		fail : function (err){
 			alert(1111);
@@ -20,12 +20,13 @@ function enregUsager(){
 	}); 
 }
 function lister(){
-	var formFilm = new FormData();
-	formFilm.append('action','lister');//alert(formFilm.get("action"));
+	var formconnexion = new FormData(document.getElementById('formConn'));
+	formconnexion.append('action','connecter');//alert(formFilm.get("action"));
 	$.ajax({
 		type : 'POST',
-		url : 'Films/filmsControleur.php',
-		data : formFilm,
+		url : 'Usagers/usagersControleur.php',
+		data : formconnexion,
+		async : false,
 		contentType : false,
 		processData : false,
 		dataType : 'json', //text pour le voir en format de string
