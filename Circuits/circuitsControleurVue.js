@@ -273,10 +273,7 @@ function construireCarte(listeCircuits) {
     addMarker(map, montreal, contentStringMtl, google.maps.Animation.DROP, 'Montréal (Point de départ)', iconBase + 'airports.png');
     for (var i = 0; i < taille; i++) {
         localisation = { lat: parseFloat(listeCircuits[i].latitude), lng: parseFloat(listeCircuits[i].longitude) };
-        contentString = '<a href="javascript:void(0);" title="Consulter ce circuit!" onClick="afficherCardCircuit(' + listeCircuits[i].idCircuit + ');">' + '<span class="oi oi-eye"></span> ' + listeCircuits[i].nomCircuit + ' (' + listeCircuits[i].nomTheme + ')</a>'; //''+
-        //'<a href="" onClick="afficherGroupesVoyagesPourCircuit(' + listeCircuits[i].idCircuit +');"><span class="nav-link"><span class="oi oi-eye"></span> Afficher les départs!</span></a>';
-        //'<a href="#" onClick="ajouterAuPanier(' + listeCircuits[i].idCircuit +');"><span class="nav-link"><span class="oi oi-cart id"></span> Ajouter au panier!</span></a>';
-
+        contentString = '<a href="javascript:void(0);" title="Consulter ce circuit!" onClick="afficherCardCircuit(' + listeCircuits[i].idCircuit + ');">' + '<span class="oi oi-eye"></span> ' + listeCircuits[i].nomCircuit + ' (' + listeCircuits[i].nomTheme + ')</a>';
         //addMarker(map, position, contentString, animation, title, icon);
         addMarker(map, localisation, contentString, google.maps.Animation.DROP, listeCircuits[i].nomCircuit, listeCircuits[i].iconUrl + '');
     }
@@ -287,7 +284,6 @@ function construireCarte(listeCircuits) {
     //Mettre la légend visible:
     legend.style.visibility = 'visible';
 
-    //}
     // Adds a marker to the map.
     function addMarker(map, position, contentString, animation, title, icon) {
 
@@ -355,29 +351,30 @@ function afficherCardCircuit(noCircuit) {
     var leCircuit = " 	<div class=\"col-md-10 offset-md-1\"> ";
     leCircuit += " 		<!-- foreach circuit-->";
     leCircuit += " 		<div class=\"card bg-light border-light mb-3\"> ";
-    leCircuit += " 		  <h6 class=\"card-header bg-dark text-white\">" + circuit[0].nomCircuit + " (" + circuit[0].nomTheme + ")</h6>  ";
+    leCircuit += " 		  <h5 class=\"card-header bg-dark text-white\">" + circuit[0].nomCircuit + " (" + circuit[0].nomTheme + ")</h5>  ";
     leCircuit += " 			  <img class=\"card-img-top mt-3 px-3 img-fluid rounded-0\" src='./pochettes/" + circuit[0].urlImage + "' alt=\"Card image cap\">";
     leCircuit += " 				<div class=\"card-body\"> ";
     leCircuit += " 					<p class=\"card-text center\">";
     leCircuit += " 						" + circuit[0].description + "";
     leCircuit += " 					</p>";
     leCircuit += " ";
-    leCircuit += " ";
-    leCircuit += " 			   <div id=\"lesCardsEtape\" class=\"card-deck mt-2\">";
-    leCircuit += " ";
-    leCircuit += " 				";
-    leCircuit += " 				<div class=\"col-10 offset-1 mb-3 d-flex\" title=\"Afficher les étapes...\">";
-    leCircuit += " 						<a data-toggle=\"collapse\" class=\"collapsed btn btn-secondary\" href=\"#idEtapes\" aria-label=\"Expand/Collapse Card 1\" aria-expanded=\"false\" role=\"button\">";
+    leCircuit += " 				<!-- Text en bas du card de circuit -->";
+    leCircuit += " 				<p class=\"card-text center\">";
+    leCircuit += " 					<small class=\"text-muted\">&nbsp;&nbsp;&nbsp;&nbsp;<span class=\"oi oi-dollar\">&nbsp;&nbsp;</span>Valeur du circuit: 60.00 $ </small>";
+    leCircuit += " 				</p>";
+    leCircuit += " 				<div class=\"col-12 mb-3\" title=\"Afficher les étapes...\">";
+    leCircuit += " 						<a data-toggle=\"collapse\" class=\"collapsed btn btn-secondary\" href=\"#idEtapes\" aria-label=\"Expand/Collapse Card 1\" aria-expanded=\"false\" role=\"button\" onClick=\"afficherEtapesDeCircuit(" + circuit[0].idCircuit + ")\">";
     leCircuit += " 							<i class=\"fa\" aria-hidden=\"true\"></i>";
     leCircuit += " 							<span class=\"sr-only\">Expand/Collapse Card 1</span>";
     leCircuit += " 						</a>";
-    leCircuit += " 						<span data-toggle=\"collapse\" class=\"collapsed btn btn-outline\" href=\"#idEtapes\" aria-label=\"Expand/Collapse Card 1\" aria-expanded=\"false\">";
+    leCircuit += " 						<span data-toggle=\"collapse\" class=\"collapsed btn btn-outline\" href=\"#idEtapes\" aria-label=\"Expand/Collapse Card 1\" aria-expanded=\"false\" onClick=\"afficherEtapesDeCircuit(" + circuit[0].idCircuit + ")\">";
     leCircuit += " 							<h6>Afficher les étapes!</h6>";
     leCircuit += " 						</span>				";
     leCircuit += " 				</div>";
     leCircuit += " 				";
     leCircuit += " ";
-    leCircuit += " 				";
+    leCircuit += " 			   <div id=\"lesCardsEtape\" class=\"card-deck mt-2\">";
+    leCircuit += " ";
     leCircuit += " 					<div class=\"col-10 offset-1\">";
     leCircuit += " 							<div class=\"collapse\" id=\"idEtapes\">";
     //leCircuit +=" 								<!-- foreach ÉTAPE -->";
@@ -394,13 +391,9 @@ function afficherCardCircuit(noCircuit) {
     //leCircuit +=" 							<!-- Fin foreach ÉTAPE -->";
     leCircuit += " 							</div>";
     leCircuit += " 					</div>";
+    leCircuit += " 			   </div> ";
     leCircuit += " ";
-    leCircuit += " ";
-    leCircuit += " 				<!-- Text en bas du card de circuit -->";
-    leCircuit += " 				<p class=\"card-text center\">";
-    leCircuit += " 					<small class=\"text-muted\">&nbsp;&nbsp;&nbsp;&nbsp;<span class=\"oi oi-dollar\">&nbsp;&nbsp;</span>Valeur du circuit: 60.00 $ </small>";
-    leCircuit += " ";
-    leCircuit += " 					<div class=\"col-12 d-flex\" title=\"Afficher les départs de ce circuit...\">";
+    leCircuit += " 					<div class=\"col-12\" title=\"Afficher les départs de ce circuit...\">";
     leCircuit += " 							<a data-toggle=\"collapse\" class=\"collapsed btn btn-success\" href=\"#idDeparts\" aria-label=\"Expand/Collapse Card 1\" aria-expanded=\"false\" role=\"button\" onClick=\"afficherGroupesVoyagesDeCircuit(" + circuit[0].idCircuit + ")\">";
     leCircuit += " 								<i class=\"fa\" aria-hidden=\"true\"></i>";
     leCircuit += " 								<span class=\"sr-only\">Expand/Collapse Card 1</span>";
@@ -410,7 +403,6 @@ function afficherCardCircuit(noCircuit) {
     leCircuit += " 								<h6>Afficher les départs!</h6>";
     leCircuit += " 							</span>";
     leCircuit += " 					</div>";
-    leCircuit += " 				</p>";
     leCircuit += " 					";
     leCircuit += " 					<div class=\"col-10 offset-1 col-lg-8 offset-lg-2\">";
     leCircuit += " 						<div class=\"collapse\" id=\"idDeparts\">";
@@ -431,11 +423,6 @@ function afficherCardCircuit(noCircuit) {
     leCircuit += " 						</div>";
     leCircuit += " 					</div>";
     leCircuit += " ";
-    leCircuit += " ";
-    leCircuit += " ";
-    leCircuit += " ";
-    leCircuit += " 			   </div> ";
-    leCircuit += " ";
     leCircuit += " 			  </div>";
     leCircuit += " 			  <div class=\"card-footer bg-dark text-white\">";
     leCircuit += " 					Bon voyage!";
@@ -454,10 +441,56 @@ function afficherCardCircuit(noCircuit) {
 
     });
 }
+function afficherEtapes(listeJours) {
+    //alert("arriver à afficherEtapes dans circuitsControleurVue.js");
+    debugger;
+    var taille = listeJours.length;
+    if (taille == 0) {
+        var errorMess = "<p class=\"text-danger text-left\">";
+        errorMess += "Désolé! Ce circuit ne contient pas d'étapes! Veuillez vérifer plus tard!"
+        errorMess += "</p>";
+        document.getElementById('idEtapes').innerHTML = errorMess;
+        return;
+    }
+
+    var leCircuit = idEtape ="";
+    var noEtape = 1;
+    for (var i = 0; i < taille; i++) {
+        //leCircuit +=" 								<!-- foreach ÉTAPE -->";
+        if (idEtape == "" || idEtape != listeJours[i].etapeId)
+            leCircuit +=" 								<h5 class=\"bg-dark text-white p-2 rounded-top\">L'étape " + noEtape++ + " : " + listeJours[i].etapeDescription + "</h5> ";
+        //leCircuit +=" 								<!-- foreach jour d'ÉTAPE -->";
+        leCircuit +=" 								<div class=\"card bg-light border-light mb-3\"> ";
+        leCircuit +=" 									<h6 class=\"card-header bg-light\">" + listeJours[i].jourDescription + "</h6>  ";
+        leCircuit +=" <div class=\"row\">";  
+        leCircuit +=" 	<div class=\"col-sm-7\"> ";
+        if (listeJours[i].jourActivites != "null" && listeJours[i].jourActivites != "" && listeJours[i].jourActivites != null) {
+            leCircuit +=" 		<p class=\"card-text center mt-3 px-3\">" + listeJours[i].jourActivites + "</p>";
+        }
+        //hotel + resto:
+        leCircuit +=" 		<p class=\"card-text center mt-6 px-3\"><span class=\"oi oi-bug id\"></span>  Restaurant : <a href=" + listeJours[i].joururlRestaurant +">" + listeJours[i].jourrestaurantNom + "</a></p>";
+        leCircuit +=" 		<p class=\"card-text center mt-3 px-3\"><span class=\"oi oi-briefcase id\"></span>  Accomodement : <a href=" + listeJours[i].joururlHotel +">" + listeJours[i].hotelNom + "</a></p>";
+        
+        leCircuit +=" </div> ";
+
+        leCircuit +="   <div class=\"col-sm-5\">";
+            if (listeJours[i].jourPhoto != "null" && listeJours[i].jourPhoto != "" && listeJours[i].jourPhoto != null){
+                leCircuit +=" 		<img class=\"card-img-top mt-3 px-3 rounded\" src='./pochettes/" + listeJours[i].jourPhoto + "' alt=\"Card image cap\">";
+            }
+        leCircuit +=" </div> ";
+        leCircuit +=" </div>";
+        leCircuit +="</div>";
+        //leCircuit +=" 							<!-- fin foreach jour d'ÉTAPE -->";
+        //leCircuit +=" 							<!-- Fin foreach ÉTAPE -->";
+        idEtape = listeJours[i].etapeId;
+    }
+
+    document.getElementById('idEtapes').innerHTML = leCircuit;
+
+}
 
 function afficherGroupesVoyage(listeGroupesVoyage) {
     //debugger;
-
     var taille = listeGroupesVoyage.length;
 
     if (taille == 0) {
@@ -485,50 +518,6 @@ function afficherGroupesVoyage(listeGroupesVoyage) {
     }
 
     document.getElementById('idDeparts').innerHTML = groupeVoy;
-
-}
-
-
-
-
-function listerF(listFilms) {
-    var taille;
-    var rep = "<div class='table-users' style='overflow: scroll; height: 500px;'>";
-    rep += "<div class='header'>Liste des films<span style='float:right;padding-right:10px;cursor:pointer;' onClick=\"$('#contenu').hide();\">X</span></div>";
-    rep += "<table cellspacing='0'>";
-    rep += "<tr><th>NUMERO</th><th>TITRE</th><th>DUREE</th><th>REALISATEUR</th><th>POCHETTE</th></tr>";
-    taille = listFilms.length;
-    for (var i = 0; i < taille; i++) {
-        rep += "<tr><td>" + listFilms[i].idf + "</td><td>" + listFilms[i].titre + "</td><td>" + listFilms[i].duree + "</td><td>" + listFilms[i].res + "</td><td><img src='pochettes/" + listFilms[i].pochette + "' width=80 height=80></td></tr>";
-    }
-    rep += "</table>";
-    rep += "</div>";
-    $('#contenu').html(rep);
-}
-
-function afficherFiche(reponse) {
-    var uneFiche;
-    if (reponse.OK) {
-        uneFiche = reponse.fiche;
-        $('#formFicheF h3:first-child').html("Fiche du film numero " + uneFiche.idf);
-        $('#idf').val(uneFiche.idf);
-        $('#titreF').val(uneFiche.titre);
-        $('#dureeF').val(uneFiche.duree);
-        $('#resF').val(uneFiche.res);
-        $('#divFormFiche').show();
-        document.getElementById('divFormFiche').style.display = 'block';
-    } else {
-        $('#messages').html("Film " + $('#numF').val() + " introuvable");
-        setTimeout(function() { $('#messages').html(""); }, 5000);
-    }
-
-}
-
-
-
-function addToCart(reponse) {
-    $('#nbItemPanier').text("(" + reponse.itemCount + ")");
-    lister();
 }
 
 // ********************** selon l'action, on appelle la méthode concerné *******************
@@ -542,21 +531,8 @@ var circuitsVue = function(reponse) {
         case "afficherGroupesVoyagesDeCircuit":
             afficherGroupesVoyage(reponse.listeGroupesVoyage);
             break;
-        case "enregistrer":
-        case "enlever":
-        case "modifier":
-            $('#messages').html(reponse.msg);
-            setTimeout(function() { $('#messages').html(""); }, 5000);
-            break;
-        case "lister":
-            listerF(reponse.listeFilms);
-            break;
-        case "fiche":
-            afficherFiche(reponse);
-            break;
-
-        case "ajouterAuPanier":
-            addToCart(reponse);
+        case "afficherEtapesDeCircuit":
+            afficherEtapes(reponse.listeEtapes);
             break;
         default:
             alert("Erreur. on doit définir l'action pour le fichier circuitsControleurVue.js");

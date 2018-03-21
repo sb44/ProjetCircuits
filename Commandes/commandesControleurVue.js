@@ -1,53 +1,56 @@
-//vue films
-function listerF(listFilms){
-	var taille;
-	var rep="<div class='table-users' style='overflow: scroll; height: 500px;'>";
-	rep+="<div class='header'>Liste des films<span style='float:right;padding-right:10px;cursor:pointer;' onClick=\"$('#contenu').hide();\">X</span></div>";
-	rep+="<table cellspacing='0'>";
-	rep+="<tr><th>NUMERO</th><th>TITRE</th><th>DUREE</th><th>REALISATEUR</th><th>POCHETTE</th></tr>";
-	taille=listFilms.length;
-	for(var i=0; i<taille; i++){
-		rep+="<tr><td>"+listFilms[i].idf+"</td><td>"+listFilms[i].titre+"</td><td>"+listFilms[i].duree+"</td><td>"+listFilms[i].res+"</td><td><img src='pochettes/"+listFilms[i].pochette+"' width=80 height=80></td></tr>";		 
-	}
-	rep+="</table>";
-	rep+="</div>";
-	$('#contenu').html(rep);
+function addToCart(reponse) {
+    $('#nbItemPanier').text("(" + reponse.itemCount + ")");
 }
 
-function afficherFiche(reponse){
-  var uneFiche;
-  if(reponse.OK) {
-			uneFiche=reponse.fiche;
-			$('#formFicheF h3:first-child').html("Fiche du film numero "+uneFiche.idf);
-			$('#idf').val(uneFiche.idf);
-			$('#titreF').val(uneFiche.titre);
-			$('#dureeF').val(uneFiche.duree);
-			$('#resF').val(uneFiche.res);
-			$('#divFormFiche').show();
-			document.getElementById('divFormFiche').style.display='block';
-  } else {
-			$('#messages').html("Film "+$('#numF').val()+" introuvable");
-			setTimeout(function(){ $('#messages').html(""); }, 5000);
-  }
+
+function openCart(reponse) {
+    $('#divDetailPanier').hide();
+    var input = "";
+    var circuit = reponse.itemList;
+    var total = 0;
+
+    input += "<div class=\"row\"><h3>Détails du panier</h3><div class=\"col-md-12 col-lg-10\"><table border=\"0\" class=\"table table-hover\">";
+    input += "<tr><th> Circuit </th> <th> Départ </th> <th> Retour </th> <th> Prix Ajusté Adulte </th> <th> Prix Ajusté Enfant </th> <th> Prix Ajusté Bébé </th><th> </th></tr> ";
+
+
+    for (var i = 0; i < circuit.length; i++) {
+
+        input += "<tr>  <td > " + circuit[i].item_title + " </td>";
+        input += "<td>" + circuit[i].item_Departure + "</td>";
+        input += "<td>" + circuit[i].item_Return + " </td>";
+        input += "<td>" + circuit[i].item_Adult_price * (1 - circuit[i].item_Rabais_Adulte) + "$</td>";
+        input += "<td>" + circuit[i].item_Child_price * (1 - circuit[i].item_Child_discount) + " $</td>";
+        input += "<td>" + circuit[i].item_Baby_price * (1 - circuit[i].item_Rabais_Bebe) + " $</td>";
+
+        input += "<td><form>";
+        input += "<input type='button' name='reserver' class='btn btn-outline-danger' value='Reserver'>";
+        input += "</form>";
+        input += "</td></tr>";
+        total++;
+    }
+    input += "<tr><td colspan=\"3\"><strong>Total</strong></td>  <td>" + total + " circuits" + "</td>  <td></td>";
+    input += " </table> </div> </div>";
+    input += "<div class=\"row\">";
+    input += "<div class=\"col-md-12 col-lg-10\"><a href='#'>Retour à la page d'accueil</a></div></div>";
+
+    $('#divDetailPanier').html(input);
+    // $('#divDetailPanier').append(input);
+    $('#divDetailPanier').show();
 
 }
+
 // ********************** selon l'action, on appelle la méthode concerné *******************
-var filmsVue=function(reponse){
-	var action=reponse.action; 
-	switch(action){
-		case "enregistrer" :
-		case "enlever" :
-		case "modifier" :
-			$('#messages').html(reponse.msg);
-			setTimeout(function(){ $('#messages').html(""); }, 5000);
-		break;
-		case "lister" :
-			listerF(reponse.listeFilms);
-		break;
-		case "fiche" :
-			afficherFiche(reponse);
-		break;
-		
-	}
+var commandesVue = function(reponse) {
+    debugger;
+    var action = reponse.action;
+    switch (action) {
+        case "ajouterAuPanier":
+            addToCart(reponse);
+            break;
+        case "ouvrirPanier":
+            openCart(reponse);
+            break;
+        default:
+            alert("Erreur. on doit définir l'action pour le fichier circuitsControleurVue.js");
+    }
 }
-
