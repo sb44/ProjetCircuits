@@ -5,6 +5,7 @@
 	
 	function ajouterAuPanier(){
 		session_start();
+		//$_SESSION = array();
 		global $tabRes;	
 		$id=$_POST['numeroItem'];
 		$count=0;
@@ -24,7 +25,7 @@
 				 {  
 					  $count = count($_SESSION["shopping_cart"]);  
 					  $item_array = array(  
-						'item_id' =>$ligne->idCircuit,  
+						'item_id' =>$id,  
 						'item_title' => $ligne->nom,  
 						'item_Adult_price'=> $ligne->prixAdulte,  
 						'item_Child_price' => $ligne->prixEnfant,  
@@ -45,7 +46,7 @@
 			else  
 			{  
 				 $item_array = array(  
-					       'item_id' =>$ligne->idCircuit,  
+					       'item_id' =>$id,  
 						   'item_title' => $ligne->nom,  
 						   'item_Adult_price'=> $ligne->prixAdulte,  
 						   'item_Child_price' => $ligne->prixEnfant,  
@@ -96,6 +97,13 @@
 		}
 
 
+		function ficheReservation(){
+			global $tabRes;
+			$idCommande=$_POST['idCommande'];
+			$tabRes['action']="ficheReservation";
+			$tabRes['idCommande']=$idCommande;
+			}
+	
 	
 	//******************************************************
 	//Contr�leur
@@ -106,6 +114,9 @@
 		break;
 		case "ajouterAuPanier" :
 		      ajouterAuPanier();
+		break;
+		case "ficheReservation" :
+		ficheReservation();
 		break;
 	}
     echo json_encode($tabRes); // json_encode --> Retourne la représentation JSON d'une valeur 
