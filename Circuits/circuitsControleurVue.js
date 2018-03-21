@@ -350,10 +350,10 @@ function afficherCardCircuit(noCircuit) {
 
     var leCircuit = " 	<div class=\"col-md-10 offset-md-1\"> ";
     leCircuit += " 		<!-- foreach circuit-->";
-    leCircuit += " 		<div class=\"card bg-light border-light mb-3\"> ";
-    leCircuit += " 		  <h5 class=\"card-header bg-dark text-white\">" + circuit[0].nomCircuit + " (" + circuit[0].nomTheme + ")</h5>  ";
-    leCircuit += " 			  <img class=\"card-img-top mt-3 px-3 img-fluid rounded-0\" src='./pochettes/" + circuit[0].urlImage + "' alt=\"Card image cap\">";
-    leCircuit += " 				<div class=\"card-body\"> ";
+    leCircuit += " 		<div class=\"card border-light mb-3\"> ";
+    leCircuit += " 		  <h5 class=\"card-header text-white\" style=\"background-color: #CD5AB3;\">" + circuit[0].nomCircuit + " (" + circuit[0].nomTheme + ")</h5>  ";
+    leCircuit += " 			  <img class=\"card-img-top pt-3 px-3 img-fluid rounded-0\" style=\"background-color: #FBF6E0;\" src='./pochettes/" + circuit[0].urlImage + "' alt=\"Card image cap\">";
+    leCircuit += " 				<div class=\"card-body\" style=\"background-color: #FBF6E0;\"> ";
     leCircuit += " 					<p class=\"card-text center\">";
     leCircuit += " 						" + circuit[0].description + "";
     leCircuit += " 					</p>";
@@ -362,8 +362,8 @@ function afficherCardCircuit(noCircuit) {
     leCircuit += " 				<p class=\"card-text center\">";
     leCircuit += " 					<small class=\"text-muted\">&nbsp;&nbsp;&nbsp;&nbsp;<span class=\"oi oi-dollar\">&nbsp;&nbsp;</span>Valeur du circuit: 60.00 $ </small>";
     leCircuit += " 				</p>";
-    leCircuit += " 				<div class=\"col-12 mb-3\" title=\"Afficher les étapes...\">";
-    leCircuit += " 						<a data-toggle=\"collapse\" class=\"collapsed btn btn-secondary\" href=\"#idEtapes\" aria-label=\"Expand/Collapse Card 1\" aria-expanded=\"false\" role=\"button\" onClick=\"afficherEtapesDeCircuit(" + circuit[0].idCircuit + ")\">";
+    leCircuit += " 				<div class=\"col-12\" title=\"Afficher les étapes...\">";
+    leCircuit += " 						<a data-toggle=\"collapse\" class=\"collapsed btn btn-info\" style=\"background-color: #00AA9E;\" href=\"#idEtapes\" aria-label=\"Expand/Collapse Card 1\" aria-expanded=\"false\" role=\"button\" onClick=\"afficherEtapesDeCircuit(" + circuit[0].idCircuit + ")\">";
     leCircuit += " 							<i class=\"fa\" aria-hidden=\"true\"></i>";
     leCircuit += " 							<span class=\"sr-only\">Expand/Collapse Card 1</span>";
     leCircuit += " 						</a>";
@@ -424,7 +424,7 @@ function afficherCardCircuit(noCircuit) {
     leCircuit += " 					</div>";
     leCircuit += " ";
     leCircuit += " 			  </div>";
-    leCircuit += " 			  <div class=\"card-footer bg-dark text-white\">";
+    leCircuit += " 			  <div class=\"card-footer text-white\" style=\"background-color: #CD5AB3;\" >";
     leCircuit += " 					Bon voyage!";
     leCircuit += " 			  </div> ";
     leCircuit += " 		</div> <!-- FIN foreach circuit-->";
@@ -458,24 +458,24 @@ function afficherEtapes(listeJours) {
     for (var i = 0; i < taille; i++) {
         //leCircuit +=" 								<!-- foreach ÉTAPE -->";
         if (idEtape == "" || idEtape != listeJours[i].etapeId)
-            leCircuit +=" 								<h5 class=\"bg-dark text-white p-2 rounded-top\">L'étape " + noEtape++ + " : " + listeJours[i].etapeDescription + "</h5> ";
+            leCircuit +=" 								<h5 class=\"text-white p-2 mt-2 rounded-top\" style=\"background-color: #00AA9E;\">L'étape " + noEtape++ + " : " + listeJours[i].etapeDescription + "</h5> ";
         //leCircuit +=" 								<!-- foreach jour d'ÉTAPE -->";
-        leCircuit +=" 								<div class=\"card bg-light border-light mb-3\"> ";
-        leCircuit +=" 									<h6 class=\"card-header bg-light\">" + listeJours[i].jourDescription + "</h6>  ";
-        leCircuit +=" <div class=\"row\">";  
+        leCircuit +=" 								<div class=\"card border-light m-2\" style=\"background-color: #F7F7F7;\"> "; 
+        leCircuit +=" 									<h6 class=\"card-header\">" + listeJours[i].jourDescription + "</h6>  ";
+        leCircuit +=" <div class=\"row p-2\">";  
         leCircuit +=" 	<div class=\"col-sm-7\"> ";
         if (listeJours[i].jourActivites != "null" && listeJours[i].jourActivites != "" && listeJours[i].jourActivites != null) {
-            leCircuit +=" 		<p class=\"card-text center mt-3 px-3\">" + listeJours[i].jourActivites + "</p>";
+            leCircuit +=" 		<p class=\"card-text center\">" + listeJours[i].jourActivites + "</p>";
         }
         //hotel + resto:
-        leCircuit +=" 		<p class=\"card-text center mt-6 px-3\"><span class=\"oi oi-bug id\"></span>  Restaurant : <a href=" + listeJours[i].joururlRestaurant +">" + listeJours[i].jourrestaurantNom + "</a></p>";
-        leCircuit +=" 		<p class=\"card-text center mt-3 px-3\"><span class=\"oi oi-briefcase id\"></span>  Accomodement : <a href=" + listeJours[i].joururlHotel +">" + listeJours[i].hotelNom + "</a></p>";
+        leCircuit +=" 		<p class=\"card-text center\"><span class=\"oi oi-bug id\"></span>  Restaurant : <a href=" + listeJours[i].joururlRestaurant +">" + listeJours[i].jourrestaurantNom + "</a></p>";
+        leCircuit +=" 		<p class=\"card-text center\"><span class=\"oi oi-briefcase id\"></span>  Accomodement : <a href=" + listeJours[i].joururlHotel +">" + listeJours[i].hotelNom + "</a></p>";
         
         leCircuit +=" </div> ";
 
         leCircuit +="   <div class=\"col-sm-5\">";
             if (listeJours[i].jourPhoto != "null" && listeJours[i].jourPhoto != "" && listeJours[i].jourPhoto != null){
-                leCircuit +=" 		<img class=\"card-img-top mt-3 px-3 rounded\" src='./pochettes/" + listeJours[i].jourPhoto + "' alt=\"Card image cap\">";
+                leCircuit +=" 		<img class=\"card-img-top mt-2 px-2 rounded\" src='./pochettes/" + listeJours[i].jourPhoto + "' alt=\"Card image cap\">";
             }
         leCircuit +=" </div> ";
         leCircuit +=" </div>";
