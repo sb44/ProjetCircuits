@@ -31,25 +31,25 @@
     <style type="text/css">
 
     </style>
-	<script language="javascript" src="js/jquery-3.3.1.min.js"></script>
-	<!--<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script> -->
+    <script language="javascript" src="js/jquery-3.3.1.min.js"></script>
+    <!--<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script> -->
 
-	<!-- <script type="text/javascript" src="js/oXHR.js"></script> -->
-	<script type="text/javascript" language="javascript" src="js/Global.js"></script>
-	<!-- REQUETES JQUERY -->
-	<script type="text/javascript" language="javascript" src="Circuits/circuitsRequetes.js"></script>
-	<!-- CONTROLEUR VUE -->
-	<script language="javascript" src="Circuits/circuitsControleurVue.js"></script>
+    <!-- <script type="text/javascript" src="js/oXHR.js"></script> -->
+    <script type="text/javascript" language="javascript" src="js/Global.js"></script>
+    <!-- REQUETES JQUERY -->
+    <script type="text/javascript" language="javascript" src="Circuits/circuitsRequetes.js"></script>
+    <!-- CONTROLEUR VUE -->
+    <script language="javascript" src="Circuits/circuitsControleurVue.js"></script>
 
-	<!-- REQUETES Usager JQUERY -->
-	<script language="javascript" src="Usagers/UsagersRequetes.js"></script>
-	<!-- CONTROLEUR Usager VUE -->
+    <!-- REQUETES Usager JQUERY -->
+    <script language="javascript" src="Usagers/UsagersRequetes.js"></script>
+    <!-- CONTROLEUR Usager VUE -->
     <script language="javascript" src="Usagers/UsagersControleurVue.js"></script>
-    
-	<!-- REQUETES Usager JQUERY -->
-	<script language="javascript" src="Commandes/commandesRequetes.js"></script>
-	<!-- CONTROLEUR Usager VUE -->
-	<script language="javascript" src="Commandes/commandesControleurVue.js"></script>
+
+    <!-- REQUETES Usager JQUERY -->
+    <script language="javascript" src="Commandes/commandesRequetes.js"></script>
+    <!-- CONTROLEUR Usager VUE -->
+    <script language="javascript" src="Commandes/commandesControleurVue.js"></script>
 
     <!--		 				modèle.inc.php
 								^			v
@@ -111,7 +111,7 @@
                     </li>
                     <li class="nav-item" id="navConnecteUser">
                         <div title="Mon panier">
-                            <a href="#" class="nav-link" onClick="envoyerFormulaire(panier);"><span class="nav-link"><span class="oi oi-cart id" id="nbItemPanier"> (0)</span> Panier</span></a>
+                            <a href="#" class="nav-link" onClick="ouvrirPanier();"><span class="nav-link"><span class="oi oi-cart id" id="nbItemPanier"> (0)</span> Panier</span></a>
                         </div>
                         <form name="panier" action="serveur/gestionFilms.php" method="post">
                             <input type="hidden" name="monAction" value="panier">
@@ -389,6 +389,9 @@
     </div>
 
 
+    <div id="divDetailPanier" class="container" style="display:none;">
+
+    </div>
 
 
     <!-- DIV  ADMIN test -->

@@ -2,132 +2,110 @@
 	require_once("../includes/modele.inc.php");
 	$tabRes=array();
 
-	function enregistrer(){
+	
+	function ajouterAuPanier(){
+		session_start();
 		global $tabRes;	
-		$titre=$_POST['titre'];
-		$duree=$_POST['duree'];
-		$res=$_POST['res'];
-		try{
-			$unModele=new filmsModele();
-			$pochete=$unModele->verserFichier("pochettes", "pochette", "avatar.jpg",$titre);
-			$requete="INSERT INTO films VALUES(0,?,?,?,?)";
-			$unModele=new filmsModele($requete,array($titre,$duree,$res,$pochete));
-			$stmt=$unModele->executer();
-			$tabRes['action']="enregistrer";
-			$tabRes['msg']="Film bien enregistre";
-		}catch(Exception $e){
-		}finally{
-			unset($unModele);
-		}
-	}
+		$id=$_POST['numeroItem'];
+		$count=0;
 	
-	function lister(){
-		global $tabRes;
-		$tabRes['action']="lister";
-		$requete="SELECT * FROM films";
 		try{
-			 $unModele=new filmsModele($requete,array());
-			 $stmt=$unModele->executer();
-			 $tabRes['listeFilms']=array();
-			 while($ligne=$stmt->fetch(PDO::FETCH_OBJ)){
-			    $tabRes['listeFilms'][]=$ligne;
-			}
-		}catch(Exception $e){
-		}finally{
-			unset($unModele);
-		}
-	}
 	
-	function enlever(){
-		global $tabRes;	
-		$idf=$_POST['numE'];
-		try{
-			$requete="SELECT * FROM films WHERE idf=?";
-			$unModele=new filmsModele($requete,array($idf));
-			$stmt=$unModele->executer();
-			if ($ligne=$stmt->fetch(PDO::FETCH_OBJ)) { //si le film existe, la on le supprime, puisque la requete DELEE FROM nous n'informera pas de ça en MYSQL
-				$unModele->enleverFichier("pochettes",$ligne->pochette); //on supprime la pochette
-				$requete="DELETE FROM films WHERE idf=?";
-				$unModele=new filmsModele($requete,array($idf));
-				$stmt=$unModele->executer();
-				$tabRes['action']="enlever";
-				$tabRes['msg']="Film ".$idf." bien enleve";
-			}
-			else {
-				$tabRes['action']="enlever";
-				$tabRes['msg']="Film ".$idf." introuvable";
-			}
-		}catch(Exception $e){
-		}finally{
-			unset($unModele);
-		}
-	}
-	
-	function fiche(){
-		global $tabRes;
-		$idf=$_POST['numF'];
-		$tabRes['action']="fiche";
-		$requete="SELECT * FROM films WHERE idf=?";
-		try{
-			 $unModele=new filmsModele($requete,array($idf));
-			 $stmt=$unModele->executer();
-			 $tabRes['fiche']=array();
-			 if($ligne=$stmt->fetch(PDO::FETCH_OBJ)){
-			    $tabRes['fiche']=$ligne;
-				$tabRes['OK']=true;
-			}
-			else{
-				$tabRes['OK']=false;
-			}
-		}catch(Exception $e){
-		}finally{
-			unset($unModele);
-		}
-	}
-	
-	function modifier(){
-		global $tabRes;	
-		$titre=$_POST['titreF'];
-		$duree=$_POST['dureeF'];
-		$res=$_POST['resF'];
-		$idf=$_POST['idf']; 
-		try{
-			//Recuperer ancienne pochette
-			$requette="SELECT pochette FROM films WHERE idf=?";
-			$unModele=new filmsModele($requette,array($idf));
+			$requette="SELECT circuit.idCircuit,circuit.nom,circuit.capacite,circuit.enVigueur,groupevoyage.prixAdulte,groupevoyage.prixEnfant,groupevoyage.prixBebe,groupevoyage.dateDepart,groupevoyage.dateRetour,promotion.rabaisAdulte,promotion.rabaisEnfant,promotion.rabaisBebe FROM circuit,groupevoyage,promotion WHERE groupevoyage.idGroupeVoyage = ? AND circuit.idCircuit = groupevoyage.idCircuit AND groupevoyage.idpromotion = promotion.idpromotion";
+			$unModele=new circuitsModele($requette,array($id));
 			$stmt=$unModele->executer();
 			$ligne=$stmt->fetch(PDO::FETCH_OBJ);
-			$anciennePochette=$ligne->pochette;
-			$pochette=$unModele->verserFichier("pochettes", "pochette",$anciennePochette,$titre);	
-			
-			$requete="UPDATE films SET titre=?,duree=?, res=?, pochette=? WHERE idf=?";
-			$unModele=new filmsModele($requete,array($titre,$duree,$res,$pochette,$idf));
-			$stmt=$unModele->executer();
-			$tabRes['action']="modifier";
-			$tabRes['msg']="Film $idf bien modifie";
+			$tabRes['action']="ajouterAuPanier";	
+
+			if(isset($_SESSION["shopping_cart"]))  
+			{  
+				 $item_array_id = array_column($_SESSION["shopping_cart"], "item_id");  
+				 if(!in_array($id, $item_array_id))  
+				 {  
+					  $count = count($_SESSION["shopping_cart"]);  
+					  $item_array = array(  
+						'item_id' =>$ligne->idCircuit,  
+						'item_title' => $ligne->nom,  
+						'item_Adult_price'=> $ligne->prixAdulte,  
+						'item_Child_price' => $ligne->prixEnfant,  
+						'item_Baby_price' => $ligne->prixBebe,  
+						'item_Promotion_Status' => $ligne->enVigueur, 
+						'item_Departure'=> $ligne->dateDepart, 
+						'item_Return' => $ligne->dateRetour, 
+						'item_Rabais_Adulte'=> $ligne->rabaisAdulte, 
+						'item_Child_discount'=> $ligne->rabaisEnfant,
+						'item_Rabais_Bebe'=> $ligne->rabaisBebe
+					  );  
+					  $_SESSION["shopping_cart"][$count] = $item_array;  
+				 } else {  
+					  $tabRes['msg']="Item déjà ajouté!";
+				 }  
+				 $tabRes['itemCount']= $count;	
+			}  
+			else  
+			{  
+				 $item_array = array(  
+					       'item_id' =>$ligne->idCircuit,  
+						   'item_title' => $ligne->nom,  
+						   'item_Adult_price'=> $ligne->prixAdulte,  
+						   'item_Child_price' => $ligne->prixEnfant,  
+						   'item_Baby_price' => $ligne->prixBebe,  
+						   'item_Promotion_Status' => $ligne->enVigueur, 
+						   'item_Departure'=> $ligne->dateDepart, 
+						   'item_Return' => $ligne->dateRetour, 
+						   'item_Rabais_Adulte'=> $ligne->rabaisAdulte, 
+						   'item_Child_discount'=> $ligne->rabaisEnfant,
+						   'item_Rabais_Bebe'=> $ligne->rabaisBebe 
+				 );  
+				 $_SESSION["shopping_cart"][0] = $item_array;  
+			}  
+
 		}catch(Exception $e){
 		}finally{
 			unset($unModele);
 		}
 	}
+	
+	
+	
+
+	function ouvrirPanier(){
+		session_start();
+		//$_SESSION = array();
+		global $tabRes;
+		$items=array();
+		$tabRes['action']="ouvrirPanier";
+		
+				if(!empty($_SESSION["shopping_cart"]))  
+				{  
+					 foreach($_SESSION["shopping_cart"] as $keys => $values) {  
+						$items[$keys]["item_title"]=$values["item_title"];
+						$items[$keys]["item_Adult_price"]=$values['item_Adult_price'];
+						$items[$keys]["item_Rabais_Adulte"]=$values["item_Rabais_Adulte"];
+						$items[$keys]["item_id"]=$values["item_id"];
+						$items[$keys]["item_Departure"]=$values["item_Departure"];
+						$items[$keys]["item_Return"]=$values["item_Return"];
+						$items[$keys]["item_Child_price"]=$values["item_Child_price"];
+						$items[$keys]["item_Child_discount"]=$values["item_Child_discount"];
+						$items[$keys]["item_Rabais_Bebe"]=$values["item_Rabais_Bebe"];
+						$items[$keys]["item_Baby_price"]=$values["item_Baby_price"];
+					 }  
+					 
+				}  
+				$tabRes['itemList']=$items;
+		}
+
+
+	
 	//******************************************************
 	//Contr�leur
 	$action=$_POST['action'];
 	switch($action){
-		case "enregistrer" :
-			enregistrer();
+		case "ouvrirPanier" :
+		      ouvrirPanier();
 		break;
-		case "lister" :
-			lister();
-		break;
-		case "enlever" :
-			enlever();
-		break;
-		case "fiche" :
-			fiche();
-		break;
-		case "modifier" :
-			modifier();
+		case "ajouterAuPanier" :
+		      ajouterAuPanier();
 		break;
 	}
     echo json_encode($tabRes); // json_encode --> Retourne la représentation JSON d'une valeur 
