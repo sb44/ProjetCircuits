@@ -126,8 +126,10 @@ function validerConnexion() {  // fonction qui retour true ou false
 	}
 }
 /////////////////// Fin Validation connexion ///////////////////////
+////////////////////////////////////////////////////////////////////
 
-function validerAjoutModifFilm() {
+//////////////////////////////////////////////////////////////////
+/* function validerAjoutModifFilm() {
 	//debugger;
 	var titre = document.getElementById('titre').value.trim();
 	var realisateur = document.getElementById('realisateur').value.trim();
@@ -210,7 +212,7 @@ function resetForm(leForm) {
 		//leForm.inputTitre.select();
 		
 	}   
-} 
+}  */
 function envoyerFormulaire(leForm) {
 	//debugger;
 	leForm.submit();
@@ -221,15 +223,6 @@ function rendreVisible(el) {
 function rendreInvisible(el) {
 	document.getElementById(el).style.display='none';
 }
-
-
-
-
-
-
-
-
-
 //function supprimerFilm(noFilm) {
 //	//debugger; 
 //	var result = confirm("Confirmer la suppresson du film " + noFilm + " ?");

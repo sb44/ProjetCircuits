@@ -37,9 +37,12 @@ function InscritUsager(reponse){
 	if(reponse.msg == "ok"){
 		msg.innerHTML = "Merci pour vous inscrire chez nous ! vous pouvez maintenant vous connecter";
 		msg.className = "text-success";
-		setTimeout(function(){ $('#inscription-dropdown').removeClass("show"); }, 3000);
-		resetForm(formEnr);
-		setTimeout(function(){ $('#connexion-dropdown').addClass("show"); }, 3000);
+		setTimeout(function(){ 
+			$('#inscription-dropdown').removeClass("show"); 
+			msg.innerHTML = "";
+			resetForm(formEnr);
+			$('#connexion-dropdown').addClass("show");
+		}, 2000);
 		
 	}
 	else if(reponse.msg == "existe") {
@@ -58,12 +61,20 @@ function seConnecter(reponse){
 	if(reponse.msg == "ok"){
 		msg.innerHTML = "Merci pour vous connecter chez TOURISTIA";
 		msg.className = "text-success";
-		setTimeout(function(){ $('#connexion-dropdown').removeClass("show"); }, 3000);
-		resetForm(formConn);
+		setTimeout(function(){ 
+			$('#connexion-dropdown').removeClass("show"); 
+			msg.innerHTML = "";
+			resetForm(formConn);
+		}, 1200);
+
+		$('#navDeconnexion').toggleClass("hide");
+		$('#navEnregistrement').toggleClass("hide");
+		$('#navConnexion').toggleClass("hide");
 		if (reponse.role =="admin") {
-			conncterAdmin();
+			$('#navConnecteAdmin').toggleClass("hide");
 		} else {
-			connecterUsager();
+			$('#navPanier').toggleClass("hide");
+			$('#monProfile').toggleClass("hide");
 		}
 
 	}
@@ -77,10 +88,14 @@ function seConnecter(reponse){
 	}
 
 }
-function connecterAdmin(){
-	
-}
-function connecterUsager(){
+
+function deconnexion(reponse){
+	if (reponse.msg == "ok") {
+		//alert("deconnexion complète");
+		location.reload(true);
+	} else {
+		alert("problème au moment de déconnexion");
+	}
 }
 
 
@@ -98,8 +113,8 @@ var usagersVue=function(reponse){
 			$('#messages').html(reponse.msg);
 			setTimeout(function(){ $('#messages').html(""); }, 5000);
 		break;
-		case "lister" :
-			listerF(reponse.listeFilms);
+		case "deconnecter" :
+			deconnexion(reponse);
 		break;
 		case "fiche" :
 			afficherFiche(reponse);

@@ -119,12 +119,14 @@ function deconnecter(){
 		type : 'POST',
 		url : 'Usagers/usagersControleur.php',
 		data : formdeconnexion,
+		async : false,
 		contentType : false, 
 		processData : false,
-		dataType : 'text', 
-		success : function (reponse){alert(reponse);
+		dataType : 'json', 
+		success : function (reponse){//alert(reponse);
 					//$('#divFormFiche').hide();
-					//usagersVue(reponse);
+ 					//("#modaleDeconnexion").modal();
+					usagersVue(reponse); 
 		},
 		fail : function (err){
 		}

@@ -53,11 +53,20 @@
 				$ligne=$stmt->fetch(PDO::FETCH_OBJ);
 				$mdpDB=$ligne->motDePasse;
 				$roleDB=$ligne->role;
-				$id=$ligne->idConnexion;
+				$idConnexion=$ligne->idConnexion;
 
 				if ($mdpDB == $mdp) {
 					$tabRes['msg']="ok";
-					$_SESSION['id']=$id;
+					$_SESSION['idConnexion']=$idConnexion;
+					$_SESSION['courriel']=$courriel;
+					
+					$requete="SELECT idUtilisateur FROM utilisateur WHERE idConnexion = ? ";
+					$unModele=new circuitsModele($requete,array($idConnexion));
+					$stmt=$unModele->executer();
+					$ligne=$stmt->fetch(PDO::FETCH_OBJ);
+					$idUtilisateur=$ligne->idUtilisateur;
+					$_SESSION['idUtilisateur']=$idUtilisateur;
+
 					if ($roleDB == 'utilisateur') {
 						$tabRes['role']="utilisateur";
 					} else {
@@ -75,7 +84,7 @@
 			unset($unModele);
 		}
 	}
-	function lister(){
+/* 	function lister(){
 		global $tabRes;
 		$tabRes['action']="lister";
 		$requete="SELECT * FROM films";
@@ -115,22 +124,21 @@
 		}finally{
 			unset($unModele);
 		}
-	}
+	} */
 	
 	function monProfile(){
 		global $tabRes;
 		$tabRes['action']="monProfile";
-		if (isset($_SESSION['id'])) {
-			$id=$_SESSION['id'];
+		if (isset($_SESSION['idConnexion'])) {
+			$id=$_SESSION['idConnexion'];
 			$tabRes['msg']="ok";
 			
 			try{
-				$requete="SELECT * FROM connexion WHERE idConnexion = ? ";
+				$requete="SELECT courriel FROM connexion WHERE idConnexion = ? ";
 				$unModele=new circuitsModele($requete,array($id));
 				$stmt=$unModele->executer();
 				$ligne=$stmt->fetch(PDO::FETCH_OBJ);
-				$tabRes['connexion']=array();
-				$tabRes['connexion']=$ligne;
+				$tabRes['courriel']=$ligne->courriel;
 				
 				$requete="SELECT * FROM utilisateur WHERE idConnexion = ? ";
 				$unModele=new circuitsModele($requete,array($id));
@@ -146,19 +154,24 @@
 			$tabRes['msg']="nonTrouve";
 		}
 	}
+
+
 	function deconnecter(){
 		global $tabRes;
 		$tabRes['action']="deconnecter";
-		if (isset($_SESSION['id'])) {
-			$_SESSION['id']=="";
+		if (isset($_SESSION['idConnexion'])) {
+			$_SESSION['idConnexion']=="";
+			$_SESSION['courriel']=="";
+			$_SESSION['idUtilisateur']="";
+			
 			session_unset();
-			$tabRes['msg']="deconnexion fait";
+			$tabRes['msg']="ok";
 		}else{
-			$tabRes['action']="netait pas connecter";
+			$tabRes['msg']="non";
 		}
 	}
 	
-	function modifier(){
+/* 	function modifier(){
 		global $tabRes;	
 		$titre=$_POST['titreF'];
 		$duree=$_POST['dureeF'];
@@ -182,7 +195,7 @@
 		}finally{
 			unset($unModele);
 		}
-	}
+	} */
 	//******************************************************
 	//Contr�leur
 	$action=$_POST['action'];

@@ -16,7 +16,9 @@ html, body {
 .hide {
 	display:none;
 }
-
+.navbar-expand-lg {
+	padding: 2px;
+}
 /* http://thedebuggers.com/add-multiple-custom-markers-legend-gmap/ */
 #mapLegend {
 	background: #fdfdfd;

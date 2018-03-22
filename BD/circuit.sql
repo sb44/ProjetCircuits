@@ -123,8 +123,8 @@ CREATE TABLE IF NOT EXISTS `connexion` (
 --
 
 INSERT INTO `connexion` (`idConnexion`, `courriel`, `motDePasse`, `role`) VALUES
-(1, 'admin@admin.com', '$2y$10$ZvL0E9C53pOBcbHOh/mtDuHcxfEukCkcAoFLCa8BnMO/3Ar1DfaHa', 'administrateur'),
-(2, 'helloworld@helloworld.com', '$2y$10$w5imMzupEsSAvUkyoMVF/uepmnPvNoKJ4tLfPoQncjbecXn4t9CLC', 'utilisateur');
+(1, 'admin@admin.com', '123456', 'administrateur'),
+(2, 'u@u.com', '123456', 'utilisateur');
 
 -- --------------------------------------------------------
 
