@@ -67,20 +67,15 @@
     <!--********************************************************************************** -->
     <header>
         <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #333333;">
-            <a class="navbar-brand" href="./circuits.html">TOURISTIA</a>
+           <!--  <a class="navbar-brand" href="./circuits.html"></a> -->
             <!--<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
 		<span class="navbar-toggler-icon"></span> -->
-            <button class="navbar-toggler ml-auto custom-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-			<span class="navbar-toggler-icon"></span>
-		</button>
-            <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-                    <li class="nav-item active">
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
                         <div title="Acceuil">
-                            <a class="nav-link" href="./circuits.html"><span class="oi oi-home" ></span> <span class="sr-only">(current)</span></a>
+                            <a class="nav-link" href="./circuits.html">
+                                <img id="imgLogo" src="images/header-icon-circuit.png" alt="" class="logo" />
+                            </a>
                         </div>
-                    </li>
-                </ul>
                 <ul class="navbar-nav mx-auto">
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -104,10 +99,10 @@
 						-->
                     </li>
                     <li class="nav-item" id="navEstConnecte">
-                        <a href="#" class="nav-link" onClick="envoyerFormulaire(deconn);"><span class="nav-link">Déconnexion</span></a>
-                        <form name="deconn" action="serveur/gestionFilms.php" method="post">
-                            <input type="hidden" name="monAction" value="deconn">
-                        </form>
+                        <a href="#" class="nav-link" onClick="deconnecter();"><span class="nav-link">Déconnexion</span></a>
+                    </li>
+                    <li class="nav-item" id="monProfile">
+                        <a href="#" class="nav-link" onClick="monProfile();"><span class="nav-link">Mon Profile</span></a>
                     </li>
                     <li class="nav-item" id="navConnecteUser">
                         <div title="Mon panier">
@@ -120,7 +115,7 @@
                     <li class="nav-item dropdown" id="navConnexion">
                         <a data-target="#" id="connect" class="nav-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">
                             <button type="button" class="btn btn-link dropdown-toggle text-white"><i class="fa fa-user">&nbsp;</i>Se connecter</button><span class="caret"></span></a>
-                        <ul class="dropdown-menu dropdown-menu-right login-dp" aria-labelledby="navbarDropdownMenuLink">
+                        <ul id="connexion-dropdown" class="dropdown-menu dropdown-menu-right login-dp" aria-labelledby="navbarDropdownMenuLink">
                             <li>
                                 <div class="row">
                                     <div class="col-md-12">
@@ -176,7 +171,7 @@
                             <button class="btn btn-primary dropdown-toggle text-white" id="btnEnregistrer"><i class="fa fa-user-plus"></i> Devenir membre</button><span class="caret"></span></a>
 
 
-                        <ul class="dropdown-menu dropdown-menu-right inscription-dp" aria-labelledby="navbarDropdownMenuLink">
+                        <ul id="inscription-dropdown" class="dropdown-menu dropdown-menu-right inscription-dp" aria-labelledby="navbarDropdownMenuLink">
                             <li>
                                 <div class="row">
                                     <div class="col-md-12">

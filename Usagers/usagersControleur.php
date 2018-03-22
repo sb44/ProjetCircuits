@@ -21,7 +21,7 @@
 				$tabRes['msg']="existe";
 			}else{
 					$requete=" INSERT INTO connexion VALUES(0,?,?,?) ";
-					$unModele=new circuitsModele($requete,array($courriel,$mdp,"administrateur"));
+					$unModele=new circuitsModele($requete,array($courriel,$mdp,"utilisateur"));
 					$unModele->executer();
  					$lasId=$unModele->LAST_ID;
 					$requete="INSERT INTO utilisateur VALUES(0,?,?,?,?)";
@@ -53,25 +53,23 @@
 				$ligne=$stmt->fetch(PDO::FETCH_OBJ);
 				$mdpDB=$ligne->motDePasse;
 				$roleDB=$ligne->role;
+				$id=$ligne->idConnexion;
 
 				if ($mdpDB == $mdp) {
-					$tabRes['action']="connecter";
 					$tabRes['msg']="ok";
+					$_SESSION['id']=$id;
 					if ($roleDB == 'utilisateur') {
 						$tabRes['role']="utilisateur";
 					} else {
 						$tabRes['role']="admin";
 					} 
 				} else {
-					$tabRes['action']="connecter";
 					$tabRes['msg']="mdpIncorrecte";
 				}
 			}else{
-					$tabRes['action']="connecter";
 					$tabRes['msg']="nonInscrit";
 			} 
 		}catch(Exception $e){
-			$tabRes['action']="connecter";
 			$tabRes['msg']="erreur";
 		}finally{
 			unset($unModele);
@@ -119,25 +117,44 @@
 		}
 	}
 	
-	function fiche(){
+	function monProfile(){
 		global $tabRes;
-		$idf=$_POST['numF'];
-		$tabRes['action']="fiche";
-		$requete="SELECT * FROM films WHERE idf=?";
-		try{
-			 $unModele=new filmsModele($requete,array($idf));
-			 $stmt=$unModele->executer();
-			 $tabRes['fiche']=array();
-			 if($ligne=$stmt->fetch(PDO::FETCH_OBJ)){
-			    $tabRes['fiche']=$ligne;
-				$tabRes['OK']=true;
+		$tabRes['action']="monProfile";
+		if (isset($_SESSION['id'])) {
+			$id=$_SESSION['id'];
+			$tabRes['msg']="ok";
+			
+			try{
+				$requete="SELECT * FROM connexion WHERE idConnexion = ? ";
+				$unModele=new circuitsModele($requete,array($id));
+				$stmt=$unModele->executer();
+				$ligne=$stmt->fetch(PDO::FETCH_OBJ);
+				$tabRes['connexion']=array();
+				$tabRes['connexion']=$ligne;
+				
+				$requete="SELECT * FROM utilisateur WHERE idConnexion = ? ";
+				$unModele=new circuitsModele($requete,array($id));
+				$stmt=$unModele->executer();
+				$ligne=$stmt->fetch(PDO::FETCH_OBJ);
+				$tabRes['utilisateurs']=array();
+				$tabRes['utilisateurs']=$ligne;
+			}catch(Exception $e){
+			}finally{
+				unset($unModele);
 			}
-			else{
-				$tabRes['OK']=false;
-			}
-		}catch(Exception $e){
-		}finally{
-			unset($unModele);
+		}else{
+			$tabRes['msg']="nonTrouve";
+		}
+	}
+	function deconnecter(){
+		global $tabRes;
+		$tabRes['action']="deconnecter";
+		if (isset($_SESSION['id'])) {
+			$_SESSION['id']=="";
+			session_unset();
+			$tabRes['msg']="deconnexion fait";
+		}else{
+			$tabRes['action']="netait pas connecter";
 		}
 	}
 	
@@ -169,6 +186,7 @@
 	//******************************************************
 	//Contr�leur
 	$action=$_POST['action'];
+	session_start ();
 	switch($action){
 		case "enregistrer" :
 			enregistrer();
@@ -176,11 +194,11 @@
 		case "connecter" :
 			connecter();
 		break;
-		case "enlever" :
-			enlever();
+		case "monProfile" :
+			monProfile();
 		break;
-		case "fiche" :
-			fiche();
+		case "deconnecter" :
+			deconnecter();
 		break;
 		case "modifier" :
 			modifier();

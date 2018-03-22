@@ -80,13 +80,13 @@ function checkPass(){
 	var sexeEnr = document.getElementById('inputSexe').value;
 	var courrielEnr = document.getElementById('inputCourEnr').value.trim();
 	var motDePasseEnr = document.getElementById('inputMotPasseEnr').value.trim(); 
+	var motDePasseConfEnr = document.getElementById('inputMotPasseConfEnr').value.trim(); 
 	
 	var errDateEnr = document.getElementById('errDateNaissance').innerHTML;
 	var errCourrielEnr = document.getElementById('errCourEnr').innerHTML;
 	var errMotDePasseEnr = document.getElementById('errMotPasseEnr').innerHTML; 
-	var errMotDePasseconf = document.getElementById('errMotPasseConfEnr').innerHTML; 
-
-	if (errCourrielEnr=="" && errDateEnr=="" && errMotDePasseEnr=="" && errMotDePasseconf=="" && prenomEnr !="" && nomEnr !="" && dateEnr!=""  && sexeEnr!="" && courrielEnr !=""  && motDePasseEnr !="") 
+	
+	if (errCourrielEnr=="" && errDateEnr=="" && errMotDePasseEnr=="" && motDePasseEnr==motDePasseConfEnr && prenomEnr !="" && nomEnr !="" && dateEnr!=""  && sexeEnr!="" && courrielEnr !=""  && motDePasseEnr !="") 
 	{
 		document.getElementById('errenr').innerHTML = "";
 		//alert("On a vérifié le formulaire");
@@ -115,10 +115,10 @@ function validerConnexion() {  // fonction qui retour true ou false
 	//debugger;
 	var courriel = document.getElementById('inputCourConn').value.trim();
 	var errCourConn = document.getElementById('errCourConn').innerHTML;
-    if(errCourConn == "" && courriel !== "")
+	if(errCourConn == "" && courriel !== "")
     {
-		document.getElementById('connect').setAttribute("aria-expanded", "false");
-		//connUsager();
+		//document.getElementById('connect').setAttribute("aria-expanded", "false");
+		connUsager();
 		return true;
     }else{
 		document.getElementById('errConn').innerHTML = "Il y un probleme de formulaire";

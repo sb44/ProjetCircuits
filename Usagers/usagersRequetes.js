@@ -12,7 +12,7 @@ function enregUsager(){
 		contentType : false,
 		processData : false,
 		success : function (reponse){ //alert(reponse);
-					InscritUsager(reponse); //appel de fonction javascript défini dans filmsControleurVue.js
+			usagersVue(reponse); //appel de fonction javascript dans usagersControleurVue.js
 		},
 		fail : function (err){
 			alert(1111);
@@ -20,6 +20,26 @@ function enregUsager(){
 	}); 
 }
 function connUsager(){
+	var formconnexion = new FormData(document.getElementById('formConn'));
+	formconnexion.append('action','connecter');
+	$.ajax({
+		type : 'POST',
+		url : 'Usagers/usagersControleur.php',
+		data : formconnexion,
+		async : false,
+		contentType : false,
+		processData : false,
+		dataType : 'json', //text pour le voir en format de string
+		success : function (reponse){//alert(reponse);
+					usagersVue(reponse);
+		
+		},
+		fail : function (err){
+			alert(1111);
+		}
+	});
+}
+/* function lister(){
 	var formconnexion = new FormData(document.getElementById('formConn'));
 	formconnexion.append('action','connecter');//alert(formFilm.get("action"));
 	$.ajax({
@@ -30,11 +50,10 @@ function connUsager(){
 		contentType : false,
 		processData : false,
 		dataType : 'text', //text pour le voir en format de string
-		success : function (reponse){alert(reponse);
-					//filmsVue(reponse);
+		success : function (reponse){//alert(reponse);
+					filmsVue(reponse);
 		},
 		fail : function (err){
-			alert(1111);
 		}
 	});
 }
@@ -74,23 +93,40 @@ function obtenirFiche(){
 		fail : function (err){
 		}
 	});
-}
-function modifier(){
-	var leForm=document.getElementById('formFicheF');
-	var formFilm = new FormData(leForm);
-	formFilm.append('action','modifier');
+}*/
+function monProfile(){
+	var formProfile = new FormData();
+	formProfile.append('action','monProfile');
 	$.ajax({
 		type : 'POST',
-		url : 'Films/filmsControleur.php',
-		data : formFilm,
+		url : 'Usagers/usagersControleur.php',
+		data : formProfile,
 		contentType : false, 
 		processData : false,
-		dataType : 'json', 
-		success : function (reponse){//alert(reponse);
-					$('#divFormFiche').hide();
-					filmsVue(reponse);
+		dataType : 'text', 
+		success : function (reponse){alert(reponse);
+					//$('#divFormFiche').hide();
+					//usagersVue(reponse);
 		},
 		fail : function (err){
 		}
 	});
-}
+} 
+function deconnecter(){
+	var formdeconnexion = new FormData();
+	formdeconnexion.append('action','deconnecter');
+	$.ajax({
+		type : 'POST',
+		url : 'Usagers/usagersControleur.php',
+		data : formdeconnexion,
+		contentType : false, 
+		processData : false,
+		dataType : 'text', 
+		success : function (reponse){alert(reponse);
+					//$('#divFormFiche').hide();
+					//usagersVue(reponse);
+		},
+		fail : function (err){
+		}
+	});
+} 

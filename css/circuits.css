@@ -13,6 +13,9 @@
 html, body {
 	height: 100%;
 }
+.hide {
+	display:none;
+}
 
 /* http://thedebuggers.com/add-multiple-custom-markers-legend-gmap/ */
 #mapLegend {
