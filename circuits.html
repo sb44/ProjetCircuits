@@ -606,6 +606,281 @@
 -->
 
 
+<!------------------     Haiqiang Xu  -------------------------------->
+<div id="container-HQ" class="container row hide">
+    <div id="menuAdmin" class="col-sm-3 hide">
+        <h4>Gestion</h4>
+        <ul class="list-group">
+            <a href="#" class="list-group-item list-group-item-action active">Gestion de circuit</a>
+            <a href="#" class="list-group-item list-group-item-action">Gestion de groupe</a>
+        </ul>
+    </div>
+
+    <div id="gestionCircuit" class="col-sm-9">
+        <h4>Gestion de circuit</h4>  
+        <!--button id="btn-nouveauCircuit" type="button" class="btn btn-light" ondrop="nouveauC(ev)">Nouveau Circuit</button>
+        <button id="btn-modifierCircuit" type="button" class="btn btn-light" ondrop="modifierC(ev)">Modifier Circuit</button><br/-->
+        <table id="t1" >			  
+            <thead>
+                <tr>
+                    <th><button id="btn-nouveauCircuit" type="button" class="btn btn-light" ondrop="nouveauC(ev)">Nouveau Circuit</button></th>
+                    <th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th>
+                </tr>
+            </thead>
+            <tbody id="tt" class="tableAAA">
+                <tr><td>&nbsp</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+            </tbody>
+        </table>
+
+        <table id="t2" class="table table-striped">
+            <thead>
+            <tr>
+                <th>No</th>
+                <th>Nom</th>
+                <th>Description</th>
+                <th>Theme</th>
+                <th>Capacite</th>
+                <th>Prix</th>
+                <th>Photo</th>
+                <th></th>
+                <th></th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody class="tableAAA">
+            <tr id="0">
+                <td>1</td>
+                <td>Chine</td>
+                <td>Great Wall</td>
+                <td></td>
+                <td>30</td>
+                <td>15000$</td>
+                <td></td>
+                <td><span class="oi" data-glyph="pencil"></span></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr id="1">
+                <td>2</td>
+                <td>Chine</td>
+                <td>Great Wall</td>
+                <td></td>
+                <td>30</td>
+                <td>15000$</td>
+                <td></td>
+                <td><button type="button"><span class="oi oi-pencil"></span></button></td>
+                <td><button type="button"><span class="oi oi-magnifying-glass"></span></button></td>
+                <td><button type="button"><span class="oi oi-ban"></span></button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div id="nouveauCircuit" class="col-sm-9 hide">
+        <h4>Nouveau Circuit</h4><br/>
+        <form id="circuit" name="bbbb">
+            <div class="form-group row">
+            <label for="nomCircuit" class="col-sm-2">Nom:</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="nomCircuit" name="nomCircuit">
+            </div>
+            </div><br/>
+            <div class="form-group row">
+            <label for="desCircuit" class="col-sm-2">Description:</label>
+                <div id="ckCircuit" class="col-sm-10">
+                    <!--textarea class="form-control" id="desCircuit" name="desCircuit" onload="newEditor('desCircuit','ckCircuit')"></textarea-->
+                </div>
+            </div><br/>
+            <div class="form-group row">
+                <label for="capCircuit" class="col-sm-2">Capacite:</label>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" id="capCircuit" name="capCircuit">
+                </div>					
+            </div><br/>
+            <div class="form-group row">
+                    <label for="prixCircuit" class="col-sm-2">Prix:</label>
+                    <div class="col-sm-2">
+                        <input type="text" class="form-control" id="prixCircuit" name="prixCircuit">
+                    </div>					
+            </div><br/>
+            <div class="form-group row">
+                <label for="themeCircuit" class="col-sm-2">Theme:</label>
+                <div class="col-sm-2">						
+                        <select id="themeCircuit" name="themeCircuit">
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                        </select>
+                </div>					
+            </div><br/>
+            <div class="form-group row">
+                <label for="latitudeCircuit" class="col-sm-2">Latitude:</label>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" id="latitudeCircuit" name="latitudeCircuit">
+                </div>					
+            </div><br/>
+            <div class="form-group row">
+                    <label for="longitudeCircuit" class="col-sm-2">Longitude:</label>
+                    <div class="col-sm-2">
+                        <input type="text" class="form-control" id="longitudeCircuit" name="longitudeCircuit">
+                    </div>					
+            </div><br/>
+            <div class="form-group row">
+                <label for="photoCircuit" class="col-sm-2">Photo:</label>
+                <div class="col-sm-4">
+                    <input type="file" class="form-control" id="photoCircuit" name="photoCircuit">
+                </div>					
+            </div><br/>
+            <input type="hidden" name="type" value="circuitEn">
+        </form>
+            
+            <div id="etapes"><!-- insert template etape here --></div>
+
+            <label class="col-sm-2"></label>
+            <div class="col-sm-10">
+                <button type="button" class="btn btn-sm" onclick="addEtape()">Ajouter une etape</button>
+            </div><br/><br/>
+
+            <div class="row">				
+                <div class="col-sm-2">
+                    <button type="button" class="btn btn-primary" onclick="enregistrerCircuit()">enregistrer</button>
+                </div>
+                <div class="col-sm-3">
+                    <button type="button" class="btn btn-primary">enreg. et retouner</button>
+                </div>
+                <div class="col-sm-2">
+                    <button type="button" class="btn btn-primary">annuler</button>
+                </div>
+            </div>
+
+            <!-- template etape -->
+            <div id="templateEtape" class="hide">
+                <div id="templateEtape{{n}}">		
+                    <p><span id="etapeTitle{{i}}" class="oi oi-minus" onclick="foldEtape({{i}})">&nbsp&nbspEtape&nbsp</span><span id="sp{{n}}">{{n}}:</span></p>					
+                    <fieldset id="etapeFold{{i}}" style="border: solid; border-width: thin;  border-color: #a8a8a8;">
+                        <legend visible="true" style="width:auto;"></legend>
+                            <form id="etape{{n}}" class="etape">
+                                <div class="form-group row">
+                                        <label for="desEtape{{i}}" class="col-sm-2">Description:</label>
+                                        <div id="ckEtape{{i}}" class="col-sm-10">
+                                                <!--textarea class="form-control ckeditor" id="desEtape{{i}}" name="desEtape{{i}}"></textarea-->
+                                        </div>
+                                </div><br/>
+                                <div class="form-group row">
+                                        <label for="photoEtape" class="col-sm-2">Photo:</label>
+                                        <div class="col-sm-4">
+                                            <input type="file" class="form-control" id="photoEtape{{i}}" name="photoEtape">
+                                        </div>					
+                                </div><br/>
+                                <input type="hidden" name="type" value="etapeEn">
+                            </form>
+
+                            <div id="joursEtape{{n}}"><!--- Insert tamplate jour  --></div>
+
+                            <div class="row">
+                                <label class="col-sm-2"></label>
+                                <div class="col-sm-10">
+                                    <button id="btn-addJour{{n}}" type="button" class="btn btn-sm btn-jour" onclick="addJour({{n}})">Ajouter un jour</button>
+                                </div>
+                            </div><br/>
+                            <div class="row">
+                                <button id="btn-supprimerEtape{{n}}" type="button" class="btn btn-link btn-sm" onclick="supprimerEtape({{n}})">supprimer cette etape</button>
+                            </div>
+                            
+                    </fieldset><br/>
+                </div>					
+            </div>
+
+            <!-- template jour -->
+            <div id="templateJour" class="hide">
+                <div id="templateJour{{i}}{{n}}" class="form-group row">	
+                <label class="col-sm-2"></label>
+                <div class="col-sm-10">
+                    <h5><span id="jourTitle{{j}}" class="oi oi-minus" onclick="foldJour({{j}})">&nbsp&nbspJour </span><span id="sp{{i}}{{n}}">{{n}}:</span></h5>
+                        <fieldset id="jourFold{{j}}" style="border: solid; border-width: thin;  border-color: #a8a8a8;">
+                            <legend visible="true" style="width:auto;"></legend>
+                                <form id="jour{{i}}{{n}}"  class="jour etape{{i}}">
+                                    <div  class="form-group col-sm-11">
+                                        <label for="villeJour{{j}}">Ville:</label>
+                                        <input type="text" class="form-control" id="villeJour{{j}}" name="ville">	
+                                    </div>
+                                    <div id="ckJour{{j}}" class="form-group col-sm-11">
+                                        <label for="desJour">Description:</label>
+                                        <!--textarea class="form-control ckeditor" id="desJour" name="desJour"></textarea-->	
+                                    </div>
+                                    <div class="form-group col-sm-11">
+                                        <label for="photoJour" >Photo:</label>
+                                        <input type="file" class="form-control col-sm-4" id="photoJour{{j}}" name="photoJour">																			
+                                    </div><br/>	
+                                    <div id="ckActivite{{j}}" class="form-group col-sm-11">
+                                        <label for="activite">Activites:</label>
+                                        <!--textarea class="form-control ckeditor" id="activite" name="activite"></textarea-->											
+                                    </div>
+                                    <div class="form-group row">
+                                            <label for="resto" class="col-sm-2">Restaurant:</label>
+                                            <div class="col-sm-10">
+                                                <select id="resto{{j}}" name="resto">
+                                                    <option value="1">resto 1</option>
+                                                    <option value="2">resto 2</option>
+                                                    <option value="3">resto 3</option>
+                                                </select>
+                                            </div>
+                                    </div><br/>	
+                                    <div class="form-group row">
+                                            <label for="hotel" class="col-sm-2">Hotel:</label>
+                                            <div class="col-sm-10">
+                                                <select id="hotel{{j}}" name="hotel">
+                                                    <option value="1">hotel 1</option>
+                                                    <option value="2">hotel 2</option>
+                                                    <option value="3">hotel 3</option>
+                                                </select>
+                                            </div>
+                                    </div><br/>	
+                                    <input type="hidden" name="type" value="jourEn">
+                                </form>	
+                                
+                                <div class="form-group row">
+                                    <div  class="col-sm-2">
+                                        <button id="btn-jour{{i}}{{n}}" type="button" class="btn btn-link btn-sm" onclick="supprimerJour({{i}},{{n}})">supprimer ce jour</button>
+                                    </div>
+                                </div><br/>
+                        </fieldset><br/>
+                    </div>
+                </div>											
+            </div>			  
+    </div>
+</div>
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script language="javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="js/jquery.validate.js"></script>
+<script language="javascript" src="js/ckeditor/ckeditor.js"></script>
+<script language="javascript" src="GroupesVoyage/tourControleurVue.js"></script>
+<script language="javascript" src="GroupesVoyage/tourRequettes.js"></script>
+<script src="js/mustache.js"></script>
+<script>
+    $('#btn-nouveauCircuit').on('click', function() { 
+        $('#gestionCircuit').hide();
+        $('#nouveauCircuit').show();
+    })
+</script>
+<script>
+    $('tbody.tableAAA').sortable({
+        connectWith:'tbody.tableAAA',
+        receive: function(ev, ui) {
+            var a = $(ui.item).attr('id');
+            if (ev.target.id == "tt") {
+                $(ui.item).remove();
+                $('#gestionCircuit').hide();
+                $('#nouveauCircuit').show();
+            }
+        }
+    });
+
+    newEditor('desCircuit','ckCircuit', 'desCircuit');
+</script>
+<!---------------------  Fin HQXu   -------------------------------->
+
 
     <!-- FOOTER -->
     <footer id="myFooter" class="mt-4">
@@ -665,6 +940,9 @@
 
             </div>
         </div>
+
+
+
         <div class="footer-copyright">
             <p>© 2018 Copyright : TOURISTIA.ca</p>
         </div>
