@@ -97,27 +97,68 @@
 		}
 
 
-		function ficheReservation(){
+	function ficheReservation(){
 			global $tabRes;
 			$idCommande=$_POST['idCommande'];
 			$tabRes['action']="ficheReservation";
 			$tabRes['idCommande']=$idCommande;
+		}
+	
+	
+
+	function enregistrerVoyageur(){
+		global $tabRes;
+		$counter=$_POST['idCounter'];
+		$idcommande=$_POST['idCommandeVoyageur1'];
+		//session_start();
+		//$_SESSION = array();
+
+		for( $i=0; $i<$counter;$i++){
+
+			$j=$i+1;
+			$nom = $_POST['nomVoyageur'.$j];
+			$prenom=$_POST['prenomVoyageur'.$j];
+			$dateNaissance=$_POST['naissanceVoyageur'.$j];
+			$noPasseport=$_POST['noPassportVoyageur'.$j];
+			$idSexe=$_POST['sexeVoyageur'.$j];
+			$courriel=$_POST['courrielVoyageur'.$j];
+			$dateExpiration=$_POST['expirationPasseportVoyageur'.$j];
+			$idCategorie=$_POST['categorieVoyageur'.$j];
+			$idCommande=$_POST['idCommandeVoyageur1'];
+
+			try{
+				$requete="INSERT INTO voyageur VALUES(0,?,?,?,?,?,?,?,?,?)";
+				$unModele=new circuitsModele($requete,array($courriel,$nom,$prenom,$idCategorie,$idSexe,$dateNaissance,$noPasseport,$dateExpiration,$idCommande));
+				$stmt=$unModele->executer();
+				$tabRes['action']="enregistrerVoyageur";
+			}catch(Exception $e){
+			}finally{
+				unset($unModele);
 			}
-	
-	
+		}
+
+	}
+		
+
+
 	//******************************************************
 	//Contr�leur
 	$action=$_POST['action'];
 	switch($action){
-		case "ouvrirPanier" :
+	case "ouvrirPanier" :
 		      ouvrirPanier();
 		break;
-		case "ajouterAuPanier" :
+	case "ajouterAuPanier" :
 		      ajouterAuPanier();
 		break;
-		case "ficheReservation" :
-		ficheReservation();
+
+	case "ficheReservation" :
+		    ficheReservation();
 		break;
+		
+	case "enregisterVoyageur" :
+	      enregistrerVoyageur();
+    break;
 	}
     echo json_encode($tabRes); // json_encode --> Retourne la représentation JSON d'une valeur 
 ?>

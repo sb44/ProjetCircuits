@@ -11,6 +11,11 @@ function addToCart(reponse) {
 }
 
 
+function register(reponse) {
+
+
+}
+
 function openCart(reponse) {
     $('#divDetailPanier').hide();
     var input = "";
@@ -61,7 +66,7 @@ function createReservationForm(reponse) {
     reservation += "<div class=\"col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-6 offset-md-3\">";
     reservation += "<h3>Information des voyageurs:</h3>";
     reservation += "<h4>Voyageur " + counter + ":</h4>";
-    reservation += "<form id=\"formAjoutVoyageur\" name=\"formAjoutVoyageur\" \">";
+
     reservation += "<div class = \"form-group\">";
     reservation += "<label for = \"nomVoyageur" + counter + "\"> Nom:</label><div class =\"col-xs-9\">";
     reservation += "<input type = \"text\" class = \"form-control\" id = \"nomVoyageur" + counter + "\" name =\"nomVoyageur" + counter + "\">";
@@ -112,6 +117,7 @@ function createReservationForm(reponse) {
 
     // $('#CreateCommandForm').append(reservation);
     $(reservation).insertBefore('#btnSubmitVoyageur');
+    $('#idCounter').val(counter);
     $('#divCreateCommandForm').show();
 }
 
@@ -128,6 +134,9 @@ var commandesVue = function(reponse) {
             break;
         case "ficheReservation":
             createReservationForm(reponse);
+            break;
+        case "enregistrerVoyageur":
+            register(reponse);
             break;
         default:
             alert("Erreur. on doit définir l'action pour le fichier commandesControleurVue.js");
