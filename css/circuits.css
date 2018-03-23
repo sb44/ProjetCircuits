@@ -13,7 +13,12 @@
 html, body {
 	height: 100%;
 }
-
+.hide {
+	display:none;
+}
+.navbar-expand-lg {
+	padding: 2px;
+}
 /* http://thedebuggers.com/add-multiple-custom-markers-legend-gmap/ */
 #mapLegend {
 	background: #fdfdfd;
@@ -218,7 +223,11 @@ div.vertical-line{
 }
 /* fin Menu langage */
 
-
+/* HQXu */
+.hide {
+	display: none;
+}
+/* Fin-HQ */
 
 
 /* Inscription */

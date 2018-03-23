@@ -14,6 +14,7 @@ var REG_DATE = /^\d{4}-\d{2}-\d{2}$/;
 
 $(document).ready(function () {
 	listerCarte();
+	// actualiserNumeroPanierNavBarPanier(); //TODO : mettre le bon numero du carte dans le navbar
 });
 
 ///////////////////  Validation menu Inscription ///////////////////////
@@ -79,13 +80,13 @@ function checkPass(){
 	var sexeEnr = document.getElementById('inputSexe').value;
 	var courrielEnr = document.getElementById('inputCourEnr').value.trim();
 	var motDePasseEnr = document.getElementById('inputMotPasseEnr').value.trim(); 
+	var motDePasseConfEnr = document.getElementById('inputMotPasseConfEnr').value.trim(); 
 	
 	var errDateEnr = document.getElementById('errDateNaissance').innerHTML;
 	var errCourrielEnr = document.getElementById('errCourEnr').innerHTML;
 	var errMotDePasseEnr = document.getElementById('errMotPasseEnr').innerHTML; 
-	var errMotDePasseconf = document.getElementById('errMotPasseConfEnr').innerHTML; 
-
-	if (errCourrielEnr=="" && errDateEnr=="" && errMotDePasseEnr=="" && errMotDePasseconf=="" && prenomEnr !="" && nomEnr !="" && dateEnr!=""  && sexeEnr!="" && courrielEnr !=""  && motDePasseEnr !="") 
+	
+	if (errCourrielEnr=="" && errDateEnr=="" && errMotDePasseEnr=="" && motDePasseEnr==motDePasseConfEnr && prenomEnr !="" && nomEnr !="" && dateEnr!=""  && sexeEnr!="" && courrielEnr !=""  && motDePasseEnr !="") 
 	{
 		document.getElementById('errenr').innerHTML = "";
 		//alert("On a vérifié le formulaire");
@@ -114,10 +115,10 @@ function validerConnexion() {  // fonction qui retour true ou false
 	//debugger;
 	var courriel = document.getElementById('inputCourConn').value.trim();
 	var errCourConn = document.getElementById('errCourConn').innerHTML;
-    if(errCourConn == "" && courriel !== "")
+	if(errCourConn == "" && courriel !== "")
     {
-		document.getElementById('connect').setAttribute("aria-expanded", "false");
-		//connUsager();
+		//document.getElementById('connect').setAttribute("aria-expanded", "false");
+		connUsager();
 		return true;
     }else{
 		document.getElementById('errConn').innerHTML = "Il y un probleme de formulaire";
@@ -125,8 +126,10 @@ function validerConnexion() {  // fonction qui retour true ou false
 	}
 }
 /////////////////// Fin Validation connexion ///////////////////////
+////////////////////////////////////////////////////////////////////
 
-function validerAjoutModifFilm() {
+//////////////////////////////////////////////////////////////////
+/* function validerAjoutModifFilm() {
 	//debugger;
 	var titre = document.getElementById('titre').value.trim();
 	var realisateur = document.getElementById('realisateur').value.trim();
@@ -209,7 +212,7 @@ function resetForm(leForm) {
 		//leForm.inputTitre.select();
 		
 	}   
-} 
+}  */
 function envoyerFormulaire(leForm) {
 	//debugger;
 	leForm.submit();
@@ -220,15 +223,6 @@ function rendreVisible(el) {
 function rendreInvisible(el) {
 	document.getElementById(el).style.display='none';
 }
-
-
-
-
-
-
-
-
-
 //function supprimerFilm(noFilm) {
 //	//debugger; 
 //	var result = confirm("Confirmer la suppresson du film " + noFilm + " ?");

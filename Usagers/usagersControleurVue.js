@@ -1,4 +1,4 @@
-//vue films
+/* //vue films
 function listerF(listFilms){
 	var taille;
 	var rep="<div class='table-users' style='overflow: scroll; height: 500px;'>";
@@ -30,14 +30,20 @@ function afficherFiche(reponse){
 			setTimeout(function(){ $('#messages').html(""); }, 5000);
   }
 
-}
+} */
 function InscritUsager(reponse){
   var msg=document.getElementById('errenr');
-  debugger;
+  //debugger;
 	if(reponse.msg == "ok"){
 		msg.innerHTML = "Merci pour vous inscrire chez nous ! vous pouvez maintenant vous connecter";
-			msg.className = "text-success";
-
+		msg.className = "text-success";
+		setTimeout(function(){ 
+			$('#inscription-dropdown').removeClass("show"); 
+			msg.innerHTML = "";
+			resetForm(formEnr);
+			$('#connexion-dropdown').addClass("show");
+		}, 2000);
+		
 	}
 	else if(reponse.msg == "existe") {
 		msg.innerHTML = "L'utilisateur avec ce courriel déja existe";
@@ -47,22 +53,68 @@ function InscritUsager(reponse){
 		msg.innerHTML = "Il y a un probléme d'inscription , veuillez commncer à nouveau";
 		msg.className = "text-danger";
 	}
+	
+}
+function seConnecter(reponse){
+	var msg=document.getElementById('errConn');
+	//debugger;
+	if(reponse.msg == "ok"){
+		msg.innerHTML = "Merci pour vous connecter chez TOURISTIA";
+		msg.className = "text-success";
+		setTimeout(function(){ 
+			$('#connexion-dropdown').removeClass("show"); 
+			msg.innerHTML = "";
+			resetForm(formConn);
+		}, 1200);
+
+		$('#navDeconnexion').toggleClass("hide");
+		$('#navEnregistrement').toggleClass("hide");
+		$('#navConnexion').toggleClass("hide");
+		if (reponse.role =="admin") {
+			$('#navConnecteAdmin').toggleClass("hide");
+		} else {
+			$('#navPanier').toggleClass("hide");
+			$('#monProfile').toggleClass("hide");
+		}
+
+	}
+	else if(reponse.msg == "mdpIncorrecte") {
+		msg.innerHTML = "Votre mot de passe est incorrecte";
+		msg.className = "text-danger";
+	}
+	else if (reponse.msg == "nonInscrit") {
+		msg.innerHTML = "Ce courriel n'est pas encore inscrit dans le système , veuillez vous inscrire";
+		msg.className = "text-danger";
+	}
 
 }
+
+function deconnexion(reponse){
+	if (reponse.msg == "ok") {
+		//alert("deconnexion complète");
+		location.reload(true);
+	} else {
+		alert("problème au moment de déconnexion");
+	}
+}
+
+
 // ********************** selon l'action, on appelle la méthode concerné *******************
 var usagersVue=function(reponse){
 	var action=reponse.action; 
 	switch(action){
 		case "enregistrer" :
-
+		InscritUsager(reponse);
 		break;
-		case "enlever" :
+		case "connecter" :
+		seConnecter(reponse);
+		break;
 		case "modifier" :
 			$('#messages').html(reponse.msg);
 			setTimeout(function(){ $('#messages').html(""); }, 5000);
 		break;
-		case "lister" :
-			listerF(reponse.listeFilms);
+		case "deconnecter" :
+			deconnexion(reponse);
 		break;
 		case "fiche" :
 			afficherFiche(reponse);
