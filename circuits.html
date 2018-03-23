@@ -26,7 +26,7 @@
     <!-- Latest compiled and minified CSS ... https://silviomoreto.github.io/bootstrap-select/ -->
     <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css"> -->
     <!-- https://github.com/silviomoreto/bootstrap-select/issues/1135 -->
-    <link rel="stylesheet" href="https://cdn.rawgit.com/infostreams/bootstrap-select/fd227d46de2afed300d97fd0962de80fa71afb3b/dist/css/bootstrap-select.min.css" />
+    <!--<link rel="stylesheet" href="https://cdn.rawgit.com/infostreams/bootstrap-select/fd227d46de2afed300d97fd0962de80fa71afb3b/dist/css/bootstrap-select.min.css" /> -->
 
     <style type="text/css">
 
@@ -339,13 +339,15 @@
                     <label for="themeCircuit" class="h4 col-sm-2 col-md-2 offset-md-1 col-form-label-lg" title="Sélectionner les circuits à afficher par thème...">Thème</label>
                     <div class="col-sm-10 col-md-8 col-lg-6">
                         <!-- <select class="form-control form-control-lg" id="themeCircuits" placeholder="Sélectionner un thème de circuits"> -->
-                        <select id="themeCircuits" name="themeCircuit" onchange="filterThemeCircuits()" class="selectpicker form-control form-control-lg" data-style="btn-secondary" title="Sélectionner les circuits à afficher par thème...">		
-							<option value="0" selected>Tous</option>
-							<option value="1">Safari</option>
-							<option value="2">Yoga et Méditation</option>
-							<option value="3">Voyages et Randonnées</option>
-							<option value="4">Courts-Séjours</option>
-						</select>
+                        <!--<select id="themeCircuits" name="themeCircuit" onchange="filterThemeCircuits()" class="selectpicker form-control form-control-lg" data-style="btn-secondary" title="Sélectionner les circuits à afficher par thème..."> -->
+                        <select class="form-control form-control-lg text-white" id="themeCircuits" name="themeCircuit" onchange="filterThemeCircuits()" style="background-color: #333333">		
+                            <option value="0" selected>Tous</option>
+                        </select>
+                            <!--<option value="1">Safari</option>
+                                <option value="2">Yoga et Méditation</option>
+                                <option value="3">Voyages et Randonnées</option>
+                                <option value="4">Courts-Séjours</option>
+                            -->
                         <p class="small">Afficher les circuits <strong>par thème!</strong></p>
                     </div>
                 </div>
@@ -996,7 +998,7 @@
     <!-- Latest compiled and minified JavaScript -->
     <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script> -->
     <!-- https://github.com/silviomoreto/bootstrap-select/issues/1135 -->
-    <script src="https://cdn.rawgit.com/infostreams/bootstrap-select/fd227d46de2afed300d97fd0962de80fa71afb3b/dist/js/bootstrap-select.min.js"></script>
+    <!--<script src="https://cdn.rawgit.com/infostreams/bootstrap-select/fd227d46de2afed300d97fd0962de80fa71afb3b/dist/js/bootstrap-select.min.js"></script> -->
 
 </body>
 
