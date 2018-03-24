@@ -5,7 +5,7 @@ var CIRCUITS = [];
 // Fin variables globales Pour maps
 
 function afficherCarteEnsemble(listeCircuits) {
-    CIRCUITS.splice(0, CIRCUITS.length); //vider le tableau
+    //CIRCUITS.splice(0, CIRCUITS.length); //vider le tableau
     for (var x in listeCircuits) {
         CIRCUITS.push(listeCircuits[x]);
     }
@@ -26,6 +26,21 @@ function filterThemeCircuits() {
         construireCarte(lstCircuits);
     });
 }
+
+function afficherThemesSelectListAccueil(listeCircuits) {
+    debugger;
+    //var selectListAcc = "<option class=\"bs-title-option\" value=\"\">Sélectionner les circuits à afficher par thème...</option>";
+    var selectListAcc = ""; var lastTheme = "";
+    for (i = 1; i < listeCircuits.length; i++) { 
+        if (lastTheme != listeCircuits[i].nomTheme)
+            selectListAcc += "<option value=\"" + i + "\">" + listeCircuits[i].nomTheme + "</option> ";
+
+        lastTheme = listeCircuits[i].nomTheme;
+    }
+    var w2 = document.getElementById('themeCircuits');
+    w2.innerHTML += selectListAcc;
+}
+
 //vue circuits
 function construireCarte(listeCircuits) {
     //localistations lat et long.
@@ -37,8 +52,22 @@ function construireCarte(listeCircuits) {
 
     var contentStringMtl = '<p><strong>Montréal</strong> est votre point de départ!</p>';
 
-    //Hard codé... OK	
-    /* Adding Map Legends */
+    var legend = document.getElementById('mapLegend');
+    debugger;
+    var prevThem ="";
+    if (legend.style.visibility === "hidden") {
+        listeCircuits.forEach(element => {
+            if (element.idTheme != prevThem) {
+                var div = document.createElement('div');
+                div.innerHTML = '<span><img src=' + element.iconUrl + '>' + element.nomTheme + '</span>';
+                div.setAttribute("align", "left");
+                legend.appendChild(div); 
+            }
+            prevThem = element.idTheme;
+        });
+    }
+
+    /* Adding Map Legends
     var legend = document.getElementById('mapLegend');
     if (legend.style.visibility === "hidden") {
         div = document.createElement('div');
@@ -58,6 +87,7 @@ function construireCarte(listeCircuits) {
         div.innerHTML = '<span><img src=' + iconBase + 'sunny.png' + '> Courts-Séjours</span>';
         legend.appendChild(div);
     }
+     */
     /* Push Legend to Right Top */
     //map.controls[google.maps.ControlPosition.RIGHT_TOP].push(legend);
 
@@ -527,6 +557,7 @@ var circuitsVue = function(reponse) {
     switch (action) {
         case "listerCarte":
             afficherCarteEnsemble(reponse.listeCircuits);
+            afficherThemesSelectListAccueil(reponse.listeCircuits);
             break;
         case "afficherGroupesVoyagesDeCircuit":
             afficherGroupesVoyage(reponse.listeGroupesVoyage);

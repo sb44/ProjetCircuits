@@ -60,3 +60,22 @@ function ficheReservation(idCommande) {
         fail: function(err) {}
     });
 }
+
+function enregisterVoyageur() {
+    var formFilm = new FormData(document.getElementById('CreateCommandForm'));
+    formFilm.append('action', 'enregisterVoyageur');
+
+    $.ajax({
+        type: 'POST',
+        url: 'Commandes/commandesControleur.php',
+        data: formFilm,
+        contentType: false,
+        processData: false,
+        dataType: 'json',
+        success: function(reponse) {
+            //alert(reponse);
+            commandesVue(reponse);
+        },
+        fail: function(err) {}
+    });
+}
