@@ -1,4 +1,11 @@
-//requ�tes films
+/* requette qui concerne des utilissateurs */
+/* 
+function checkLoginState() {
+	FB.getLoginStatus(function(response) {
+	  statusChangeCallback(response);
+	});
+  } */
+
 function enregUsager(){
 	var formUsager = new FormData(document.getElementById('formEnr'));
 	formUsager.append('action','enregistrer');
@@ -35,7 +42,7 @@ function connUsager(){
 		
 		},
 		fail : function (err){
-			alert(1111);
+			alert("1111");
 		}
 	});
 }
@@ -103,7 +110,7 @@ function listeUtilisateurs(){
 		data : formProfile,
 		contentType : false, 
 		processData : false,
-		dataType : 'text', 
+		dataType : 'json', 
 		success : function (reponse){alert(reponse);
 					//$('#divFormFiche').hide();
 					//usagersVue(reponse);
@@ -121,7 +128,7 @@ function monProfile(){
 		data : formProfile,
 		contentType : false, 
 		processData : false,
-		dataType : 'text', 
+		dataType : 'json', 
 		success : function (reponse){alert(reponse);
 					//$('#divFormFiche').hide();
 					//usagersVue(reponse);
