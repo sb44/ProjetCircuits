@@ -66,11 +66,13 @@
 					$ligne=$stmt->fetch(PDO::FETCH_OBJ);
 					$idUtilisateur=$ligne->idUtilisateur;
 					$_SESSION['idUtilisateur']=$idUtilisateur;
-
+					
 					if ($roleDB == 'utilisateur') {
 						$tabRes['role']="utilisateur";
+						$_SESSION['role']="utilisateur";
 					} else {
 						$tabRes['role']="admin";
+						$_SESSION['role']="admin";
 					} 
 				} else {
 					$tabRes['msg']="mdpIncorrecte";
@@ -129,6 +131,39 @@
 	function monProfile(){
 		global $tabRes;
 		$tabRes['action']="monProfile";
+		if (isset($_SESSION['role'])) {
+			if ($_SESSION['role']=="admin") {
+				
+				$requete="SELECT courriel FROM connexion WHERE idConnexion = ? ";
+				$unModele=new circuitsModele($requete,array($id));
+				$stmt=$unModele->executer();
+				$ligne=$stmt->fetch(PDO::FETCH_OBJ);
+				$tabRes['courriel']=$ligne->courriel;
+
+			} else {
+				$tabRes['msg']="vous n'êtes pas autorisé";
+			}
+			
+			$id=$_SESSION['idConnexion'];
+			$tabRes['msg']="ok";
+			try{
+				$requete="SELECT * FROM utilisateur WHERE idConnexion = ? ";
+				$unModele=new circuitsModele($requete,array($id));
+				$stmt=$unModele->executer();
+				$ligne=$stmt->fetch(PDO::FETCH_OBJ);
+				$tabRes['utilisateurs']=array();
+				$tabRes['utilisateurs']=$ligne;
+			}catch(Exception $e){
+			}finally{
+				unset($unModele);
+			}
+		}else{
+			$tabRes['msg']="nonTrouve";
+		}
+	}
+	function lister(){
+		global $tabRes;
+		$tabRes['action']="liste";
 		if (isset($_SESSION['idConnexion'])) {
 			$id=$_SESSION['idConnexion'];
 			$tabRes['msg']="ok";
@@ -213,8 +248,8 @@
 		case "deconnecter" :
 			deconnecter();
 		break;
-		case "modifier" :
-			modifier();
+		case "liste" :
+			lister();
 		break;
 	}
     echo json_encode($tabRes); // json_encode --> Retourne la représentation JSON d'une valeur 

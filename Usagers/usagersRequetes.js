@@ -94,6 +94,24 @@ function obtenirFiche(){
 		}
 	});
 }*/
+function listeUtilisateurs(){
+	var formProfile = new FormData();
+	formProfile.append('action','liste');
+	$.ajax({
+		type : 'POST',
+		url : 'Usagers/usagersControleur.php',
+		data : formProfile,
+		contentType : false, 
+		processData : false,
+		dataType : 'text', 
+		success : function (reponse){alert(reponse);
+					//$('#divFormFiche').hide();
+					//usagersVue(reponse);
+		},
+		fail : function (err){
+		}
+	});
+} 
 function monProfile(){
 	var formProfile = new FormData();
 	formProfile.append('action','monProfile');
