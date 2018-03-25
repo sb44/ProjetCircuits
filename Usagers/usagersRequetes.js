@@ -14,7 +14,7 @@ function enregUsager(){
 		url : 'Usagers/usagersControleur.php',
 		data : formUsager,
 		dataType : 'json', //text pour le voir en format de string
-		async : false,
+		/* async : false, */
 		//cache : false,
 		contentType : false,
 		processData : false,
@@ -33,13 +33,12 @@ function connUsager(){
 		type : 'POST',
 		url : 'Usagers/usagersControleur.php',
 		data : formconnexion,
-		async : false,
-		contentType : false,
-		processData : false,
+		/* async : false, */
+ 		contentType : false,
+		processData : false, 
 		dataType : 'json', //text pour le voir en format de string
 		success : function (reponse){//alert(reponse);
-					usagersVue(reponse);
-		
+				usagersVue(reponse);
 		},
 		fail : function (err){
 			alert("1111");
@@ -110,7 +109,7 @@ function listeUtilisateurs(){
 		data : formProfile,
 		contentType : false, 
 		processData : false,
-		dataType : 'json', 
+		dataType : 'text', 
 		success : function (reponse){alert(reponse);
 					//$('#divFormFiche').hide();
 					//usagersVue(reponse);
@@ -128,7 +127,7 @@ function monProfile(){
 		data : formProfile,
 		contentType : false, 
 		processData : false,
-		dataType : 'json', 
+		dataType : 'text', 
 		success : function (reponse){alert(reponse);
 					//$('#divFormFiche').hide();
 					//usagersVue(reponse);
@@ -144,7 +143,7 @@ function deconnecter(){
 		type : 'POST',
 		url : 'Usagers/usagersControleur.php',
 		data : formdeconnexion,
-		async : false,
+		/* async : false, */
 		contentType : false, 
 		processData : false,
 		dataType : 'json', 

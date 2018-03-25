@@ -14,7 +14,18 @@ var REG_DATE = /^\d{4}-\d{2}-\d{2}$/;
 
 $(document).ready(function () {
 	listerCarte();
-	loginstat();
+
+	/***** Ajax loader gif *******/
+ 	$(document).ajaxStart(function(){
+		$("#fadeAj").css("display", "block");
+		$("#modalAj").css("display", "block");
+	});
+	$(document).ajaxComplete(function(){
+		$("#modalAj").css("display", "none");
+		$("#fadeAj").css("display", "none");
+	}); 
+	/*****Fin  Ajax loader gif *******/
+
 	// actualiserNumeroPanierNavBarPanier(); //TODO : mettre le bon numero du carte dans le navbar
 });
 
