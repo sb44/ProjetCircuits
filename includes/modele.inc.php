@@ -16,7 +16,6 @@ function obtenirConnexion(){
 	$maConnexion->connecter();
 	return $maConnexion->getConnexion();
 }
-
 function executer(){
 		$this->connexion = $this->obtenirConnexion(); // connexion
 		$stmt = $this->connexion->prepare($this->requete);
@@ -25,7 +24,6 @@ function executer(){
 			$this->LAST_ID = $this->connexion->lastInsertId();
 		
 		$this->deconnecter(); // déconnexion
-
 		return $stmt;		
 	}
 function deconnecter(){
@@ -52,7 +50,6 @@ function verserFichier($dossier, $inputNom, $fichierDefaut, $chaine) {
 	}
 	return $pochette;
 }
-
 // $pochette = l'URL de la pochette stocké dans la BD, soit "avatar.jpg" ou autre
 function enleverFichier($dossier,$pochette) {
 	if($pochette!="avatar.jpg") {
@@ -70,6 +67,4 @@ function enleverFichier($dossier,$pochette) {
 	}
 }
 }//fin de la classe
-
-
-?>	
+?>
