@@ -62,76 +62,77 @@
 </head>
 
 <body>
-<!--   pour connexion par Facebook -->
-<script>
+    <!--   pour connexion par Facebook -->
+    <script>
         // This is called with the results from from FB.getLoginStatus().
         function statusChangeCallback(response) {
-          console.log('statusChangeCallback');
-          console.log(response);
-          // The response object is returned with a status field that lets the
-          // app know the current login status of the person.
-          // Full docs on the response object can be found in the documentation
-          // for FB.getLoginStatus().
-          if (response.status === 'connected') {
-            // Logged into your app and Facebook.
-            testAPI();
-          } else {
-            // The person is not logged into your app or we are unable to tell.
-            document.getElementById('status').innerHTML = 'Please log ' +
-              'into this app.';
-          }
+            console.log('statusChangeCallback');
+            console.log(response);
+            // The response object is returned with a status field that lets the
+            // app know the current login status of the person.
+            // Full docs on the response object can be found in the documentation
+            // for FB.getLoginStatus().
+            if (response.status === 'connected') {
+                // Logged into your app and Facebook.
+                testAPI();
+            } else {
+                // The person is not logged into your app or we are unable to tell.
+                document.getElementById('status').innerHTML = 'Please log ' +
+                    'into this app.';
+            }
         }
         // This function is called when someone finishes with the Login
         // Button.  See the onlogin handler attached to it in the sample
         // code below.
         function checkLoginState() {
-          FB.getLoginStatus(function(response) {
-            statusChangeCallback(response);
-          });
+            FB.getLoginStatus(function(response) {
+                statusChangeCallback(response);
+            });
         }
         window.fbAsyncInit = function() {
-          FB.init({
-            appId      : '1169915789777979',
-            cookie     : true,  // enable cookies to allow the server to access 
-                                // the session
-            xfbml      : true,  // parse social plugins on this page
-            version    : 'v2.12' // use graph api version 2.8
-          });
-          // Now that we've initialized the JavaScript SDK, we call 
-          // FB.getLoginStatus().  This function gets the state of the
-          // person visiting this page and can return one of three states to
-          // the callback you provide.  They can be:
-          //
-          // 1. Logged into your app ('connected')
-          // 2. Logged into Facebook, but not your app ('not_authorized')
-          // 3. Not logged into Facebook and can't tell if they are logged into
-          //    your app or not.
-          //
-          // These three cases are handled in the callback function.
-          FB.getLoginStatus(function(response) {
-            statusChangeCallback(response);
-          });
+            FB.init({
+                appId: '1169915789777979',
+                cookie: true, // enable cookies to allow the server to access 
+                // the session
+                xfbml: true, // parse social plugins on this page
+                version: 'v2.12' // use graph api version 2.8
+            });
+            // Now that we've initialized the JavaScript SDK, we call 
+            // FB.getLoginStatus().  This function gets the state of the
+            // person visiting this page and can return one of three states to
+            // the callback you provide.  They can be:
+            //
+            // 1. Logged into your app ('connected')
+            // 2. Logged into Facebook, but not your app ('not_authorized')
+            // 3. Not logged into Facebook and can't tell if they are logged into
+            //    your app or not.
+            //
+            // These three cases are handled in the callback function.
+            FB.getLoginStatus(function(response) {
+                statusChangeCallback(response);
+            });
         };
         // Load the SDK asynchronously
         (function(d, s, id) {
-          var js, fjs = d.getElementsByTagName(s)[0];
-          if (d.getElementById(id)) return;
-          js = d.createElement(s); js.id = id;
-          js.src = "https://connect.facebook.net/fr_CA/sdk.js";
-          fjs.parentNode.insertBefore(js, fjs);
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s);
+            js.id = id;
+            js.src = "https://connect.facebook.net/fr_CA/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'facebook-jssdk'));
         // Here we run a very simple test of the Graph API after login is
         // successful.  See statusChangeCallback() for when this call is made.
         function testAPI() {
-          console.log('Welcome!  Fetching your information.... ');
-          FB.api('/me', function(response) {
-            console.log('Successful login for: ' + response.name);
-            document.getElementById('status').innerHTML =
-              'Thanks for logging in, ' + response.name + '!';
-          });
+            console.log('Welcome!  Fetching your information.... ');
+            FB.api('/me', function(response) {
+                console.log('Successful login for: ' + response.name);
+                document.getElementById('status').innerHTML =
+                    'Thanks for logging in, ' + response.name + '!';
+            });
         }
-      </script>
- <!--   pour connexion par Facebook -->
+    </script>
+    <!--   pour connexion par Facebook -->
 
     <!--***********************************-HEADER *************************************** -->
     <!--********************************************************************************** -->
@@ -140,33 +141,33 @@
             <!--  <a class="navbar-brand" href="./circuits.html"></a> -->
             <!--<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
 		<span class="navbar-toggler-icon"></span> -->
-        <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                        <div title="Acceuil">
-                            <a class="nav-link" href="#">
-                                <img id="imgLogo" src="images/header-icon-circuit.png" alt="" class="logo" />
-                            </a>
-                        </div>
-                        <ul class="navbar-nav mx-auto">
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <img id="imgNavDeu" src="images/icon-francais.gif" alt="..." class="img-thumbnail icon-small"> FR</a>
-                                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <div title="Acceuil">
+                    <a class="nav-link" href="#">
+                        <img id="imgLogo" src="images/header-icon-circuit.png" alt="" class="logo" />
+                    </a>
+                </div>
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <img id="imgNavDeu" src="images/icon-francais.gif" alt="..." class="img-thumbnail icon-small"> FR</a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                             <a id="navFr" href="#" class="dropdown-item"><img id="imgNavDeu" src="images/icon-francais.gif" alt="..." class="img-thumbnail icon-small"><span id="lanNavFr">Francais</span></a>
                             <a id="navAng" href="#" class="dropdown-item"><img id="imgNavFra" src="images/icon-anglais.gif" alt="..." class="img-thumbnail icon-small"><span id="lanNavang">Anglais</span></a>
                             <a id="navEsp" href="#" class="dropdown-item"><img id="imgNavEng" src="images/icon-espagnol.gif" alt="..." class="img-thumbnail icon-small"><span id="lanNavEsp">Espagnole</span></a>
                         </div>
                     </li>
                 </ul>
-                
+
                 <ul class="navbar-nav">
                     <li class="nav-item hide" id="navConnecteAdmin">
                         <a href="#" class="nav-link" onClick="handleAdminDiv()"><span class="nav-link"><i class="fa fa-wrench"></i>Administration</span></a>
                     </li>
-                    
+
                     <li class="nav-item hide" id="monProfile">
                         <a href="#" class="nav-link" onClick="monProfile();"><span class="nav-link"><i class="fa fa-pencil-square-o"></i>Mon Profile</span></a>
                     </li>
-                    
+
                     <li class="nav-item hide" id="navPanier">
                         <div title="Mon panier">
                             <a href="#" class="nav-link" onClick="ouvrirPanier();"><span class="nav-link"><span class="oi oi-cart id" id="nbItemPanier"> (0)</span> Panier</span></a>
@@ -175,37 +176,36 @@
                             <input type="hidden" name="monAction" value="panier">
                         </form>
                     </li>
-                    
+
                     <li class="nav-item dropdown" id="navConnexion">
                         <a data-target="#" id="connect" class="nav-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">
                             <button type="button" class="btn btn-link dropdown-toggle text-white"><i class="fa fa-user">&nbsp;</i>Se connecter</button></a>
-                            <ul id="connexion-dropdown" class="dropdown-menu dropdown-menu-right login-dp" aria-labelledby="navbarDropdownMenuLink">
-                                <li>
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <form class="form" role="form" id="formConn" name="formConn" method="POST" onsubmit="event.preventDefault(); validerConnexion();">
-                                                <div class="InscTitre text-center">
-                                                    <h4>Connexion</h4>
-                                                </div>
-                                                <h5><span id="errConn" class="text-danger"></span></h5>
-                                                <hr>
-                                                <input type="hidden" name="monAction" value="connexion">
-                                                <label for="inputCourConn">Courriel</label>
-                                                <div class="form-group">
-                                                    <input type="text" class="form-control" id="inputCourConn" name="inputCourConn" placeholder="votreAdresse@courriel.com" onkeyup="validerCourrielConn(this);">
-                                                    <span id="errCourConn" class="text-danger"></span>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="inputMotPasseConn">Mot de passe</label>
-                                                    <input type="password" class="form-control" id="inputMotPasseConn" name="inputMotPasseConn" placeholder="Mot de passe">
-                                                    <span id="errMotPasseConn" class="text-danger"></span>
-                                                    <!-- <div class="help-block text-right"><a href="">Forget the password ?</a></div> -->
-                                                </div>
-                                                <div class="form-group">
-                                                    <input type="submit" class="btn btn-primary btn-block" value="Connexion" >
-                                                </div>
-                                                <hr>
-                                            ou
+                        <ul id="connexion-dropdown" class="dropdown-menu dropdown-menu-right login-dp" aria-labelledby="navbarDropdownMenuLink">
+                            <li>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <form class="form" role="form" id="formConn" name="formConn" method="POST" onsubmit="event.preventDefault(); validerConnexion();">
+                                            <div class="InscTitre text-center">
+                                                <h4>Connexion</h4>
+                                            </div>
+                                            <h5><span id="errConn" class="text-danger"></span></h5>
+                                            <hr>
+                                            <input type="hidden" name="monAction" value="connexion">
+                                            <label for="inputCourConn">Courriel</label>
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" id="inputCourConn" name="inputCourConn" placeholder="votreAdresse@courriel.com" onkeyup="validerCourrielConn(this);">
+                                                <span id="errCourConn" class="text-danger"></span>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="inputMotPasseConn">Mot de passe</label>
+                                                <input type="password" class="form-control" id="inputMotPasseConn" name="inputMotPasseConn" placeholder="Mot de passe">
+                                                <span id="errMotPasseConn" class="text-danger"></span>
+                                                <!-- <div class="help-block text-right"><a href="">Forget the password ?</a></div> -->
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="submit" class="btn btn-primary btn-block" value="Connexion">
+                                            </div>
+                                            <hr> ou
                                             <!-- <div class="social-buttonF">
                                                     <a class="btn btn-lg btn-social btn-facebook text-light">
                                                             <i class="fa fa-facebook fa-fw"></i> Se connecter avec Facebook
@@ -229,34 +229,34 @@
                         <a href="#" id="enregistrer" class="nav-link " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <!--<button class="btn btn-outline-primary dropdown-toggle text-white" id="btnEnregistrer">Devenir membre </button><span class="caret"></span></a>-->
                             <button class="btn btn-primary dropdown-toggle text-white" id="btnEnregistrer"><i class="fa fa-user-plus"></i> Devenir membre</button></a>
-                            <ul id="inscription-dropdown" class="dropdown-menu dropdown-menu-right inscription-dp" aria-labelledby="navbarDropdownMenuLink">
-                                <li>
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <form class="form" role="form" id="formEnr" name="formEnr" method="POST" onsubmit="event.preventDefault(); validerEnregistrement();">
-                                                <!-- onSubmit="return validerEnregistrement('');" method="post" action="serveur/gestionMembres.php" accept-charset="UTF-8" -->
-                                                <div class="InscTitre text-center">
-                                                    <h4>Inscription</h4>
-                                                </div>
-                                                <h5><span id="errenr" class="text-danger"></span></h5>
-                                                <hr>
-                                                <input type="hidden" name="monAction" value="enregistrer">
-                                                <div class="row">
-                                                    <div class="col-6 nomP">
-                                                        <div class="form-group">
-                                                            <label for="inputPrenom">Prénom</label>
-                                                            <input type="text" class="form-control" id="inputPrenom" name="inputPrenom" onkeyup="validerNom(this)" placeholder="votre prénom">
-                                                            <span id="errPrenom" class="text-danger"></span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-6 nomP">
-                                                        <div class="form-group">
-                                                            <label for="inputNom">Nom</label>
-                                                            <input type="text" class="form-control" id="inputNom" name="inputNom" placeholder="votre nom" onkeyup="validerNom(this)">
-                                                            <span id="errNom" class="text-danger"></span>
-                                                        </div>
+                        <ul id="inscription-dropdown" class="dropdown-menu dropdown-menu-right inscription-dp" aria-labelledby="navbarDropdownMenuLink">
+                            <li>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <form class="form" role="form" id="formEnr" name="formEnr" method="POST" onsubmit="event.preventDefault(); validerEnregistrement();">
+                                            <!-- onSubmit="return validerEnregistrement('');" method="post" action="serveur/gestionMembres.php" accept-charset="UTF-8" -->
+                                            <div class="InscTitre text-center">
+                                                <h4>Inscription</h4>
+                                            </div>
+                                            <h5><span id="errenr" class="text-danger"></span></h5>
+                                            <hr>
+                                            <input type="hidden" name="monAction" value="enregistrer">
+                                            <div class="row">
+                                                <div class="col-6 nomP">
+                                                    <div class="form-group">
+                                                        <label for="inputPrenom">Prénom</label>
+                                                        <input type="text" class="form-control" id="inputPrenom" name="inputPrenom" onkeyup="validerNom(this)" placeholder="votre prénom">
+                                                        <span id="errPrenom" class="text-danger"></span>
                                                     </div>
                                                 </div>
+                                                <div class="col-6 nomP">
+                                                    <div class="form-group">
+                                                        <label for="inputNom">Nom</label>
+                                                        <input type="text" class="form-control" id="inputNom" name="inputNom" placeholder="votre nom" onkeyup="validerNom(this)">
+                                                        <span id="errNom" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
                                             <div class="row">
                                                 <div class="col-6 nomP">
                                                     <div class="form-group">
@@ -317,160 +317,170 @@
                         <div id="modaleDeconnexion" tabindex="-1" class="modal fade bs-example-modal-sm" role="dialog" aria-hidden="true">
                             <div class="modal-dialog modal-sm">
                                 <div class="modal-content">
-                                    <div class="modal-header"><h4>Déconnexion <i class="fa fa-lock"></i></h4></div>
-                                        <div class="modal-body"><i class="fa fa-question-circle"></i> Vous êtes sûr pour déconnecter ?</div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-primary btn-block" data-dismiss="modal" onclick="deconnecter();">Déconnecter</button>
-                                        </div>
+                                    <div class="modal-header">
+                                        <h4>Déconnexion <i class="fa fa-lock"></i></h4>
+                                    </div>
+                                    <div class="modal-body"><i class="fa fa-question-circle"></i> Vous êtes sûr pour déconnecter ?</div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-primary btn-block" data-dismiss="modal" onclick="deconnecter();">Déconnecter</button>
+                                    </div>
                                 </div>
                             </div>
-                        </li>
-                        <!-- fin modale pour déconnexion -->
-                    </ul>
+                    </li>
+                    <!-- fin modale pour déconnexion -->
+                </ul>
                 </div>
-            </nav>
-            <div id="fadeAj"></div>
-            <div id="modalAj">
-                <img id="loaderAj" src="images/ajax-loader.gif" />
+        </nav>
+        <div id="fadeAj"></div>
+        <div id="modalAj">
+            <img id="loaderAj" src="images/ajax-loader.gif" />
+        </div>
+    </header>
+
+    <!--***********************************FIN - HEADER *************************************** -->
+    <!--********************************************************************************** -->
+
+
+
+    <!--*********************************** ajax Loader *************************************** -->
+    <!--*********************************** Fin ajax loader *************************************** -->
+
+    <!--*********************************** CAROUSSEL *************************************** -->
+    <!--********************************************************************************** -->
+    <div id="carouselExampleIndicators" class="carousel slide mt-4" data-ride="carousel">
+        <ol class="carousel-indicators">
+            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="4"></li>
+        </ol>
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img class="d-block w-100" src="images/1-travel.jpg" alt="First slide">
             </div>
-        </header>
-
-<!--***********************************FIN - HEADER *************************************** -->
-<!--********************************************************************************** -->
-
-
-
-<!--*********************************** ajax Loader *************************************** -->
-<!--*********************************** Fin ajax loader *************************************** -->
-
-<!--*********************************** CAROUSSEL *************************************** -->
-<!--********************************************************************************** -->
-<div id="carouselExampleIndicators" class="carousel slide mt-4" data-ride="carousel">
-    <ol class="carousel-indicators">
-        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-        <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
-        <li data-target="#carouselExampleIndicators" data-slide-to="4"></li>
-    </ol>
-    <div class="carousel-inner">
-        <div class="carousel-item active">
-            <img class="d-block w-100" src="images/1-travel.jpg" alt="First slide">
+            <div class="carousel-item">
+                <img class="d-block w-100" src="images/2-travel.jpg" alt="Second slide">
+            </div>
+            <div class="carousel-item">
+                <img class="d-block w-100" src="images/3-travel.jpg" alt="Third slide">
+            </div>
+            <div class="carousel-item">
+                <img class="d-block w-100" src="images/4-travel.jpg" alt="Fourth slide">
+            </div>
+            <div class="carousel-item">
+                <img class="d-block w-100" src="images/5-travel.jpg" alt="Fourth slide">
+            </div>
         </div>
-        <div class="carousel-item">
-            <img class="d-block w-100" src="images/2-travel.jpg" alt="Second slide">
-        </div>
-        <div class="carousel-item">
-            <img class="d-block w-100" src="images/3-travel.jpg" alt="Third slide">
-        </div>
-        <div class="carousel-item">
-            <img class="d-block w-100" src="images/4-travel.jpg" alt="Fourth slide">
-        </div>
-        <div class="carousel-item">
-            <img class="d-block w-100" src="images/5-travel.jpg" alt="Fourth slide">
+        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
+    <!--*********************************** FIN- CAROUSSEL *************************************** -->
+    <!--********************************************************************************** -->
+
+    <div id="messages" style="position:absolute;top:10%;left:80%;color:red;"></div>
+
+
+    <div id="landing">
+        <!-- DIV ACCEUIL LANDING VISITEUR-->
+        <!-- DIV ACCEUIL ADMIN -->
+        <!-- DIV ACCEUIL UTILISATEUR -->
+    </div>
+
+    <div id="contenu" class="container">
+    </div>
+
+    <div id="map" class="h-50 col-md-10 offset-md-1 mt-4">
+        <div id="mapLegend" style="visibility : hidden;">
+            <h4 class="mt-1">Nos thèmes!</h4>
         </div>
     </div>
-    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="sr-only">Previous</span>
-    </a>
-    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="sr-only">Next</span>
-    </a>
-</div>
-<!--*********************************** FIN- CAROUSSEL *************************************** -->
-<!--********************************************************************************** -->
 
-<div id="messages" style="position:absolute;top:10%;left:80%;color:red;"></div>
-
-        
-<div id="landing">
-    <!-- DIV ACCEUIL LANDING VISITEUR-->
-            <!-- DIV ACCEUIL ADMIN -->
-            <!-- DIV ACCEUIL UTILISATEUR -->
-        </div>
-        
-        <div id="contenu" class="container">
-        </div>
-        
-        <div id="map" class="h-50 col-md-10 offset-md-1 mt-4">
-            <div id="mapLegend" style="visibility : hidden;">
-                <h4 class="mt-1">Nos thèmes!</h4>
-            </div>
-        </div>
-        
-        <div id="consulterCircuitsContainer" class="col-md-10 offset-md-1" style="border:2px solid #FBB3FF;">
-            <div id="consulterCircuits" class="container mt-3">
-                <form role="form" id="formRechercheCircuit" name="formRechercheCircuit">
-                    <input type="hidden" name="monAction" value="rechercheCircuit">
-                    <div class="form-group row">
-                        <label for="themeCircuit" class="h4 col-sm-2 col-md-2 offset-md-1 col-form-label-lg" title="Sélectionner les circuits à afficher par thème...">Thème</label>
-                        <div class="col-sm-10 col-md-8 col-lg-6">
-                            <!-- <select class="form-control form-control-lg" id="themeCircuits" placeholder="Sélectionner un thème de circuits"> -->
-                                <!--<select id="themeCircuits" name="themeCircuit" onchange="filterThemeCircuits()" class="selectpicker form-control form-control-lg" data-style="btn-secondary" title="Sélectionner les circuits à afficher par thème..."> -->
-                                    <select class="form-control form-control-lg text-white" id="themeCircuits" name="themeCircuit" onchange="filterThemeCircuits()" style="background-color: #333333">		
+    <div id="consulterCircuitsContainer" class="col-md-10 offset-md-1" style="border:2px solid #FBB3FF;">
+        <div id="consulterCircuits" class="container mt-3">
+            <form role="form" id="formRechercheCircuit" name="formRechercheCircuit">
+                <input type="hidden" name="monAction" value="rechercheCircuit">
+                <div class="form-group row">
+                    <label for="themeCircuit" class="h4 col-sm-2 col-md-2 offset-md-1 col-form-label-lg" title="Sélectionner les circuits à afficher par thème...">Thème</label>
+                    <div class="col-sm-10 col-md-8 col-lg-6">
+                        <!-- <select class="form-control form-control-lg" id="themeCircuits" placeholder="Sélectionner un thème de circuits"> -->
+                        <!--<select id="themeCircuits" name="themeCircuit" onchange="filterThemeCircuits()" class="selectpicker form-control form-control-lg" data-style="btn-secondary" title="Sélectionner les circuits à afficher par thème..."> -->
+                        <select class="form-control form-control-lg text-white" id="themeCircuits" name="themeCircuit" onchange="filterThemeCircuits()" style="background-color: #333333">		
                                         <option value="0" selected>Tous</option>
                                     </select>
-                                    <!--<option value="1">Safari</option>
+                        <!--<option value="1">Safari</option>
                                         <option value="2">Yoga et Méditation</option>
                                         <option value="3">Voyages et Randonnées</option>
                                         <option value="4">Courts-Séjours</option>
                                     -->
-                                    <p class="small">Afficher les circuits <strong>par thème!</strong></p>
-                                </div>
-                            </div>
-                            
-                            
-                            <div class="col-sm-2 col-md-2 offset-md-1 mb-3 d-flex" title="Raffiner votre recherche..." onclick="formRechercheCircuit.reset();">
-                                <a data-toggle="collapse" class="collapsed btn btn-primary" href="#lesDates" aria-label="Expand/Collapse Card 1" aria-expanded="false" role="button">
-                                    <i class="fa" aria-hidden="true"></i>
-                                    <span class="sr-only">Expand/Collapse Card 1</span>
-                                </a>
-                                <span data-toggle="collapse" class="collapsed btn btn-outline" href="#lesDates" aria-label="Expand/Collapse Card 1" aria-expanded="false">Raffiner...</span>
-                            </div>
-                            
-                            
-                            <div id="lesDates" class="collapse">
-                                <div class="form-group row">
-                                    <label for="datedepartCircuit" class="h4 col-sm-2 col-md-2 offset-md-1 col-form-label-lg" title="Afficher les circuits avec départ à partir d'une date de départ...">Départ</label>
-                                    <div class="col-sm-10 col-md-8 col-lg-6">
-                                        <input type="date" class="form-control" id="inputDateDepart" name="inputDateDepart">
-                                        <p class="small">Afficher les circuits ayant <strong>un départ à partir d'une date!</strong></p>
-                                    </div>
-                                </div>
-                                
-                                <div class="form-group row">
-                                    <label for="datearriveCircuit" class="h4 col-sm-2 col-md-2 offset-md-1 col-form-label-lg" title="Afficher les circuits avec retour à/avant une date d'arrivée...">Retour</label>
-                                    <div class="col-sm-10 col-md-8 col-lg-6">
-                                        <input type="date" class="form-control" id="inputDateArrivee" name="inputDateArrivee">
-                                        <p class="small">Afficher les circuits ayant <strong>un retour à ou avant une date!</strong></p>
-                                    </div>
-                                </div>
-                                
-                                <div class="form-group row mb-3">
-                                    <label class="h4 col-0 col-sm-2 col-md-2 offset-md-1"></label>
-                                    <div class="col-4 col-sm-3 col-md-2" title="Lancer la requête">
-                                        <input type="button" class="btn btn-primary form-control" value="Go" onClick="afficherGroupesVoyagesPourTheme()" />
-                                    </div>
-                                    <div class="col-0 vertical-line" style="height: 40px;"></div>
-                                    <div class="col-7 col-sm-4 col-md-3" title="Réinitialiser la recherche">
-                                        <input type="reset" class="btn btn-outline-secondary form-control" value="Recommencer" />
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
+                        <p class="small">Afficher les circuits <strong>par thème!</strong></p>
                     </div>
                 </div>
-                
-                <div id="lesCards" class="card-deck mt-4">
+
+
+                <div class="col-sm-2 col-md-2 offset-md-1 mb-3 d-flex" title="Raffiner votre recherche..." onclick="formRechercheCircuit.reset();">
+                    <a data-toggle="collapse" class="collapsed btn btn-primary" href="#lesDates" aria-label="Expand/Collapse Card 1" aria-expanded="false" role="button">
+                        <i class="fa" aria-hidden="true"></i>
+                        <span class="sr-only">Expand/Collapse Card 1</span>
+                    </a>
+                    <span data-toggle="collapse" class="collapsed btn btn-outline" href="#lesDates" aria-label="Expand/Collapse Card 1" aria-expanded="false">Raffiner...</span>
                 </div>
-                
-                
-                
+
+
+                <div id="lesDates" class="collapse">
+                    <div class="form-group row">
+                        <label for="datedepartCircuit" class="h4 col-sm-2 col-md-2 offset-md-1 col-form-label-lg" title="Afficher les circuits avec départ à partir d'une date de départ...">Départ</label>
+                        <div class="col-sm-10 col-md-8 col-lg-6">
+                            <input type="date" class="form-control" id="inputDateDepart" name="inputDateDepart">
+                            <p class="small">Afficher les circuits ayant <strong>un départ à partir d'une date!</strong></p>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="datearriveCircuit" class="h4 col-sm-2 col-md-2 offset-md-1 col-form-label-lg" title="Afficher les circuits avec retour à/avant une date d'arrivée...">Retour</label>
+                        <div class="col-sm-10 col-md-8 col-lg-6">
+                            <input type="date" class="form-control" id="inputDateArrivee" name="inputDateArrivee">
+                            <p class="small">Afficher les circuits ayant <strong>un retour à ou avant une date!</strong></p>
+                        </div>
+                    </div>
+
+                    <div class="form-group row mb-3">
+                        <label class="h4 col-0 col-sm-2 col-md-2 offset-md-1"></label>
+                        <div class="col-4 col-sm-3 col-md-2" title="Lancer la requête">
+                            <input type="button" class="btn btn-primary form-control" value="Go" onClick="afficherGroupesVoyagesPourTheme()" />
+                        </div>
+                        <div class="col-0 vertical-line" style="height: 40px;"></div>
+                        <div class="col-7 col-sm-4 col-md-3" title="Réinitialiser la recherche">
+                            <input type="reset" class="btn btn-outline-secondary form-control" value="Recommencer" />
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="lesCards" class="card-deck mt-4">
+    </div>
+
+
+
     <div id="divDetailPanier" class="container" style="display:none;">
 
     </div>
+
+    <div id="divDetailSommaire" class="container" style="display:none;">
+
+    </div>
+
+
+
+
 
     <div id="divCreateCommandForm" class="container " style="display:none; ">
         <form id="CreateCommandForm">
@@ -478,7 +488,7 @@
             <div id="btnSubmitVoyageur" class="form-group">
                 <div class="col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-6 offset-md-3">
                     <br>
-                    <input type="button" class="btn btn-primary" value="Soumettre" onClick="enregisterVoyageur();">
+                    <input type="button" class="btn btn-primary" value="Actualiser" onClick="creerSommaire();afficherSommaire(); $('#divCreateCommandForm').hide();">
                     <input type="hidden" class="form-control" id="idCounter" name="idCounter">
                 </div>
             </div>
@@ -489,103 +499,255 @@
 
     <!------------------     Haiqiang Xu  -------------------------------->
     <div id="container-HQ" class="container row hide">
-        <div id="menuAdmin" class="col-sm-3 hide">
-            <h4>Gestion</h4>
+        <div id="menuAdmin" class="col-sm-3">
+      
             <ul class="list-group">
-                <a href="#" class="list-group-item list-group-item-action active">Gestion de circuit</a>
-                <a href="#" class="list-group-item list-group-item-action">Gestion de groupe</a>
+                <a id="gestionCircuitA" href="#" class="list-group-item list-group-item-action" onclick="gestionCircuit()">Gestion de circuit</a>
+                <a id="gestionGroupeA" href="#" class="list-group-item list-group-item-action" onclick="gestionGroupe()">Gestion de groupe</a>
+                <a id="gestionPromotionA" href="#" class="list-group-item list-group-item-action" onclick="gestionPromotion()">Gestion de promotion</a>
             </ul>
         </div>
-
-        <div id="gestionCircuit" class="col-sm-9">
-            <h4>Gestion de circuit</h4>
-            <!--button id="btn-nouveauCircuit" type="button" class="btn btn-light" ondrop="nouveauC(ev)">Nouveau Circuit</button>
-        <button id="btn-modifierCircuit" type="button" class="btn btn-light" ondrop="modifierC(ev)">Modifier Circuit</button><br/-->
-            <table id="t1">
+    
+        <div id="gestionCircuit" class="col-sm-9 hide">
+            <!--h4>Gestion de circuit</h4-->  
+            <table id="t1" >			  
                 <thead>
                     <tr>
-                        <th><button id="btn-nouveauCircuit" type="button" class="btn btn-light" ondrop="nouveauC(ev)">Nouveau Circuit</button></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
+                        <th><button id="btn-nouveauCircuit" type="button" class="btn btn-light" onclick="lireCircuit(0,0)">Nouveau Circuit</button></th>
+                        <th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th>
                     </tr>
                 </thead>
                 <tbody id="tt" class="tableAAA">
-                    <tr>
-                        <td>&nbsp</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
+                    <tr><td>&nbsp</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
                 </tbody>
             </table>
-
+    
             <table id="t2" class="table table-striped">
                 <thead>
-                    <tr>
-                        <th>No</th>
-                        <th>Nom</th>
-                        <th>Description</th>
-                        <th>Theme</th>
-                        <th>Capacite</th>
-                        <th>Prix</th>
-                        <th>Photo</th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                    </tr>
+                <tr>
+                    <th>No</th>
+                    <th>Nom</th>
+                    <th>Theme</th>
+                    <th>Capacite</th>
+                    <th>Prix</th>
+                    <th>Photo</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
                 </thead>
-                <tbody class="tableAAA">
-                    <tr id="0">
-                        <td>1</td>
-                        <td>Chine</td>
-                        <td>Great Wall</td>
-                        <td></td>
-                        <td>30</td>
-                        <td>15000$</td>
-                        <td></td>
-                        <td><span class="oi" data-glyph="pencil"></span></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr id="1">
-                        <td>2</td>
-                        <td>Chine</td>
-                        <td>Great Wall</td>
-                        <td></td>
-                        <td>30</td>
-                        <td>15000$</td>
-                        <td></td>
-                        <td><button type="button"><span class="oi oi-pencil"></span></button></td>
-                        <td><button type="button"><span class="oi oi-magnifying-glass"></span></button></td>
-                        <td><button type="button"><span class="oi oi-ban"></span></button></td>
+                <tbody id="listeCircuit" class="tableAAA">
+                <tr id="0">
+                    <td>1</td>
+                    <td>Chine</td>
+                    <td></td>
+                    <td>30</td>
+                    <td>15000$</td>
+                    <td></td>
+                    <td><span class="oi" data-glyph="pencil"></span></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr id="12">
+                    <td>2</td>
+                    <td>Chine</td>
+                    <td>Great Wall</td>
+                    <td></td>
+                    <td>30</td>
+                    <td>15000$</td>
+                    <td></td>
+                    <td><button type="button" onclick="lireCircuit(1,12)"><span class="oi oi-pencil"></span></button></td>
+                    <td><button type="button"><span class="oi oi-ban"></span></button></td>
                     </tr>
                 </tbody>
             </table>
         </div>
-
+    
+        <div id="gestionGroupe" class="col-sm-9 hide">
+            <!--h4>Gestion de groupe</h4><br/><br/-->
+            <button id="btn-nouveauGroupe" type="button" class="btn btn-light" onclick="nouveauGroupe(0)">Nouveau Groupe</button><br/><br/>
+            <div id="nouveauGroupe" class="hide">
+                <form id="groupeForm">  
+                <table class="table thead-light">
+                    <thead>
+                    <tr>
+                        <th>Circuit</th>
+                        <th>Depart</th>
+                        <th>Retour</th>
+                        <th>Capacite</th>                  
+                        <th>Prix Adulte</th>
+                        <th>Prix Enfant</th>
+                        <th>Prix Bebe</th>
+                        <th>Promotion</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr >
+                            <td>
+                                <select id="circuitGroupe" name="circuitGroupe" style="width:150px">
+                                    <!--option value="1">Voyage organisé en Tanzanie & Zanzibar</option>
+                                    <option value="2">Circuit2</option-->
+                                 </select>        
+                            </td>
+                            <td><input id="dateDepartGroupe" name="dateDepartGroupe" type="text" class="dateDepart" style='width:90px'></intput></td>
+                            <td><input id="dateRetourGroupe" name="dateRetourGroupe" type="text" class="dateRetour" style='width:90px'></intput></td>
+                            <td><input id="capaciteGroupe" name="capaciteGroupe" type="text" style='width:30px'></td>
+                            <td><input id="prixAdulteGroupe" name="prixAdulteGroupe" type="text" style='width:80px'></intput></td>
+                            <td><input id="prixEnfantGroupe" name="prixEnfantGroupe" type="text" style='width:80px'></intput></td>
+                            <td><input id="prixBebeGroupe" name="prixBebeGroupe" type="text" style='width:80px'></td>
+                            <td>
+                                <select id="promotionGroupe" name="promotionGroupe">
+                                    <!--option value="1">1:&nbsp 100%, 50%, 20%</option>
+                                    <option value="2">2:&nbsp&nbsp  85%, 45%, 18%</option-->
+                                </select>        
+                            </td>
+                            <td><button id="btn-enregistrerGroupe" type="button" onclick="enregistrerGroupe(0)"><span class="oi oi-file"></span></button></td>
+                            <td><button id="btn-annulerGroupe" type="button" onclick="annuler(0)"><span class="oi oi-x"></span></button></td>         
+                        </tr>
+                    </tbody>
+                </table>
+                </form>
+                <br/><br/>
+             </div>
+    
+    
+            <table id="p2" class="table table-striped">
+                <thead>
+                <tr>
+                    <th class="fit">No</th>
+                    <th class="fit">Circuit</th>
+                    <th class="fit">Depart</th>
+                    <th class="fit">Retour</th>
+                    <th class="fit">Capacite</th>
+                    <th class="fit">NbInscri</th>
+                    <th class="fit">Prix Adulte</th>
+                    <th class="fit">Prix Enfant</th>
+                    <th class="fit">Prix Bebe</th>
+                    <!--th class="fit">Promotion</th-->
+                    <th class="fit"></th>
+                    <th class="fit"></th>
+                </tr>
+                </thead>
+                <tbody id="listeGroupe" class="tableAAA">
+                        <tr id="groupe1">
+                                <td>2</td>
+                                <td>China</td>
+                                <td width="60px">15-05-2018</td>
+                                <td>30-05-2018</td>
+                                <td>30</td>
+                                <td>21</td>
+                                <td>5999</td>
+                                <td>2999</td>
+                                <td>1999</td>
+                                <td>Oui</td>
+                                <td><button type="button" onclick=""><span class="oi oi-pencil"></span></button></td>
+                                <td><button type="button" onclick=""><span class="oi oi-caret-bottom"></span></button></td>
+                            </tr>       
+                <!--tr >
+                    <td>1</td>
+                    <td>
+                        <select id="circuitGroupe1" disabled='true'>
+                            <option>Voyage organisé en Tanzanie & Zanzibar</option>
+                            <option>Circuit2</option>
+                        </select>
+                    </td>
+                    <td><input id="dateDepartGroupe1" type="text" class="datepicker" style='width:90px' disabled='true'></intput></td>
+                    <td><input id="dateRetourGroupe1" type="text" class="datepicker" style='width:90px' disabled='true'></intput></td>
+                    <td><input id="capaciteGroupe1" type="text" value='30' style='width:30px' disabled='true'></td>
+                    <td><input id="nbInscriGroupe1" type="text" value='21' style='width:30px' disabled='true'></td>
+                    <td><input id="adulteGroupe1" type="text" value='5999' style='width:50px' disabled='true'></td>
+                    <td><input id="enfantGroupe1" type="text" value='2999' style='width:50px' disabled='true'></td>
+                    <td><input id="bebeGroupe1" type="text" value='1999' style='width:50px' disabled='true'></td>
+                    <td><button id="modifierGroupe1" type="button" onclick="modifierGroupe(1)"><span class="oi oi-pencil"></span></button></td>
+                    <td><button id="enregistrerGroupe1" type="button" onclick="enregistrerGroupe(1)" disabled='false'><span class="oi oi-file"></span></button></td>
+                    <td><button id="promotionGroupe1" type="button" onclick="togglePromotion(1, 1)"><span id="iconGroupe1" class="oi oi-caret-bottom"></span></button></td>
+                </tr-->
+                <tr id="promotion1" class="hide">
+                        <td colspan='5'></td>
+                        <td>Rabais:</td>
+                        <td>100%</td>
+                        <td>50%</td>
+                        <td>20%</td>
+                        <td></td>
+                        <td></td>
+                        <td><button id="effectuerPromotion1" type="button" onclick=""><span id="iconPromotion1" class="oi oi-circle-check"></span></button></td>
+                </tr>
+    
+    
+                </tbody>
+            </table>
+        </div>
+    
+        <div id="gestionPromotion" class="col-sm-9 hide">
+            <!--h4>Gestion de groupe</h4><br/><br/-->
+            <button id="btn-nouvellePromotion" type="button" class="btn btn-light" onclick="nouvellePromotion(0)">Nouvelle Promotion</button><br/><br/>
+            <div id="nouvellePromotion" class="hide">
+                <form id="promotionForm">  
+                <table class="table thead-light">
+                    <thead>
+                    <tr>
+                        <th>Description</th>
+                        <th>Rabais Adulte</th>                  
+                        <th>Rabais Enfant</th>
+                        <th>Rabais Bebe</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr >
+                            <td><textarea id="descriptionPromotion" name="descriptionPromotion"></textarea></td>
+                            <td><input id="rabaisAdultePromotion" name="rabaisAdultePromotion" type="text" style='width:90px'>%</intput></td>
+                            <td><input id="rabaisEnfantPromotion" name="rabaisEnfantPromotion" type="text" style='width:90px'>%</intput></td>
+                            <td><input id="rabaisBebePromotion" name="rabaisBebePromotion" type="text" style='width:90px'>%</intput></td>
+                            <td><button id="btn-enregistrerPromotion" type="button" onclick="enregistrerPromotion(0)"><span class="oi oi-file"></span></button></td>
+                            <td><button id="btn-annulerPromotion" type="button" onclick="annuler(2)"><span class="oi oi-x"></span></button></td>         
+                        </tr>
+                    </tbody>
+                </table>
+                </form>
+                <br/><br/>
+             </div>
+    
+    
+            <table id="p2" class="table table-striped">
+                <thead>
+                <tr>
+                    <th>No</th>
+                    <th>ID Promotion</th>
+                    <th>Description</th>
+                    <th>Rabais Adulte</th>                  
+                    <th>Rabais Enfant</th>
+                    <th>Rabais Bebe</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody id="listePromotion" class="tableAAA">
+                        <tr id="promotion1">
+                            <td>1</td>
+                            <td>1</td>
+                            <td>---</td>
+                            <td>100%</td>
+                            <td>50%</td>
+                            <td>30%</td>
+                            <td><button type="button" onclick=""><span class="oi oi-pencil"></span></button></td>
+                        </tr>       
+                </tbody>
+            </table>
+        </div>
+    
         <div id="nouveauCircuit" class="col-sm-9 hide">
-            <h4>Nouveau Circuit</h4><br/>
+            <h4 id="titre-nouveauCircuit">Nouveau Circuit</h4><br/>
             <form id="circuit" name="bbbb">
                 <div class="form-group row">
-                    <label for="nomCircuit" class="col-sm-2">Nom:</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" id="nomCircuit" name="nomCircuit">
-                    </div>
+                <label for="nomCircuit" class="col-sm-2">Nom:</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="nomCircuit" name="nomCircuit">
+                </div>
                 </div><br/>
                 <div class="form-group row">
-                    <label for="desCircuit" class="col-sm-2">Description:</label>
+                <label for="desCircuit" class="col-sm-2">Description:</label>
                     <div id="ckCircuit" class="col-sm-10">
                         <!--textarea class="form-control" id="desCircuit" name="desCircuit" onload="newEditor('desCircuit','ckCircuit')"></textarea-->
                     </div>
@@ -594,215 +756,243 @@
                     <label for="capCircuit" class="col-sm-2">Capacite:</label>
                     <div class="col-sm-2">
                         <input type="text" class="form-control" id="capCircuit" name="capCircuit">
-                    </div>
+                    </div>					
                 </div><br/>
                 <div class="form-group row">
-                    <label for="prixCircuit" class="col-sm-2">Prix:</label>
-                    <div class="col-sm-2">
-                        <input type="text" class="form-control" id="prixCircuit" name="prixCircuit">
-                    </div>
+                        <label for="prixCircuit" class="col-sm-2">Prix:</label>
+                        <div class="col-sm-2">
+                            <input type="text" class="form-control" id="prixCircuit" name="prixCircuit">
+                        </div>					
                 </div><br/>
                 <div class="form-group row">
                     <label for="themeCircuit" class="col-sm-2">Theme:</label>
-                    <div class="col-sm-2">
-                        <select id="themeCircuit" name="themeCircuit">
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                        </select>
-                    </div>
+                    <div class="col-sm-2">						
+                            <select id="themeCircuit" name="themeCircuit">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                            </select>
+                    </div>					
                 </div><br/>
                 <div class="form-group row">
                     <label for="latitudeCircuit" class="col-sm-2">Latitude:</label>
                     <div class="col-sm-2">
                         <input type="text" class="form-control" id="latitudeCircuit" name="latitudeCircuit">
-                    </div>
+                    </div>					
                 </div><br/>
                 <div class="form-group row">
-                    <label for="longitudeCircuit" class="col-sm-2">Longitude:</label>
-                    <div class="col-sm-2">
-                        <input type="text" class="form-control" id="longitudeCircuit" name="longitudeCircuit">
-                    </div>
+                        <label for="longitudeCircuit" class="col-sm-2">Longitude:</label>
+                        <div class="col-sm-2">
+                            <input type="text" class="form-control" id="longitudeCircuit" name="longitudeCircuit">
+                        </div>					
                 </div><br/>
-                <div class="form-group row">
+                <!--div class="form-group row">
                     <label for="photoCircuit" class="col-sm-2">Photo:</label>
                     <div class="col-sm-4">
                         <input type="file" class="form-control" id="photoCircuit" name="photoCircuit">
-                    </div>
+                    </div>					
+                </div><br/-->
+                <div class="form-group row">
+                    <label for="photoCircuit" class="col-sm-2">Photo:</label>
+                    <div class="col-sm-4">
+                        <input type="file" class="form-control" id="photoCircuit" name="photoCircuit" onchange="readURL(this, 'pochetteCircuit', 400, 120)">
+                    </div>	
+                    <div class="col-sm-6">
+                        <img id="pochetteCircuit" width=400 height=120>                  
+                    </div>		
                 </div><br/>
-                <input type="hidden" name="type" value="circuitEn">
             </form>
-
-            <div id="etapes">
-                <!-- insert template etape here -->
-            </div>
-
-            <label class="col-sm-2"></label>
-            <div class="col-sm-10">
-                <button type="button" class="btn btn-sm" onclick="addEtape()">Ajouter une etape</button>
-            </div><br/><br/>
-
-            <div class="row">
-                <div class="col-sm-2">
-                    <button type="button" class="btn btn-primary" onclick="enregistrerCircuit()">enregistrer</button>
+                
+                <div id="etapes"><!-- insert template etape here --></div>
+    
+                <label class="col-sm-2"></label>
+                <div class="col-sm-10">
+                    <button type="button" class="btn btn-sm" onclick="addEtape(null)">Ajouter une etape</button>
+                </div><br/><br/>
+    
+                <!--   button d'enregistrment -->
+                <div class="row">				
+                    <div class="col-sm-2">
+                        <button id="btn-enregistrer" type="button" class="btn btn-primary" onclick="enregistrerCircuit(0)">enregistrer</button>
+                    </div>
+                    <div class="col-sm-3">
+                        <button id="btn-enregRetour" type="button" class="btn btn-primary" onclick="enregistrerCircuit(0); gestionCircuit()">enreg. et retourner</button>
+                    </div>
+                    <div class="col-sm-2">
+                        <button type="button" class="btn btn-primary" onclick="annuler(1)">annuler</button>
+                    </div>
                 </div>
-                <div class="col-sm-3">
-                    <button type="button" class="btn btn-primary">enreg. et retouner</button>
-                </div>
-                <div class="col-sm-2">
-                    <button type="button" class="btn btn-primary">annuler</button>
-                </div>
-            </div>
-
-            <!-- template etape -->
-            <div id="templateEtape" class="hide">
-                <div id="templateEtape{{n}}">
-                    <p><span id="etapeTitle{{i}}" class="oi oi-minus" onclick="foldEtape({{i}})">&nbsp&nbspEtape&nbsp</span><span id="sp{{n}}">{{n}}:</span></p>
-                    <fieldset id="etapeFold{{i}}" style="border: solid; border-width: thin;  border-color: #a8a8a8;">
-                        <legend visible="true" style="width:auto;"></legend>
-                        <form id="etape{{n}}" class="etape">
-                            <div class="form-group row">
-                                <label for="desEtape{{i}}" class="col-sm-2">Description:</label>
-                                <div id="ckEtape{{i}}" class="col-sm-10">
-                                    <!--textarea class="form-control ckeditor" id="desEtape{{i}}" name="desEtape{{i}}"></textarea-->
+    
+                <!-- template etape -->
+                <div id="templateEtape" class="hide">
+                    <div id="templateEtape{{n}}">		
+                        <p><span id="etapeTitle{{i}}" class="oi oi-minus" onclick="foldEtape({{i}})">&nbsp&nbspEtape&nbsp</span><span id="sp{{n}}">{{n}}:</span></p>					
+                        <fieldset id="etapeFold{{i}}" style="border: solid; border-width: thin;  border-color: #a8a8a8;">
+                            <legend visible="true" style="width:auto;"></legend>
+                                <form id="etape{{n}}" class="etape">
+                                    <div class="form-group row">
+                                            <label for="desEtape{{i}}" class="col-sm-2">Description:</label>
+                                            <div id="ckEtape{{i}}" class="col-sm-10">
+                                                    <!--textarea class="form-control ckeditor" id="desEtape{{i}}" name="desEtape{{i}}"></textarea-->
+                                            </div>
+                                    </div><br/>
+                                    <div  class="form-group row">
+                                        <label for="paysEtape{{i}}" class="col-sm-2">Pays:</label>
+                                        <div class="col-sm-3">
+                                             <input type="text" class="form-control" id="paysEtape{{i}}" name="paysEtape">
+                                        </div>	
+                                    </div><br/>
+                                    <div class="form-group row">
+                                            <label for="photoEtape" class="col-sm-2">Photo:</label>
+                                            <div class="col-sm-4">
+                                                <input type="file" class="form-control" id="photoEtape{{i}}" name="photoEtape" onchange="readURL(this, 'pochetteEtape{{i}}', 200, 200)">
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <img id="pochetteEtape{{i}}" {{{photo}}}>
+                                            </div>					
+                                    </div><br/>
+    
+                                </form>
+    
+                                <div id="joursEtape{{n}}"><!--- Insert tamplate jour  --></div>
+    
+                                <div class="row">
+                                    <label class="col-sm-2"></label>
+                                    <div class="col-sm-10">
+                                        <button id="btn-addJour{{n}}" type="button" class="btn btn-sm btn-jour" onclick="addJour({{n}})">Ajouter un jour</button>
+                                    </div>
+                                </div><br/>
+                                <div class="row">
+                                    <button id="btn-supprimerEtape{{n}}" type="button" class="btn btn-link btn-sm" onclick="supprimerEtape({{n}})">supprimer cette etape</button>
                                 </div>
-                            </div><br/>
-                            <div class="form-group row">
-                                <label for="photoEtape" class="col-sm-2">Photo:</label>
-                                <div class="col-sm-4">
-                                    <input type="file" class="form-control" id="photoEtape{{i}}" name="photoEtape">
-                                </div>
-                            </div><br/>
-                            <input type="hidden" name="type" value="etapeEn">
-                        </form>
-
-                        <div id="joursEtape{{n}}">
-                            <!--- Insert tamplate jour  -->
-                        </div>
-
-                        <div class="row">
-                            <label class="col-sm-2"></label>
-                            <div class="col-sm-10">
-                                <button id="btn-addJour{{n}}" type="button" class="btn btn-sm btn-jour" onclick="addJour({{n}})">Ajouter un jour</button>
-                            </div>
-                        </div><br/>
-                        <div class="row">
-                            <button id="btn-supprimerEtape{{n}}" type="button" class="btn btn-link btn-sm" onclick="supprimerEtape({{n}})">supprimer cette etape</button>
-                        </div>
-
-                    </fieldset><br/>
+                                
+                        </fieldset><br/>
+                    </div>					
                 </div>
-            </div>
-
-            <!-- template jour -->
-            <div id="templateJour" class="hide">
-                <div id="templateJour{{i}}{{n}}" class="form-group row">
+    
+                <!-- template jour -->
+                <div id="templateJour" class="hide">
+                    <div id="templateJour{{i}}{{n}}" class="form-group row">	
                     <label class="col-sm-2"></label>
                     <div class="col-sm-10">
                         <h5><span id="jourTitle{{j}}" class="oi oi-minus" onclick="foldJour({{j}})">&nbsp&nbspJour </span><span id="sp{{i}}{{n}}">{{n}}:</span></h5>
-                        <fieldset id="jourFold{{j}}" style="border: solid; border-width: thin;  border-color: #a8a8a8;">
-                            <legend visible="true" style="width:auto;"></legend>
-                            <form id="jour{{i}}{{n}}" class="jour etape{{i}}">
-                                <div class="form-group col-sm-11">
-                                    <label for="villeJour{{j}}">Ville:</label>
-                                    <input type="text" class="form-control" id="villeJour{{j}}" name="ville">
-                                </div>
-                                <div id="ckJour{{j}}" class="form-group col-sm-11">
-                                    <label for="desJour">Description:</label>
-                                    <!--textarea class="form-control ckeditor" id="desJour" name="desJour"></textarea-->
-                                </div>
-                                <div class="form-group col-sm-11">
-                                    <label for="photoJour">Photo:</label>
-                                    <input type="file" class="form-control col-sm-4" id="photoJour{{j}}" name="photoJour">
-                                </div><br/>
-                                <div id="ckActivite{{j}}" class="form-group col-sm-11">
-                                    <label for="activite">Activites:</label>
-                                    <!--textarea class="form-control ckeditor" id="activite" name="activite"></textarea-->
-                                </div>
-                                <div class="form-group row">
-                                    <label for="resto" class="col-sm-2">Restaurant:</label>
-                                    <div class="col-sm-10">
-                                        <select id="resto{{j}}" name="resto">
-                                                    <option value="1">resto 1</option>
-                                                    <option value="2">resto 2</option>
-                                                    <option value="3">resto 3</option>
-                                                </select>
-                                    </div>
-                                </div><br/>
-                                <div class="form-group row">
-                                    <label for="hotel" class="col-sm-2">Hotel:</label>
-                                    <div class="col-sm-10">
-                                        <select id="hotel{{j}}" name="hotel">
-                                                    <option value="1">hotel 1</option>
-                                                    <option value="2">hotel 2</option>
-                                                    <option value="3">hotel 3</option>
-                                                </select>
-                                    </div>
-                                </div><br/>
-                                <input type="hidden" name="type" value="jourEn">
-                            </form>
-
-                            <div class="form-group row">
-                                <div class="col-sm-2">
-                                    <button id="btn-jour{{i}}{{n}}" type="button" class="btn btn-link btn-sm" onclick="supprimerJour({{i}},{{n}})">supprimer ce jour</button>
-                                </div>
-                            </div><br/>
-                        </fieldset><br/>
-                    </div>
-                </div>
-            </div>
+                            <fieldset id="jourFold{{j}}" style="border: solid; border-width: thin;  border-color: #a8a8a8;">
+                                <legend visible="true" style="width:auto;"></legend>
+                                    <form id="jour{{i}}{{n}}"  class="jour etape{{i}}">
+                                        <div  class="form-group col-sm-11">
+                                            <label for="villeJour{{i}}{{j}}">Ville:</label>
+                                            <input type="text" class="form-control" id="villeJour{{i}}{{j}}" name="ville">	
+                                        </div>
+                                        <div id="ckJour{{j}}" class="form-group col-sm-11">
+                                            <label for="desJour">Description:</label>
+                                            <!--textarea class="form-control ckeditor" id="desJour" name="desJour"></textarea-->	
+                                        </div>
+                                        <div class="form-group col-sm-11 row">
+                                            <label for="photoJour" >Photo:&nbsp&nbsp</label>
+                                            <input type="file" class="form-control col-sm-4" id="photoJour{{j}}" name="photoJour"  onchange="readURL(this, 'pochetteJour{{j}}', 200,200)">
+                                            <img id="pochetteJour{{j}}" {{{photo}}}>																			
+                                        </div><br/>	
+                                        <div id="ckActivite{{j}}" class="form-group col-sm-11">
+                                            <label for="activite">Activites:</label>
+                                            <!--textarea class="form-control ckeditor" id="activite" name="activite"></textarea-->											
+                                        </div>
+                                        <div class="form-group row">
+                                                <label for="resto{{i}}{{j}}" class="col-sm-2">Restaurant:</label>
+                                                <div class="col-sm-10">
+                                                    <select id="resto{{i}}{{j}}" name="resto">
+                                                        <option value="1">resto 1</option>
+                                                        <option value="2">resto 2</option>
+                                                        <option value="3">resto 3</option>
+                                                    </select>
+                                                </div>
+                                        </div><br/>	
+                                        <div class="form-group row">
+                                                <label for="hote{{i}}{{j}}l" class="col-sm-2">Hotel:</label>
+                                                <div class="col-sm-10">
+                                                    <select id="hotel{{i}}{{j}}" name="hotel">
+                                                        <option value="1">hotel 1</option>
+                                                        <option value="2">hotel 2</option>
+                                                        <option value="3">hotel 3</option>
+                                                        <option value="4">hotel 4</option>
+                                                        <option value="5">hotel 5</option>
+                                                        <option value="6">hotel 6</option>
+                                                    </select>
+                                                </div>
+                                        </div><br/>	
+                                        <!--input type="hidden" name="type" value="jourEn"-->
+                                    </form>	
+                                    
+                                    <div class="form-group row">
+                                        <div  class="col-sm-2">
+                                            <button id="btn-jour{{i}}{{n}}" type="button" class="btn btn-link btn-sm" onclick="supprimerJour({{i}},{{n}})">supprimer ce jour</button>
+                                        </div>
+                                    </div><br/>
+                            </fieldset><br/>
+                        </div>
+                    </div>											
+                </div>			  
         </div>
     </div>
-    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <script language="javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    
     <script src="js/jquery.validate.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+    <!--script src="https://code.jquery.com/jquery-3.2.1.min.js"></script-->
+    <script language="javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script language="javascript" src="js/ckeditor/ckeditor.js"></script>
     <script language="javascript" src="GroupesVoyage/tourControleurVue.js"></script>
     <script language="javascript" src="GroupesVoyage/tourRequettes.js"></script>
     <script src="js/mustache.js"></script>
     <script>
-        $('#btn-nouveauCircuit').on('click', function() {
-            $('#gestionCircuit').hide();
-            $('#nouveauCircuit').show();
-        })
-    </script>
-    <script>
         $('tbody.tableAAA').sortable({
-            connectWith: 'tbody.tableAAA',
+            connectWith:'tbody.tableAAA',
             receive: function(ev, ui) {
                 var a = $(ui.item).attr('id');
                 if (ev.target.id == "tt") {
                     $(ui.item).remove();
-                    $('#gestionCircuit').hide();
-                    $('#nouveauCircuit').show();
+                   lireCircuit(0, a);
                 }
             }
         });
-
-        newEditor('desCircuit', 'ckCircuit', 'desCircuit');
+    </script>
+    <script>
+            $( function() {
+              $(".dateDepart").datepicker({
+                onSelect: function() {
+                    setDatepicker("retour");
+                }
+              });
+            });
+    
+            $( function() {
+              $(".dateRetour").datepicker({
+                onSelect: function() {
+                    setDatepicker("depart");
+                }
+              });
+            })
     </script>
     <!---------------------  Fin HQXu   -------------------------------->
 
 
-<!--************************************ FOOTER ************************************** -->
-<!--********************************************************************************** -->
-<footer id="myFooter" class="mt-4">
-    <div class="container">
-        <div class="row footer-brand animated fadeInLeft">
-            <div class="col-sm-6">
-                <img id="imgLogo" src="images/icon-circuit.png" alt="..." class="logo" />
-            </div>
-            <div class="col-sm-6">
-                <div class="social-networks">
-                    <a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
-                    <a href="#" class="facebook"><i class="fa fa-facebook"></i></a>
-                    <a href="#" class="google"><i class="fa fa-google-plus"></i></a>
+    <!--************************************ FOOTER ************************************** -->
+    <!--********************************************************************************** -->
+    <footer id="myFooter" class="mt-4">
+        <div class="container">
+            <div class="row footer-brand animated fadeInLeft">
+                <div class="col-sm-6">
+                    <img id="imgLogo" src="images/icon-circuit.png" alt="..." class="logo" />
                 </div>
-                <button type="button" class="btn btn-default">Contactez nous</button>
+                <div class="col-sm-6">
+                    <div class="social-networks">
+                        <a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
+                        <a href="#" class="facebook"><i class="fa fa-facebook"></i></a>
+                        <a href="#" class="google"><i class="fa fa-google-plus"></i></a>
+                    </div>
+                    <button type="button" class="btn btn-default">Contactez nous</button>
+                </div>
             </div>
-        </div>
-        <hr>
+            <hr>
             <div class="row">
                 <div class="col-sm-3 col-xs-12 mapAdr">
                     <img id="imgAdresse" src="images/map-adresse.png" alt="..." class="img-responsive">
@@ -840,9 +1030,15 @@
                         <li><a href="#">Forums</a></li>
                     </ul>
                 </div>
-                
+
             </div>
         </div>
+<<<<<<< HEAD
+=======
+
+
+
+>>>>>>> 22ad18c5f2755da74ec3516e444a90c7ab058ef8
         <div class="footer-copyright">
             <ul>
             <li><a href="./BD/privacypolicy.html">Termes de la politique de confidentialité</a></li>
@@ -853,11 +1049,11 @@
     <!--***************************************** FIN FOOTER *************************** -->
     <!--******************************************************************************** -->
 
-    
+
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    
+
     <!-- Chargement de la carte google 
 		<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCwcI1pUmRdfxrdGid6Lb9S_jz6fduMZkA&libraries=geometry&callback=initMap"></script>-->
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCwcI1pUmRdfxrdGid6Lb9S_jz6fduMZkA&libraries=geometry"></script>

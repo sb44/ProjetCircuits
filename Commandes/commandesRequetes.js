@@ -22,7 +22,6 @@ function ajouterAuPanier(id) {
 
 
 function ouvrirPanier() {
-    debugger;
     var formFilm = new FormData();
     formFilm.append('action', 'ouvrirPanier');
     $.ajax({
@@ -39,6 +38,8 @@ function ouvrirPanier() {
         fail: function(err) {}
     });
 }
+
+
 
 
 function ficheReservation(idCommande) {
@@ -64,6 +65,94 @@ function ficheReservation(idCommande) {
 function enregisterVoyageur() {
     var formFilm = new FormData(document.getElementById('CreateCommandForm'));
     formFilm.append('action', 'enregisterVoyageur');
+
+    $.ajax({
+        type: 'POST',
+        url: 'Commandes/commandesControleur.php',
+        data: formFilm,
+        contentType: false,
+        processData: false,
+        dataType: 'json',
+        success: function(reponse) {
+            //alert(reponse);
+            commandesVue(reponse);
+        },
+        fail: function(err) {}
+    });
+}
+
+function deleteItem(id) {
+    var formFilm = new FormData();
+    formFilm.append('action', 'deleteItem');
+    formFilm.append('itemId', id);
+
+    $.ajax({
+        type: 'POST',
+        url: 'Commandes/commandesControleur.php',
+        data: formFilm,
+        contentType: false,
+        processData: false,
+        dataType: 'json',
+        success: function(reponse) {
+            //alert(reponse);
+            commandesVue(reponse);
+        },
+        fail: function(err) {}
+    });
+}
+
+
+
+
+function supprimerVoyageur(id) {
+    var formFilm = new FormData();
+    formFilm.append('action', 'supprimerVoyageur');
+    formFilm.append('idVoyageur', id);
+
+    $.ajax({
+        type: 'POST',
+        url: 'Commandes/commandesControleur.php',
+        data: formFilm,
+        contentType: false,
+        processData: false,
+        dataType: 'json',
+        success: function(reponse) {
+            //alert(reponse);
+            commandesVue(reponse);
+        },
+        fail: function(err) {}
+    });
+}
+
+
+
+
+
+
+
+function creerSommaire() {
+    //debugger;
+    var formFilm = new FormData(document.getElementById('CreateCommandForm'));
+    formFilm.append('action', 'creerSommaire');
+
+    $.ajax({
+        type: 'POST',
+        url: 'Commandes/commandesControleur.php',
+        data: formFilm,
+        contentType: false,
+        processData: false,
+        dataType: 'json',
+        success: function(reponse) {
+            //alert(reponse);
+            commandesVue(reponse);
+        },
+        fail: function(err) {}
+    });
+}
+
+function afficherSommaire() {
+    var formFilm = new FormData();
+    formFilm.append('action', 'afficherSommaire');
 
     $.ajax({
         type: 'POST',

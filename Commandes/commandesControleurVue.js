@@ -11,10 +11,62 @@ function addToCart(reponse) {
 }
 
 
+function createSummary(reponse) {}
+
+
+function displaySummary(reponse) {
+    $('#divDetailSommaire').hide();
+    var input = "";
+    var sommaire = reponse.summaryList;
+    var total = 0;
+    input += "<div class=\"row\"><h3>Sommaire des Coûts</h3>";
+    input += "<div class=\"col-md-12 col-lg-10\"><table border=\"0\" class=\"table table-hover\">";
+    input += "<tr><th> Nom </th> <th> Prénom </th> <th> Catégorie</th> <th> Coût unitaire</th><th> </th></tr> ";
+    input += "<p><h4>Circuit:</h4>" + sommaire[0].item_circuit + "</p >";
+
+    for (var i = 0; i < sommaire.length; i++) {
+
+        input += "<tr><td>" + sommaire[i].item_name + "</td>";
+        input += "<td>" + sommaire[i].item_prenom + "</td>";
+        input += "<td>" + sommaire[i].item_categorie + "</td>";
+        input += "<td>" + sommaire[i].item_cout_unitaire + " $</td>";
+
+        input += "<td><form>";
+        input += "<input type=\"button\" name='supprimer' class='btn btn-outline-success' value=\"Supprimer \" onclick=\"supprimerVoyageur(" + sommaire[i].item_id + ");\">";
+        input += "<input type=\"hidden\" name=\"idCommand\" id=\"idCommand\"  value=" + sommaire[i].item_id + ">";
+        input += "</form>";
+        input += "</td></tr>";
+        total += parseInt(sommaire[i].item_cout_unitaire);
+    }
+    input += "<tr><td colspan=\"3\"><strong>Total</strong></td>  <td>" + total + "$</td>  <td></td>";
+    input += " </table> </div> </div>";
+    input += "<div class=\"row\">";
+
+
+    $('#divDetailSommaire').html(input);
+    $('#divDetailSommaire').show();
+}
+
+
+
+
 function register(reponse) {
 
 
 }
+
+function supprimer(reponse) {
+    $('#nbItemPanier').text("(" + reponse.itemCount + ")");
+    ouvrirPanier();
+}
+
+
+function deleteTraveler(reponse) {
+    afficherSommaire();
+}
+
+
+
 
 function openCart(reponse) {
     $('#divDetailPanier').hide();
@@ -36,7 +88,8 @@ function openCart(reponse) {
         input += "<td>" + circuit[i].item_Baby_price * (1 - circuit[i].item_Rabais_Bebe) + " $</td>";
 
         input += "<td><form>";
-        input += "<input type=\"button\" name='reserver' class='btn btn-outline-success' value=\"Reserver\" onclick=\"ficheReservation(" + circuit[i].item_id + ");\">";
+        input += "<input type=\"button\" name='reserver' class='btn btn-outline-success' value=\"Ajouter Voyageur\" onclick=\"ficheReservation(" + circuit[i].item_id + ");\">";
+        input += "<input type=\"button\" name='supprimer' class='btn btn-outline-success' value=\"Supprimer \" onclick=\"deleteItem(" + circuit[i].item_id + ");\">";
         input += "<input type=\"hidden\" name=\"idCommande\" id=\"idCommande\"  value=" + circuit[i].item_id + ">";
         input += "</form>";
         input += "</td></tr>";
@@ -45,10 +98,9 @@ function openCart(reponse) {
     input += "<tr><td colspan=\"3\"><strong>Total</strong></td>  <td>" + total + " circuits" + "</td>  <td></td>";
     input += " </table> </div> </div>";
     input += "<div class=\"row\">";
-    input += "<div class=\"col-md-12 col-lg-10\"><a href='#'>Retour à la page d'accueil</a></div></div>";
+
 
     $('#divDetailPanier').html(input);
-    // $('#divDetailPanier').append(input);
     $('#divDetailPanier').show();
 
 }
@@ -137,6 +189,18 @@ var commandesVue = function(reponse) {
             break;
         case "enregistrerVoyageur":
             register(reponse);
+            break;
+        case "deleteItem":
+            supprimer(reponse);
+            break;
+        case "creerSommaire":
+            createSummary(reponse);
+            break;
+        case "afficherSommaire":
+            displaySummary(reponse);
+            break;
+        case "supprimerVoyageur":
+            deleteTraveler(reponse);
             break;
         default:
             alert("Erreur. on doit définir l'action pour le fichier commandesControleurVue.js");
