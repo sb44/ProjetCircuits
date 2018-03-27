@@ -116,20 +116,18 @@
 		global $tabRes;
 		$tabRes['action']="monProfile";
 		if (isset($_SESSION['role'])) {
+			$id=$_SESSION['idConnexion'];
+			$tabRes['msg']="ok";
+
 			if ($_SESSION['role']=="admin") {
-				
-				$id=$_SESSION['idConnexion'];
 				$requete="SELECT courriel FROM connexion WHERE idConnexion = ? ";
 				$unModele=new circuitsModele($requete,array($id));
 				$stmt=$unModele->executer();
 				$ligne=$stmt->fetch(PDO::FETCH_OBJ);
 				$tabRes['courriel']=$ligne->courriel;
-
 			} else {
 				$tabRes['msg']="vous n'êtes pas autorisé";
 			}
-			
-			$tabRes['msg']="ok";
 			try{
 				$requete="SELECT * FROM utilisateur WHERE idConnexion = ? ";
 				$unModele=new circuitsModele($requete,array($id));

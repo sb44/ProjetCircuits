@@ -14,7 +14,8 @@ var REG_DATE = /^\d{4}-\d{2}-\d{2}$/;
 //var CONTENT_USER_LOGIN;
 
 $(document).ready(function() {
-    listerCarte();
+	listerCarte();
+	
 
     /***** Ajax loader gif *******/
     $(document).ajaxStart(function() {
