@@ -17,8 +17,10 @@ function filterThemeCircuits() {
     $("#map").hide(500, function() {
         var selectionne = document.getElementById("themeCircuits").value;
         if (selectionne != "0") {
+            var options = document.getElementById("themeCircuits").getElementsByTagName("option");
+            var optionHTML = options[document.getElementById("themeCircuits").selectedIndex].innerText;  
             var lstCircuits = CIRCUITS.filter(function(el) {
-                return el.idTheme == selectionne;
+                return el.nomTheme == optionHTML;
             });
         } else {
             lstCircuits = CIRCUITS;
@@ -27,15 +29,23 @@ function filterThemeCircuits() {
     });
 }
 
+function isInArray(value, array) {
+    return array.indexOf(value) > -1;
+}
+
 function afficherThemesSelectListAccueil(listeCircuits) {
-    debugger;
+    //debugger;
     //var selectListAcc = "<option class=\"bs-title-option\" value=\"\">Sélectionner les circuits à afficher par thème...</option>";
     var selectListAcc = ""; var lastTheme = "";
-    for (i = 1; i < listeCircuits.length; i++) { 
-        if (lastTheme != listeCircuits[i].nomTheme)
-            selectListAcc += "<option value=\"" + i + "\">" + listeCircuits[i].nomTheme + "</option> ";
 
-        lastTheme = listeCircuits[i].nomTheme;
+    var themes = [];
+    for (i = 0; i < listeCircuits.length; i++) { 
+        if (!isInArray(listeCircuits[i].nomTheme, themes))
+            themes.push(listeCircuits[i].nomTheme);
+    }
+
+    for (i = 0; i < themes.length; i++) { 
+        selectListAcc += "<option value=\"" + (i+1) + "\">" + themes[i] + "</option> ";
     }
     var w2 = document.getElementById('themeCircuits');
     w2.innerHTML += selectListAcc;
@@ -53,18 +63,27 @@ function construireCarte(listeCircuits) {
     var contentStringMtl = '<p><strong>Montréal</strong> est votre point de départ!</p>';
 
     var legend = document.getElementById('mapLegend');
-    debugger;
-    var prevThem ="";
+    //debugger;
+
+    var themes = []; var tempThemes = [];
+    for (i = 0; i < listeCircuits.length; i++) { 
+        if (!isInArray(listeCircuits[i].nomTheme, tempThemes)) {
+            var theme = {iconUrl: listeCircuits[i].iconUrl, nomTheme: listeCircuits[i].nomTheme};
+            themes.push(theme);
+            tempThemes.push(listeCircuits[i].nomTheme);
+        }
+            
+    }
+
+    //var prevThem ="";
     if (legend.style.visibility === "hidden") {
-        listeCircuits.forEach(element => {
-            if (element.idTheme != prevThem) {
-                var div = document.createElement('div');
-                div.innerHTML = '<span><img src=' + element.iconUrl + '>' + element.nomTheme + '</span>';
-                div.setAttribute("align", "left");
-                legend.appendChild(div); 
-            }
-            prevThem = element.idTheme;
-        });
+        for (i = 0; i < themes.length; i++) { 
+            //debugger;
+            var div = document.createElement('div');
+            div.innerHTML = '<span><img src=' + themes[i].iconUrl + '>' + themes[i].nomTheme + '</span>';
+            div.setAttribute("align", "left");
+            legend.appendChild(div); 
+        }
     }
 
     /* Adding Map Legends

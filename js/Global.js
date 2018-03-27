@@ -238,3 +238,30 @@ function traitement() {
     }
 
 }
+
+function showAdminDiv() {
+    $('#carouselExampleIndicators').addClass("hide").removeClass("show");
+    $('#landing').addClass("hide").removeClass("show");
+    $('#map').addClass("hide").removeClass("show");
+    $('#consulterCircuitsContainer').addClass("hide").removeClass("show");
+    $('#lesCards').addClass("hide").removeClass("show");
+
+    $('#divDetailPanier').addClass("hide").removeClass("show");
+    $('#divDetailSommaire').addClass("hide").removeClass("show");
+    $('#divCreateCommandForm').addClass("hide").removeClass("show");
+
+    $('#container-HQ').addClass("show").removeClass("hide");
+}
+function hideAdminDiv() {
+    $('#carouselExampleIndicators').addClass("show").removeClass("hide");
+    $('#landing').addClass("show").removeClass("hide");
+    $('#map').addClass("show").removeClass("hide");
+    $('#consulterCircuitsContainer').addClass("show").removeClass("hide");
+    $('#lesCards').addClass("show").removeClass("hide");
+
+    $('#divDetailPanier').addClass("show").removeClass("hide");
+    $('#divDetailSommaire').addClass("show").removeClass("hide");
+    $('#divCreateCommandForm').addClass("show").removeClass("hide");
+
+    $('#container-HQ').addClass("hide").removeClass("show");
+}
