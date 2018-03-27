@@ -571,7 +571,7 @@ function validerAjoutVoyageur(counter) { // fonction qui retour true ou false
         }
 
         var regex = new RegExp(REG_DATE);
-        if (!regex.test(expirationPasseportVoyageur)) {
+        if (!regex.test(expirationPasseportVoyageur) || expirationPasseportVoyageur < naissanceVoyageur) {
             $('#errExpirationPasseportVoyageur' + j).show();
             estValide[i] = false;
         }

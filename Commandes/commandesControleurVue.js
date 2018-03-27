@@ -108,7 +108,7 @@ function createReservationForm(reponse) {
     var errPrenomVoyageur = "Vous devez entrez un prénom.";
     var errNoPassportVoyageur = "Vous devez entrez un numéro de passeport à huit chiffres.";
     var errCourrielVoyageur = "Vous devez entrez un courriel valide.";
-    var errExpirationPasseportVoyageur = "Vous devez entrez un date valide.";
+    var errExpirationPasseportVoyageur = "Vous devez entrez un date valide et posterieurea votre naissance.";
 
     var idCommande = reponse.idCommande;
 
