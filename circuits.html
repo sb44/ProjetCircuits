@@ -469,6 +469,7 @@
     </div>
 
 
+    <!------------------     Carles Kouaya -------------------------------->
 
     <div id="divDetailPanier" class="container" style="display:none;">
 
@@ -479,16 +480,13 @@
     </div>
 
 
-
-
-
     <div id="divCreateCommandForm" class="container " style="display:none; ">
         <form id="CreateCommandForm">
 
             <div id="btnSubmitVoyageur" class="form-group">
                 <div class="col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-6 offset-md-3">
                     <br>
-                    <input type="button" class="btn btn-primary" value="Actualiser" onClick="creerSommaire();afficherSommaire(); $('#divCreateCommandForm').hide();">
+                    <input type="button" class="btn btn-primary" value="Actualiser" onClick="traitement();">
                     <input type="hidden" class="form-control" id="idCounter" name="idCounter">
                 </div>
             </div>
@@ -500,151 +498,171 @@
     <!------------------     Haiqiang Xu  -------------------------------->
     <div id="container-HQ" class="container row hide">
         <div id="menuAdmin" class="col-sm-3">
-      
+
             <ul class="list-group">
                 <a id="gestionCircuitA" href="#" class="list-group-item list-group-item-action" onclick="gestionCircuit()">Gestion de circuit</a>
                 <a id="gestionGroupeA" href="#" class="list-group-item list-group-item-action" onclick="gestionGroupe()">Gestion de groupe</a>
                 <a id="gestionPromotionA" href="#" class="list-group-item list-group-item-action" onclick="gestionPromotion()">Gestion de promotion</a>
             </ul>
         </div>
-    
+
         <div id="gestionCircuit" class="col-sm-9 hide">
-            <!--h4>Gestion de circuit</h4-->  
-            <table id="t1" >			  
+            <!--h4>Gestion de circuit</h4-->
+            <table id="t1">
                 <thead>
                     <tr>
                         <th><button id="btn-nouveauCircuit" type="button" class="btn btn-light" onclick="lireCircuit(0,0)">Nouveau Circuit</button></th>
-                        <th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody id="tt" class="tableAAA">
-                    <tr><td>&nbsp</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                    <tr>
+                        <td>&nbsp</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
                 </tbody>
             </table>
-    
+
             <table id="t2" class="table table-striped">
                 <thead>
-                <tr>
-                    <th>No</th>
-                    <th>Nom</th>
-                    <th>Theme</th>
-                    <th>Capacite</th>
-                    <th>Prix</th>
-                    <th>Photo</th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                </tr>
+                    <tr>
+                        <th>No</th>
+                        <th>Nom</th>
+                        <th>Theme</th>
+                        <th>Capacite</th>
+                        <th>Prix</th>
+                        <th>Photo</th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                    </tr>
                 </thead>
                 <tbody id="listeCircuit" class="tableAAA">
-                <tr id="0">
-                    <td>1</td>
-                    <td>Chine</td>
-                    <td></td>
-                    <td>30</td>
-                    <td>15000$</td>
-                    <td></td>
-                    <td><span class="oi" data-glyph="pencil"></span></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr id="12">
-                    <td>2</td>
-                    <td>Chine</td>
-                    <td>Great Wall</td>
-                    <td></td>
-                    <td>30</td>
-                    <td>15000$</td>
-                    <td></td>
-                    <td><button type="button" onclick="lireCircuit(1,12)"><span class="oi oi-pencil"></span></button></td>
-                    <td><button type="button"><span class="oi oi-ban"></span></button></td>
+                    <tr id="0">
+                        <td>1</td>
+                        <td>Chine</td>
+                        <td></td>
+                        <td>30</td>
+                        <td>15000$</td>
+                        <td></td>
+                        <td><span class="oi" data-glyph="pencil"></span></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr id="12">
+                        <td>2</td>
+                        <td>Chine</td>
+                        <td>Great Wall</td>
+                        <td></td>
+                        <td>30</td>
+                        <td>15000$</td>
+                        <td></td>
+                        <td><button type="button" onclick="lireCircuit(1,12)"><span class="oi oi-pencil"></span></button></td>
+                        <td><button type="button"><span class="oi oi-ban"></span></button></td>
                     </tr>
                 </tbody>
             </table>
         </div>
-    
+
         <div id="gestionGroupe" class="col-sm-9 hide">
             <!--h4>Gestion de groupe</h4><br/><br/-->
             <button id="btn-nouveauGroupe" type="button" class="btn btn-light" onclick="nouveauGroupe(0)">Nouveau Groupe</button><br/><br/>
             <div id="nouveauGroupe" class="hide">
-                <form id="groupeForm">  
-                <table class="table thead-light">
-                    <thead>
-                    <tr>
-                        <th>Circuit</th>
-                        <th>Depart</th>
-                        <th>Retour</th>
-                        <th>Capacite</th>                  
-                        <th>Prix Adulte</th>
-                        <th>Prix Enfant</th>
-                        <th>Prix Bebe</th>
-                        <th>Promotion</th>
-                        <th></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                        <tr >
-                            <td>
-                                <select id="circuitGroupe" name="circuitGroupe" style="width:150px">
+                <form id="groupeForm">
+                    <table class="table thead-light">
+                        <thead>
+                            <tr>
+                                <th>Circuit</th>
+                                <th>Depart</th>
+                                <th>Retour</th>
+                                <th>Capacite</th>
+                                <th>Prix Adulte</th>
+                                <th>Prix Enfant</th>
+                                <th>Prix Bebe</th>
+                                <th>Promotion</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <select id="circuitGroupe" name="circuitGroupe" style="width:150px">
                                     <!--option value="1">Voyage organisé en Tanzanie & Zanzibar</option>
                                     <option value="2">Circuit2</option-->
-                                 </select>        
-                            </td>
-                            <td><input id="dateDepartGroupe" name="dateDepartGroupe" type="text" class="dateDepart" style='width:90px'></intput></td>
-                            <td><input id="dateRetourGroupe" name="dateRetourGroupe" type="text" class="dateRetour" style='width:90px'></intput></td>
-                            <td><input id="capaciteGroupe" name="capaciteGroupe" type="text" style='width:30px'></td>
-                            <td><input id="prixAdulteGroupe" name="prixAdulteGroupe" type="text" style='width:80px'></intput></td>
-                            <td><input id="prixEnfantGroupe" name="prixEnfantGroupe" type="text" style='width:80px'></intput></td>
-                            <td><input id="prixBebeGroupe" name="prixBebeGroupe" type="text" style='width:80px'></td>
-                            <td>
-                                <select id="promotionGroupe" name="promotionGroupe">
+                                 </select>
+                                </td>
+                                <td><input id="dateDepartGroupe" name="dateDepartGroupe" type="text" class="dateDepart" style='width:90px'></intput>
+                                </td>
+                                <td><input id="dateRetourGroupe" name="dateRetourGroupe" type="text" class="dateRetour" style='width:90px'></intput>
+                                </td>
+                                <td><input id="capaciteGroupe" name="capaciteGroupe" type="text" style='width:30px'></td>
+                                <td><input id="prixAdulteGroupe" name="prixAdulteGroupe" type="text" style='width:80px'></intput>
+                                </td>
+                                <td><input id="prixEnfantGroupe" name="prixEnfantGroupe" type="text" style='width:80px'></intput>
+                                </td>
+                                <td><input id="prixBebeGroupe" name="prixBebeGroupe" type="text" style='width:80px'></td>
+                                <td>
+                                    <select id="promotionGroupe" name="promotionGroupe">
                                     <!--option value="1">1:&nbsp 100%, 50%, 20%</option>
                                     <option value="2">2:&nbsp&nbsp  85%, 45%, 18%</option-->
-                                </select>        
-                            </td>
-                            <td><button id="btn-enregistrerGroupe" type="button" onclick="enregistrerGroupe(0)"><span class="oi oi-file"></span></button></td>
-                            <td><button id="btn-annulerGroupe" type="button" onclick="annuler(0)"><span class="oi oi-x"></span></button></td>         
-                        </tr>
-                    </tbody>
-                </table>
+                                </select>
+                                </td>
+                                <td><button id="btn-enregistrerGroupe" type="button" onclick="enregistrerGroupe(0)"><span class="oi oi-file"></span></button></td>
+                                <td><button id="btn-annulerGroupe" type="button" onclick="annuler(0)"><span class="oi oi-x"></span></button></td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </form>
                 <br/><br/>
-             </div>
-    
-    
+            </div>
+
+
             <table id="p2" class="table table-striped">
                 <thead>
-                <tr>
-                    <th class="fit">No</th>
-                    <th class="fit">Circuit</th>
-                    <th class="fit">Depart</th>
-                    <th class="fit">Retour</th>
-                    <th class="fit">Capacite</th>
-                    <th class="fit">NbInscri</th>
-                    <th class="fit">Prix Adulte</th>
-                    <th class="fit">Prix Enfant</th>
-                    <th class="fit">Prix Bebe</th>
-                    <!--th class="fit">Promotion</th-->
-                    <th class="fit"></th>
-                    <th class="fit"></th>
-                </tr>
+                    <tr>
+                        <th class="fit">No</th>
+                        <th class="fit">Circuit</th>
+                        <th class="fit">Depart</th>
+                        <th class="fit">Retour</th>
+                        <th class="fit">Capacite</th>
+                        <th class="fit">NbInscri</th>
+                        <th class="fit">Prix Adulte</th>
+                        <th class="fit">Prix Enfant</th>
+                        <th class="fit">Prix Bebe</th>
+                        <!--th class="fit">Promotion</th-->
+                        <th class="fit"></th>
+                        <th class="fit"></th>
+                    </tr>
                 </thead>
                 <tbody id="listeGroupe" class="tableAAA">
-                        <tr id="groupe1">
-                                <td>2</td>
-                                <td>China</td>
-                                <td width="60px">15-05-2018</td>
-                                <td>30-05-2018</td>
-                                <td>30</td>
-                                <td>21</td>
-                                <td>5999</td>
-                                <td>2999</td>
-                                <td>1999</td>
-                                <td>Oui</td>
-                                <td><button type="button" onclick=""><span class="oi oi-pencil"></span></button></td>
-                                <td><button type="button" onclick=""><span class="oi oi-caret-bottom"></span></button></td>
-                            </tr>       
-                <!--tr >
+                    <tr id="groupe1">
+                        <td>2</td>
+                        <td>China</td>
+                        <td width="60px">15-05-2018</td>
+                        <td>30-05-2018</td>
+                        <td>30</td>
+                        <td>21</td>
+                        <td>5999</td>
+                        <td>2999</td>
+                        <td>1999</td>
+                        <td>Oui</td>
+                        <td><button type="button" onclick=""><span class="oi oi-pencil"></span></button></td>
+                        <td><button type="button" onclick=""><span class="oi oi-caret-bottom"></span></button></td>
+                    </tr>
+                    <!--tr >
                     <td>1</td>
                     <td>
                         <select id="circuitGroupe1" disabled='true'>
@@ -663,7 +681,7 @@
                     <td><button id="enregistrerGroupe1" type="button" onclick="enregistrerGroupe(1)" disabled='false'><span class="oi oi-file"></span></button></td>
                     <td><button id="promotionGroupe1" type="button" onclick="togglePromotion(1, 1)"><span id="iconGroupe1" class="oi oi-caret-bottom"></span></button></td>
                 </tr-->
-                <tr id="promotion1" class="hide">
+                    <tr id="promotion1" class="hide">
                         <td colspan='5'></td>
                         <td>Rabais:</td>
                         <td>100%</td>
@@ -672,82 +690,85 @@
                         <td></td>
                         <td></td>
                         <td><button id="effectuerPromotion1" type="button" onclick=""><span id="iconPromotion1" class="oi oi-circle-check"></span></button></td>
-                </tr>
-    
-    
+                    </tr>
+
+
                 </tbody>
             </table>
         </div>
-    
+
         <div id="gestionPromotion" class="col-sm-9 hide">
             <!--h4>Gestion de groupe</h4><br/><br/-->
             <button id="btn-nouvellePromotion" type="button" class="btn btn-light" onclick="nouvellePromotion(0)">Nouvelle Promotion</button><br/><br/>
             <div id="nouvellePromotion" class="hide">
-                <form id="promotionForm">  
-                <table class="table thead-light">
-                    <thead>
+                <form id="promotionForm">
+                    <table class="table thead-light">
+                        <thead>
+                            <tr>
+                                <th>Description</th>
+                                <th>Rabais Adulte</th>
+                                <th>Rabais Enfant</th>
+                                <th>Rabais Bebe</th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><textarea id="descriptionPromotion" name="descriptionPromotion"></textarea></td>
+                                <td><input id="rabaisAdultePromotion" name="rabaisAdultePromotion" type="text" style='width:90px'>%</intput>
+                                </td>
+                                <td><input id="rabaisEnfantPromotion" name="rabaisEnfantPromotion" type="text" style='width:90px'>%</intput>
+                                </td>
+                                <td><input id="rabaisBebePromotion" name="rabaisBebePromotion" type="text" style='width:90px'>%</intput>
+                                </td>
+                                <td><button id="btn-enregistrerPromotion" type="button" onclick="enregistrerPromotion(0)"><span class="oi oi-file"></span></button></td>
+                                <td><button id="btn-annulerPromotion" type="button" onclick="annuler(2)"><span class="oi oi-x"></span></button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </form>
+                <br/><br/>
+            </div>
+
+
+            <table id="p2" class="table table-striped">
+                <thead>
                     <tr>
+                        <th>No</th>
+                        <th>ID Promotion</th>
                         <th>Description</th>
-                        <th>Rabais Adulte</th>                  
+                        <th>Rabais Adulte</th>
                         <th>Rabais Enfant</th>
                         <th>Rabais Bebe</th>
                         <th></th>
-                        <th></th>
                     </tr>
-                    </thead>
-                    <tbody>
-                        <tr >
-                            <td><textarea id="descriptionPromotion" name="descriptionPromotion"></textarea></td>
-                            <td><input id="rabaisAdultePromotion" name="rabaisAdultePromotion" type="text" style='width:90px'>%</intput></td>
-                            <td><input id="rabaisEnfantPromotion" name="rabaisEnfantPromotion" type="text" style='width:90px'>%</intput></td>
-                            <td><input id="rabaisBebePromotion" name="rabaisBebePromotion" type="text" style='width:90px'>%</intput></td>
-                            <td><button id="btn-enregistrerPromotion" type="button" onclick="enregistrerPromotion(0)"><span class="oi oi-file"></span></button></td>
-                            <td><button id="btn-annulerPromotion" type="button" onclick="annuler(2)"><span class="oi oi-x"></span></button></td>         
-                        </tr>
-                    </tbody>
-                </table>
-                </form>
-                <br/><br/>
-             </div>
-    
-    
-            <table id="p2" class="table table-striped">
-                <thead>
-                <tr>
-                    <th>No</th>
-                    <th>ID Promotion</th>
-                    <th>Description</th>
-                    <th>Rabais Adulte</th>                  
-                    <th>Rabais Enfant</th>
-                    <th>Rabais Bebe</th>
-                    <th></th>
-                </tr>
                 </thead>
                 <tbody id="listePromotion" class="tableAAA">
-                        <tr id="promotion1">
-                            <td>1</td>
-                            <td>1</td>
-                            <td>---</td>
-                            <td>100%</td>
-                            <td>50%</td>
-                            <td>30%</td>
-                            <td><button type="button" onclick=""><span class="oi oi-pencil"></span></button></td>
-                        </tr>       
+                    <tr id="promotion1">
+                        <td>1</td>
+                        <td>1</td>
+                        <td>---</td>
+                        <td>100%</td>
+                        <td>50%</td>
+                        <td>30%</td>
+                        <td><button type="button" onclick=""><span class="oi oi-pencil"></span></button></td>
+                    </tr>
                 </tbody>
             </table>
         </div>
-    
+
         <div id="nouveauCircuit" class="col-sm-9 hide">
             <h4 id="titre-nouveauCircuit">Nouveau Circuit</h4><br/>
             <form id="circuit" name="bbbb">
                 <div class="form-group row">
-                <label for="nomCircuit" class="col-sm-2">Nom:</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" id="nomCircuit" name="nomCircuit">
-                </div>
+                    <label for="nomCircuit" class="col-sm-2">Nom:</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="nomCircuit" name="nomCircuit">
+                    </div>
                 </div><br/>
                 <div class="form-group row">
-                <label for="desCircuit" class="col-sm-2">Description:</label>
+                    <label for="desCircuit" class="col-sm-2">Description:</label>
                     <div id="ckCircuit" class="col-sm-10">
                         <!--textarea class="form-control" id="desCircuit" name="desCircuit" onload="newEditor('desCircuit','ckCircuit')"></textarea-->
                     </div>
@@ -756,36 +777,36 @@
                     <label for="capCircuit" class="col-sm-2">Capacite:</label>
                     <div class="col-sm-2">
                         <input type="text" class="form-control" id="capCircuit" name="capCircuit">
-                    </div>					
+                    </div>
                 </div><br/>
                 <div class="form-group row">
-                        <label for="prixCircuit" class="col-sm-2">Prix:</label>
-                        <div class="col-sm-2">
-                            <input type="text" class="form-control" id="prixCircuit" name="prixCircuit">
-                        </div>					
+                    <label for="prixCircuit" class="col-sm-2">Prix:</label>
+                    <div class="col-sm-2">
+                        <input type="text" class="form-control" id="prixCircuit" name="prixCircuit">
+                    </div>
                 </div><br/>
                 <div class="form-group row">
                     <label for="themeCircuit" class="col-sm-2">Theme:</label>
-                    <div class="col-sm-2">						
-                            <select id="themeCircuit" name="themeCircuit">
+                    <div class="col-sm-2">
+                        <select id="themeCircuit" name="themeCircuit">
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
                                 <option value="4">4</option>
                             </select>
-                    </div>					
+                    </div>
                 </div><br/>
                 <div class="form-group row">
                     <label for="latitudeCircuit" class="col-sm-2">Latitude:</label>
                     <div class="col-sm-2">
                         <input type="text" class="form-control" id="latitudeCircuit" name="latitudeCircuit">
-                    </div>					
+                    </div>
                 </div><br/>
                 <div class="form-group row">
-                        <label for="longitudeCircuit" class="col-sm-2">Longitude:</label>
-                        <div class="col-sm-2">
-                            <input type="text" class="form-control" id="longitudeCircuit" name="longitudeCircuit">
-                        </div>					
+                    <label for="longitudeCircuit" class="col-sm-2">Longitude:</label>
+                    <div class="col-sm-2">
+                        <input type="text" class="form-control" id="longitudeCircuit" name="longitudeCircuit">
+                    </div>
                 </div><br/>
                 <!--div class="form-group row">
                     <label for="photoCircuit" class="col-sm-2">Photo:</label>
@@ -797,120 +818,124 @@
                     <label for="photoCircuit" class="col-sm-2">Photo:</label>
                     <div class="col-sm-4">
                         <input type="file" class="form-control" id="photoCircuit" name="photoCircuit" onchange="readURL(this, 'pochetteCircuit', 400, 120)">
-                    </div>	
+                    </div>
                     <div class="col-sm-6">
-                        <img id="pochetteCircuit" width=400 height=120>                  
-                    </div>		
+                        <img id="pochetteCircuit" width=400 height=120>
+                    </div>
                 </div><br/>
             </form>
-                
-                <div id="etapes"><!-- insert template etape here --></div>
-    
-                <label class="col-sm-2"></label>
-                <div class="col-sm-10">
-                    <button type="button" class="btn btn-sm" onclick="addEtape(null)">Ajouter une etape</button>
-                </div><br/><br/>
-    
-                <!--   button d'enregistrment -->
-                <div class="row">				
-                    <div class="col-sm-2">
-                        <button id="btn-enregistrer" type="button" class="btn btn-primary" onclick="enregistrerCircuit(0)">enregistrer</button>
-                    </div>
-                    <div class="col-sm-3">
-                        <button id="btn-enregRetour" type="button" class="btn btn-primary" onclick="enregistrerCircuit(0); gestionCircuit()">enreg. et retourner</button>
-                    </div>
-                    <div class="col-sm-2">
-                        <button type="button" class="btn btn-primary" onclick="annuler(1)">annuler</button>
-                    </div>
+
+            <div id="etapes">
+                <!-- insert template etape here -->
+            </div>
+
+            <label class="col-sm-2"></label>
+            <div class="col-sm-10">
+                <button type="button" class="btn btn-sm" onclick="addEtape(null)">Ajouter une etape</button>
+            </div><br/><br/>
+
+            <!--   button d'enregistrment -->
+            <div class="row">
+                <div class="col-sm-2">
+                    <button id="btn-enregistrer" type="button" class="btn btn-primary" onclick="enregistrerCircuit(0)">enregistrer</button>
                 </div>
-    
-                <!-- template etape -->
-                <div id="templateEtape" class="hide">
-                    <div id="templateEtape{{n}}">		
-                        <p><span id="etapeTitle{{i}}" class="oi oi-minus" onclick="foldEtape({{i}})">&nbsp&nbspEtape&nbsp</span><span id="sp{{n}}">{{n}}:</span></p>					
-                        <fieldset id="etapeFold{{i}}" style="border: solid; border-width: thin;  border-color: #a8a8a8;">
-                            <legend visible="true" style="width:auto;"></legend>
-                                <form id="etape{{n}}" class="etape">
-                                    <div class="form-group row">
-                                            <label for="desEtape{{i}}" class="col-sm-2">Description:</label>
-                                            <div id="ckEtape{{i}}" class="col-sm-10">
-                                                    <!--textarea class="form-control ckeditor" id="desEtape{{i}}" name="desEtape{{i}}"></textarea-->
-                                            </div>
-                                    </div><br/>
-                                    <div  class="form-group row">
-                                        <label for="paysEtape{{i}}" class="col-sm-2">Pays:</label>
-                                        <div class="col-sm-3">
-                                             <input type="text" class="form-control" id="paysEtape{{i}}" name="paysEtape">
-                                        </div>	
-                                    </div><br/>
-                                    <div class="form-group row">
-                                            <label for="photoEtape" class="col-sm-2">Photo:</label>
-                                            <div class="col-sm-4">
-                                                <input type="file" class="form-control" id="photoEtape{{i}}" name="photoEtape" onchange="readURL(this, 'pochetteEtape{{i}}', 200, 200)">
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <img id="pochetteEtape{{i}}" {{{photo}}}>
-                                            </div>					
-                                    </div><br/>
-    
-                                </form>
-    
-                                <div id="joursEtape{{n}}"><!--- Insert tamplate jour  --></div>
-    
-                                <div class="row">
-                                    <label class="col-sm-2"></label>
-                                    <div class="col-sm-10">
-                                        <button id="btn-addJour{{n}}" type="button" class="btn btn-sm btn-jour" onclick="addJour({{n}})">Ajouter un jour</button>
-                                    </div>
-                                </div><br/>
-                                <div class="row">
-                                    <button id="btn-supprimerEtape{{n}}" type="button" class="btn btn-link btn-sm" onclick="supprimerEtape({{n}})">supprimer cette etape</button>
+                <div class="col-sm-3">
+                    <button id="btn-enregRetour" type="button" class="btn btn-primary" onclick="enregistrerCircuit(0); gestionCircuit()">enreg. et retourner</button>
+                </div>
+                <div class="col-sm-2">
+                    <button type="button" class="btn btn-primary" onclick="annuler(1)">annuler</button>
+                </div>
+            </div>
+
+            <!-- template etape -->
+            <div id="templateEtape" class="hide">
+                <div id="templateEtape{{n}}">
+                    <p><span id="etapeTitle{{i}}" class="oi oi-minus" onclick="foldEtape({{i}})">&nbsp&nbspEtape&nbsp</span><span id="sp{{n}}">{{n}}:</span></p>
+                    <fieldset id="etapeFold{{i}}" style="border: solid; border-width: thin;  border-color: #a8a8a8;">
+                        <legend visible="true" style="width:auto;"></legend>
+                        <form id="etape{{n}}" class="etape">
+                            <div class="form-group row">
+                                <label for="desEtape{{i}}" class="col-sm-2">Description:</label>
+                                <div id="ckEtape{{i}}" class="col-sm-10">
+                                    <!--textarea class="form-control ckeditor" id="desEtape{{i}}" name="desEtape{{i}}"></textarea-->
                                 </div>
-                                
-                        </fieldset><br/>
-                    </div>					
+                            </div><br/>
+                            <div class="form-group row">
+                                <label for="paysEtape{{i}}" class="col-sm-2">Pays:</label>
+                                <div class="col-sm-3">
+                                    <input type="text" class="form-control" id="paysEtape{{i}}" name="paysEtape">
+                                </div>
+                            </div><br/>
+                            <div class="form-group row">
+                                <label for="photoEtape" class="col-sm-2">Photo:</label>
+                                <div class="col-sm-4">
+                                    <input type="file" class="form-control" id="photoEtape{{i}}" name="photoEtape" onchange="readURL(this, 'pochetteEtape{{i}}', 200, 200)">
+                                </div>
+                                <div class="col-sm-6">
+                                    <img id="pochetteEtape{{i}}" {{{photo}}}>
+                                </div>
+                            </div><br/>
+
+                        </form>
+
+                        <div id="joursEtape{{n}}">
+                            <!--- Insert tamplate jour  -->
+                        </div>
+
+                        <div class="row">
+                            <label class="col-sm-2"></label>
+                            <div class="col-sm-10">
+                                <button id="btn-addJour{{n}}" type="button" class="btn btn-sm btn-jour" onclick="addJour({{n}})">Ajouter un jour</button>
+                            </div>
+                        </div><br/>
+                        <div class="row">
+                            <button id="btn-supprimerEtape{{n}}" type="button" class="btn btn-link btn-sm" onclick="supprimerEtape({{n}})">supprimer cette etape</button>
+                        </div>
+
+                    </fieldset><br/>
                 </div>
-    
-                <!-- template jour -->
-                <div id="templateJour" class="hide">
-                    <div id="templateJour{{i}}{{n}}" class="form-group row">	
+            </div>
+
+            <!-- template jour -->
+            <div id="templateJour" class="hide">
+                <div id="templateJour{{i}}{{n}}" class="form-group row">
                     <label class="col-sm-2"></label>
                     <div class="col-sm-10">
                         <h5><span id="jourTitle{{j}}" class="oi oi-minus" onclick="foldJour({{j}})">&nbsp&nbspJour </span><span id="sp{{i}}{{n}}">{{n}}:</span></h5>
-                            <fieldset id="jourFold{{j}}" style="border: solid; border-width: thin;  border-color: #a8a8a8;">
-                                <legend visible="true" style="width:auto;"></legend>
-                                    <form id="jour{{i}}{{n}}"  class="jour etape{{i}}">
-                                        <div  class="form-group col-sm-11">
-                                            <label for="villeJour{{i}}{{j}}">Ville:</label>
-                                            <input type="text" class="form-control" id="villeJour{{i}}{{j}}" name="ville">	
-                                        </div>
-                                        <div id="ckJour{{j}}" class="form-group col-sm-11">
-                                            <label for="desJour">Description:</label>
-                                            <!--textarea class="form-control ckeditor" id="desJour" name="desJour"></textarea-->	
-                                        </div>
-                                        <div class="form-group col-sm-11 row">
-                                            <label for="photoJour" >Photo:&nbsp&nbsp</label>
-                                            <input type="file" class="form-control col-sm-4" id="photoJour{{j}}" name="photoJour"  onchange="readURL(this, 'pochetteJour{{j}}', 200,200)">
-                                            <img id="pochetteJour{{j}}" {{{photo}}}>																			
-                                        </div><br/>	
-                                        <div id="ckActivite{{j}}" class="form-group col-sm-11">
-                                            <label for="activite">Activites:</label>
-                                            <!--textarea class="form-control ckeditor" id="activite" name="activite"></textarea-->											
-                                        </div>
-                                        <div class="form-group row">
-                                                <label for="resto{{i}}{{j}}" class="col-sm-2">Restaurant:</label>
-                                                <div class="col-sm-10">
-                                                    <select id="resto{{i}}{{j}}" name="resto">
+                        <fieldset id="jourFold{{j}}" style="border: solid; border-width: thin;  border-color: #a8a8a8;">
+                            <legend visible="true" style="width:auto;"></legend>
+                            <form id="jour{{i}}{{n}}" class="jour etape{{i}}">
+                                <div class="form-group col-sm-11">
+                                    <label for="villeJour{{i}}{{j}}">Ville:</label>
+                                    <input type="text" class="form-control" id="villeJour{{i}}{{j}}" name="ville">
+                                </div>
+                                <div id="ckJour{{j}}" class="form-group col-sm-11">
+                                    <label for="desJour">Description:</label>
+                                    <!--textarea class="form-control ckeditor" id="desJour" name="desJour"></textarea-->
+                                </div>
+                                <div class="form-group col-sm-11 row">
+                                    <label for="photoJour">Photo:&nbsp&nbsp</label>
+                                    <input type="file" class="form-control col-sm-4" id="photoJour{{j}}" name="photoJour" onchange="readURL(this, 'pochetteJour{{j}}', 200,200)">
+                                    <img id="pochetteJour{{j}}" {{{photo}}}>
+                                </div><br/>
+                                <div id="ckActivite{{j}}" class="form-group col-sm-11">
+                                    <label for="activite">Activites:</label>
+                                    <!--textarea class="form-control ckeditor" id="activite" name="activite"></textarea-->
+                                </div>
+                                <div class="form-group row">
+                                    <label for="resto{{i}}{{j}}" class="col-sm-2">Restaurant:</label>
+                                    <div class="col-sm-10">
+                                        <select id="resto{{i}}{{j}}" name="resto">
                                                         <option value="1">resto 1</option>
                                                         <option value="2">resto 2</option>
                                                         <option value="3">resto 3</option>
                                                     </select>
-                                                </div>
-                                        </div><br/>	
-                                        <div class="form-group row">
-                                                <label for="hote{{i}}{{j}}l" class="col-sm-2">Hotel:</label>
-                                                <div class="col-sm-10">
-                                                    <select id="hotel{{i}}{{j}}" name="hotel">
+                                    </div>
+                                </div><br/>
+                                <div class="form-group row">
+                                    <label for="hote{{i}}{{j}}l" class="col-sm-2">Hotel:</label>
+                                    <div class="col-sm-10">
+                                        <select id="hotel{{i}}{{j}}" name="hotel">
                                                         <option value="1">hotel 1</option>
                                                         <option value="2">hotel 2</option>
                                                         <option value="3">hotel 3</option>
@@ -918,23 +943,23 @@
                                                         <option value="5">hotel 5</option>
                                                         <option value="6">hotel 6</option>
                                                     </select>
-                                                </div>
-                                        </div><br/>	
-                                        <!--input type="hidden" name="type" value="jourEn"-->
-                                    </form>	
-                                    
-                                    <div class="form-group row">
-                                        <div  class="col-sm-2">
-                                            <button id="btn-jour{{i}}{{n}}" type="button" class="btn btn-link btn-sm" onclick="supprimerJour({{i}},{{n}})">supprimer ce jour</button>
-                                        </div>
-                                    </div><br/>
-                            </fieldset><br/>
-                        </div>
-                    </div>											
-                </div>			  
+                                    </div>
+                                </div><br/>
+                                <!--input type="hidden" name="type" value="jourEn"-->
+                            </form>
+
+                            <div class="form-group row">
+                                <div class="col-sm-2">
+                                    <button id="btn-jour{{i}}{{n}}" type="button" class="btn btn-link btn-sm" onclick="supprimerJour({{i}},{{n}})">supprimer ce jour</button>
+                                </div>
+                            </div><br/>
+                        </fieldset><br/>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-    
+
     <script src="js/jquery.validate.js"></script>
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
     <!--script src="https://code.jquery.com/jquery-3.2.1.min.js"></script-->
@@ -945,32 +970,32 @@
     <script src="js/mustache.js"></script>
     <script>
         $('tbody.tableAAA').sortable({
-            connectWith:'tbody.tableAAA',
+            connectWith: 'tbody.tableAAA',
             receive: function(ev, ui) {
                 var a = $(ui.item).attr('id');
                 if (ev.target.id == "tt") {
                     $(ui.item).remove();
-                   lireCircuit(0, a);
+                    lireCircuit(0, a);
                 }
             }
         });
     </script>
     <script>
-            $( function() {
-              $(".dateDepart").datepicker({
+        $(function() {
+            $(".dateDepart").datepicker({
                 onSelect: function() {
                     setDatepicker("retour");
                 }
-              });
             });
-    
-            $( function() {
-              $(".dateRetour").datepicker({
+        });
+
+        $(function() {
+            $(".dateRetour").datepicker({
                 onSelect: function() {
                     setDatepicker("depart");
                 }
-              });
-            })
+            });
+        })
     </script>
     <!---------------------  Fin HQXu   -------------------------------->
 

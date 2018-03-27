@@ -63,7 +63,7 @@ function seConnecter(reponse) {
         setTimeout(function() {
             $('#connexion-dropdown').removeClass("show");
             msg.innerHTML = "";
-            resetForm(formConn);
+            //resetForm(formConn);
         }, 1200);
 
         $('#navDeconnexion').toggleClass("hide");

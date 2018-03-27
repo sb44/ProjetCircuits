@@ -81,10 +81,10 @@ function enregisterVoyageur() {
     });
 }
 
-function deleteItem(id) {
+function deleteItem(itemId) {
     var formFilm = new FormData();
     formFilm.append('action', 'deleteItem');
-    formFilm.append('itemId', id);
+    formFilm.append('itemId', itemId);
 
     $.ajax({
         type: 'POST',
@@ -105,6 +105,7 @@ function deleteItem(id) {
 
 
 function supprimerVoyageur(id) {
+    debugger;
     var formFilm = new FormData();
     formFilm.append('action', 'supprimerVoyageur');
     formFilm.append('idVoyageur', id);
@@ -126,12 +127,8 @@ function supprimerVoyageur(id) {
 
 
 
-
-
-
-
 function creerSommaire() {
-    //debugger;
+
     var formFilm = new FormData(document.getElementById('CreateCommandForm'));
     formFilm.append('action', 'creerSommaire');
 

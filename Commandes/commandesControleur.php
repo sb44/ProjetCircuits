@@ -146,7 +146,6 @@
 
 		function afficherSommaire(){
 			session_start();
-		//$_SESSION = array();
 		global $tabRes;
 		$items=array();
 		
@@ -167,15 +166,12 @@
 		}
 	
 	
-
-
 		function creerSommaire(){
 			session_start();
 			global $tabRes;
 			$counter=$_POST['idCounter'];
 			$idcommande=$_POST['idCommandeVoyageur1'];
 			
-
 			$requette="SELECT groupevoyage.prixAdulte,groupevoyage.prixEnfant,groupevoyage.prixBebe,circuit.nom FROM groupevoyage,circuit WHERE groupevoyage.idGroupeVoyage = ? AND groupevoyage.idcircuit=circuit.idCircuit";
 			$unModele=new circuitsModele($requette,array($idcommande));
 			$stmt=$unModele->executer();
@@ -197,11 +193,9 @@
 				try{
 					
 					$count=0;
-				
 					$categorie="";
 					$prixUnitaire="";
 					
-
 					switch($idCategorie){
 					case "1":
 					$categorie="Adulte";
@@ -216,7 +210,6 @@
 					$prixUnitaire=$ligne->prixBebe;
 					break;
 					}
-
 
 						if(isset($_SESSION["trip_Summary"]))  
 						{  
@@ -266,11 +259,8 @@
 		global $tabRes;
 		$counter=$_POST['idCounter'];
 		$idcommande=$_POST['idCommandeVoyageur1'];
-		//session_start();
-		//$_SESSION = array();
-
+	
 		for( $i=0; $i<$counter;$i++){
-
 			$j=$i+1;
 			$nom = $_POST['nomVoyageur'.$j];
 			$prenom=$_POST['prenomVoyageur'.$j];
