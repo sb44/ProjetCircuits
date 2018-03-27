@@ -400,16 +400,16 @@ function afficherCardCircuit(noCircuit) {
     var leCircuit = " 	<div class=\"col-md-10 offset-md-1\"> ";
     leCircuit += " 		<!-- foreach circuit-->";
     leCircuit += " 		<div class=\"card border-light mb-3\"> ";
-    leCircuit += " 		  <h5 class=\"card-header text-white\" style=\"background-color: #CD5AB3;\">" + circuit[0].nomCircuit + " (" + circuit[0].nomTheme + ")</h5>  ";
+    leCircuit += " 		  <h5 class=\"card-header text-white\" style=\"background-color: #CD5AB3;\">" + strip_html_tags(circuit[0].nomCircuit) + " (" + strip_html_tags(circuit[0].nomTheme) + ")</h5>  ";
     leCircuit += " 			  <img class=\"card-img-top pt-3 px-3 img-fluid rounded-0\" style=\"background-color: #FBF6E0;\" src='./pochettes/" + circuit[0].urlImage + "' alt=\"Card image cap\">";
     leCircuit += " 				<div class=\"card-body\" style=\"background-color: #FBF6E0;\"> ";
     leCircuit += " 					<p class=\"card-text center\">";
-    leCircuit += " 						" + circuit[0].description + "";
+    leCircuit += " 						" + strip_html_tags(circuit[0].description) + "";
     leCircuit += " 					</p>";
     leCircuit += " ";
     leCircuit += " 				<!-- Text en bas du card de circuit -->";
     leCircuit += " 				<p class=\"card-text center\">";
-    leCircuit += " 					<small class=\"text-muted\">&nbsp;&nbsp;&nbsp;&nbsp;<span class=\"oi oi-dollar\">&nbsp;&nbsp;</span>Valeur du circuit: 60.00 $ </small>";
+    leCircuit += " 					<small class=\"text-muted\">&nbsp;&nbsp;&nbsp;&nbsp;<span class=\"oi oi-dollar\">&nbsp;&nbsp;</span>Valeur du circuit : "+ circuit[0].prix +" $</small>";
     leCircuit += " 				</p>";
     leCircuit += " 				<div class=\"col-12\" title=\"Afficher les étapes...\">";
     leCircuit += " 						<a data-toggle=\"collapse\" class=\"collapsed btn btn-info\" style=\"background-color: #00AA9E;\" href=\"#idEtapes\" aria-label=\"Expand/Collapse Card 1\" aria-expanded=\"false\" role=\"button\" onClick=\"afficherEtapesDeCircuit(" + circuit[0].idCircuit + ")\">";
@@ -507,10 +507,10 @@ function afficherEtapes(listeJours) {
     for (var i = 0; i < taille; i++) {
         //leCircuit +=" 								<!-- foreach ÉTAPE -->";
         if (idEtape == "" || idEtape != listeJours[i].etapeId)
-            leCircuit +=" 								<h5 class=\"text-white p-2 mt-2 rounded-top\" style=\"background-color: #00AA9E;\">L'étape " + noEtape++ + " : " + listeJours[i].etapeDescription + "</h5> ";
+            leCircuit +=" 								<h5 class=\"text-white p-2 mt-2 rounded-top\" style=\"background-color: #00AA9E;\">L'étape " + noEtape++ + " : " + strip_html_tags(listeJours[i].etapeDescription) + "</h5> ";
         //leCircuit +=" 								<!-- foreach jour d'ÉTAPE -->";
         leCircuit +=" 								<div class=\"card border-light m-2\" style=\"background-color: #F7F7F7;\"> "; 
-        leCircuit +=" 									<h6 class=\"card-header\">" + listeJours[i].jourDescription + "</h6>  ";
+        leCircuit +=" 									<h6 class=\"card-header\">" + strip_html_tags(listeJours[i].jourDescription) + "</h6>  ";
         leCircuit +=" <div class=\"row p-2\">";  
         leCircuit +=" 	<div class=\"col-sm-7\"> ";
         if (listeJours[i].jourActivites != "null" && listeJours[i].jourActivites != "" && listeJours[i].jourActivites != null) {
@@ -567,6 +567,15 @@ function afficherGroupesVoyage(listeGroupesVoyage) {
     }
 
     document.getElementById('idDeparts').innerHTML = groupeVoy;
+}
+
+function strip_html_tags(str)
+{
+   if ((str===null) || (str===''))
+       return false;
+  else
+   str = str.toString();
+  return str.replace(/<[^>]*>/g, '');
 }
 
 // ********************** selon l'action, on appelle la méthode concerné *******************
