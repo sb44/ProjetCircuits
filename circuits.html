@@ -12,15 +12,15 @@
     <title>Circuits de voyage</title>
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <!-- Icons https://useiconic.com/open/ -->
-    <link href="css/open-iconic/font/css/open-iconic-bootstrap.min.css" rel="stylesheet">
+    <link href="css/open-iconic/font/css/open-iconic-bootstrap.min.css" rel="stylesheet" type="text/css">
     <!-- -Custom CSS -->
     <link rel="stylesheet" href="css/circuits.css" type="text/css" />
     <!-- -Font Awesome CSS -->
-    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <!-- -Font Sans Worker -->
-    <link href="https://fonts.googleapis.com/css?family=Work+Sans:600" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Work+Sans:600" rel="stylesheet" type="text/css">
     <!--  <link rel="stylesheet" href="library/font-awesome/css/font-awesome.min.css"> -->
 
     <!-- Latest compiled and minified CSS ... https://silviomoreto.github.io/bootstrap-select/ -->
@@ -42,14 +42,14 @@
     <script language="javascript" src="Circuits/circuitsControleurVue.js"></script>
 
     <!-- REQUETES Usager JQUERY -->
-    <script language="javascript" src="Usagers/UsagersRequetes.js"></script>
+    <script language="javascript" type="text/javascript" src="Usagers/usagersRequetes.js"></script>
     <!-- CONTROLEUR Usager VUE -->
-    <script language="javascript" src="Usagers/UsagersControleurVue.js"></script>
+    <script language="javascript" type="text/javascript" src="Usagers/usagersControleurVue.js"></script>
 
     <!-- REQUETES Usager JQUERY -->
-    <script language="javascript" src="Commandes/commandesRequetes.js"></script>
+    <script language="javascript" type="text/javascript" src="Commandes/commandesRequetes.js"></script>
     <!-- CONTROLEUR Usager VUE -->
-    <script language="javascript" src="Commandes/commandesControleurVue.js"></script>
+    <script language="javascript" type="text/javascript" src="Commandes/commandesControleurVue.js"></script>
 
     <!--		 				modèle.inc.php
 								^			v
@@ -295,7 +295,7 @@
                                             </div>
                                             <small><span id="errMotPasseEnr" class="text-danger"></span></small>
                                             <div class="row">
-                                                En vous inscrivant, vous acceptez les Conditions générales d’utilisation et la Politique de confidentialité.
+                                                En vous inscrivant, vous acceptez les Conditions générales d’utilisation et la <a href="./BD/privacypolicy.html" >Politique de confidentialité</a>.
                                             </div>
                                             <div class="form-group">
                                                 <input type="submit" class="btn btn-primary btn-block" value="Soumettre">
@@ -331,10 +331,12 @@
                 </ul>
                 </div>
         </nav>
+        <!--*********************************** ajax Loader *************************************** -->
         <div id="fadeAj"></div>
         <div id="modalAj">
             <img id="loaderAj" src="images/ajax-loader.gif" />
         </div>
+        <!--*********************************** Fin ajax loader *************************************** -->
     </header>
 
     <!--***********************************FIN - HEADER *************************************** -->
@@ -342,8 +344,6 @@
 
 
 
-    <!--*********************************** ajax Loader *************************************** -->
-    <!--*********************************** Fin ajax loader *************************************** -->
 
     <!--*********************************** CAROUSSEL *************************************** -->
     <!--********************************************************************************** -->
@@ -1042,8 +1042,7 @@
                 <div class="col-sm-2 col-xs-2">
                     <h5>À propos de nous</h5>
                     <ul>
-                        <li><a href="#">Notre l'entreprise</a>
-                        </li>
+                        <li><a href="#">Notre l'entreprise</a></li>
                         <li><a href="#">Contactez nous</a></li>
                         <li><a href="#">Revues</a></li>
                     </ul>
@@ -1059,11 +1058,11 @@
 
             </div>
         </div>
-
-
-
         <div class="footer-copyright">
-            <p>© 2018 Copyright : TOURISTIA.ca</p>
+            <ul>
+            <li><a href="./BD/privacypolicy.html">Termes de la politique de confidentialité</a></li>
+           <li> <p>© 2018 Copyright : TOURISTIA.ca</p></li>
+        </ul>
         </div>
     </footer>
     <!--***************************************** FIN FOOTER *************************** -->
@@ -1071,12 +1070,12 @@
 
 
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
     <!-- Chargement de la carte google 
 		<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCwcI1pUmRdfxrdGid6Lb9S_jz6fduMZkA&libraries=geometry&callback=initMap"></script>-->
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCwcI1pUmRdfxrdGid6Lb9S_jz6fduMZkA&libraries=geometry"></script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCwcI1pUmRdfxrdGid6Lb9S_jz6fduMZkA&libraries=geometry"></script>
 
 
     <!-- https://silviomoreto.github.io/bootstrap-select/ -->
