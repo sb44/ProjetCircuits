@@ -9,7 +9,7 @@
 		$dateNaissance=$_POST['inputDateNaissance'];
 		$courriel=$_POST['inputCourEnr'];
 		$mdp=$_POST['inputMotPasseEnr'];
-		//$hash = password_hash($mdp, PASSWORD_DEFAULT); 
+		$hash = password_hash($mdp, PASSWORD_DEFAULT); 
 		try{
   			$requete="SELECT * FROM connexion WHERE courriel = ? ";
 			$unModele=new circuitsModele($requete,array($courriel));
@@ -21,7 +21,7 @@
 				$tabRes['msg']="existe";
 			}else{
 					$requete=" INSERT INTO connexion VALUES(0,?,?,?) ";
-					$unModele=new circuitsModele($requete,array($courriel,$mdp,"utilisateur"));
+					$unModele=new circuitsModele($requete,array($courriel,$hash,"utilisateur"));
 					$unModele->executer();
  					$lasId=$unModele->LAST_ID;
 					$requete="INSERT INTO utilisateur VALUES(0,?,?,?,?)";
@@ -41,7 +41,6 @@
 		global $tabRes;	
  		$courriel=$_POST['inputCourConn'];
 		$mdp=$_POST['inputMotPasseConn'];
-		//$hash = password_hash($mdp, PASSWORD_DEFAULT); 
 		try{
 			$requete="SELECT * FROM connexion WHERE courriel = ? ";
 			$unModele=new circuitsModele($requete,array($courriel));
@@ -52,10 +51,11 @@
 			 if($stmt->rowCount() > 0){ // si courriel existe
 				$ligne=$stmt->fetch(PDO::FETCH_OBJ);
 				$mdpDB=$ligne->motDePasse;
+				$hash=password_verify($mdp,$mdpDB);
 				$roleDB=$ligne->role;
 				$idConnexion=$ligne->idConnexion;
 
-				if ($mdpDB == $mdp) {
+				if ($hash) {
 					$tabRes['msg']="ok";
 					$_SESSION['idConnexion']=$idConnexion;
 					$_SESSION['courriel']=$courriel;
@@ -86,22 +86,6 @@
 			unset($unModele);
 		}
 	}
-/* 	function lister(){
-		global $tabRes;
-		$tabRes['action']="lister";
-		$requete="SELECT * FROM films";
-		try{
-			 $unModele=new filmsModele($requete,array());
-			 $stmt=$unModele->executer();
-			 $tabRes['listeFilms']=array();
-			 while($ligne=$stmt->fetch(PDO::FETCH_OBJ)){
-			    $tabRes['listeFilms'][]=$ligne;
-			}
-		}catch(Exception $e){
-		}finally{
-			unset($unModele);
-		}
-	}
 	
 	function enlever(){
 		global $tabRes;	
@@ -126,7 +110,7 @@
 		}finally{
 			unset($unModele);
 		}
-	} */
+	} 
 	
 	function monProfile(){
 		global $tabRes;
@@ -134,6 +118,7 @@
 		if (isset($_SESSION['role'])) {
 			if ($_SESSION['role']=="admin") {
 				
+				$id=$_SESSION['idConnexion'];
 				$requete="SELECT courriel FROM connexion WHERE idConnexion = ? ";
 				$unModele=new circuitsModele($requete,array($id));
 				$stmt=$unModele->executer();
@@ -144,7 +129,6 @@
 				$tabRes['msg']="vous n'êtes pas autorisé";
 			}
 			
-			$id=$_SESSION['idConnexion'];
 			$tabRes['msg']="ok";
 			try{
 				$requete="SELECT * FROM utilisateur WHERE idConnexion = ? ";
@@ -205,32 +189,7 @@
 			$tabRes['msg']="non";
 		}
 	}
-	
-/* 	function modifier(){
-		global $tabRes;	
-		$titre=$_POST['titreF'];
-		$duree=$_POST['dureeF'];
-		$res=$_POST['resF'];
-		$idf=$_POST['idf']; 
-		try{
-			//Recuperer ancienne pochette
-			$requette="SELECT pochette FROM films WHERE idf=?";
-			$unModele=new filmsModele($requette,array($idf));
-			$stmt=$unModele->executer();
-			$ligne=$stmt->fetch(PDO::FETCH_OBJ);
-			$anciennePochette=$ligne->pochette;
-			$pochette=$unModele->verserFichier("pochettes", "pochette",$anciennePochette,$titre);	
-			
-			$requete="UPDATE films SET titre=?,duree=?, res=?, pochette=? WHERE idf=?";
-			$unModele=new filmsModele($requete,array($titre,$duree,$res,$pochette,$idf));
-			$stmt=$unModele->executer();
-			$tabRes['action']="modifier";
-			$tabRes['msg']="Film $idf bien modifie";
-		}catch(Exception $e){
-		}finally{
-			unset($unModele);
-		}
-	} */
+
 	//******************************************************
 	//Contr�leur
 	$action=$_POST['action'];

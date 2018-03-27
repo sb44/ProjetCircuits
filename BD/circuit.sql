@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.7
+-- version 4.7.0
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Mar 18, 2018 at 03:56 PM
--- Server version: 10.1.30-MariaDB
--- PHP Version: 7.2.2
+-- Hôte : 127.0.0.1
+-- Généré le :  mar. 27 mars 2018 à 15:20
+-- Version du serveur :  5.7.17
+-- Version de PHP :  7.1.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -19,25 +19,23 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `circuit`
+-- Base de données :  `circuit`
 --
 CREATE DATABASE IF NOT EXISTS `circuit` DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 USE `circuit`;
-
 -- --------------------------------------------------------
 
 --
--- Table structure for table `categorie`
+-- Structure de la table `categorie`
 --
 
-CREATE TABLE IF NOT EXISTS `categorie` (
-  `idCategorie` int(11) NOT NULL AUTO_INCREMENT,
-  `nom` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  PRIMARY KEY (`idCategorie`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+CREATE TABLE `categorie` (
+  `idCategorie` int(11) NOT NULL,
+  `nom` varchar(50) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data for table `categorie`
+-- Déchargement des données de la table `categorie`
 --
 
 INSERT INTO `categorie` (`idCategorie`, `nom`) VALUES
@@ -48,27 +46,24 @@ INSERT INTO `categorie` (`idCategorie`, `nom`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `circuit`
+-- Structure de la table `circuit`
 --
 
-CREATE TABLE IF NOT EXISTS `circuit` (
-  `idCircuit` int(11) NOT NULL AUTO_INCREMENT,
-  `nom` varchar(50) DEFAULT NULL,
-  `description` longtext CHARACTER SET utf8 COLLATE utf8_unicode_ci,
+CREATE TABLE `circuit` (
+  `idCircuit` int(11) NOT NULL,
+  `nom` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `description` longtext COLLATE utf8_unicode_ci,
   `capacite` int(4) DEFAULT NULL,
-  `urlImage` varchar(255) DEFAULT NULL,
+  `urlImage` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `prix` decimal(10,2) NOT NULL,
   `enVigueur` tinyint(1) DEFAULT NULL,
   `idTheme` int(11) NOT NULL,
   `latitude` decimal(20,10) NOT NULL,
-  `longitude` decimal(20,10) NOT NULL,
-  PRIMARY KEY (`idCircuit`),
-  UNIQUE KEY `Nom_UNIQUE` (`nom`),
-  KEY `fk_Circuits_Themes1_idx` (`idTheme`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `longitude` decimal(20,10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data for table `circuit`
+-- Déchargement des données de la table `circuit`
 --
 
 INSERT INTO `circuit` (`idCircuit`, `nom`, `description`, `capacite`, `urlImage`, `prix`, `enVigueur`, `idTheme`, `latitude`, `longitude`) VALUES
@@ -81,24 +76,21 @@ INSERT INTO `circuit` (`idCircuit`, `nom`, `description`, `capacite`, `urlImage`
 -- --------------------------------------------------------
 
 --
--- Table structure for table `commande`
+-- Structure de la table `commande`
 --
 
-CREATE TABLE IF NOT EXISTS `commande` (
-  `idCommande` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `commande` (
+  `idCommande` int(11) NOT NULL,
   `nbInscription` int(11) DEFAULT NULL,
   `datePayment` date DEFAULT NULL,
   `prixTotal` decimal(10,0) DEFAULT NULL,
   `idGroupeVoyage` int(11) NOT NULL,
   `idUtilisateur` int(11) NOT NULL,
-  `montantDepot` decimal(10,0) DEFAULT NULL,
-  PRIMARY KEY (`idCommande`),
-  KEY `fk_Commande_GroupeVoyage1_idx` (`idGroupeVoyage`),
-  KEY `fk_Commande_Utilisateur1_idx` (`idUtilisateur`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `montantDepot` decimal(10,0) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data for table `commande`
+-- Déchargement des données de la table `commande`
 --
 
 INSERT INTO `commande` (`idCommande`, `nbInscription`, `datePayment`, `prixTotal`, `idGroupeVoyage`, `idUtilisateur`, `montantDepot`) VALUES
@@ -107,43 +99,41 @@ INSERT INTO `commande` (`idCommande`, `nbInscription`, `datePayment`, `prixTotal
 -- --------------------------------------------------------
 
 --
--- Table structure for table `connexion`
+-- Structure de la table `connexion`
 --
 
-CREATE TABLE IF NOT EXISTS `connexion` (
-  `idConnexion` int(11) NOT NULL AUTO_INCREMENT,
-  `courriel` varchar(50) DEFAULT NULL,
-  `motDePasse` varchar(255) DEFAULT NULL,
-  `role` varchar(50) DEFAULT NULL,
-  PRIMARY KEY (`idConnexion`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+CREATE TABLE `connexion` (
+  `idConnexion` int(11) NOT NULL,
+  `courriel` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `motDePasse` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `role` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data for table `connexion`
+-- Déchargement des données de la table `connexion`
 --
 
 INSERT INTO `connexion` (`idConnexion`, `courriel`, `motDePasse`, `role`) VALUES
-(1, 'admin@admin.com', '123456', 'administrateur'),
-(2, 'u@u.com', '123456', 'utilisateur');
+(5, 'admin@admin.com', '$2y$10$XQPeGUJ/CH0BxIKfemU/zOodpxMFCPHMd44XL8qMhJdW.dcGNpnKi', 'utilisateur'),
+(6, 'u@u.com', '$2y$10$FvC5KK3d8qhXkDNYbJYEyewFfRRXy.NtqFWtZr70BOqFT8Tv6V.rG', 'utilisateur'),
+(7, 'arash@arash.com', '$2y$10$S72hTaYkDHWkH3F07r.T.OI73H114thVVPkT4P4wJAbQ.i94CaFRy', 'utilisateur');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `etape`
+-- Structure de la table `etape`
 --
 
-CREATE TABLE IF NOT EXISTS `etape` (
-  `idEtape` int(11) NOT NULL AUTO_INCREMENT,
-  `photo` varchar(50) DEFAULT NULL,
-  `description` varchar(50) DEFAULT NULL,
+CREATE TABLE `etape` (
+  `idEtape` int(11) NOT NULL,
+  `photo` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `description` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
   `idCircuit` int(11) NOT NULL,
-  `pays` varchar(50) DEFAULT NULL,
-  PRIMARY KEY (`idEtape`),
-  KEY `fk_Etape_Circuits1_idx` (`idCircuit`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `pays` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data for table `etape`
+-- Déchargement des données de la table `etape`
 --
 
 INSERT INTO `etape` (`idEtape`, `photo`, `description`, `idCircuit`, `pays`) VALUES
@@ -160,11 +150,11 @@ INSERT INTO `etape` (`idEtape`, `photo`, `description`, `idCircuit`, `pays`) VAL
 -- --------------------------------------------------------
 
 --
--- Table structure for table `groupevoyage`
+-- Structure de la table `groupevoyage`
 --
 
-CREATE TABLE IF NOT EXISTS `groupevoyage` (
-  `idGroupeVoyage` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `groupevoyage` (
+  `idGroupeVoyage` int(11) NOT NULL,
   `nbInscrit` int(11) DEFAULT NULL,
   `dateDepart` date DEFAULT NULL,
   `dateRetour` date DEFAULT NULL,
@@ -173,14 +163,11 @@ CREATE TABLE IF NOT EXISTS `groupevoyage` (
   `capacite` int(11) DEFAULT NULL,
   `prixAdulte` decimal(6,2) DEFAULT NULL,
   `prixEnfant` decimal(6,2) DEFAULT NULL,
-  `prixBebe` decimal(6,2) DEFAULT NULL,
-  PRIMARY KEY (`idGroupeVoyage`),
-  KEY `fk_GroupeVoyage_Circuits1_idx` (`idCircuit`),
-  KEY `fk_GroupeVoyage_promotion1_idx` (`idpromotion`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `prixBebe` decimal(6,2) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data for table `groupevoyage`
+-- Déchargement des données de la table `groupevoyage`
 --
 
 INSERT INTO `groupevoyage` (`idGroupeVoyage`, `nbInscrit`, `dateDepart`, `dateRetour`, `idCircuit`, `idpromotion`, `capacite`, `prixAdulte`, `prixEnfant`, `prixBebe`) VALUES
@@ -189,19 +176,17 @@ INSERT INTO `groupevoyage` (`idGroupeVoyage`, `nbInscrit`, `dateDepart`, `dateRe
 -- --------------------------------------------------------
 
 --
--- Table structure for table `hotel`
+-- Structure de la table `hotel`
 --
 
-CREATE TABLE IF NOT EXISTS `hotel` (
-  `idHotel` int(11) NOT NULL AUTO_INCREMENT,
-  `nom` varchar(50) DEFAULT NULL,
-  `urlHotel` varchar(50) DEFAULT NULL,
-  PRIMARY KEY (`idHotel`),
-  UNIQUE KEY `Nom_UNIQUE` (`nom`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+CREATE TABLE `hotel` (
+  `idHotel` int(11) NOT NULL,
+  `nom` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `urlHotel` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data for table `hotel`
+-- Déchargement des données de la table `hotel`
 --
 
 INSERT INTO `hotel` (`idHotel`, `nom`, `urlHotel`) VALUES
@@ -215,26 +200,22 @@ INSERT INTO `hotel` (`idHotel`, `nom`, `urlHotel`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `jour`
+-- Structure de la table `jour`
 --
 
-CREATE TABLE IF NOT EXISTS `jour` (
-  `idJour` int(11) NOT NULL AUTO_INCREMENT,
-  `description` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
-  `photo` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+CREATE TABLE `jour` (
+  `idJour` int(11) NOT NULL,
+  `description` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `photo` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
   `idEtape` int(11) NOT NULL,
-  `Activites` longtext,
+  `Activites` longtext COLLATE utf8_unicode_ci,
   `idHotel` int(11) NOT NULL,
   `idRestaurant` int(11) NOT NULL,
-  `ville` varchar(50) DEFAULT NULL,
-  PRIMARY KEY (`idJour`),
-  KEY `fk_Jour_Etape1_idx` (`idEtape`),
-  KEY `fk_Jour_Hotel1_idx` (`idHotel`),
-  KEY `fk_Jour_Restaurant1_idx` (`idRestaurant`)
-) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `ville` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data for table `jour`
+-- Déchargement des données de la table `jour`
 --
 
 INSERT INTO `jour` (`idJour`, `description`, `photo`, `idEtape`, `Activites`, `idHotel`, `idRestaurant`, `ville`) VALUES
@@ -283,21 +264,20 @@ INSERT INTO `jour` (`idJour`, `description`, `photo`, `idEtape`, `Activites`, `i
 -- --------------------------------------------------------
 
 --
--- Table structure for table `promotion`
+-- Structure de la table `promotion`
 --
 
-CREATE TABLE IF NOT EXISTS `promotion` (
-  `idpromotion` int(11) NOT NULL AUTO_INCREMENT,
-  `description` varchar(255) DEFAULT NULL,
+CREATE TABLE `promotion` (
+  `idpromotion` int(11) NOT NULL,
+  `description` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `rabaisAdulte` decimal(6,2) DEFAULT NULL,
   `rabaisEnfant` decimal(6,2) DEFAULT NULL,
   `rabaisBebe` decimal(6,2) DEFAULT NULL,
-  `statut` tinyint(1) DEFAULT NULL,
-  PRIMARY KEY (`idpromotion`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `statut` tinyint(1) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data for table `promotion`
+-- Déchargement des données de la table `promotion`
 --
 
 INSERT INTO `promotion` (`idpromotion`, `description`, `rabaisAdulte`, `rabaisEnfant`, `rabaisBebe`, `statut`) VALUES
@@ -306,19 +286,17 @@ INSERT INTO `promotion` (`idpromotion`, `description`, `rabaisAdulte`, `rabaisEn
 -- --------------------------------------------------------
 
 --
--- Table structure for table `restaurant`
+-- Structure de la table `restaurant`
 --
 
-CREATE TABLE IF NOT EXISTS `restaurant` (
-  `idRestaurant` int(11) NOT NULL AUTO_INCREMENT,
-  `nom` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
-  `urlRestaurant` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
-  PRIMARY KEY (`idRestaurant`),
-  UNIQUE KEY `Nom_UNIQUE` (`nom`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+CREATE TABLE `restaurant` (
+  `idRestaurant` int(11) NOT NULL,
+  `nom` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `urlRestaurant` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data for table `restaurant`
+-- Déchargement des données de la table `restaurant`
 --
 
 INSERT INTO `restaurant` (`idRestaurant`, `nom`, `urlRestaurant`) VALUES
@@ -328,17 +306,16 @@ INSERT INTO `restaurant` (`idRestaurant`, `nom`, `urlRestaurant`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `sexe`
+-- Structure de la table `sexe`
 --
 
-CREATE TABLE IF NOT EXISTS `sexe` (
-  `idSexe` int(11) NOT NULL AUTO_INCREMENT,
-  `nom` varchar(11) COLLATE utf8_unicode_ci NOT NULL,
-  PRIMARY KEY (`idSexe`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+CREATE TABLE `sexe` (
+  `idSexe` int(11) NOT NULL,
+  `nom` varchar(11) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data for table `sexe`
+-- Déchargement des données de la table `sexe`
 --
 
 INSERT INTO `sexe` (`idSexe`, `nom`) VALUES
@@ -348,18 +325,17 @@ INSERT INTO `sexe` (`idSexe`, `nom`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `theme`
+-- Structure de la table `theme`
 --
 
-CREATE TABLE IF NOT EXISTS `theme` (
-  `idTheme` int(11) NOT NULL AUTO_INCREMENT,
-  `nom` varchar(50) DEFAULT NULL,
-  `iconUrl` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`idTheme`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+CREATE TABLE `theme` (
+  `idTheme` int(11) NOT NULL,
+  `nom` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `iconUrl` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data for table `theme`
+-- Déchargement des données de la table `theme`
 --
 
 INSERT INTO `theme` (`idTheme`, `nom`, `iconUrl`) VALUES
@@ -371,35 +347,34 @@ INSERT INTO `theme` (`idTheme`, `nom`, `iconUrl`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `utilisateur`
+-- Structure de la table `utilisateur`
 --
 
-CREATE TABLE IF NOT EXISTS `utilisateur` (
-  `idUtilisateur` int(11) NOT NULL AUTO_INCREMENT,
-  `nom` varchar(50) NOT NULL,
-  `prenom` varchar(50) NOT NULL,
+CREATE TABLE `utilisateur` (
+  `idUtilisateur` int(11) NOT NULL,
+  `nom` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `prenom` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `dateNaissance` date NOT NULL,
-  `idConnexion` int(11) NOT NULL,
-  PRIMARY KEY (`idUtilisateur`),
-  KEY `fk_Utilisateur_Connexion1` (`idConnexion`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `idConnexion` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data for table `utilisateur`
+-- Déchargement des données de la table `utilisateur`
 --
 
 INSERT INTO `utilisateur` (`idUtilisateur`, `nom`, `prenom`, `dateNaissance`, `idConnexion`) VALUES
-(1, 'Kouaya', 'Carles', '1910-02-21', 2),
-(2, 'Bouchard', 'Adrien', '1970-12-21', 1);
+(5, 'arash', 'arash', '1982-12-12', 5),
+(6, 'arash', 'arash', '1982-12-12', 6),
+(7, 'arash', 'arash', '1982-12-12', 7);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `voyageur`
+-- Structure de la table `voyageur`
 --
 
-CREATE TABLE IF NOT EXISTS `voyageur` (
-  `idVoyageur` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `voyageur` (
+  `idVoyageur` int(11) NOT NULL,
   `courriel` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `nom` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
   `prenom` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -408,45 +383,219 @@ CREATE TABLE IF NOT EXISTS `voyageur` (
   `dateNaissance` date DEFAULT NULL,
   `noPasseport` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `dateExpirationPasseport` date DEFAULT NULL,
-  `idCommande` int(11) NOT NULL,
-  PRIMARY KEY (`idVoyageur`),
-  KEY `fk_Voyageur_Categorie1_idx` (`idCategorie`),
-  KEY `fk_Voyageur_Commande1_idx` (`idCommande`),
-  KEY `idSexe` (`idSexe`)
+  `idCommande` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Constraints for dumped tables
+-- Index pour les tables déchargées
 --
 
 --
--- Constraints for table `circuit`
+-- Index pour la table `categorie`
+--
+ALTER TABLE `categorie`
+  ADD PRIMARY KEY (`idCategorie`);
+
+--
+-- Index pour la table `circuit`
+--
+ALTER TABLE `circuit`
+  ADD PRIMARY KEY (`idCircuit`),
+  ADD UNIQUE KEY `Nom_UNIQUE` (`nom`),
+  ADD KEY `fk_Circuits_Themes1_idx` (`idTheme`);
+
+--
+-- Index pour la table `commande`
+--
+ALTER TABLE `commande`
+  ADD PRIMARY KEY (`idCommande`),
+  ADD KEY `fk_Commande_GroupeVoyage1_idx` (`idGroupeVoyage`),
+  ADD KEY `fk_Commande_Utilisateur1_idx` (`idUtilisateur`);
+
+--
+-- Index pour la table `connexion`
+--
+ALTER TABLE `connexion`
+  ADD PRIMARY KEY (`idConnexion`);
+
+--
+-- Index pour la table `etape`
+--
+ALTER TABLE `etape`
+  ADD PRIMARY KEY (`idEtape`),
+  ADD KEY `fk_Etape_Circuits1_idx` (`idCircuit`);
+
+--
+-- Index pour la table `groupevoyage`
+--
+ALTER TABLE `groupevoyage`
+  ADD PRIMARY KEY (`idGroupeVoyage`),
+  ADD KEY `fk_GroupeVoyage_Circuits1_idx` (`idCircuit`),
+  ADD KEY `fk_GroupeVoyage_promotion1_idx` (`idpromotion`);
+
+--
+-- Index pour la table `hotel`
+--
+ALTER TABLE `hotel`
+  ADD PRIMARY KEY (`idHotel`),
+  ADD UNIQUE KEY `Nom_UNIQUE` (`nom`);
+
+--
+-- Index pour la table `jour`
+--
+ALTER TABLE `jour`
+  ADD PRIMARY KEY (`idJour`),
+  ADD KEY `fk_Jour_Etape1_idx` (`idEtape`),
+  ADD KEY `fk_Jour_Hotel1_idx` (`idHotel`),
+  ADD KEY `fk_Jour_Restaurant1_idx` (`idRestaurant`);
+
+--
+-- Index pour la table `promotion`
+--
+ALTER TABLE `promotion`
+  ADD PRIMARY KEY (`idpromotion`);
+
+--
+-- Index pour la table `restaurant`
+--
+ALTER TABLE `restaurant`
+  ADD PRIMARY KEY (`idRestaurant`),
+  ADD UNIQUE KEY `Nom_UNIQUE` (`nom`);
+
+--
+-- Index pour la table `sexe`
+--
+ALTER TABLE `sexe`
+  ADD PRIMARY KEY (`idSexe`);
+
+--
+-- Index pour la table `theme`
+--
+ALTER TABLE `theme`
+  ADD PRIMARY KEY (`idTheme`);
+
+--
+-- Index pour la table `utilisateur`
+--
+ALTER TABLE `utilisateur`
+  ADD PRIMARY KEY (`idUtilisateur`),
+  ADD KEY `fk_Utilisateur_Connexion1` (`idConnexion`);
+
+--
+-- Index pour la table `voyageur`
+--
+ALTER TABLE `voyageur`
+  ADD PRIMARY KEY (`idVoyageur`),
+  ADD KEY `fk_Voyageur_Categorie1_idx` (`idCategorie`),
+  ADD KEY `fk_Voyageur_Commande1_idx` (`idCommande`),
+  ADD KEY `idSexe` (`idSexe`);
+
+--
+-- AUTO_INCREMENT pour les tables déchargées
+--
+
+--
+-- AUTO_INCREMENT pour la table `categorie`
+--
+ALTER TABLE `categorie`
+  MODIFY `idCategorie` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+--
+-- AUTO_INCREMENT pour la table `circuit`
+--
+ALTER TABLE `circuit`
+  MODIFY `idCircuit` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+--
+-- AUTO_INCREMENT pour la table `commande`
+--
+ALTER TABLE `commande`
+  MODIFY `idCommande` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT pour la table `connexion`
+--
+ALTER TABLE `connexion`
+  MODIFY `idConnexion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+--
+-- AUTO_INCREMENT pour la table `etape`
+--
+ALTER TABLE `etape`
+  MODIFY `idEtape` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+--
+-- AUTO_INCREMENT pour la table `groupevoyage`
+--
+ALTER TABLE `groupevoyage`
+  MODIFY `idGroupeVoyage` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT pour la table `hotel`
+--
+ALTER TABLE `hotel`
+  MODIFY `idHotel` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+--
+-- AUTO_INCREMENT pour la table `jour`
+--
+ALTER TABLE `jour`
+  MODIFY `idJour` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
+--
+-- AUTO_INCREMENT pour la table `promotion`
+--
+ALTER TABLE `promotion`
+  MODIFY `idpromotion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT pour la table `restaurant`
+--
+ALTER TABLE `restaurant`
+  MODIFY `idRestaurant` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT pour la table `sexe`
+--
+ALTER TABLE `sexe`
+  MODIFY `idSexe` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT pour la table `theme`
+--
+ALTER TABLE `theme`
+  MODIFY `idTheme` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT pour la table `utilisateur`
+--
+ALTER TABLE `utilisateur`
+  MODIFY `idUtilisateur` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+--
+-- AUTO_INCREMENT pour la table `voyageur`
+--
+ALTER TABLE `voyageur`
+  MODIFY `idVoyageur` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- Contraintes pour les tables déchargées
+--
+
+--
+-- Contraintes pour la table `circuit`
 --
 ALTER TABLE `circuit`
   ADD CONSTRAINT `fk_Circuits_Themes1` FOREIGN KEY (`idTheme`) REFERENCES `theme` (`idTheme`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Constraints for table `commande`
+-- Contraintes pour la table `commande`
 --
 ALTER TABLE `commande`
   ADD CONSTRAINT `fk_Commande_GroupeVoyage1` FOREIGN KEY (`idGroupeVoyage`) REFERENCES `groupevoyage` (`idGroupeVoyage`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_Commande_Utilisateur1` FOREIGN KEY (`idUtilisateur`) REFERENCES `utilisateur` (`idUtilisateur`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Constraints for table `etape`
+-- Contraintes pour la table `etape`
 --
 ALTER TABLE `etape`
   ADD CONSTRAINT `fk_Etape_Circuits1` FOREIGN KEY (`idCircuit`) REFERENCES `circuit` (`idCircuit`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Constraints for table `groupevoyage`
+-- Contraintes pour la table `groupevoyage`
 --
 ALTER TABLE `groupevoyage`
   ADD CONSTRAINT `fk_GroupeVoyage_Circuits1` FOREIGN KEY (`idCircuit`) REFERENCES `circuit` (`idCircuit`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_GroupeVoyage_promotion1` FOREIGN KEY (`idpromotion`) REFERENCES `promotion` (`idpromotion`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Constraints for table `jour`
+-- Contraintes pour la table `jour`
 --
 ALTER TABLE `jour`
   ADD CONSTRAINT `fk_Jour_Etape1` FOREIGN KEY (`idEtape`) REFERENCES `etape` (`idEtape`) ON DELETE NO ACTION ON UPDATE NO ACTION,
@@ -454,13 +603,13 @@ ALTER TABLE `jour`
   ADD CONSTRAINT `fk_Jour_Restaurant1` FOREIGN KEY (`idRestaurant`) REFERENCES `restaurant` (`idRestaurant`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Constraints for table `utilisateur`
+-- Contraintes pour la table `utilisateur`
 --
 ALTER TABLE `utilisateur`
   ADD CONSTRAINT `fk_Utilisateur_Connexion1` FOREIGN KEY (`idConnexion`) REFERENCES `connexion` (`idConnexion`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Constraints for table `voyageur`
+-- Contraintes pour la table `voyageur`
 --
 ALTER TABLE `voyageur`
   ADD CONSTRAINT `fk_Voyageur_Categorie1` FOREIGN KEY (`idCategorie`) REFERENCES `categorie` (`idCategorie`) ON DELETE NO ACTION ON UPDATE NO ACTION,
