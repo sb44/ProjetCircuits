@@ -510,7 +510,7 @@ function afficherEtapes(listeJours) {
             leCircuit +=" 								<h5 class=\"text-white p-2 mt-2 rounded-top\" style=\"background-color: #00AA9E;\">L'étape " + noEtape++ + " : " + strip_html_tags(listeJours[i].etapeDescription) + "</h5> ";
         //leCircuit +=" 								<!-- foreach jour d'ÉTAPE -->";
         leCircuit +=" 								<div class=\"card border-light m-2\" style=\"background-color: #F7F7F7;\"> "; 
-        leCircuit +=" 									<h6 class=\"card-header\">" + strip_html_tags(listeJours[i].jourDescription) + "</h6>  ";
+        leCircuit +=" 									<h6 class=\"card-header\">JOUR " + (i+1) + " - " + strip_html_tags(listeJours[i].jourDescription) + "</h6>  ";
         leCircuit +=" <div class=\"row p-2\">";  
         leCircuit +=" 	<div class=\"col-sm-7\"> ";
         if (listeJours[i].jourActivites != "null" && listeJours[i].jourActivites != "" && listeJours[i].jourActivites != null) {
