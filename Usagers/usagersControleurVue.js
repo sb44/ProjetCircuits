@@ -40,7 +40,7 @@ function InscritUsager(reponse) {
         setTimeout(function() {
             $('#inscription-dropdown').removeClass("show");
             msg.innerHTML = "";
-            resetForm(formEnr);
+            document.getElementById("formEnr").reset();
             $('#connexion-dropdown').addClass("show");
         }, 2000);
 
@@ -63,7 +63,7 @@ function seConnecter(reponse) {
         setTimeout(function() {
             $('#connexion-dropdown').removeClass("show");
             msg.innerHTML = "";
-            //resetForm(formConn);
+            document.getElementById("formConn").reset();
         }, 1200);
 
         $('#navDeconnexion').toggleClass("hide");

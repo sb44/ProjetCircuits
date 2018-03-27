@@ -114,7 +114,7 @@ CREATE TABLE `connexion` (
 --
 
 INSERT INTO `connexion` (`idConnexion`, `courriel`, `motDePasse`, `role`) VALUES
-(5, 'admin@admin.com', '$2y$10$XQPeGUJ/CH0BxIKfemU/zOodpxMFCPHMd44XL8qMhJdW.dcGNpnKi', 'utilisateur'),
+(5, 'admin@admin.com', '$2y$10$XQPeGUJ/CH0BxIKfemU/zOodpxMFCPHMd44XL8qMhJdW.dcGNpnKi', 'admin'),
 (6, 'u@u.com', '$2y$10$FvC5KK3d8qhXkDNYbJYEyewFfRRXy.NtqFWtZr70BOqFT8Tv6V.rG', 'utilisateur'),
 (7, 'arash@arash.com', '$2y$10$S72hTaYkDHWkH3F07r.T.OI73H114thVVPkT4P4wJAbQ.i94CaFRy', 'utilisateur');
 
