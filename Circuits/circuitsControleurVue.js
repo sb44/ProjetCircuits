@@ -434,7 +434,7 @@ function afficherCardCircuit(noCircuit) {
     leCircuit += " 							</span>";
     leCircuit += " 					</div>";
     leCircuit += " 					";
-    leCircuit += " 					<div class=\"col-10 offset-1 col-lg-8 offset-lg-2\">";
+    leCircuit += " 					<div class=\"col-sm-10 offset-sm-1 col-lg-8 offset-lg-2\">";
     leCircuit += " 						<div class=\"collapse\" id=\"idDeparts\">";
     //leCircuit +=" 								<!-- for each départs de circuit spécifique-->";
     //leCircuit +=" 								<div class=\"card bg-light border-light mb-3\"> ";
@@ -531,10 +531,10 @@ function afficherGroupesVoyage(listeGroupesVoyage) {
         return;
     }
 
-    var groupeVoy;
+    var groupeVoy = "";
     for (var i = 0; i < taille; i++) {
-        groupeVoy = "  								<div class=\"card bg-light border-light mb-3\"> ";
-        groupeVoy += " 									<h5 class=\"card-header bg-light\">Départ " + i + 1 + "</h5>  ";
+        groupeVoy += "  								<div class=\"card bg-light border-light mb-3\"> ";
+        groupeVoy += " 									<h5 class=\"card-header bg-light\">Départ " + (i+1) + "</h5>  ";
         groupeVoy += " 										<div class=\"card-body\"> ";
         groupeVoy += " 											<h6 class=\"card-title\">Date Départ: " + listeGroupesVoyage[i].dateDepart + "</h6> ";
         groupeVoy += " 											<h6 class=\"card-title\">Date Retour: " + listeGroupesVoyage[i].dateRetour + "</h6>";
