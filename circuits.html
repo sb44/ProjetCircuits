@@ -502,13 +502,13 @@
 
 
     <!------------------     Haiqiang Xu  -------------------------------->
-    <div id="container-HQ" class="container row hide">
+    <div id="container-HQ" class="container row hide mt-4">
         <div id="menuAdmin" class="col-sm-3">
       
             <ul class="list-group">
-                <a id="gestionCircuitA" href="#" class="list-group-item list-group-item-action" onclick="gestionCircuit()">Gestion de circuit</a>
-                <a id="gestionGroupeA" href="#" class="list-group-item list-group-item-action" onclick="gestionGroupe()">Gestion de groupe</a>
-                <a id="gestionPromotionA" href="#" class="list-group-item list-group-item-action" onclick="gestionPromotion()">Gestion de promotion</a>
+                <a id="gestionCircuitA" href="#" class="list-group-item list-group-item-action list-group-item-dark" onclick="gestionCircuit()">Gestion de circuit</a>
+                <a id="gestionGroupeA" href="#" class="list-group-item list-group-item-action list-group-item-dark" onclick="gestionGroupe()">Gestion de groupe</a>
+                <a id="gestionPromotionA" href="#" class="list-group-item list-group-item-action list-group-item-dark" onclick="gestionPromotion()">Gestion de promotion</a>
             </ul>
         </div>
     
@@ -517,7 +517,7 @@
             <table id="t1" >			  
                 <thead>
                     <tr>
-                        <th><button id="btn-nouveauCircuit" type="button" class="btn btn-light" onclick="lireCircuit(0,0)">Nouveau Circuit</button></th>
+                        <th><button id="btn-nouveauCircuit" type="button" class="btn btn-outline-dark" onclick="lireCircuit(0,0)">Nouveau Circuit</button></th>
                         <th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th>
                     </tr>
                 </thead>
@@ -569,7 +569,7 @@
     
         <div id="gestionGroupe" class="col-sm-9 hide">
             <!--h4>Gestion de groupe</h4><br/><br/-->
-            <button id="btn-nouveauGroupe" type="button" class="btn btn-light" onclick="nouveauGroupe(0)">Nouveau Groupe</button><br/><br/>
+            <button id="btn-nouveauGroupe" type="button" class="btn btn-outline-dark" onclick="nouveauGroupe(0)">Nouveau Groupe</button><br/><br/>
             <div id="nouveauGroupe" class="hide">
                 <form id="groupeForm">  
                 <table class="table thead-light">
@@ -685,7 +685,7 @@
     
         <div id="gestionPromotion" class="col-sm-9 hide">
             <!--h4>Gestion de groupe</h4><br/><br/-->
-            <button id="btn-nouvellePromotion" type="button" class="btn btn-light" onclick="nouvellePromotion(0)">Nouvelle Promotion</button><br/><br/>
+            <button id="btn-nouvellePromotion" type="button" class="btn btn-outline-dark" onclick="nouvellePromotion(0)">Nouvelle Promotion</button><br/><br/>
             <div id="nouvellePromotion" class="hide">
                 <form id="promotionForm">  
                 <table class="table thead-light">

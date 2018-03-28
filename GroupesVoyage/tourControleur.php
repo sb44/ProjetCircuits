@@ -228,7 +228,7 @@
 		//try{
 			//$unModele=new circuitsModele();
 			//$pochete=$unModele->verserFichier("pochettes", "pochette", "avatar.jpg",$titre);
-			$requette="INSERT INTO promotion VALUE(0,?,?,?,?,?)";
+			$requette="INSERT INTO promotion VALUES(0,?,?,?,?,?)";
 			$unModele=new circuitsModele($requette,array($des, $rabaisAdulte, $rabaisEnfant, $rabaisBebe, "1"));
 			$stmt=$unModele->executer();
 			$id = (int)$unModele->LAST_ID;

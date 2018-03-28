@@ -43,7 +43,11 @@
 		global $tabRes;
 		$idCircuit=$_POST['noCircuit'];
 		$tabRes['action']="afficherGroupesVoyagesDeCircuit";
-		$requete="SELECT groupevoyage.capacite, groupevoyage.idGroupeVoyage, groupevoyage.nbInscrit, groupevoyage.dateDepart, groupevoyage.dateRetour, groupevoyage.prixAdulte, groupevoyage.prixEnfant, groupevoyage.prixBebe FROM groupevoyage WHERE groupevoyage.idCircuit=?";
+		//$requete="SELECT groupevoyage.capacite, groupevoyage.idGroupeVoyage, groupevoyage.nbInscrit, groupevoyage.dateDepart, groupevoyage.dateRetour, groupevoyage.prixAdulte, groupevoyage.prixEnfant, groupevoyage.prixBebe FROM groupevoyage WHERE groupevoyage.idCircuit=?";
+		//$requete="SELECT groupevoyage.capacite, groupevoyage.idGroupeVoyage, groupevoyage.nbInscrit, groupevoyage.dateDepart, groupevoyage.dateRetour, groupevoyage.prixAdulte, groupevoyage.prixEnfant, groupevoyage.prixBebe, promotion.rabaisAdulte, promotion.rabaisEnfant, promotion.rabaisBebe, promotion.description FROM groupevoyage, promotion WHERE groupevoyage.idpromotion = promotion.idpromotion AND groupevoyage.idCircuit=?";
+
+		$requete="SELECT groupevoyage.capacite, groupevoyage.idGroupeVoyage, groupevoyage.nbInscrit, groupevoyage.dateDepart, groupevoyage.dateRetour, ROUND(groupevoyage.prixAdulte * (1 - promotion.rabaisAdulte/100), 2) AS prixAdulte, ROUND(groupevoyage.prixEnfant * (1 - promotion.rabaisEnfant/100), 2) AS prixEnfant, ROUND(groupevoyage.prixBebe * (1 - promotion.rabaisBebe/100), 2) AS prixBebe, promotion.description FROM groupevoyage, promotion WHERE groupevoyage.idpromotion = promotion.idpromotion AND groupevoyage.idCircuit=?";
+
 		try{
 			 $unModele=new circuitsModele($requete,array($idCircuit));
 			 $stmt=$unModele->executer();
