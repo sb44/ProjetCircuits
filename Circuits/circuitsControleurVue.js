@@ -565,7 +565,7 @@ function afficherGroupesVoyage(listeGroupesVoyage) {
         groupeVoy += "                                          <div class=\"card-footer bg-success text-white\"><strong>Promotion en cours : " + listeGroupesVoyage[i].description + "</strong></div> ";
         groupeVoy += " 										</div>";
         groupeVoy += " 								</div>";
-        groupeVoy += "  <small class=\"text-muted\">&nbsp;&nbsp;&nbsp;&nbsp;<span class=\"oi oi-info\">&nbsp;&nbsp;</span>Les prix affichés pour chaque départ incluent leur promotion. Pour tout information supplémentaire, contactez-nous.</small>";
+        groupeVoy += "  <small class=\"text-muted\">&nbsp;&nbsp;&nbsp;&nbsp;<span class=\"oi oi-info\">&nbsp;&nbsp;</span>Les prix affichés pour chaque départ incluent leur promotion. Pour tout information, contactez-nous.</small>";
     }
     document.getElementById('idDeparts').innerHTML = groupeVoy;
 }

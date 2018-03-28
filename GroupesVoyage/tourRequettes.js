@@ -402,7 +402,7 @@ function circuitVigueurLire() {
 	});	       
 }
 
-function promotionLire(idPromotion) {
+function promotionLire(idPromotion, idGroupeVoyage) {
 	var formData = new FormData();
 	if (idPromotion <= 0) {
 		formData.append("type","lireTousLesPromotions");
@@ -429,7 +429,7 @@ function promotionLire(idPromotion) {
 				afficherListePromotion(data1);
 			} else {
 				afficherPromotion(data1);
-				ouvrirPromotion(data1);
+				ouvrirPromotion(data1, idGroupeVoyage);
 			}						
 		},
 		contentType: false,	
