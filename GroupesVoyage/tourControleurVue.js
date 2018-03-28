@@ -276,7 +276,7 @@ function addJour(id, data) {
 		var imgTag = "";
 	} else {
 		var imgTag = "src='./pochettes/" + data['photo'] + "' width=200 height=200";
-		alert(imgTag);
+		//alert(imgTag);
 	}
 	var view = { i: id, j:nbJour, n: l, photo:imgTag};
 	var template = document.getElementById('templateJour').innerHTML;
@@ -379,24 +379,24 @@ function lireCircuit(op, id) {
 }
 
 function afficherCircuit(data) {
-	alert("nommmmm:" + data["nom"]);
+	//alert("nommmmm:" + data["nom"]);
 	newEditor('descriptionCircuit','ckCircuit', data["description"]);
 	 $('#pochetteCircuit').attr('src','./pochettes/' + data["urlImage"]);
 
- //$('#nomCircuit').attr('value',data["nom"]);
+  $('#nomCircuit').attr('value',data["nom"]);
   $('#nomCircuit').val(data["nom"]);
- //$('#capCircuit').attr('value',data["capacite"]);
+	$('#capCircuit').attr('value',data["capacite"]);
   $('#capCircuit').val(data["capacite"]);
-  //$('#prixCircuit').attr('value',data["prix"]);
+  $('#prixCircuit').attr('value',data["prix"]);
   $('#prixCircuit').val(data["prix"]);
   $('#themeCircuit').val(data["idTheme"]);
-  //$('#latitudeCircuit').attr('value',data["latitude"]);
+  $('#latitudeCircuit').attr('value',data["latitude"]);
   $('#latitudeCircuit').val(data["latitude"]);
-  //$('#longitudeCircuit').attr('value',data["longitude"]);
+  $('#longitudeCircuit').attr('value',data["longitude"]);
   $('#longitudeCircuit').val(data["longitude"]);
  
 
-  alert("des data= " + data["description"]);
+  //alert("des data= " + data["description"]);
   
 
   var idCircuit = data["idCircuit"];
@@ -425,10 +425,15 @@ function afficherJour(i, data) {
 }
 
 function afficherGroupe(data) {
-	//alert(data['idCircuit']);
+	//alert(data['dateDepart']);
 	$("#circuitGroupe").val(data['idCircuit']);
-	$(".dateDepart").datepicker( "setDate", data['dateDepart']);
-	$(".dateRetour").datepicker( "setDate", data['dateRetour']);
+	//$(".dateDepart").datepicker({dateFormat: 'mm-dd-yy'}).datepicker( "setDate", data['dateDepart']);
+	var date1 = new Date(data['dateDepart']);
+	date1.setDate(date1.getDate() + 1);
+	var date2 = new Date(data['dateRetour']);
+	date2.setDate(date2.getDate() + 1);
+	$(".dateDepart").datepicker({dateFormat: 'mm-dd-yy'}).datepicker("setDate", date1);
+	$(".dateRetour").datepicker({dateFormat: 'mm-dd-yy'}).datepicker("setDate", date2);
 	$("#promotionGroupe").val(data['idpromotion']);
 	$("#capaciteGroupe").val(data['capacite']);
 	$("#prixAdulteGroupe").val(data['prixAdulte']);
@@ -473,7 +478,7 @@ function newEditor(id1, id2, content) {
 }
 
 function readURL(input, id, width, height) {
-	alert(width);
+	//alert(width);
 	if (input.files && input.files[0]) {
 		var reader = new FileReader();
 

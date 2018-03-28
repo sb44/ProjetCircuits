@@ -34,16 +34,16 @@
 		$des=$_POST['desCircuit'];
 		$cap=$_POST['capCircuit'];
 		//$photo=$_POST['photoCircuit'];
-		$photo=null;
+		//$photo=null;
 		$prix=$_POST['prixCircuit'];
 		$theme=$_POST['themeCircuit'];
 		$latitude=$_POST['latitudeCircuit'];
 		$longitude=$_POST['longitudeCircuit'];
 		//try{
-			//$unModele=new circuitsModele();
-			//$pochete=$unModele->verserFichier("pochettes", "pochette", "avatar.jpg",$titre);
+			$unModele=new circuitsModele();
+			$pochette=$unModele->verserFichier("pochettes", "photoCircuit", "avatar.jpg",$nom);
 			$requete="UPDATE circuit SET nom=?, description=?, capacite=?, urlImage=?, prix=?, enVigueur=?, idTheme=?, latitude=?, longitude=? WHERE idCircuit=?";
-			$unModele=new circuitsModele($requete,array($nom,$des,$cap,$photo, $prix, "0", $theme, $latitude, $longitude, $idCircuit));
+			$unModele=new circuitsModele($requete,array($nom,$des,$cap,$pochette, $prix, "0", $theme, $latitude, $longitude, $idCircuit));
 			$stmt=$unModele->executer();
 			$id = (int)$unModele->LAST_ID;
 			//$tabRes['action']="enregistrer";

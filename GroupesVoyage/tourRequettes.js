@@ -42,7 +42,7 @@ function circuitEnregistrer(id) {
 			type: 'POST',
 			data: formData,
 			success: function (data) {
-				alert("circuit info: " + data);
+				alert("circuit enregistre");
 				if (id==0) {						
 					var data1 = parseInt(data);
 					enregistrerEtape(data1);
@@ -73,7 +73,7 @@ function etapeEnregistrer(idCircuit, nbEtape) {
 				data: formData,
 				success: function (data) {
 					var data1 = parseInt(data);
-					//alert("id etape: " + data1);
+					alert("etape enregistre");
 					enregistrerJour(data1, nbEtape);
                 },
                 contentType: false,	
@@ -99,7 +99,7 @@ function jourEnregistrer(idEtape, nbEtape, nbJour) {
 				data: formData,
 				//dataType: json,
 				success: function (data) {
-					//alert(data);
+					alert("Jour enregistre");
                 },
                 contentType: false,	
 				processData: false,
@@ -117,7 +117,8 @@ function circuitLire(idCircuit) {
 		type: 'POST',
 		data: formData,
 		success: function (data) {
-			alert(data);
+			//alert(data);
+			alert("circuit charge");
 				data1 = JSON.parse(data);
 				//alert("AAA = "+ data1["description"]);
 				//alert(data1["nom"]);
@@ -138,6 +139,7 @@ function etapeLire(idCircuit) {
 		data: formData,
 		success: function (data) {
 			//alert(data);
+			alert("etape charge");
 			data1 = JSON.parse(data);
 			afficherEtape(data1);				
 		},
@@ -155,7 +157,7 @@ function jourLire(i, idEtape) {
 		type: 'POST',
 		data: formData,
 		success: function (data) {
-			//alert("jour data=: "+data);
+			alert("jour charege");
 			data1 = JSON.parse(data);
 			afficherJour(i, data1);				
 		},
@@ -191,7 +193,7 @@ function supprimer(idCircuit) {
 		type: 'POST',
 		data: formData,
 		success: function (data) {
-			alert("data");			
+			//alert("data");			
 		},
 		contentType: false,	
 		processData: false,
@@ -223,7 +225,7 @@ function lireTousLesGroupes() {
 		type: 'POST',
 		data: formData,
 		success: function (data) {
-			alert("groupe data = " + data);
+			//alert("groupe data = " + data);
 			data1 = JSON.parse(data);
 			afficherListeGroupe(data1);			
 		},
@@ -356,7 +358,7 @@ function getCircuitDuree(date, idCircuit) {
 		type: 'POST',
 		data: formData,
 		success: function (data) {
-			alert(parseInt(data));
+			//alert(parseInt(data));
 			data1 = parseInt(data);
 			if (date == "depart") {
 				var dateRetour = $(".dateRetour").datepicker( "getDate" );
@@ -365,11 +367,11 @@ function getCircuitDuree(date, idCircuit) {
                 $( ".dateDepart" ).datepicker( "setDate", dateDepart);
 			} else if(date == "retour") {
 				var dateDepart = $(".dateDepart").datepicker( "getDate" );
-				alert(dateDepart);
+				//alert(dateDepart);
 				var dateRetour = new Date(dateDepart);
-				alert(dateDepart.getDate());
+				//alert(dateDepart.getDate());
 				dateRetour.setDate(dateDepart.getDate() + data1);
-				alert(dateRetour);
+				//alert(dateRetour);
                 $( ".dateRetour" ).datepicker( "setDate", dateRetour );
 			}									
 		},
@@ -414,7 +416,7 @@ function promotionLire(idPromotion) {
 		type: 'POST',
 		data: formData,
 		success: function (data) {
-			alert(data);
+			//alert(data);
 			data1 = JSON.parse(data);
 			if(idPromotion == -1) {
 				$("#promotionGroupe").empty();
@@ -443,7 +445,7 @@ function themeLire() {
 		type: 'POST',
 		data: formData,
 		success: function (data) {
-			alert(data);
+			//alert(data);
 			data1 = JSON.parse(data);
 			$("#themeCircuit").empty();
 			for(i=0;i<data1.length;i++) {
@@ -464,7 +466,7 @@ function hotelLire() {
 		type: 'POST',
 		data: formData,
 		success: function (data) {
-			alert(data);
+			//alert(data);
 			data1 = JSON.parse(data);
 			$("#hotel\\{\\{i\\}\\}\\{\\{j\\}\\}").empty();
 			for(i=0;i<data1.length;i++) {
@@ -485,7 +487,7 @@ function restoLire() {
 		type: 'POST',
 		data: formData,
 		success: function (data) {
-			alert(data);
+			//alert(data);
 			data1 = JSON.parse(data);
 			$("#resto\\{\\{i\\}\\}\\{\\{j\\}\\}").empty();
 			for(i=0;i<data1.length;i++) {
