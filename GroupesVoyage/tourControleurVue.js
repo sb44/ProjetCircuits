@@ -129,9 +129,9 @@ function afficherListeCircuit(data) {
 			  +	"<td>" + data[i]['prix'] + "</td>"
 			  //+	"<td>" + data[i]['urlImage'] + "</td>"
 			  +	"<td><img src='./pochettes/" + imgTag + "' width=120 height=40></td>"
-			  +	"<td><button type='button' onclick='lireCircuit(1," + data[i]['idCircuit'] 
+			  +	"<td><button type='button' title='Modifier circuit' onclick='lireCircuit(1," + data[i]['idCircuit'] 
 				 + ")'><span class='oi oi-pencil'></span></button></td>"
-			 +	"<td><button type='button' onclick='toggleVigueur(" + active + ", " + data[i]['idCircuit'] 
+			 +	"<td><button type='button' title='Activer/désactiver circuit' onclick='toggleVigueur(" + active + ", " + data[i]['idCircuit'] 
 			     + ")'><span class='" + icon + "'></span></button></td>"
 			  ;
 		$('#listeCircuit').append(ligne);
@@ -157,34 +157,50 @@ function afficherListeGroupe(data) {
 			  +	"<td>" + data[i]['dateRetour'] + "</td>"
 			  +	"<td>" + data[i]['capacite'] + "</td>"
 			  +	"<td>" + data[i]['nbInscrit'] + "</td>"
-			  +	"<td>" + data[i]['prixAdulte'] + "</td>"
-			  +	"<td>" + data[i]['prixEnfant'] + "</td>"
-			  +	"<td>" + data[i]['prixBebe'] + "</td>"
+			  +	"<td id='prixAdulteGV" + data[i]['idGroupeVoyage'] + "'>" + data[i]['prixAdulte'] + "</td>"
+			  +	"<td id='prixEnfantGV" + data[i]['idGroupeVoyage'] + "'>" + data[i]['prixEnfant'] + "</td>"
+			  +	"<td id='prixBebeGV" + data[i]['idGroupeVoyage'] + "'>" + data[i]['prixBebe'] + "</td>"
 			  //+	"<td>" + promo + "</td>"
-			  +	"<td><button type='button' onclick='nouveauGroupe(" + data[i]['idGroupeVoyage'] 
+			  +	"<td><button type='button' title='Configurer le groupe voyage' onclick='nouveauGroupe(" + data[i]['idGroupeVoyage'] 
 				 + ")'><span class='oi oi-pencil'></span></button></td>"
-			 +	"<td><button id='btn-groupeVoyage" + data[i]['idGroupeVoyage'] + "' type='button' onclick='voirPromotion(" + data[i]['idGroupeVoyage'] 
+			 +	"<td><button id='btn-groupeVoyage" + data[i]['idGroupeVoyage'] + "' type='button' title='Voir le prix nette avec rabais' onclick='voirPromotion(" + data[i]['idGroupeVoyage'] 
 			 + "," + data[i]['idpromotion'] + ")'><span class='oi oi-caret-bottom'></span></button></td></tr>";
 		$('#listeGroupe').append(ligne);
 	}
 }
 
 function voirPromotion(idGroupeVoyage, idpromotion) {
-	promotionLire(idpromotion);
+	promotionLire(idpromotion, idGroupeVoyage);
 	$("#tempRow").remove();
-	$('#groupe' + idGroupeVoyage).after("<tr id='tempRow'><td colspan='5'></td><td>rabais(%):</td><td id='rabaisA'></td><td id='rabaisE'></td><td id='rabaisB'></td><td></td>"
-	 + "<td><button type='button' onclick='fermerPromotion(" + idGroupeVoyage + ")'><span class='oi oi-caret-top'></span></button></td></tr>");
-	//$('#btn-groupeVoyage'+idGroupeVoyage).prop("disabled", true);
+	$("#tempRow2").remove();
+
+	 $('#groupe' + idGroupeVoyage).after("<tr id='tempRow2'><td colspan='5'></td><td><strong>Prix Nette ($)</strong></td><td id='netteA'></td><td id='netteE'></td><td id='netteB'></td><td></td>"
+	 + "<td><button type='button' title='Masquer le rabais de la promotion' onclick='fermerPromotion(" + idGroupeVoyage + ")'><span class='oi oi-caret-top'></span></button></td></tr>");
+	
+	 $('#groupe' + idGroupeVoyage).after("<tr id='tempRow'><td colspan='5'></td><td><strong>Rabais (%)</strong></td><td id='rabaisA'></td><td id='rabaisE'></td><td id='rabaisB'></td><td></td>"
+	 + "<td></td></tr>");
+	
+	 //$('#btn-groupeVoyage'+idGroupeVoyage).prop("disabled", true);
 }
 
-function ouvrirPromotion(data) {
+function ouvrirPromotion(data, idGroupeVoyage) {
 	$('#rabaisA').text(parseFloat(data['rabaisAdulte']));
 	$('#rabaisE').text(parseFloat(data['rabaisEnfant']));
 	$('#rabaisB').text(parseFloat(data['rabaisBebe']));
+
+	$('#netteA').text(parseFloat($('#prixAdulteGV' + idGroupeVoyage).text() * (1 - parseFloat(data['rabaisAdulte']) * 0.01)).toFixed(2));
+	$('#netteE').text(parseFloat($('#prixEnfantGV' + idGroupeVoyage).text() * (1 - parseFloat(data['rabaisEnfant']) * 0.01)).toFixed(2));
+	$('#netteB').text(parseFloat($('#prixBebeGV' + idGroupeVoyage).text() * (1 - parseFloat(data['rabaisBebe']) * 0.01)).toFixed(2));
+
+	//$('#netteA').text(($('#prixAdulteGV3').text()));
+	//$('#netteE').text(parseFloat(data['rabaisEnfant']));
+	//$('#netteB').text(parseFloat(data['rabaisBebe']));
 }
 
 function fermerPromotion(idGroupeVoyage) {
+	//$("#tempRow").remove();
 	$("#tempRow").remove();
+	$("#tempRow2").remove();
 	$('#btn-groupeVoyage'+idGroupeVoyage).prop("disabled", false);
 }
 

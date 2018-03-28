@@ -532,8 +532,8 @@
                     <th>No</th>
                     <th>Nom</th>
                     <th>Theme</th>
-                    <th>Capacite</th>
-                    <th>Prix</th>
+                    <th>Capacité</th>
+                    <th>Prix ($)</th>
                     <th>Photo</th>
                     <th></th>
                     <th></th>
@@ -578,10 +578,10 @@
                         <th>Circuit</th>
                         <th>Depart</th>
                         <th>Retour</th>
-                        <th>Capacite</th>                  
-                        <th>Prix Adulte</th>
-                        <th>Prix Enfant</th>
-                        <th>Prix Bebe</th>
+                        <th>Capacité</th>                  
+                        <th>Prix Adulte ($)</th>
+                        <th>Prix Enfant ($)</th>
+                        <th>Prix Bebe ($)</th>
                         <th>Promotion</th>
                         <th></th>
                     </tr>
@@ -624,10 +624,10 @@
                     <th class="fit">Depart</th>
                     <th class="fit">Retour</th>
                     <th class="fit">Capacite</th>
-                    <th class="fit">NbInscri</th>
-                    <th class="fit">Prix Adulte</th>
-                    <th class="fit">Prix Enfant</th>
-                    <th class="fit">Prix Bebe</th>
+                    <th class="fit">Inscriptions</th>
+                    <th class="fit">Prix Adulte ($)</th>
+                    <th class="fit">Prix Enfant ($)</th>
+                    <th class="fit">Prix Bebe ($)</th>
                     <!--th class="fit">Promotion</th-->
                     <th class="fit"></th>
                     <th class="fit"></th>
@@ -692,9 +692,9 @@
                     <thead>
                     <tr>
                         <th>Description</th>
-                        <th>Rabais Adulte</th>                  
-                        <th>Rabais Enfant</th>
-                        <th>Rabais Bebe</th>
+                        <th>Rabais Adulte (%)</th>                  
+                        <th>Rabais Enfant (%)</th>
+                        <th>Rabais Bébé (%)</th>
                         <th></th>
                         <th></th>
                     </tr>
@@ -721,9 +721,9 @@
                     <th>No</th>
                     <th>ID Promotion</th>
                     <th>Description</th>
-                    <th>Rabais Adulte</th>                  
-                    <th>Rabais Enfant</th>
-                    <th>Rabais Bebe</th>
+                    <th>Rabais Adulte (%)</th>                  
+                    <th>Rabais Enfant (%)</th>
+                    <th>Rabais Bebe (%)</th>
                     <th></th>
                 </tr>
                 </thead>
@@ -757,7 +757,7 @@
                     </div>
                 </div><br/>
                 <div class="form-group row">
-                    <label for="capCircuit" class="col-sm-2">Capacite:</label>
+                    <label for="capCircuit" class="col-sm-2">Capacité:</label>
                     <div class="col-sm-2">
                         <input type="text" class="form-control" id="capCircuit" name="capCircuit">
                     </div>					
@@ -831,7 +831,10 @@
                 <!-- template etape -->
                 <div id="templateEtape" class="hide">
                     <div id="templateEtape{{n}}">		
-                        <p><span id="etapeTitle{{i}}" class="oi oi-minus" onclick="foldEtape({{i}})">&nbsp&nbspEtape&nbsp</span><span id="sp{{n}}">{{n}}:</span></p>					
+                       <!-- <p><span id="etapeTitle{{i}}" class="oi oi-minus" onclick="foldEtape({{i}})">&nbsp&nbspEtape&nbsp</span><span id="sp{{n}}">{{n}}:</span></p> -->
+                       <h5 class="text-white p-2 mt-2 rounded-top" style="background-color: #00AA9E;"><span id="etapeTitle{{i}}" class="oi oi-minus" onclick="foldEtape({{i}})"></span> Étape <span id="sp{{n}}">{{n}}</span></h5>
+                       
+
                         <fieldset id="etapeFold{{i}}" style="border: solid; border-width: thin;  border-color: #a8a8a8;">
                             <legend visible="true" style="width:auto;"></legend>
                                 <form id="etape{{n}}" class="etape">
@@ -880,7 +883,10 @@
                     <div id="templateJour{{i}}{{n}}" class="form-group row">	
                     <label class="col-sm-2"></label>
                     <div class="col-sm-10">
-                        <h5><span id="jourTitle{{j}}" class="oi oi-minus" onclick="foldJour({{j}})">&nbsp&nbspJour </span><span id="sp{{i}}{{n}}">{{n}}:</span></h5>
+                        <!-- <h5><span id="jourTitle{{j}}" class="oi oi-minus" onclick="foldJour({{j}})">&nbsp&nbspJour </span><span id="sp{{i}}{{n}}">{{n}}:</span></h5> -->
+                        <h5 class="p-2 mt-2 bg-light rounded-top"><span id="jourTitle{{j}}" class="oi oi-minus" onclick="foldJour({{j}})"></span> Jour <span id="sp{{i}}{{n}}">{{n}}</span></h5>
+
+
                             <fieldset id="jourFold{{j}}" style="border: solid; border-width: thin;  border-color: #a8a8a8;">
                                 <legend visible="true" style="width:auto;"></legend>
                                     <form id="jour{{i}}{{n}}"  class="jour etape{{i}}">
