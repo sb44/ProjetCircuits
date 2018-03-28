@@ -154,8 +154,24 @@ function deconnecter(){
 		processData : false,
 		dataType : 'json', 
 		success : function (reponse){//alert(reponse);
-					//$('#divFormFiche').hide();
- 					//("#modaleDeconnexion").modal();
+					usagersVue(reponse); 
+		},
+		fail : function (err){
+		}
+	});
+} 
+function estConnecte(){
+	var formdeconnexion = new FormData();
+	formdeconnexion.append('action','estConnecter');
+	$.ajax({
+		type : 'POST',
+		url : 'Usagers/usagersControleur.php',
+		data : formdeconnexion,
+		/* async : false, */
+		contentType : false, 
+		processData : false,
+		dataType : 'json', 
+		success : function (reponse){//alert(reponse);
 					usagersVue(reponse); 
 		},
 		fail : function (err){

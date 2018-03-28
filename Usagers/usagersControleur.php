@@ -187,12 +187,27 @@
 		global $tabRes;
 		$tabRes['action']="deconnecter";
 		if (isset($_SESSION['idConnexion'])) {
+			
 			$_SESSION['idConnexion']=="";
 			$_SESSION['courriel']=="";
 			$_SESSION['idUtilisateur']="";
 			
 			session_unset();
 			$tabRes['msg']="ok";
+		}else{
+			$tabRes['msg']="non";
+		}
+	}
+	function estConnecter(){
+		global $tabRes;
+		$tabRes['action']="estConnecter";
+		if (isset($_SESSION['idConnexion'])) {
+			$tabRes['msg']="ok";
+			if ($_SESSION['role']=="admin") {
+				$tabRes['role']="admin";
+			}else{
+				$tabRes['role']="utilisateur";
+			}
 		}else{
 			$tabRes['msg']="non";
 		}
@@ -217,6 +232,9 @@
 		break;
 		case "liste" :
 			lister();
+		break;
+		case "estConnecter" :
+			estConnecter();
 		break;
 	}
     echo json_encode($tabRes); // json_encode --> Retourne la représentation JSON d'une valeur 
