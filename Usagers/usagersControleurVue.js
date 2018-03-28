@@ -97,7 +97,7 @@ function deconnexion(reponse) {
 function monProfileUs(reponse) {
     if (reponse.msg == "OK") {
         var Usager=reponse.utilisateurs;
-
+        
         $("#inputPrenomModif").attr("placeholder",Usager.prenom);
         $("#inputNomModif").attr("placeholder",Usager.nom);
         $("#inputDateNaissanceModif").attr("value",Usager.dateNaissance);
@@ -107,6 +107,21 @@ function monProfileUs(reponse) {
     }
 }
 
+function connecterValide(reponse) {
+    if (reponse.msg == "ok") {
+        $('#navDeconnexion').toggleClass("hide");
+        $('#navEnregistrement').toggleClass("hide");
+        $('#navConnexion').toggleClass("hide");
+        if (reponse.role == "admin") {
+            $('#navConnecteAdmin').toggleClass("hide");
+        } else {
+            $('#navPanier').toggleClass("hide");
+            $('#monProfile').toggleClass("hide");
+        }
+    } else {
+        
+    }
+}
 
 // ********************** selon l'action, on appelle la méthode concerné *******************
 var usagersVue = function(reponse) {
@@ -126,6 +141,9 @@ var usagersVue = function(reponse) {
             break;
         case "fiche":
             afficherFiche(reponse);
+            break;
+        case "estConnecter":
+            connecterValide(reponse);
             break;
 
     }
