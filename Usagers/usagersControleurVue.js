@@ -109,17 +109,22 @@ function monProfileUs(reponse) {
 
 function connecterValide(reponse) {
     if (reponse.msg == "ok") {
-        $('#navDeconnexion').toggleClass("hide");
-        $('#navEnregistrement').toggleClass("hide");
-        $('#navConnexion').toggleClass("hide");
+        $('#navDeconnexion').removeClass("hide");
+        $('#navEnregistrement').addClass("hide");
+        $('#navConnexion').addClass("hide");
         if (reponse.role == "admin") {
-            $('#navConnecteAdmin').toggleClass("hide");
+            $('#navConnecteAdmin').removeClass("hide");
         } else {
-            $('#navPanier').toggleClass("hide");
-            $('#monProfile').toggleClass("hide");
+            $('#navPanier').removeClass("hide");
+            $('#monProfile').removeClass("hide");
+                    if (reponse.itemCount) {
+                        $('#nbItemPanier').text("(" + reponse.itemCount + ")");
+                    } else {
+                        $('#nbItemPanier').text("(1)");
+                    }
         }
     } else {
-        
+
     }
 }
 

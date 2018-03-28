@@ -206,6 +206,12 @@
 			if ($_SESSION['role']=="admin") {
 				$tabRes['role']="admin";
 			}else{
+				if(isset($_SESSION["shopping_cart"]))  
+				{  
+					$count = count($_SESSION["shopping_cart"]);  
+					$tabRes['itemCount']= $count;	
+				}   
+				 
 				$tabRes['role']="utilisateur";
 			}
 		}else{
