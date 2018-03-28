@@ -48,6 +48,7 @@ function nouveauGroupe(id) {
 	$('#dateRetourGroupe').val("");
 	$('#capaciteGroupe').val("");
 	$('#nouveauGroupe').removeClass('hide');
+	$('#btn-enregistrerGroupe').attr("onclick", 'enregistrerGroupe(0)');
 
 	if (id!=0) {
 		groupeLire(id);
@@ -61,6 +62,7 @@ function nouvellePromotion(id) {
 	$('#rabaisEnfantPromotion').val("");
 	$('#rabaisBebePromotion').val("");
 	$('#nouvellePromotion').removeClass('hide');
+	$('#btn-enregistrerPromotion').attr("onclick", 'enregistrerPromotion(0)');
 
 	if (id!=0) {
 		promotionLire(id);
@@ -176,9 +178,9 @@ function voirPromotion(idGroupeVoyage, idpromotion) {
 }
 
 function ouvrirPromotion(data) {
-	$('#rabaisA').text(parseFloat(data['rabaisAdulte'])*100);
-	$('#rabaisE').text(parseFloat(data['rabaisEnfant'])*100);
-	$('#rabaisB').text(parseFloat(data['rabaisBebe'])*100);
+	$('#rabaisA').text(parseFloat(data['rabaisAdulte']));
+	$('#rabaisE').text(parseFloat(data['rabaisEnfant']));
+	$('#rabaisB').text(parseFloat(data['rabaisBebe']));
 }
 
 function fermerPromotion(idGroupeVoyage) {
