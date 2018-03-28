@@ -281,7 +281,7 @@ CREATE TABLE `promotion` (
 --
 
 INSERT INTO `promotion` (`idpromotion`, `description`, `rabaisAdulte`, `rabaisEnfant`, `rabaisBebe`, `statut`) VALUES
-(1, 'enfants et bébés logés et nourris gratuitement', '0.00', '0.01', '0.01', 1);
+(1, 'enfants et bébés logés et nourris gratuitement', '0.00', '10', '10', 1);
 
 -- --------------------------------------------------------
 
