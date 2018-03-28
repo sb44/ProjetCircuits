@@ -127,10 +127,16 @@ function monProfile(){
 		data : formProfile,
 		contentType : false, 
 		processData : false,
-		dataType : 'text', 
-		success : function (reponse){alert(reponse);
+		dataType : 'json', 
+		success : function (reponse){//alert(reponse);
 					//$('#divFormFiche').hide();
-					//usagersVue(reponse);
+					$('#monProf').removeClass("hide");
+					$('#carouselExampleIndicators').addClass("hide").removeClass("show");
+					$('#landing').addClass("hide").removeClass("show");
+					$('#map').addClass("hide").removeClass("show");
+					$('#consulterCircuitsContainer').addClass("hide").removeClass("show");
+					$('#lesCards').addClass("hide").removeClass("show");
+					usagersVue(reponse);
 		},
 		fail : function (err){
 		}
@@ -156,3 +162,11 @@ function deconnecter(){
 		}
 	});
 } 
+function modifierProf(){
+ $("#monProf").addClass("hide");
+ $('#carouselExampleIndicators').addClass("show").removeClass("hide");
+    $('#landing').addClass("show").removeClass("hide");
+    $('#map').addClass("show").removeClass("hide");
+    $('#consulterCircuitsContainer').addClass("show").removeClass("hide");
+    $('#lesCards').addClass("show").removeClass("hide");
+}

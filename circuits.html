@@ -337,12 +337,12 @@
                 </ul>
                 </div>
         </nav>
-        <!--*********************************** ajax Loader *************************************** -->
+        <!--****************** ajax Loader ********************** -->
         <div id="fadeAj"></div>
         <div id="modalAj">
             <img id="loaderAj" src="images/ajax-loader.gif" />
         </div>
-        <!--*********************************** Fin ajax loader *************************************** -->
+        <!--***************** Fin ajax loader ******************** -->
     </header>
 
     <!--***********************************FIN - HEADER *************************************** -->
@@ -474,6 +474,50 @@
     <div id="lesCards" class="card-deck mt-4">
     </div>
 
+    <!------------------     ARASH profil -------------------------------->
+        <div id="monProf" class="align-items-center inscription-dp hide">
+            <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-6 nomP">
+                            <div class="form-group">
+                                <label for="inputPrenom">Prénom</label>
+                                <input type="text" class="form-control" id="inputPrenomModif" name="inputPrenomModif" onkeyup="validerNom(this)"  value="" disabled>
+                                <span id="errPrenom" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6 nomP">
+                            <div class="form-group">
+                                <label for="inputNom">Nom</label>
+                                <input type="text" class="form-control" id="inputNomModif" name="inputNomModif" onkeyup="validerNom(this)" value="" disabled>
+                                <span id="errNom" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6 nomP">
+                            <div class="form-group">
+                                <label for="inputDateNaissance">Date Naissance</label>
+                                <input type="date" class="form-control" id="inputDateNaissanceModif" name="inputDateNaissanceModif"  onkeyup="validerDate(this);" value="" disabled >
+                                <span id="errDateNaissance" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputCourEnr">Courriel</label>
+                        <input type="email" class="form-control" id="inputCourModif" name="inputCourModif"  onkeyup="validerCourriel(this);" value="" disabled>
+                        <small><span id="errCourEnr" class="text-danger"></span></small>
+                    </div>
+
+                    <div class="row ">
+                        <div class="col-6 nomP">
+                            <button type="button" class="btn btn-primary btn-block" onclick="modifierProf();">Retour</button>
+                        </div>
+                    </div>
+            </div>
+    </div>
+    <!------------------     Fin ARASH profil Kouaya -------------------------------->
 
     <!------------------     Carles Kouaya -------------------------------->
 

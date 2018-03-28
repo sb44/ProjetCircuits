@@ -37,6 +37,8 @@
 			unset($unModele);
 		}
 	}
+
+
 	function connecter(){
 		global $tabRes;	
  		$courriel=$_POST['inputCourConn'];
@@ -87,7 +89,7 @@
 		}
 	}
 	
-	function enlever(){
+	/* function enlever(){
 		global $tabRes;	
 		$idf=$_POST['numE'];
 		try{
@@ -110,7 +112,7 @@
 		}finally{
 			unset($unModele);
 		}
-	} 
+	}  */
 	
 	function monProfile(){
 		global $tabRes;
@@ -124,20 +126,28 @@
 				$unModele=new circuitsModele($requete,array($id));
 				$stmt=$unModele->executer();
 				$ligne=$stmt->fetch(PDO::FETCH_OBJ);
-				$tabRes['courriel']=$ligne->courriel;
+				$tabRes['courriel']=$ligne->courriel; 
+				$tabRes['msg']="vous etes admin";
 			} else {
-				$tabRes['msg']="vous n'êtes pas autorisé";
-			}
-			try{
-				$requete="SELECT * FROM utilisateur WHERE idConnexion = ? ";
-				$unModele=new circuitsModele($requete,array($id));
-				$stmt=$unModele->executer();
-				$ligne=$stmt->fetch(PDO::FETCH_OBJ);
-				$tabRes['utilisateurs']=array();
-				$tabRes['utilisateurs']=$ligne;
-			}catch(Exception $e){
-			}finally{
-				unset($unModele);
+				$tabRes['msg']="OK";
+				try{
+					$requete="SELECT courriel FROM connexion WHERE idConnexion = ? ";
+					$unModele=new circuitsModele($requete,array($id));
+					$stmt=$unModele->executer();
+					$ligne=$stmt->fetch(PDO::FETCH_OBJ);
+					$tabRes['courriel']=$ligne->courriel; 
+
+					$requete="SELECT * FROM utilisateur WHERE idConnexion = ? ";
+					$unModele=new circuitsModele($requete,array($id));
+					$stmt=$unModele->executer();
+					$ligne=$stmt->fetch(PDO::FETCH_OBJ);
+					$tabRes['utilisateurs']=array();
+					$tabRes['utilisateurs']=$ligne;
+				}catch(Exception $e){
+					$tabRes['msg']="NON";
+				}finally{
+					unset($unModele);
+				}
 			}
 		}else{
 			$tabRes['msg']="nonTrouve";

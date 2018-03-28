@@ -94,6 +94,18 @@ function deconnexion(reponse) {
         alert("problème au moment de déconnexion");
     }
 }
+function monProfileUs(reponse) {
+    if (reponse.msg == "OK") {
+        var Usager=reponse.utilisateurs;
+
+        $("#inputPrenomModif").attr("placeholder",Usager.prenom);
+        $("#inputNomModif").attr("placeholder",Usager.nom);
+        $("#inputDateNaissanceModif").attr("value",Usager.dateNaissance);
+        $("#inputCourModif").attr("placeholder",reponse.courriel);
+    } else {
+        alert("problème de trouve votre profil");
+    }
+}
 
 
 // ********************** selon l'action, on appelle la méthode concerné *******************
@@ -106,9 +118,8 @@ var usagersVue = function(reponse) {
         case "connecter":
             seConnecter(reponse);
             break;
-        case "modifier":
-            $('#messages').html(reponse.msg);
-            setTimeout(function() { $('#messages').html(""); }, 5000);
+        case "monProfile":
+            monProfileUs(reponse);
             break;
         case "deconnecter":
             deconnexion(reponse);
