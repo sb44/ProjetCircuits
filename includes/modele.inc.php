@@ -18,6 +18,30 @@ function obtenirConnexion(){
 }
 function executer(){
 		$this->connexion = $this->obtenirConnexion(); // connexion
+	try {
+		$this->connexion->beginTransaction();
+		$stmt = $this->connexion->prepare($this->requete);
+		$stmt->execute($this->params);
+		if(strpos($this->requete,'INSERT') !== false)
+			$this->LAST_ID = $this->connexion->lastInsertId();
+		
+		$this->connexion->commit();
+		$this->deconnecter(); // déconnexion
+		return $stmt;   
+	} catch(Exception $e) //en cas d'erreur
+	{
+		$this->connexion->rollback(); //on annule la transation
+		echo 'Tout ne s\'est pas bien passé, voir les erreurs ci-dessous<br />';
+		echo 'Erreur : '.$e->getMessage().'<br />';
+		echo 'N° : '.$e->getCode();
+
+		//on arrête l'exécution s'il y a du code après
+		exit();
+	}
+}
+/*
+function executer(){
+		$this->connexion = $this->obtenirConnexion(); // connexion
 		$stmt = $this->connexion->prepare($this->requete);
 		$stmt->execute($this->params);
 		if(strpos($this->requete,'INSERT') !== false)
@@ -26,6 +50,7 @@ function executer(){
 		$this->deconnecter(); // déconnexion
 		return $stmt;		
 	}
+*/
 function deconnecter(){
 		unset($this->connexion);
 }

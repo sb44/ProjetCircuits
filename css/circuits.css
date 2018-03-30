@@ -112,7 +112,10 @@ body .btn-secondary {
 }
 /* FIN CSS Boutons Override Bootstrap */
 
-/* Style navbar dropdown connexion et déconnexion */
+/* Style navbar dropdown langue, connexion et déconnexion */
+.langue-dp {
+    background-color:rgba(255,255,255,.8);
+}
 
 .login-dp {
 	min-width: 350px;

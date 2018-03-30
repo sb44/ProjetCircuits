@@ -142,7 +142,10 @@
         <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #333333;">
             <!--  <a class="navbar-brand" href="./circuits.html"></a> -->
             <!--<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-		<span class="navbar-toggler-icon"></span> -->
+        <span class="navbar-toggler-icon"></span> -->
+            <button class="navbar-toggler ml-auto custom-toggler m-2" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
                 <div title="Acceuil">
                     <a class="nav-link" href="#">
@@ -150,13 +153,16 @@
                     </a>
                 </div>
                 <ul class="navbar-nav mx-auto">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <img id="imgNavDeu" src="images/icon-francais.gif" alt="..." class="img-thumbnail icon-small"> FR</a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <a id="navFr" href="#" class="dropdown-item"><img id="imgNavDeu" src="images/icon-francais.gif" alt="..." class="img-thumbnail icon-small"><span id="lanNavFr">Francais</span></a>
-                            <a id="navAng" href="#" class="dropdown-item"><img id="imgNavFra" src="images/icon-anglais.gif" alt="..." class="img-thumbnail icon-small"><span id="lanNavang">Anglais</span></a>
-                            <a id="navEsp" href="#" class="dropdown-item"><img id="imgNavEng" src="images/icon-espagnol.gif" alt="..." class="img-thumbnail icon-small"><span id="lanNavEsp">Espagnole</span></a>
+                    <li class="nav-item dropdown ml-1">
+                        <a class="" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">
+                            
+                            <!-- <span class="text-white">  FR</span> -->
+                            <button type="button" class="btn btn-link dropdown-toggle text-white"><img id="imgNavDeu" src="images/icon-francais.gif" alt="..." class="img-thumbnail icon-small mr-1"></img>FR</button></a>
+                        </a>
+                        <div class="dropdown-menu langue-dp" aria-labelledby="navbarDropdownMenuLink">
+                            <a id="navFr" href="#" class="dropdown-item"><img id="imgNavDeu" src="images/icon-francais.gif" alt="..." class="img-thumbnail icon-small mr-1"><span id="lanNavFr">Francais</span></a>
+                            <a id="navAng" href="#" class="dropdown-item"><img id="imgNavFra" src="images/icon-anglais.gif" alt="..." class="img-thumbnail icon-small mr-1"><span id="lanNavang">Anglais</span></a>
+                            <a id="navEsp" href="#" class="dropdown-item"><img id="imgNavEng" src="images/icon-espagnol.gif" alt="..." class="img-thumbnail icon-small mr-1"><span id="lanNavEsp">Espagnole</span></a>
                         </div>
                     </li>
                 </ul>
@@ -179,9 +185,9 @@
                         </form>
                     </li>
 
-                    <li class="nav-item dropdown" id="navConnexion">
+                    <li class="nav-item dropdown ml-1" id="navConnexion">
                         <a data-target="#" id="connect" class="nav-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">
-                            <button type="button" class="btn btn-link dropdown-toggle text-white"><i class="fa fa-user">&nbsp;</i>Se connecter</button></a>
+                            <button type="button" class="btn btn-link dropdown-toggle text-white"><i class="fa fa-user mr-1"></i>Se connecter</button></a>
                         <ul id="connexion-dropdown" class="dropdown-menu dropdown-menu-right login-dp" aria-labelledby="navbarDropdownMenuLink">
                             <li>
                                 <div class="row">
@@ -228,7 +234,7 @@
                             </li>
                         </ul>
                     </li>
-                    <li class="nav-item dropdown" id="navEnregistrement">
+                    <li class="nav-item dropdown ml-3" id="navEnregistrement">
                         <a href="#" id="enregistrer" class="nav-link " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <!--<button class="btn btn-outline-primary dropdown-toggle text-white" id="btnEnregistrer">Devenir membre </button><span class="caret"></span></a>-->
                             <button class="btn btn-primary dropdown-toggle text-white" id="btnEnregistrer"><i class="fa fa-user-plus"></i> Devenir membre</button></a>
