@@ -115,6 +115,7 @@ body .btn-secondary {
 /* Style navbar dropdown langue, connexion et déconnexion */
 .langue-dp {
     background-color:rgba(255,255,255,.8);
+    max-width: 250px;
 }
 
 .login-dp {
