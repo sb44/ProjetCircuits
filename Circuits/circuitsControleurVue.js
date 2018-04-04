@@ -465,7 +465,7 @@ function afficherCardCircuit(noCircuit) {
     //leCircuit +=" 											<p class=\"card-text center\">Prix pour un adulte: </p>";
     //leCircuit +=" 											<p class=\"card-text center\">Prix pour un enfant: </p>";
     //leCircuit +=" 											<p class=\"card-text center\">Prix pour un bébé: </p>";
-    //leCircuit +=" 											<a href=\"\" onClick=\"ajouterAuPanier(' + listeCircuits[i].idCircuit +');\"><span class=\"nav-link\"><span class=\"oi oi-cart id\"></span> Ajouter au panier!</span></a>";
+    //leCircuit +=" 											<a href=\"\" title=\"Ajouter l'item et accéder au panier situé au coin supérieur droit de la barre de navigation.\" onClick=\"ajouterAuPanier(' + listeCircuits[i].idCircuit +');\"><span class=\"nav-link\"><span class=\"oi oi-cart id\"></span> Ajouter au panier!</span></a>";
     //leCircuit +=" 										</div>";
     //leCircuit +=" 								</div>";
     //leCircuit +=" 								<!-- fin for each départs de circuit spécifique -->";
@@ -559,7 +559,7 @@ function afficherGroupesVoyage(listeGroupesVoyage) {
         groupeVoy += " 											<p class=\"card-text center\"><span class=\"oi oi-dollar\">&nbsp;&nbsp;</span>Prix pour un adulte: </h6><strong>" + listeGroupesVoyage[i].prixAdulte + " $</strong></p>";
         groupeVoy += " 											<p class=\"card-text center\"><span class=\"oi oi-dollar\">&nbsp;&nbsp;</span>Prix pour un enfant: </h6><strong>" + listeGroupesVoyage[i].prixEnfant + " $</strong></p>";
         groupeVoy += " 											<p class=\"card-text center\"><span class=\"oi oi-dollar\">&nbsp;&nbsp;</span>Prix pour un bébé: </h6><strong>" + listeGroupesVoyage[i].prixBebe + " $</strong></p>";
-        groupeVoy += " 											<a href=\"javascript:void(0);\" onClick=\"ajouterAuPanier(" + listeGroupesVoyage[i].idGroupeVoyage + ");\"><span class=\"nav-link\"><span class=\"oi oi-cart id\"></span> Ajouter au panier!</span></a>";
+        groupeVoy += " 											<a href=\"javascript:void(0);\" title=\"Ajouter l'item et accéder au panier situé au coin supérieur droit de la barre de navigation.\" onClick=\"ajouterAuPanier(" + listeGroupesVoyage[i].idGroupeVoyage + ");\"><span class=\"nav-link\"><span class=\"oi oi-cart id\"></span> Ajouter au panier!</span></a>";
         groupeVoy += " 										</div>";
         groupeVoy += "                                          <div class=\"card-footer bg-success text-white\"><strong>Promotion en cours : " + listeGroupesVoyage[i].description + "</strong></div> ";
 

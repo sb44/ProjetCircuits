@@ -183,6 +183,11 @@
 			$counter=$_POST['idCounter'];
 			$idcommande=$_POST['idCommandeVoyageur1'];
 			
+			// TODO : ajuster requete pour bon prix... voir circuitphp
+			// requete de circuitphp : 
+			// 		$requete="SELECT groupevoyage.capacite, groupevoyage.idGroupeVoyage, groupevoyage.nbInscrit, groupevoyage.dateDepart, groupevoyage.dateRetour, ROUND(groupevoyage.prixAdulte * (1 - promotion.rabaisAdulte/100), 2) AS prixAdulte, ROUND(groupevoyage.prixEnfant * (1 - promotion.rabaisEnfant/100), 2) AS prixEnfant, ROUND(groupevoyage.prixBebe * (1 - promotion.rabaisBebe/100), 2) AS prixBebe, promotion.description FROM groupevoyage, promotion WHERE groupevoyage.idpromotion = promotion.idpromotion AND groupevoyage.idCircuit=?";
+			// fin requete de circuitphp
+
 			$requette="SELECT groupevoyage.prixAdulte,groupevoyage.prixEnfant,groupevoyage.prixBebe,circuit.nom FROM groupevoyage,circuit WHERE groupevoyage.idGroupeVoyage = ? AND groupevoyage.idcircuit=circuit.idCircuit";
 			$unModele=new circuitsModele($requette,array($idcommande));
 			$stmt=$unModele->executer();
