@@ -107,6 +107,7 @@ function openCart(reponse) {
         input += "<td>" + (circuit[grVoy].item_Child_price * (1 - (parseFloat(circuit[grVoy].item_Child_discount)) * 0.01)).toFixed(2) + " $</td>";
         input += "<td>" + (circuit[grVoy].item_Baby_price * (1 - (parseFloat(circuit[grVoy].item_Rabais_Bebe)) * 0.01)).toFixed(2) + " $</td>";
 
+
         input += "<td><form>";
         input += "<input type=\"button\" name='reserver' class='btn btn-outline-success px-1 m-1' value=\"Ajouter Voyageur\" onclick=\"ficheReservation(" + circuit[grVoy].item_id + ");\">";
         input += "<input type=\"button\" name='supprimer' class='btn btn-outline-danger px-1 m-1' value=\"Supprimer \" onclick=\"deleteItem(" + circuit[grVoy].item_id + ");\">";
