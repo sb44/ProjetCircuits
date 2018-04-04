@@ -2,13 +2,7 @@ var counter = 1;
 
 
 function addToCart(reponse) {
-    debugger;
-    //if (reponse.itemCount) {
-        $('#nbItemPanier').text("(" + reponse.itemCount + ")");
-    //} else {
-   //     $('#nbItemPanier').text("(1)");
-   // }
-
+    $('#nbItemPanier').text("(" + reponse.itemCount + ")");
 }
 
 
@@ -70,6 +64,7 @@ function cacherDivisionsPourCart() {
     $('#lesCards').addClass("hide").removeClass("show");
     $('#divCreateCommandForm').addClass("hide").removeClass("show");
     $('#container-HQ').addClass("hide").removeClass("show");
+    $('#monProf').addClass("hide").removeClass("show");
 
     $('#divDetailPanier').addClass("show").removeClass("hide");
     $('#divDetailSommaire').addClass("show").removeClass("hide");

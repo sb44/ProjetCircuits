@@ -135,7 +135,8 @@ function monProfile(){
 					$('#landing').addClass("hide").removeClass("show");
 					$('#map').addClass("hide").removeClass("show");
 					$('#consulterCircuitsContainer').addClass("hide").removeClass("show");
-					$('#lesCards').addClass("hide").removeClass("show");
+					$('#lesCards').addClass("hide").removeClass("show"); 
+					$('#divDetailPanier').addClass("hide").removeClass("show")
 					usagersVue(reponse);
 		},
 		fail : function (err){
