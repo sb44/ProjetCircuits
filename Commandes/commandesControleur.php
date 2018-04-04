@@ -19,10 +19,10 @@
 
 			if(isset($_SESSION["shopping_cart"]))  
 			{  
-				 $item_array_id = array_column($_SESSION["shopping_cart"], "item_id");  
+				 $item_array_id = array_column($_SESSION["shopping_cart"], "item_id"); 
+				 $count = count($_SESSION["shopping_cart"]); 
 				 if(!in_array($id, $item_array_id))  
-				 {  
-					  $count = count($_SESSION["shopping_cart"]);  
+				 {    
 					  $item_array = array(  
 						'item_id' =>$id,  
 						'item_title' => $ligne->nom,  
@@ -35,12 +35,22 @@
 						'item_Rabais_Adulte'=> $ligne->rabaisAdulte, 
 						'item_Child_discount'=> $ligne->rabaisEnfant,
 						'item_Rabais_Bebe'=> $ligne->rabaisBebe
-					  );  
-					  $_SESSION["shopping_cart"][$count] = $item_array;  
+					  );
+					  $it = 0; $loop = true;
+					  do {
+						if (!isset($_SESSION["shopping_cart"][$it])) {
+							$_SESSION["shopping_cart"][$it] = $item_array;
+							$loop = false;
+						}
+						$it++;
+					  } while ($loop);
+					  
+					  //$_SESSION["shopping_cart"][$count] = $item_array; 
+					  $count = $count + 1;	//SB: AJOUT DE CETTE LIGNE 
 				 } else {  
 					  $tabRes['msg']="Item déjà ajouté!";
 				 }  
-				 $tabRes['itemCount']= $count;	
+				 $tabRes['itemCount']= $count;
 			}  
 			else  
 			{  
@@ -58,6 +68,7 @@
 						   'item_Rabais_Bebe'=> $ligne->rabaisBebe 
 				 );  
 				 $_SESSION["shopping_cart"][0] = $item_array;  
+				 $tabRes['itemCount'] = 1; //SB: AJOUT DE CETTE LIGNE
 			}  
 
 		}catch(Exception $e){

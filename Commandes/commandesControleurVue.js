@@ -2,11 +2,12 @@ var counter = 1;
 
 
 function addToCart(reponse) {
-    if (reponse.itemCount) {
+    debugger;
+    //if (reponse.itemCount) {
         $('#nbItemPanier').text("(" + reponse.itemCount + ")");
-    } else {
-        $('#nbItemPanier').text("(1)");
-    }
+    //} else {
+   //     $('#nbItemPanier').text("(1)");
+   // }
 
 }
 
@@ -94,30 +95,32 @@ function openCart(reponse) {
     var input = "";
     var circuit = reponse.itemList;
     var total = 0;
-
-    input += "<div class=\"row mt-4\"><span onClick=\"montrerDivisionsSansCart();\">X</span><h3>  Détails du panier</h3><div class=\"col-md-12\"><table border=\"0\" class=\"table table-hover\">";
+// <a href="javascript:void(0);" title="Retour au site visiteur et fermeture du panneau d'admnistration" onclick="hideAdminDiv();">Retour au site</a>
+    
+    input += "<div class=\"row mt-4\"><h6><a href=\"javascript:void(0);\" title=\"Retour au site et fermeture du panier (N.B. : Votre panier sera sauvegardé.)\" onclick=\"montrerDivisionsSansCart();\">Retour au site</a></h6><div class=\"col-md-12\"><table border=\"0\" class=\"table table-hover\">";
+    input += "<div class=\"row mt-4\"><h3>Détails du panier</h3><div class=\"col-md-12\"><table border=\"0\" class=\"table table-hover\">";
     input += "<tr><th> Circuit </th> <th> Départ </th> <th> Retour </th> <th> Prix Adulte </th> <th> Prix Enfant </th> <th> Prix Bébé </th><th> </th></tr> ";
+    
+    // foreach puisque for ne fonctionne pas quand le circuit d'index 0 n'existe pas
+    for (grVoy in circuit) { // for (var i = 0; i < circuit.length; i++) {
+        input += "<tr>  <td > " + circuit[grVoy].item_title + " </td>";
+        input += "<td>" + circuit[grVoy].item_Departure + "</td>";
+        input += "<td>" + circuit[grVoy].item_Return + " </td>";
 
-    for (var i = 0; i < circuit.length; i++) {
-        input += "<tr>  <td > " + circuit[i].item_title + " </td>";
-        input += "<td>" + circuit[i].item_Departure + "</td>";
-        input += "<td>" + circuit[i].item_Return + " </td>";
-        input += "<td>" + (circuit[i].item_Adult_price * (1 - (parseFloat(circuit[i].item_Rabais_Adulte)) * 0.01)).toFixed(2) + " $</td>";
-
-        // 	$('#netteA').text(parseFloat($('#prixAdulteGV' + idGroupeVoyage).text() * (1 - parseFloat(data['rabaisAdulte']) * 0.01)).toFixed(2));
-
-        input += "<td>" + (circuit[i].item_Child_price * (1 - (parseFloat(circuit[i].item_Child_discount)) * 0.01)).toFixed(2)  + " $</td>";
-        input += "<td>" + (circuit[i].item_Baby_price * (1 - (parseFloat(circuit[i].item_Rabais_Bebe)) * 0.01)).toFixed(2)  + " $</td>";
+        input += "<td>" + (circuit[grVoy].item_Adult_price * (1 - (parseFloat(circuit[grVoy].item_Rabais_Adulte)) * 0.01)).toFixed(2) + " $</td>";
+        input += "<td>" + (circuit[grVoy].item_Child_price * (1 - (parseFloat(circuit[grVoy].item_Child_discount)) * 0.01)).toFixed(2)  + " $</td>";
+        input += "<td>" + (circuit[grVoy].item_Baby_price * (1 - (parseFloat(circuit[grVoy].item_Rabais_Bebe)) * 0.01)).toFixed(2)  + " $</td>";
 
         input += "<td><form>";
-        input += "<input type=\"button\" name='reserver' class='btn btn-outline-success px-1 m-1' value=\"Ajouter Voyageur\" onclick=\"ficheReservation(" + circuit[i].item_id + ");\">";
-        input += "<input type=\"button\" name='supprimer' class='btn btn-outline-danger px-1 m-1' value=\"Supprimer \" onclick=\"deleteItem(" + circuit[i].item_id + ");\">";
-        input += "<input type=\"hidden\" name=\"idCommande\" id=\"idCommande\"  value=" + circuit[i].item_id + ">";
+        input += "<input type=\"button\" name='reserver' class='btn btn-outline-success px-1 m-1' value=\"Ajouter Voyageur\" onclick=\"ficheReservation(" + circuit[grVoy].item_id + ");\">";
+        input += "<input type=\"button\" name='supprimer' class='btn btn-outline-danger px-1 m-1' value=\"Supprimer \" onclick=\"deleteItem(" + circuit[grVoy].item_id + ");\">";
+        input += "<input type=\"hidden\" name=\"idCommande\" id=\"idCommande\"  value=" + circuit[grVoy].item_id + ">";
         input += "</form>";
         input += "</td></tr>";
         total++;
     }
-    input += "<tr><td colspan=\"3\"><strong>Total</strong></td>  <td>" + total + " circuit(s)" + "</td>  <td></td>";
+
+    input += "<tr><td colspan=\"3\"><strong>Total</strong></td>  <td><strong>" + total + " circuit(s)" + "</strong></td>  <td></td>";
     input += " </table> </div> </div>";
     input += "<div class=\"row\">";
 
