@@ -73,6 +73,7 @@ function cacherDivisionsPourCart() {
     $('#divDetailPanier').addClass("show").removeClass("hide");
     $('#divDetailSommaire').addClass("show").removeClass("hide");
 }
+
 function montrerDivisionsSansCart() {
     $('#carouselExampleIndicators').addClass("show").removeClass("hide");
     $('#landing').addClass("show").removeClass("hide");
@@ -106,8 +107,8 @@ function openCart(reponse) {
 
         // 	$('#netteA').text(parseFloat($('#prixAdulteGV' + idGroupeVoyage).text() * (1 - parseFloat(data['rabaisAdulte']) * 0.01)).toFixed(2));
 
-        input += "<td>" + (circuit[i].item_Child_price * (1 - (parseFloat(circuit[i].item_Child_discount)) * 0.01)).toFixed(2)  + " $</td>";
-        input += "<td>" + (circuit[i].item_Baby_price * (1 - (parseFloat(circuit[i].item_Rabais_Bebe)) * 0.01)).toFixed(2)  + " $</td>";
+        input += "<td>" + (circuit[i].item_Child_price * (1 - (parseFloat(circuit[i].item_Child_discount)) * 0.01)).toFixed(2) + " $</td>";
+        input += "<td>" + (circuit[i].item_Baby_price * (1 - (parseFloat(circuit[i].item_Rabais_Bebe)) * 0.01)).toFixed(2) + " $</td>";
 
         input += "<td><form>";
         input += "<input type=\"button\" name='reserver' class='btn btn-outline-success px-1 m-1' value=\"Ajouter Voyageur\" onclick=\"ficheReservation(" + circuit[i].item_id + ");\">";
