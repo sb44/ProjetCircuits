@@ -120,7 +120,7 @@ function connecterValide(reponse) {
                     if (reponse.itemCount) {
                         $('#nbItemPanier').text("(" + reponse.itemCount + ")");
                     } else {
-                        $('#nbItemPanier').text("(1)");
+                        $('#nbItemPanier').text("(0)");
                     }
         }
     } else {
