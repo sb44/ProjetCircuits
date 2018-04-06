@@ -63,77 +63,7 @@
 
 <body>
     <!-- **************************************************** -->
-    <!-- *********   pour connexion par Facebook *************-->
-    <script>
-        // This is called with the results from from FB.getLoginStatus().
-        function statusChangeCallback(response) {
-            console.log('statusChangeCallback');
-            console.log(response);
-            // The response object is returned with a status field that lets the
-            // app know the current login status of the person.
-            // Full docs on the response object can be found in the documentation
-            // for FB.getLoginStatus().
-            if (response.status === 'connected') {
-                // Logged into your app and Facebook.
-                testAPI();
-            } else {
-                // The person is not logged into your app or we are unable to tell.
-                document.getElementById('status').innerHTML = 'Please log ' +
-                    'into this app.';
-            }
-        }
-        // This function is called when someone finishes with the Login
-        // Button.  See the onlogin handler attached to it in the sample
-        // code below.
-        function checkLoginState() {
-            FB.getLoginStatus(function(response) {
-                statusChangeCallback(response);
-            });
-        }
-        window.fbAsyncInit = function() {
-            FB.init({
-                appId: '1169915789777979',
-                cookie: true, // enable cookies to allow the server to access 
-                // the session
-                xfbml: true, // parse social plugins on this page
-                version: 'v2.12' // use graph api version 2.8
-            });
-            // Now that we've initialized the JavaScript SDK, we call 
-            // FB.getLoginStatus().  This function gets the state of the
-            // person visiting this page and can return one of three states to
-            // the callback you provide.  They can be:
-            //
-            // 1. Logged into your app ('connected')
-            // 2. Logged into Facebook, but not your app ('not_authorized')
-            // 3. Not logged into Facebook and can't tell if they are logged into
-            //    your app or not.
-            //
-            // These three cases are handled in the callback function.
-            FB.getLoginStatus(function(response) {
-                statusChangeCallback(response);
-            });
-        };
-        // Load the SDK asynchronously
-        (function(d, s, id) {
-            var js, fjs = d.getElementsByTagName(s)[0];
-            if (d.getElementById(id)) return;
-            js = d.createElement(s);
-            js.id = id;
-            js.src = "https://connect.facebook.net/fr_CA/sdk.js";
-            fjs.parentNode.insertBefore(js, fjs);
-        }(document, 'script', 'facebook-jssdk'));
-        // Here we run a very simple test of the Graph API after login is
-        // successful.  See statusChangeCallback() for when this call is made.
-        function testAPI() {
-            console.log('Welcome!  Fetching your information.... ');
-            FB.api('/me', function(response) {
-                console.log('Successful login for: ' + response.name);
-                document.getElementById('status').innerHTML =
-                    'Thanks for logging in, ' + response.name + '!';
-            });
-        }
-    </script>
-    <!--   FIN connexion par Facebook -->
+   
     <!-- **************************** -->
 
     <!--***********************************-HEADER *************************************** -->
@@ -144,7 +74,7 @@
                     <img id="imgLogo" src="images/header-icon-circuit.png" alt="" class="logo" />
                 </a>
             <!--  <a class="navbar-brand" href="./circuits.html"></a> -->
-            <!--<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <!--<a class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span> -->
             <button class="navbar-toggler ml-auto custom-toggler m-2" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -164,16 +94,17 @@
                         </div>
                     </li>
                 </ul>
-
+                
                 <ul class="navbar-nav">
                     <li class="nav-item hide" id="navConnecteAdmin">
                         <a href="#" class="nav-link" onClick="showAdminDiv()"><span class="nav-link"><i class="fa fa-wrench"></i>Administration</span></a>
                     </li>
-
+                    
                     <li class="nav-item hide" id="monProfile">
+                        <img id="imgTwitter" src="" alt="" class="hide">
                         <a href="#" class="nav-link" onClick="monProfile();"><span class="nav-link"><i class="fa fa-pencil-square-o"></i>Mon Profil</span></a>
                     </li>
-
+                    
                     <li class="nav-item hide" id="navPanier">
                         <div title="Mon panier">
                             <a href="#" class="nav-link" onClick="ouvrirPanier();"><span class="nav-link"><span class="oi oi-cart id" id="nbItemPanier"> (0)</span> Panier</span></a>
@@ -182,7 +113,7 @@
                             <input type="hidden" name="monAction" value="panier">
                         </form>
                     </li>
-
+                    
                     <li class="nav-item dropdown ml-1" id="navConnexion">
                         <a data-target="#" id="connect" class="nav-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">
                             <button type="button" class="btn btn-link dropdown-toggle text-white"><i class="fa fa-user mr-1"></i>Se connecter</button></a>
@@ -212,16 +143,17 @@
                                                 <input type="submit" class="btn btn-primary btn-block" value="Connexion">
                                             </div>
                                             <hr>  
-                                            <div class="mb-3">ou</div>
+                                            <div class="">ou</div>
                                             <!-- <div class="social-buttonF">
-                                                    <a class="btn btn-lg btn-social btn-facebook text-light">
-                                                            <i class="fa fa-facebook fa-fw"></i> Se connecter avec Facebook
-                                                            </a>
+                                                <a class="btn btn-lg btn-social btn-facebook text-light">
+                                                    <i class="fa fa-facebook fa-fw"></i> Se connecter avec Facebook
+                                                </a>
                                             </div> -->
-                                            <div class="fb-login-button" data-max-rows="1" data-size="large" data-button-type="login_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="false" scope="public_profile,email" onlogin="checkLoginState();"></div>
-                                            <hr>
-                                            <div class="form-group">
-                                                <input class="btn btn-outline-secondary" type="button" value="Recommencer" onclick="resetForm(formConn)">
+                                            <!--  <div class="fb-login-button" data-max-rows="1" data-size="large" data-button-type="login_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="false" scope="public_profile,email" onlogin="checkLoginState();"></div> -->
+                                            <a href="#" class="nav-link" onClick="connUsagerTwitter();"><img  src="images/twitter.png" alt="Tweeter"></a>
+                                           <hr>
+                                           <div class="form-group">
+                                               <input class="btn btn-outline-secondary" type="button" value="Recommencer" onclick="resetForm(formConn)">
                                             </div>
                                         </form>
                                     </div>
@@ -236,15 +168,15 @@
                         <a href="#" id="enregistrer" class="nav-link " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <!--<button class="btn btn-outline-primary dropdown-toggle text-white" id="btnEnregistrer">Devenir membre </button><span class="caret"></span></a>-->
                             <button class="btn btn-primary dropdown-toggle text-white" id="btnEnregistrer"><i class="fa fa-user-plus"></i> Devenir membre</button></a>
-                        <ul id="inscription-dropdown" class="dropdown-menu dropdown-menu-right inscription-dp" aria-labelledby="navbarDropdownMenuLink">
-                            <li>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <form class="form" role="form" id="formEnr" name="formEnr" method="POST" onsubmit="event.preventDefault(); validerEnregistrement();">
-                                            <!-- onSubmit="return validerEnregistrement('');" method="post" action="serveur/gestionMembres.php" accept-charset="UTF-8" -->
-                                            <div class="InscTitre text-center">
-                                                <h4>Inscription</h4>
-                                            </div>
+                            <ul id="inscription-dropdown" class="dropdown-menu dropdown-menu-right inscription-dp" aria-labelledby="navbarDropdownMenuLink">
+                                <li>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <form class="form" role="form" id="formEnr" name="formEnr" method="POST" onsubmit="event.preventDefault(); validerEnregistrement();">
+                                                <!-- onSubmit="return validerEnregistrement('');" method="post" action="serveur/gestionMembres.php" accept-charset="UTF-8" -->
+                                                <div class="InscTitre text-center">
+                                                    <h4>Inscription</h4>
+                                                </div>
                                             <h5><span id="errenr" class="text-danger"></span></h5>
                                             <hr>
                                             <input type="hidden" name="monAction" value="enregistrer">
@@ -339,9 +271,9 @@
                     </li>
                     <!-- fin modale pour déconnexion -->
                     <!-- modale pour est Connecter ou non -->
-                        <div id="modaleEstConnecter" tabindex="-1" class="hide modal fade bs-example-modal-sm" role="dialog" aria-hidden="true">
-                            <div class="modal-dialog modal-sm">
-                                <div class="modal-content">
+                    <div id="modaleEstConnecter" tabindex="-1" class="hide modal fade bs-example-modal-sm" role="dialog" aria-hidden="true">
+                        <div class="modal-dialog modal-sm">
+                            <div class="modal-content">
                                     <div class="modal-header">
                                         <h4>Il faut Se connecter<i class="fa fa-lock"></i></h4>
                                     </div>
@@ -353,8 +285,8 @@
                                 </div>
                             </div>
                         </div>
-                    <!-- Fin modale pour est Connecter ou non -->
-                </ul>
+                        <!-- Fin modale pour est Connecter ou non -->
+                    </ul>
                 </div>
         </nav>
         <!--****************** ajax Loader ********************** -->

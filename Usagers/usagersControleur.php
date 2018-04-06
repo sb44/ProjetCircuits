@@ -1,5 +1,6 @@
 <?php
 	require_once("../includes/modele.inc.php");
+	use Abraham\TwitterOAuth\TwitterOAuth;
 	$tabRes=array();
 
 	function enregistrer(){
@@ -88,6 +89,8 @@
 			unset($unModele);
 		}
 	}
+
+	
 	
 	/* function enlever(){
 		global $tabRes;	
@@ -114,6 +117,8 @@
 		}
 	}  */
 	
+
+
 	function monProfile(){
 		global $tabRes;
 		$tabRes['action']="monProfile";
@@ -214,9 +219,114 @@
 				 
 				$tabRes['role']="utilisateur";
 			}
+		}elseif(isset($_SESSION['oauth_token'])){
+			
+			$tabRes['msg']="twitter";
 		}else{
 			$tabRes['msg']="non";
+			
 		}
+
+	}
+	function connTwitter(){
+		require "../twitteroauth/autoload.php";
+		global $tabRes;
+		$tabRes['action']="twittConn";
+		try{
+			////// pour verifier si le cUrl est installe ou non
+			if (in_array  ('curl', get_loaded_extensions())){
+				$tabRes['msg2']="curl oui";
+			}else{
+				$tabRes['msg2']="curl non";
+			}
+			//////////////////////////////////////////////////
+			// main startup code
+			$consumer_key = 'PEZYSRWGpIglJJ5WQfPBerN3b';
+			$consumer_secret = 'rrK0FElLtIFvshw0gdhwz64LV4osUMMIc5G1tOQ4V9sCZ10LOn';
+			//this code will return your valid url which u can use in iframe src to popup or can directly view the page as its happening in this example
+			$connection = new TwitterOAuth($consumer_key, $consumer_secret);
+			
+			$temporary_credentials = $connection->oauth('oauth/request_token', array("oauth_callback" =>'http://127.0.0.1/Circuit/ProjetCircuits/circuits.html'));
+			
+			$_SESSION['oauth_token']=$temporary_credentials['oauth_token'];       
+			$_SESSION['oauth_token_secret']=$temporary_credentials['oauth_token_secret'];
+			$url = $connection->url("oauth/authorize", array("oauth_token" => $temporary_credentials['oauth_token'])); 
+			
+			// REDIRECTING TO THE URL
+			//header('Location: ' . $url); 
+			$tabRes['msg1']="try";
+			$tabRes['msg3']=$url;
+		}catch(Exception $e){
+			$tabRes['msg']="non";
+
+        }
+			/* 			require_once '../twitteroauth/lib/EpiCurl.php';
+			require_once '../twitteroauth/lib/EpiOAuth.php';
+			require_once '../twitteroauth/lib/EpiTwitter.php';
+			require_once '../twitteroauth/lib/secret.php';
+			
+			$twitterObj = new EpiTwitter($consumer_key, $consumer_secret);
+			$oauth_token = $_GET['oauth_token'];
+			$tabRes['msg']="ok";
+ 			if($oauth_token == ''){
+				$url = $twitterObj->getAuthorizationUrl();
+				echo "<div style='width:200px;margin-top:200px;margin-left:auto;margin-right:auto'>";
+				echo "<a href='$url'>Sign In with Twitter</a>";
+				echo "</div>";
+			}else{
+				$twitterObj->setToken($_GET['oauth_token']);
+				$token = $twitterObj->getAccessToken();
+				$twitterObj->setToken($token->oauth_token, $token->oauth_token_secret);
+				$_SESSION['ot'] = $token->oauth_token;
+				$_SESSION['ots'] = $token->oauth_token_secret;
+				$twitterInfo= $twitterObj->get_accountVerify_credentials();
+				$twitterInfo->response;
+
+				$username = $twitterInfo->screen_name;
+				$profilepic = $twitterInfo->profile_image_url;
+
+				include 'update.php';
+			}  */
+	}
+	function twitterProf(){
+		require "../twitteroauth/autoload.php";
+		global $tabRes;
+		global $header;
+		$tabRes['action']="twitProf";
+
+				$oauth_token=$_SESSION['oauth_token'];
+				unset($_SESSION['oauth_token']);
+				$consumer_key = 'PEZYSRWGpIglJJ5WQfPBerN3b';
+				$consumer_secret = 'rrK0FElLtIFvshw0gdhwz64LV4osUMMIc5G1tOQ4V9sCZ10LOn';
+				$connection = new TwitterOAuth($consumer_key, $consumer_secret);
+				
+				$headers =  getallheaders();
+				foreach($headers as $key=>$val){
+					$header[$key]= $val;
+				}
+				$newUrl=$header["Referer"];
+				//$tabRes['msg3']=$newUrl;
+				$joda=parse_url($newUrl, PHP_URL_QUERY);
+				
+				$pairs = explode('&',$joda);
+				foreach ($pairs as $pair) {
+					$keyVal = explode('=',$pair);
+					$key = &$keyVal[0];
+					$val = urlencode($keyVal[1]);
+					$monArr[$key]=$val;
+				}
+				//necessary to get access token other wise u will not have permision to get user info
+				$params=array("oauth_verifier" => $monArr["oauth_verifier"],"oauth_token"=>$monArr["oauth_token"]);
+				
+				$access_token = $connection->oauth("oauth/access_token", $params);
+				//now again create new instance using updated return oauth_token and oauth_token_secret because old one expired if u dont u this u will also get token expired error
+ 				$connection = new TwitterOAuth($consumer_key, $consumer_secret,
+				$access_token['oauth_token'],$access_token['oauth_token_secret']);
+				$content = $connection->get("account/verify_credentials"); 
+				
+				//$tabRes['msg1']="get kardam";
+				$tabRes['msg2']=$content;
+				$tabRes['msg4'] = $content->profile_image_url;
 	}
 
 	//******************************************************
@@ -241,6 +351,12 @@
 		break;
 		case "estConnecter" :
 			estConnecter();
+		break;
+		case "connecterTwitter" :
+			connTwitter();
+		break;
+		case "profileTwitter" :
+			twitterProf();
 		break;
 	}
     echo json_encode($tabRes); // json_encode --> Retourne la représentation JSON d'une valeur 
