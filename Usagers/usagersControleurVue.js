@@ -56,7 +56,7 @@ function seConnecter(reponse) {
 function deconnexion(reponse) {
     if (reponse.msg == "ok") {
         //alert("deconnexion complète");
-        location.reload(true);
+        window.location.href="http://127.0.0.1/Circuit/ProjetCircuits/circuits.html";
     } else {
         alert("problème au moment de déconnexion");
     }
@@ -69,8 +69,20 @@ function monProfileUs(reponse) {
         $("#inputNomModif").attr("placeholder",Usager.nom);
         $("#inputDateNaissanceModif").attr("value",Usager.dateNaissance);
         $("#inputCourModif").attr("placeholder",reponse.courriel);
-    } else {
-        alert("problème de trouve votre profil");
+        
+        $('#monProf').removeClass("hide");
+        $('#carouselExampleIndicators').addClass("hide").removeClass("show");
+        $('#landing').addClass("hide").removeClass("show");
+        $('#map').addClass("hide").removeClass("show");
+        $('#consulterCircuitsContainer').addClass("hide").removeClass("show");
+        $('#lesCards').addClass("hide").removeClass("show"); 
+        $('#divDetailPanier').addClass("hide").removeClass("show");
+    }else if(reponse.msg == "twitter") {
+        alert("Vous pouvez voir votre profile sur le twitter!!!");
+        window.location.href=reponse.url_twitter;
+        
+    }else{
+        alert("problème de trouver votre profil");
     }
 }
 
@@ -93,9 +105,15 @@ function connecterValide(reponse) {
         alert(reponse.role);
     }else if(reponse.msg == "twitter") {
         alert("twitter connu");
+        $('#monProfile').addClass("hide");
+        if (reponse.itemCount) {
+            $('#nbItemPanier').text("(" + reponse.itemCount + ")");
+        } else {
+            $('#nbItemPanier').text("(0)");
+        }
         profileTwitter();
     }else{
-        alert("non connecte");
+        //alert("non connecte");
         
     }
 }

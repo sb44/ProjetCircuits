@@ -124,36 +124,29 @@
 		$tabRes['action']="monProfile";
 		if (isset($_SESSION['role'])) {
 			$id=$_SESSION['idConnexion'];
-			$tabRes['msg']="ok";
-
-			if ($_SESSION['role']=="admin") {
+			$tabRes['msg']="OK";
+			try{
 				$requete="SELECT courriel FROM connexion WHERE idConnexion = ? ";
 				$unModele=new circuitsModele($requete,array($id));
 				$stmt=$unModele->executer();
 				$ligne=$stmt->fetch(PDO::FETCH_OBJ);
 				$tabRes['courriel']=$ligne->courriel; 
-				$tabRes['msg']="vous etes admin";
-			} else {
-				$tabRes['msg']="OK";
-				try{
-					$requete="SELECT courriel FROM connexion WHERE idConnexion = ? ";
-					$unModele=new circuitsModele($requete,array($id));
-					$stmt=$unModele->executer();
-					$ligne=$stmt->fetch(PDO::FETCH_OBJ);
-					$tabRes['courriel']=$ligne->courriel; 
 
-					$requete="SELECT * FROM utilisateur WHERE idConnexion = ? ";
-					$unModele=new circuitsModele($requete,array($id));
-					$stmt=$unModele->executer();
-					$ligne=$stmt->fetch(PDO::FETCH_OBJ);
-					$tabRes['utilisateurs']=array();
-					$tabRes['utilisateurs']=$ligne;
-				}catch(Exception $e){
-					$tabRes['msg']="NON";
-				}finally{
-					unset($unModele);
-				}
+				$requete="SELECT * FROM utilisateur WHERE idConnexion = ? ";
+				$unModele=new circuitsModele($requete,array($id));
+				$stmt=$unModele->executer();
+				$ligne=$stmt->fetch(PDO::FETCH_OBJ);
+				$tabRes['utilisateurs']=array();
+				$tabRes['utilisateurs']=$ligne;
+			}catch(Exception $e){
+				$tabRes['msg']="NON";
+			}finally{
+				unset($unModele);
 			}
+			
+		}elseif(isset($_SESSION['oauth_token'])){
+			$tabRes['msg']="twitter";
+			$tabRes['url_twitter']=$_SESSION['url_twitter'];
 		}else{
 			$tabRes['msg']="nonTrouve";
 		}
@@ -193,10 +186,16 @@
 		$tabRes['action']="deconnecter";
 		if (isset($_SESSION['idConnexion'])) {
 			
-			$_SESSION['idConnexion']=="";
-			$_SESSION['courriel']=="";
-			$_SESSION['idUtilisateur']="";
-			
+			$_SESSION['idConnexion']==null;
+			$_SESSION['courriel']==null;
+			$_SESSION['idUtilisateur']=null;
+			session_destroy();
+			session_unset();
+			$tabRes['msg']="ok";
+		}elseif(isset($_SESSION['oauth_token'])){
+			$_SESSION['oauth_token']=null;
+			$_SESSION['oauth_token_secret']=null;
+			session_destroy();
 			session_unset();
 			$tabRes['msg']="ok";
 		}else{
@@ -211,17 +210,18 @@
 			if ($_SESSION['role']=="admin") {
 				$tabRes['role']="admin";
 			}else{
-				if(isset($_SESSION["shopping_cart"]))  
-				{  
+				if(isset($_SESSION["shopping_cart"])) {  
 					$count = count($_SESSION["shopping_cart"]);  
 					$tabRes['itemCount']= $count;	
 				}   
-				 
 				$tabRes['role']="utilisateur";
 			}
 		}elseif(isset($_SESSION['oauth_token'])){
-			
 			$tabRes['msg']="twitter";
+			if(isset($_SESSION["shopping_cart"])) {  
+				$count = count($_SESSION["shopping_cart"]);  
+				$tabRes['itemCount']= $count;	
+			} 
 		}else{
 			$tabRes['msg']="non";
 			
@@ -251,42 +251,14 @@
 			$_SESSION['oauth_token']=$temporary_credentials['oauth_token'];       
 			$_SESSION['oauth_token_secret']=$temporary_credentials['oauth_token_secret'];
 			$url = $connection->url("oauth/authorize", array("oauth_token" => $temporary_credentials['oauth_token'])); 
-			
-			// REDIRECTING TO THE URL
-			//header('Location: ' . $url); 
-			$tabRes['msg1']="try";
+
+			$tabRes['msg']="ok";
 			$tabRes['msg3']=$url;
 		}catch(Exception $e){
 			$tabRes['msg']="non";
 
         }
-			/* 			require_once '../twitteroauth/lib/EpiCurl.php';
-			require_once '../twitteroauth/lib/EpiOAuth.php';
-			require_once '../twitteroauth/lib/EpiTwitter.php';
-			require_once '../twitteroauth/lib/secret.php';
-			
-			$twitterObj = new EpiTwitter($consumer_key, $consumer_secret);
-			$oauth_token = $_GET['oauth_token'];
-			$tabRes['msg']="ok";
- 			if($oauth_token == ''){
-				$url = $twitterObj->getAuthorizationUrl();
-				echo "<div style='width:200px;margin-top:200px;margin-left:auto;margin-right:auto'>";
-				echo "<a href='$url'>Sign In with Twitter</a>";
-				echo "</div>";
-			}else{
-				$twitterObj->setToken($_GET['oauth_token']);
-				$token = $twitterObj->getAccessToken();
-				$twitterObj->setToken($token->oauth_token, $token->oauth_token_secret);
-				$_SESSION['ot'] = $token->oauth_token;
-				$_SESSION['ots'] = $token->oauth_token_secret;
-				$twitterInfo= $twitterObj->get_accountVerify_credentials();
-				$twitterInfo->response;
 
-				$username = $twitterInfo->screen_name;
-				$profilepic = $twitterInfo->profile_image_url;
-
-				include 'update.php';
-			}  */
 	}
 	function twitterProf(){
 		require "../twitteroauth/autoload.php";
@@ -305,9 +277,7 @@
 					$header[$key]= $val;
 				}
 				$newUrl=$header["Referer"];
-				//$tabRes['msg3']=$newUrl;
 				$joda=parse_url($newUrl, PHP_URL_QUERY);
-				
 				$pairs = explode('&',$joda);
 				foreach ($pairs as $pair) {
 					$keyVal = explode('=',$pair);
@@ -317,16 +287,17 @@
 				}
 				//necessary to get access token other wise u will not have permision to get user info
 				$params=array("oauth_verifier" => $monArr["oauth_verifier"],"oauth_token"=>$monArr["oauth_token"]);
-				
 				$access_token = $connection->oauth("oauth/access_token", $params);
 				//now again create new instance using updated return oauth_token and oauth_token_secret because old one expired if u dont u this u will also get token expired error
- 				$connection = new TwitterOAuth($consumer_key, $consumer_secret,
-				$access_token['oauth_token'],$access_token['oauth_token_secret']);
+ 				$connection = new TwitterOAuth($consumer_key, $consumer_secret,$access_token['oauth_token'],$access_token['oauth_token_secret']);
 				$content = $connection->get("account/verify_credentials"); 
-				
+				$_SESSION['oauth_token']=$access_token['oauth_token'];       
+				$_SESSION['oauth_token_secret']=$access_token['oauth_token_secret'];
 				//$tabRes['msg1']="get kardam";
 				$tabRes['msg2']=$content;
 				$tabRes['msg4'] = $content->profile_image_url;
+				$_SESSION['url_twitter'] = 'https://twitter.com/intent/user?user_id='.$content->id;
+
 	}
 
 	//******************************************************

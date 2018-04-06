@@ -130,14 +130,6 @@ function monProfile(){
 		processData : false,
 		dataType : 'json', 
 		success : function (reponse){//alert(reponse);
-					//$('#divFormFiche').hide();
-					$('#monProf').removeClass("hide");
-					$('#carouselExampleIndicators').addClass("hide").removeClass("show");
-					$('#landing').addClass("hide").removeClass("show");
-					$('#map').addClass("hide").removeClass("show");
-					$('#consulterCircuitsContainer').addClass("hide").removeClass("show");
-					$('#lesCards').addClass("hide").removeClass("show"); 
-					$('#divDetailPanier').addClass("hide").removeClass("show")
 					usagersVue(reponse);
 		},
 		fail : function (err){
