@@ -399,7 +399,7 @@ function lireCircuit(op, id) {
 function afficherCircuit(data) {
 	//alert("nommmmm:" + data["nom"]);
 	newEditor('descriptionCircuit','ckCircuit', data["description"]);
-	 $('#pochetteCircuit').attr('src','./pochettes/' + data["urlImage"]);
+	 $('#pochetteCircuit').attr('src','./pochettes/' + data["urlImage"]).attr('width', '400').attr('height','120');;
 
   $('#nomCircuit').attr('value',data["nom"]);
   $('#nomCircuit').val(data["nom"]);
@@ -483,7 +483,7 @@ CKEDITOR.on( 'instanceCreated', function( evt ) {
 
 function newEditor(id1, id2, content) {
   // This HTML could've come from AJAX data.
-  var el = CKEDITOR.dom.element.createFromHtml('<div id="' + id1 +  '" contenteditable="true">'+ content +'</div>');
+  var el = CKEDITOR.dom.element.createFromHtml('<div id="' + id1 +  '" contenteditable="true" class="col-sm-10 form-control">'+ content +'</div>');
   CKEDITOR.document.getById(id2).append(el);
   
   // Create editor instance on the new element.
@@ -491,6 +491,10 @@ function newEditor(id1, id2, content) {
 	  toolbarGroups: [
 		  { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] },
 		  { name: 'clipboard',   groups: [ 'clipboard', 'undo' ] },
+		  { name: 'insert', groups: [ 'Image', 'Flash', 'Table', 'HorizontalRule', 'Smiley', 'SpecialChar', 'PageBreak', 'Iframe' ]},
+		  '/',
+		  { name: 'styles', groups: [ 'Styles', 'Format', 'Font', 'FontSize' ] },
+		  { name: 'colors', groups: [ 'TextColor', 'BGColor' ] },
 	  ]
   } );
 }
