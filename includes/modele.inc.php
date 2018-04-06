@@ -130,8 +130,8 @@ function executer(){
 			else
 				$stmt->execute();	
 		}
-
-		if(strpos($this->requete[$it],'INSERT') !== false)
+		$i-=1;
+		if(strpos($this->requete[$i],'INSERT') !== false)
 			$this->LAST_ID = $this->connexion->lastInsertId();
 
 		$this->connexion->commit();
