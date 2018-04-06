@@ -45,6 +45,7 @@ function connUsager(){
 		}
 	});
 }
+
 /* function lister(){
 	var formconnexion = new FormData(document.getElementById('formConn'));
 	formconnexion.append('action','connecter');//alert(formFilm.get("action"));
@@ -129,14 +130,6 @@ function monProfile(){
 		processData : false,
 		dataType : 'json', 
 		success : function (reponse){//alert(reponse);
-					//$('#divFormFiche').hide();
-					$('#monProf').removeClass("hide");
-					$('#carouselExampleIndicators').addClass("hide").removeClass("show");
-					$('#landing').addClass("hide").removeClass("show");
-					$('#map').addClass("hide").removeClass("show");
-					$('#consulterCircuitsContainer').addClass("hide").removeClass("show");
-					$('#lesCards').addClass("hide").removeClass("show"); 
-					$('#divDetailPanier').addClass("hide").removeClass("show")
 					usagersVue(reponse);
 		},
 		fail : function (err){
@@ -179,6 +172,43 @@ function estConnecte(){
 		}
 	});
 } 
+function profileTwitter(){
+	var formdeconnexion = new FormData();
+	formdeconnexion.append('action','profileTwitter');
+	$.ajax({
+		type : 'POST',
+		url : 'Usagers/usagersControleur.php',
+		data : formdeconnexion,
+		/* async : false, */
+		contentType : false, 
+		processData : false,
+		dataType : 'json', 
+		success : function (reponse){//alert(reponse);
+					usagersVue(reponse); 
+		},
+		fail : function (err){
+		}
+	});
+} 
+function connUsagerTwitter(){
+	var formconnexion = new FormData();
+	formconnexion.append('action','connecterTwitter');
+	$.ajax({
+		type : 'POST',
+		url : 'Usagers/usagersControleur.php',
+		data : formconnexion,
+		/* async : false, */
+ 		contentType : false,
+		processData : false, 
+		dataType : 'json', //text pour le voir en format de string
+		success : function (reponse){//alert(reponse);
+				usagersVue(reponse);
+		},
+		fail : function (err){
+			alert("1111");
+		}
+	});
+}
 function modifierProf(){
  $("#monProf").addClass("hide");
  $('#carouselExampleIndicators').addClass("show").removeClass("hide");

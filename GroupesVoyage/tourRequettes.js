@@ -37,12 +37,12 @@ function circuitEnregistrer(id) {
 		}
 
 		formData.append("type",op);
+		alert("circuit enregistre");
 		$.ajax({
 			url: "GroupesVoyage/tourControleur.php",
 			type: 'POST',
 			data: formData,
 			success: function (data) {
-				alert("circuit enregistre");
 				if (id==0) {						
 					var data1 = parseInt(data);
 					enregistrerEtape(data1);
@@ -67,13 +67,13 @@ function etapeEnregistrer(idCircuit, nbEtape) {
 			formData.append("desEtape",content);
 			formData.append("idCircuit",idCircuit);
 			formData.append("type","etapeEn");
+			alert("etape enregistre");
 			$.ajax({
 				url: "GroupesVoyage/tourControleur.php",
 				type: 'POST',
 				data: formData,
 				success: function (data) {
 					var data1 = parseInt(data);
-					alert("etape enregistre");
 					enregistrerJour(data1, nbEtape);
                 },
                 contentType: false,	
@@ -93,13 +93,13 @@ function jourEnregistrer(idEtape, nbEtape, nbJour) {
 			formData.append("desActivite",content2);
 			formData.append("idEtape",idEtape);
 			formData.append("type","jourEn");
+			alert("Jour enregistre");
 			$.ajax({
 				url: "GroupesVoyage/tourControleur.php",
 				type: 'POST',
 				data: formData,
 				//dataType: json,
 				success: function (data) {
-					alert("Jour enregistre");
                 },
                 contentType: false,	
 				processData: false,

@@ -140,6 +140,9 @@ function validerConnexion() { // fonction qui retour true ou false
         return false;
     }
 }
+function twitter(){
+    alert("twitter bouton");
+}
 /////////////////// Fin Validation connexion ///////////////////////
 ////////////////////////////////////////////////////////////////////
 
