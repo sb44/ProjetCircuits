@@ -651,25 +651,6 @@
                                 <td><button type="button" onclick=""><span class="oi oi-pencil"></span></button></td>
                                 <td><button type="button" onclick=""><span class="oi oi-caret-bottom"></span></button></td>
                             </tr>       
-                <!--tr >
-                    <td>1</td>
-                    <td>
-                        <select id="circuitGroupe1" disabled='true'>
-                            <option>Voyage organisé en Tanzanie & Zanzibar</option>
-                            <option>Circuit2</option>
-                        </select>
-                    </td>
-                    <td><input id="dateDepartGroupe1" type="text" class="datepicker" style='width:90px' disabled='true'></intput></td>
-                    <td><input id="dateRetourGroupe1" type="text" class="datepicker" style='width:90px' disabled='true'></intput></td>
-                    <td><input id="capaciteGroupe1" type="text" value='30' style='width:30px' disabled='true'></td>
-                    <td><input id="nbInscriGroupe1" type="text" value='21' style='width:30px' disabled='true'></td>
-                    <td><input id="adulteGroupe1" type="text" value='5999' style='width:50px' disabled='true'></td>
-                    <td><input id="enfantGroupe1" type="text" value='2999' style='width:50px' disabled='true'></td>
-                    <td><input id="bebeGroupe1" type="text" value='1999' style='width:50px' disabled='true'></td>
-                    <td><button id="modifierGroupe1" type="button" onclick="modifierGroupe(1)"><span class="oi oi-pencil"></span></button></td>
-                    <td><button id="enregistrerGroupe1" type="button" onclick="enregistrerGroupe(1)" disabled='false'><span class="oi oi-file"></span></button></td>
-                    <td><button id="promotionGroupe1" type="button" onclick="togglePromotion(1, 1)"><span id="iconGroupe1" class="oi oi-caret-bottom"></span></button></td>
-                </tr-->
                 <tr id="promotion1" class="hide">
                         <td colspan='5'></td>
                         <td>Rabais:</td>
@@ -755,9 +736,11 @@
                 </div><br/>
                 <div class="form-group row">
                 <label for="desCircuit" class="col-sm-2">Description:</label>
-                    <div id="ckCircuit" class="col-sm-10">
+                <div class="col-sm-10">
+                    <div id="ckCircuit" >
                         <!--textarea class="form-control" id="desCircuit" name="desCircuit" onload="newEditor('desCircuit','ckCircuit')"></textarea-->
                     </div>
+                </div>
                 </div><br/>
                 <div class="form-group row">
                     <label for="capCircuit" class="col-sm-2">Capacité:</label>
@@ -794,19 +777,14 @@
                             <input type="text" class="form-control" id="longitudeCircuit" name="longitudeCircuit">
                         </div>					
                 </div><br/>
-                <!--div class="form-group row">
-                    <label for="photoCircuit" class="col-sm-2">Photo:</label>
-                    <div class="col-sm-4">
-                        <input type="file" class="form-control" id="photoCircuit" name="photoCircuit">
-                    </div>					
-                </div><br/-->
                 <div class="form-group row">
                     <label for="photoCircuit" class="col-sm-2">Photo:</label>
                     <div class="col-sm-4">
-                        <input type="file" class="form-control" id="photoCircuit" name="photoCircuit" onchange="readURL(this, 'pochetteCircuit', 400, 120)">
+                        <input type="file" class="form-control" id="photoCircuit" name="photoCircuit" onchange="readURL(this, 'pochetteCircuit', 400, 120)"><br/>
+                        <img id="pochetteCircuit">
                     </div>	
                     <div class="col-sm-6">
-                        <img id="pochetteCircuit" width=400 height=120>                  
+                        <!--img id="pochetteCircuit"-->                  
                     </div>		
                 </div><br/>
             </form>
@@ -823,9 +801,6 @@
                     <div class="col-sm-2">
                         <button id="btn-enregistrer" type="button" class="btn btn-primary" onclick="enregistrerCircuit(0)">enregistrer</button>
                     </div>
-                    <!--div class="col-sm-3">
-                        <button id="btn-enregRetour" type="button" class="btn btn-primary" onclick="enregistrerCircuit(0); gestionCircuit()">enreg. et retourner</button>
-                    </div-->
                     <div class="col-sm-2">
                         <button type="button" class="btn btn-primary" onclick="annuler(1)">Retourner</button>
                     </div>
@@ -843,9 +818,11 @@
                                 <form id="etape{{n}}" class="etape">
                                     <div class="form-group row">
                                             <label for="desEtape{{i}}" class="col-sm-2">Description:</label>
-                                            <div id="ckEtape{{i}}" class="col-sm-10">
+                                            <div class="col-sm-10">
+                                            <div id="ckEtape{{i}}" >
                                                     <!--textarea class="form-control ckeditor" id="desEtape{{i}}" name="desEtape{{i}}"></textarea-->
                                             </div>
+                                          </div>
                                     </div><br/>
                                     <div  class="form-group row">
                                         <label for="paysEtape{{i}}" class="col-sm-2">Pays:</label>
@@ -886,7 +863,6 @@
                     <div id="templateJour{{i}}{{n}}" class="form-group row">	
                     <label class="col-sm-2"></label>
                     <div class="col-sm-10">
-                        <!-- <h5><span id="jourTitle{{j}}" class="oi oi-minus" onclick="foldJour({{j}})">&nbsp&nbspJour </span><span id="sp{{i}}{{n}}">{{n}}:</span></h5> -->
                         <h5 class="p-2 mt-2 bg-light rounded-top"><span id="jourTitle{{j}}" class="oi oi-minus" onclick="foldJour({{j}})"></span> Jour <span id="sp{{i}}{{n}}">{{n}}</span></h5>
 
 
@@ -933,7 +909,6 @@
                                                     </select>
                                                 </div>
                                         </div><br/>	
-                                        <!--input type="hidden" name="type" value="jourEn"-->
                                     </form>	
                                     
                                     <div class="form-group row">
@@ -953,7 +928,6 @@
 
     <script src="js/jquery.validate.js"></script>
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
-    <!--script src="https://code.jquery.com/jquery-3.2.1.min.js"></script-->
     <script language="javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script language="javascript" src="js/ckeditor/ckeditor.js"></script>
     <script language="javascript" src="GroupesVoyage/tourControleurVue.js"></script>
