@@ -489,3 +489,14 @@ hr {
 }
 
 /* FIN FOOTER */
+
+/* TABLE HOVER */
+.table tbody tr:hover th{
+    background-color: #CD5AB3;
+    color: #FFFFFF;
+}
+.table tbody tr:hover td {
+    background-color: #FBB3FF;
+}
+
+/* FIN TABLE HOVER */

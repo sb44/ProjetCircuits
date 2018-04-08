@@ -94,7 +94,16 @@ function enleverFichier($dossier,$pochette) {
 }
 }//fin de la classe
 
+/* Classe pour transaction
 
+   Pour bien utiliser cette classe, on doit, dans respecter cette convention dans le controleur externe :
+    - pour les Insert de même entité, utiliser le format pour requete...
+	   requete[] = "('INSERT INTO foo VALUES(0, ?, ?, ?), (0, ?, ?, ?), (0, ?, ?, ?)')";
+	- nommer dans nos params notre clé étrangère "FK"...
+	   params[]  = array($des, $rabaisAdulte, "FK")
+	
+	Limites d'utilisation, une seule FK est possible par requête
+*/
 class circuitsModeleTran {
 	private $requete = array(); // accepte tableau de requete
 	private $params = array(); // accepte tableau de paramas
@@ -117,24 +126,40 @@ function executer(){
 	try {
 		$this->connexion->beginTransaction();
 
-		$length = sizeof($this->requete);
-		
-		//exécution de plusieurs requêtes
+		// Exécution de plusieurs requêtes
+		$length = sizeof($this->requete); //nombre de requetes de la transaction
 		for ($i=0; $i < $length; $i++) {
-			// prepare de la requête i
+			// preparation de la requête i" 
 			$stmt = $this->connexion->prepare($this->requete[$i]); 
 
 			// exécution de la requête i
-			if (isset($this->params[$i]))
+			if (isset($this->params[$i])) {
+				// Si Last->ID existe, on présume une clé étrangère à fixer dans la prochaine requête "i" fixé comme paramètre arbitraire préalablement nommé "FK" notre autre contrôleur. 
+				if ($this->LAST_ID !== 0) { // https://stackoverflow.com/questions/8668826/search-and-replace-value-in-php-array
+					$this->params[$i] = 
+						array_replace(
+							$this->params[$i],
+							array_fill_keys(
+								array_keys(
+									$this->params[$i], "FK"
+								), 
+								$this->LAST_ID)
+						);
+				}
 				$stmt->execute($this->params[$i]);
+			}	
 			else
-				$stmt->execute();	
-		}
-		$i-=1;
-		if(strpos($this->requete[$i],'INSERT') !== false)
-			$this->LAST_ID = $this->connexion->lastInsertId();
+				$stmt->execute();
+				
+			// obtention du dernier ID (si insertion)
+			if(strpos($this->requete[$i],'INSERT') !== false)
+				$this->LAST_ID = $this->connexion->lastInsertId();
+			else
+				$this->LAST_ID = 0;
 
-		$this->connexion->commit();
+		} //fin forloop d'Exécution de plusieurs requêtes
+
+		$this->connexion->commit(); // commit si l'exécution de tout les requêtes est un succès
 		$this->deconnecter(); // déconnexion
 		return $stmt;   
 	} catch(Exception $e) //en cas d'erreur
