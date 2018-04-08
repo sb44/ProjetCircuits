@@ -100,8 +100,8 @@
                         <a href="#" class="nav-link" onClick="showAdminDiv()"><span class="nav-link"><i class="fa fa-wrench"></i>Administration</span></a>
                     </li>
                     
-                    <li class="nav-item hide" id="monProfile">
-                        <a href="#" class="nav-link" onClick="monProfile();"><span class="nav-link"><img id="imgTwitter" src="" alt="" class="hide img-fluid rounded mr-4"><i class="fa fa-pencil-square-o"></i>Mon Profil</span></a>
+                    <li class="nav-item hide " id="monProfile">
+                        <a href="#" class="nav-link" onClick="monProfile();"><strong><span class="nav-link" id="monProfMot"><img id="imgTwitter" src="" alt="" class="hide img-fluid rounded mr-2"><i class="fa fa-pencil-square-o"></i></span></strong></a>
                     </li>
                     
                     <li class="nav-item hide" id="navPanier">
@@ -259,8 +259,7 @@
                                     <div class="modal-header">
                                         <h4>Déconnexion <i class="fa fa-lock"></i></h4>
                                     </div>
-                                    <div class="modal-body"><i class="fa fa-question-circle"></i> Vous êtes sûr pour déconnecter ?
-                                    </div>
+                                    <div class="modal-body">Vous êtes sûr pour déconnecter ?</div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-primary btn-block" data-dismiss="modal" onclick="deconnecter();">Déconnecter</button>
                                     </div>
@@ -269,6 +268,7 @@
                         </div>
                     </li>
                     <!-- fin modale pour déconnexion -->
+                    
                     <!-- modale pour est Connecter ou non -->
                     <div id="modaleEstConnecter" tabindex="-1" class="hide modal fade bs-example-modal-sm" role="dialog" aria-hidden="true">
                         <div class="modal-dialog modal-sm">
@@ -505,7 +505,7 @@
     <div id="container-HQ" class="container row hide mt-4">
 
         <div id="menuAdmin" class="col-sm-3">
-                <a href="javascript:void(0);" title="Retour au site visiteur et fermeture du panneau d'admnistration" onclick="hideAdminDiv();">Retour au site</a>
+            <a href="javascript:void(0);" title="Retour au site visiteur et fermeture du panneau d'admnistration" onclick="hideAdminDiv();">Retour au site</a>
 
             <ul class="list-group mt-2">
                 <a id="gestionCircuitA" href="#" class="list-group-item list-group-item-action list-group-item-dark" onclick="gestionCircuit()">Gestion de circuit</a>
@@ -530,17 +530,17 @@
     
             <table id="t2" class="table table-striped">
                 <thead>
-                <tr>
-                    <th>No</th>
-                    <th>Nom</th>
-                    <th>Theme</th>
-                    <th>Capacité</th>
-                    <th>Prix ($)</th>
-                    <th>Photo</th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                </tr>
+                    <tr>
+                        <th>No</th>
+                        <th>Nom</th>
+                        <th>Theme</th>
+                        <th>Capacité</th>
+                        <th>Prix ($)</th>
+                        <th>Photo</th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                    </tr>
                 </thead>
                 <tbody id="listeCircuit" class="tableAAA">
                 <tr id="0">

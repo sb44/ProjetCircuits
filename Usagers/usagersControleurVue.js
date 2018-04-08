@@ -22,8 +22,8 @@ function InscritUsager(reponse) {
 }
 
 function seConnecter(reponse) {
+    //alert(1111);
     var msg = document.getElementById('errConn');
-    //debugger;
     if (reponse.msg == "ok") {
         msg.innerHTML = "Merci pour vous connecter chez TOURISTIA";
         msg.className = "text-success";
@@ -32,15 +32,15 @@ function seConnecter(reponse) {
             msg.innerHTML = "";
             document.getElementById("formConn").reset();
         }, 1200);
-
-        $('#navDeconnexion').toggleClass("hide");
-        $('#navEnregistrement').toggleClass("hide");
-        $('#navConnexion').toggleClass("hide");
+        $('#navDeconnexion').removeClass("hide");
+        $('#navEnregistrement').addClass("hide");
+        $('#navConnexion').addClass("hide");
         if (reponse.role == "admin") {
             $('#navConnecteAdmin').toggleClass("hide");
-        } else {
-            $('#navPanier').toggleClass("hide");
-            $('#monProfile').toggleClass("hide");
+        } else if(reponse.role == "utilisateur") {
+            $('#navPanier').removeClass("hide");
+            $('#monProfile').removeClass("hide");
+            $('#monProfMot').append(reponse.nomUtilisateur);
         }
 
     } else if (reponse.msg == "mdpIncorrecte") {
@@ -49,7 +49,7 @@ function seConnecter(reponse) {
     } else if (reponse.msg == "nonInscrit") {
         msg.innerHTML = "Ce courriel n'est pas encore inscrit dans le système , veuillez vous inscrire";
         msg.className = "text-danger";
-    }
+    } 
 
 }
 
@@ -70,13 +70,9 @@ function monProfileUs(reponse) {
         $("#inputDateNaissanceModif").attr("value",Usager.dateNaissance);
         $("#inputCourModif").attr("placeholder",reponse.courriel);
         
+        toutHide();
         $('#monProf').removeClass("hide");
-        $('#carouselExampleIndicators').addClass("hide").removeClass("show");
-        $('#landing').addClass("hide").removeClass("show");
-        $('#map').addClass("hide").removeClass("show");
-        $('#consulterCircuitsContainer').addClass("hide").removeClass("show");
-        $('#lesCards').addClass("hide").removeClass("show"); 
-        $('#divDetailPanier').addClass("hide").removeClass("show");
+
     }else if(reponse.msg == "twitter") {
         alert("Vous pouvez voir votre profile sur le twitter!!!");
         window.location.href=reponse.url_twitter;
@@ -91,27 +87,48 @@ function connecterValide(reponse) {
         $('#navDeconnexion').removeClass("hide");
         $('#navEnregistrement').addClass("hide");
         $('#navConnexion').addClass("hide");
+
         if (reponse.role == "admin") {
             $('#navConnecteAdmin').removeClass("hide");
-        } else {
+        }else if(reponse.role == "utilisateur") {
             $('#navPanier').removeClass("hide");
             $('#monProfile').removeClass("hide");
+            $('#monProfMot').append(reponse.nomUtilisateur);
+
             if (reponse.itemCount) {
                 $('#nbItemPanier').text("(" + reponse.itemCount + ")");
             } else {
                 $('#nbItemPanier').text("(0)");
             }
+        }else if(reponse.role == "twitter") {
+            //alert("vous etes connecter par votre compte twitter");
+            
+            if (reponse.itemCount) {
+                $('#nbItemPanier').text("(" + reponse.itemCount + ")");
+            } else {
+                $('#nbItemPanier').text("(0)");
+            }
+            profileTwitter();
+        }else if(reponse.role == "twitterApres") {
+           // alert("vous avez fait refresh mais encore connecter par twitter");
+            
+            if (reponse.itemCount) {
+                $('#nbItemPanier').text("(" + reponse.itemCount + ")");
+            } else {
+                $('#nbItemPanier').text("(0)");
+            }
+            $('#navEnregistrement').addClass("hide");
+            $('#navConnexion').addClass("hide");
+            
+            $('#navDeconnexion').removeClass("hide");
+            $('#navPanier').removeClass("hide").addClass("show");
+            $('#monProfile').removeClass("hide").addClass("show");
+        
+            $('#imgTwitter').attr('src', reponse.photoUrl);
+            $('#monProfMot').append(reponse.nomUtilisateur);
+            $('#imgTwitter').removeClass("hide");
+            //profileTwitter();
         }
-        alert(reponse.role);
-    }else if(reponse.msg == "twitter") {
-        alert("twitter connu");
-        $('#monProfile').addClass("hide");
-        if (reponse.itemCount) {
-            $('#nbItemPanier').text("(" + reponse.itemCount + ")");
-        } else {
-            $('#nbItemPanier').text("(0)");
-        }
-        profileTwitter();
     }else{
         //alert("non connecte");
         
@@ -123,13 +140,35 @@ function connexionTwitter(reponse) {
         if (reponse.msg2 == "curl oui") {
             window.location.replace(reponse.msg3);
         } else {
-            alert("nashod");
+            alert("cUrl non installé");
         }
     } catch (error) {
-        alert("nashod catch")
+        alert("probleme de cUrl avec Apache")
     }
 }
 function ficheTwitter(reponse) {
+    if (reponse.msg == "ok") {
+        
+        $('#navEnregistrement').addClass("hide");
+        $('#navConnexion').addClass("hide");
+        
+        $('#navDeconnexion').removeClass("hide");
+        $('#navPanier').removeClass("hide").addClass("show");
+        $('#monProfile').removeClass("hide").addClass("show");
+    
+        $('#imgTwitter').attr('src', reponse.photoUrl);
+        $('#monProfMot').append(reponse.nomUtilisateur);
+        $('#imgTwitter').removeClass("hide");
+
+    } else if(reponse.msg == "non") {
+        alert("yejayi moshkele");
+    }
+    
+   
+            //window.location.replace(reponse.msg4);
+}
+function continueficheTwitter(reponse) {
+    
     $('#navEnregistrement').addClass("hide");
     $('#navConnexion').addClass("hide");
     
@@ -137,10 +176,10 @@ function ficheTwitter(reponse) {
     $('#navPanier').removeClass("hide");
     $('#monProfile').removeClass("hide");
 
-    $('#imgTwitter').attr('src', reponse.msg4);
+    $('#imgTwitter').attr('src', reponse.photoUrl);
+    $('#monProfMot').append(reponse.nomUtilisateur);
     $('#imgTwitter').removeClass("hide");
             //window.location.replace(reponse.msg4);
-
 }
 
 // ********************** selon l'action, on appelle la méthode concerné *******************
@@ -170,6 +209,9 @@ var usagersVue = function(reponse) {
             break;
         case "twitProf":
             ficheTwitter(reponse);
+            break;
+        case "continuTwitProf":
+            continueficheTwitter(reponse);
             break;
 
     }

@@ -173,8 +173,27 @@ function estConnecte(){
 	});
 } 
 function profileTwitter(){
+	//alert("akhare estconnecte injast,sare ajax bara gereftane baghye");
 	var formdeconnexion = new FormData();
 	formdeconnexion.append('action','profileTwitter');
+	$.ajax({
+		type : 'POST',
+		url : 'Usagers/usagersControleur.php',
+		data : formdeconnexion,
+		/* async : false, */
+		contentType : false, 
+		processData : false,
+		dataType : 'json', 
+		success : function (reponse){//alert(reponse);
+					usagersVue(reponse); 
+		},
+		fail : function (err){
+		}
+	});
+} 
+function refreshProfileTwitter(){
+	var formdeconnexion = new FormData();
+	formdeconnexion.append('action','continuProfileTwitter');
 	$.ajax({
 		type : 'POST',
 		url : 'Usagers/usagersControleur.php',
