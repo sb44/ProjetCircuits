@@ -1,36 +1,3 @@
-/* //vue films
-function listerF(listFilms){
-	var taille;
-	var rep="<div class='table-users' style='overflow: scroll; height: 500px;'>";
-	rep+="<div class='header'>Liste des films<span style='float:right;padding-right:10px;cursor:pointer;' onClick=\"$('#contenu').hide();\">X</span></div>";
-	rep+="<table cellspacing='0'>";
-	rep+="<tr><th>NUMERO</th><th>TITRE</th><th>DUREE</th><th>REALISATEUR</th><th>POCHETTE</th></tr>";
-	taille=listFilms.length;
-	for(var i=0; i<taille; i++){
-		rep+="<tr><td>"+listFilms[i].idf+"</td><td>"+listFilms[i].titre+"</td><td>"+listFilms[i].duree+"</td><td>"+listFilms[i].res+"</td><td><img src='pochettes/"+listFilms[i].pochette+"' width=80 height=80></td></tr>";		 
-	}
-	rep+="</table>";
-	rep+="</div>";
-	$('#contenu').html(rep);
-}
-
-function afficherFiche(reponse){
-  var uneFiche;
-  if(reponse.OK) {
-			uneFiche=reponse.fiche;
-			$('#formFicheF h3:first-child').html("Fiche du film numero "+uneFiche.idf);
-			$('#idf').val(uneFiche.idf);
-			$('#titreF').val(uneFiche.titre);
-			$('#dureeF').val(uneFiche.duree);
-			$('#resF').val(uneFiche.res);
-			$('#divFormFiche').show();
-			document.getElementById('divFormFiche').style.display='block';
-  } else {
-			$('#messages').html("Film "+$('#numF').val()+" introuvable");
-			setTimeout(function(){ $('#messages').html(""); }, 5000);
-  }
-
-} */
 function InscritUsager(reponse) {
     var msg = document.getElementById('errenr');
     //debugger;
@@ -55,8 +22,8 @@ function InscritUsager(reponse) {
 }
 
 function seConnecter(reponse) {
+    //alert(1111);
     var msg = document.getElementById('errConn');
-    //debugger;
     if (reponse.msg == "ok") {
         msg.innerHTML = "Merci pour vous connecter chez TOURISTIA";
         msg.className = "text-success";
@@ -65,15 +32,15 @@ function seConnecter(reponse) {
             msg.innerHTML = "";
             document.getElementById("formConn").reset();
         }, 1200);
-
-        $('#navDeconnexion').toggleClass("hide");
-        $('#navEnregistrement').toggleClass("hide");
-        $('#navConnexion').toggleClass("hide");
+        $('#navDeconnexion').removeClass("hide");
+        $('#navEnregistrement').addClass("hide");
+        $('#navConnexion').addClass("hide");
         if (reponse.role == "admin") {
             $('#navConnecteAdmin').toggleClass("hide");
-        } else {
-            $('#navPanier').toggleClass("hide");
-            $('#monProfile').toggleClass("hide");
+        } else if(reponse.role == "utilisateur") {
+            $('#navPanier').removeClass("hide");
+            $('#monProfile').removeClass("hide");
+            $('#monProfMot').append(reponse.nomUtilisateur);
         }
 
     } else if (reponse.msg == "mdpIncorrecte") {
@@ -82,14 +49,14 @@ function seConnecter(reponse) {
     } else if (reponse.msg == "nonInscrit") {
         msg.innerHTML = "Ce courriel n'est pas encore inscrit dans le système , veuillez vous inscrire";
         msg.className = "text-danger";
-    }
+    } 
 
 }
 
 function deconnexion(reponse) {
     if (reponse.msg == "ok") {
         //alert("deconnexion complète");
-        location.reload(true);
+        window.location.href="http://127.0.0.1/Circuit/ProjetCircuits/circuits.html";
     } else {
         alert("problème au moment de déconnexion");
     }
@@ -102,8 +69,16 @@ function monProfileUs(reponse) {
         $("#inputNomModif").attr("placeholder",Usager.nom);
         $("#inputDateNaissanceModif").attr("value",Usager.dateNaissance);
         $("#inputCourModif").attr("placeholder",reponse.courriel);
-    } else {
-        alert("problème de trouve votre profil");
+        
+        toutHide();
+        $('#monProf').removeClass("hide");
+
+    }else if(reponse.msg == "twitter") {
+        alert("Vous pouvez voir votre profile sur le twitter!!!");
+        window.location.href=reponse.url_twitter;
+        
+    }else{
+        alert("problème de trouver votre profil");
     }
 }
 
@@ -112,20 +87,105 @@ function connecterValide(reponse) {
         $('#navDeconnexion').removeClass("hide");
         $('#navEnregistrement').addClass("hide");
         $('#navConnexion').addClass("hide");
+
         if (reponse.role == "admin") {
             $('#navConnecteAdmin').removeClass("hide");
-        } else {
+        }else if(reponse.role == "utilisateur") {
             $('#navPanier').removeClass("hide");
             $('#monProfile').removeClass("hide");
-                    if (reponse.itemCount) {
-                        $('#nbItemPanier').text("(" + reponse.itemCount + ")");
-                    } else {
-                        $('#nbItemPanier').text("(1)");
-                    }
-        }
-    } else {
+            $('#monProfMot').append(reponse.nomUtilisateur);
 
+            if (reponse.itemCount) {
+                $('#nbItemPanier').text("(" + reponse.itemCount + ")");
+            } else {
+                $('#nbItemPanier').text("(0)");
+            }
+        }else if(reponse.role == "twitter") {
+            //alert("vous etes connecter par votre compte twitter");
+            
+            if (reponse.itemCount) {
+                $('#nbItemPanier').text("(" + reponse.itemCount + ")");
+            } else {
+                $('#nbItemPanier').text("(0)");
+            }
+            profileTwitter();
+        }else if(reponse.role == "twitterApres") {
+           // alert("vous avez fait refresh mais encore connecter par twitter");
+            
+            if (reponse.itemCount) {
+                $('#nbItemPanier').text("(" + reponse.itemCount + ")");
+            } else {
+                $('#nbItemPanier').text("(0)");
+            }
+            $('#navEnregistrement').addClass("hide");
+            $('#navConnexion').addClass("hide");
+            
+            $('#navDeconnexion').removeClass("hide");
+            $('#navPanier').removeClass("hide").addClass("show");
+            $('#monProfile').removeClass("hide").addClass("show");
+        
+            $('#imgTwitter').attr('src', reponse.photoUrl);
+            $('#monProfMot').append(reponse.nomUtilisateur);
+            $('#imgTwitter').removeClass("hide");
+            //profileTwitter();
+        }
+    }else{
+        //alert("non connecte");
+        
     }
+}
+function connexionTwitter(reponse) {
+    try {
+        
+        if (reponse.msg2 == "curl oui") {
+            window.location.replace(reponse.msg3);
+        } else {
+            alert("cUrl non installé sur le serveur");
+        }
+    } catch (error) {
+        alert("probleme de cUrl avec Apache")
+    }
+}
+function ficheTwitter(reponse) {
+    if (reponse.msg == "ok") {
+        
+        $('#navEnregistrement').addClass("hide");
+        $('#navConnexion').addClass("hide");
+        
+        $('#navDeconnexion').removeClass("hide");
+        $('#navPanier').removeClass("hide").addClass("show");
+        $('#monProfile').removeClass("hide").addClass("show");
+    
+        $('#imgTwitter').attr('src', reponse.photoUrl);
+        $('#monProfMot').append(reponse.nomUtilisateur);
+        $('#imgTwitter').removeClass("hide");
+
+    } else if(reponse.msg == "non") {
+        alert("yejayi moshkele");
+    }
+    else if(reponse.msg == "denied") {
+        alert("Vous n'avez pas autoriser le twitter");
+        $('#navEnregistrement').removeClass("hide");
+        $('#navConnexion').removeClass("hide");
+        
+        $('#navDeconnexion').addClass("hide");
+    }
+            //window.location.replace(reponse.msg4);
+}
+
+function continueficheTwitter(reponse) {
+    
+    $('#navEnregistrement').addClass("hide");
+    $('#navConnexion').addClass("hide");
+    
+    $('#navDeconnexion').removeClass("hide");
+    $('#navPanier').removeClass("hide");
+    $('#monProfile').removeClass("hide");
+
+    $('#imgTwitter').attr('src', reponse.photoUrl);
+    $('#monProfMot').append(reponse.nomUtilisateur);
+    $('#imgTwitter').removeClass("hide");
+            //window.location.replace(reponse.msg4);
 }
 
 // ********************** selon l'action, on appelle la méthode concerné *******************
@@ -149,6 +209,15 @@ var usagersVue = function(reponse) {
             break;
         case "estConnecter":
             connecterValide(reponse);
+            break;
+        case "twittConn":
+            connexionTwitter(reponse);
+            break;
+        case "twitProf":
+            ficheTwitter(reponse);
+            break;
+        case "continuTwitProf":
+            continueficheTwitter(reponse);
             break;
 
     }

@@ -25,9 +25,14 @@
 	function listerCarte(){
 		global $tabRes;
 		$tabRes['action']="listerCarte";
-		$requete="SELECT circuit.idCircuit, circuit.nom AS nomCircuit, circuit.description, circuit.capacite, circuit.urlImage, circuit.prix, theme.idTheme, theme.nom AS nomTheme, theme.iconUrl, circuit.latitude, circuit.longitude FROM circuit, theme WHERE circuit.idTheme = theme.idTheme AND circuit.enVigueur = 1";
+
+		//$requete="SELECT circuit.idCircuit, circuit.nom AS nomCircuit, circuit.description, circuit.capacite, circuit.urlImage, circuit.prix, theme.idTheme, theme.nom AS nomTheme, theme.iconUrl, circuit.latitude, circuit.longitude FROM circuit, theme WHERE circuit.idTheme = theme.idTheme AND circuit.enVigueur = 1";
+		$requete = array();
+		$requete[]="SELECT circuit.idCircuit, circuit.nom AS nomCircuit, circuit.description, circuit.capacite, circuit.urlImage, circuit.prix, theme.idTheme, theme.nom AS nomTheme, theme.iconUrl, circuit.latitude, circuit.longitude FROM circuit, theme WHERE circuit.idTheme = theme.idTheme AND circuit.enVigueur = 1";
+		
 		try{
-			 $unModele=new circuitsModele($requete,array());
+			 //$unModele=new circuitsModele($requete,array());
+			 $unModele=new circuitsModeleTran($requete,array());
 			 $stmt=$unModele->executer();
 			 $tabRes['listeCircuits']=array();
 			 while($ligne=$stmt->fetch(PDO::FETCH_OBJ)){
@@ -174,18 +179,32 @@
 
 	//******************************************************
 	//Contr�leur
-	$action=$_POST['action'];
-	switch($action){
-		case "listerCarte" :
-			listerCarte();
-		break;
-		case "afficherGroupesVoyagesDeCircuit":
-			afficherGroupesVoyagesDeCircuit();
-		break;
-		case "afficherEtapesDeCircuit":
-			afficherEtapesDeCircuit();
-		break;
+	if (isset($_POST['action'])) {
+		$action=$_POST['action'];
+		switch($action){
+			case "listerCarte" :
+				listerCarte();
+			break;
+			case "afficherGroupesVoyagesDeCircuit":
+				afficherGroupesVoyagesDeCircuit();
+			break;
+			case "afficherEtapesDeCircuit":
+				afficherEtapesDeCircuit();
+			break;
+		}
+	} else if (isset($_GET['action'])) { // pour limiter les requetes get
+		$action=$_GET['action'];
+		switch($action){
+			case "circuits" : // exemple : http://localhost/sb/420-D73-MA/ProjetCircuits/Circuits/circuitsControleur.php?action=circuits
+				listerCarte(); 
+			break;
+			case "circuitsEtapes" :// circuits avec étapes.. // exemple : http://localhost/sb/420-D73-MA/ProjetCircuits/Circuits/circuitsControleur.php?action=circuits
+				listerCarte(); 
+			break;
+		}
 	}
 	echo json_encode($tabRes); // json_encode --> Retourne la représentation JSON d'une valeur 
+	
+	
 	//echo $tabRes; 
 ?>

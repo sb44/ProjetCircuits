@@ -140,6 +140,9 @@ function validerConnexion() { // fonction qui retour true ou false
         return false;
     }
 }
+function twitter(){
+    alert("twitter bouton");
+}
 /////////////////// Fin Validation connexion ///////////////////////
 ////////////////////////////////////////////////////////////////////
 
@@ -280,10 +283,26 @@ function hideAdminDiv() {
     $('#map').addClass("show").removeClass("hide");
     $('#consulterCircuitsContainer').addClass("show").removeClass("hide");
     $('#lesCards').addClass("show").removeClass("hide");
-
+    
     //$('#divDetailPanier').addClass("show").removeClass("hide");
     //$('#divDetailSommaire').addClass("show").removeClass("hide");
     //$('#divCreateCommandForm').addClass("show").removeClass("hide");
 
     $('#container-HQ').addClass("hide").removeClass("show");
+}
+function toutHide(){
+    //// sauf le header et footer
+    $('#carouselExampleIndicators').addClass("hide").removeClass("show");
+    $('#messages').addClass("hide").removeClass("show");
+    $('#landing').addClass("hide").removeClass("show");
+    $('#contenu').addClass("hide").removeClass("show");
+    $('#map').addClass("hide").removeClass("show");
+    $('#consulterCircuitsContainer').addClass("hide").removeClass("show");
+    $('#lesCards').addClass("hide").removeClass("show");
+    $('#monProf').addClass("hide").removeClass("show");
+    $('#divDetailPanier').addClass("hide").removeClass("show");
+    $('#divDetailSommaire').addClass("hide").removeClass("show");
+    $('#divCreateCommandForm').addClass("hide").removeClass("show");
+    $('#container-HQ').addClass("hide").removeClass("show");
+
 }
