@@ -16,7 +16,7 @@ var REG_DATE = /^\d{4}-\d{2}-\d{2}$/;
 $(document).ready(function() {
     listerCarte();
     estConnecte();
-	
+
 
     /***** Ajax loader gif *******/
     $(document).ajaxStart(function() {
@@ -155,13 +155,12 @@ function rendreVisible(el) {
 function rendreInvisible(el) {
     document.getElementById(el).style.display = 'none';
 }
-//////////////////////////////////////////////////////////////////
+///////////////////////////  Debut Carles///////////////////////////////////////
 
 function validerAjoutVoyageur(counter) { // fonction qui retour true ou false
     //debugger;
     var estValide = new Array(counter);
     var isValid = true;
-
 
     for (var i = 0; i < counter; i++) {
         estValide[i] = true;
@@ -176,7 +175,7 @@ function validerAjoutVoyageur(counter) { // fonction qui retour true ou false
         $('#errCourrielVoyageur' + j).hide();
         $('#errExpirationPasseportVoyageur' + j).hide();
         $('#errNoPassportVoyageur' + j).hide();
-
+        $('#errDepotVoyageur' + j).hide();
 
         var nomVoyageur = document.getElementById('nomVoyageur' + j).value.trim();
         var prenomVoyageur = document.getElementById('prenomVoyageur' + j).value.trim();
@@ -184,6 +183,7 @@ function validerAjoutVoyageur(counter) { // fonction qui retour true ou false
         var noPassportVoyageur = document.getElementById('noPassportVoyageur' + j).value.trim();
         var courrielVoyageur = document.getElementById('courrielVoyageur' + j).value.trim();
         var expirationPasseportVoyageur = document.getElementById('expirationPasseportVoyageur' + j).value.trim();
+        var depotVoyageur = document.getElementById('depotVoyageur' + j).value.trim();
 
 
         var regex = new RegExp(REG_EMAIL);
@@ -216,6 +216,13 @@ function validerAjoutVoyageur(counter) { // fonction qui retour true ou false
             $('#errPrenomVoyageur' + j).show();
             estValide[i] = false;
         }
+
+
+        if (depotVoyageur == "") {
+            $('#errDepotVoyageur' + j).show();
+            estValide[i] = false;
+        }
+
         var regex = new RegExp(REG_NUMPASSEPORT);
         if (!regex.test(noPassportVoyageur)) {
             $('#errNoPassportVoyageur' + j).show();
@@ -234,12 +241,23 @@ function traitement() {
 
     if (validerAjoutVoyageur(counter)) {
         creerSommaire();
-        afficherSommaire();
         $('#divCreateCommandForm').hide();
     }
 
 }
 
+function hidePreviousForms() {
+    // debugger;
+    var counter = $('#idCounter').val();
+    for (var i = 0; i <= counter; i++) {
+        $('#divVoyageur' + i).hide();
+    }
+
+}
+
+
+
+////////////////////////   Fin Carles//////////////////////////////////////////
 function showAdminDiv() {
     $('#carouselExampleIndicators').addClass("hide").removeClass("show");
     $('#landing').addClass("hide").removeClass("show");
@@ -253,6 +271,7 @@ function showAdminDiv() {
 
     $('#container-HQ').addClass("show").removeClass("hide");
 }
+
 function hideAdminDiv() {
     //debugger;
     listerCarte(); // pour selon les changements fait de l'admin
@@ -265,6 +284,6 @@ function hideAdminDiv() {
     //$('#divDetailPanier').addClass("show").removeClass("hide");
     //$('#divDetailSommaire').addClass("show").removeClass("hide");
     //$('#divCreateCommandForm').addClass("show").removeClass("hide");
-    
+
     $('#container-HQ').addClass("hide").removeClass("show");
 }

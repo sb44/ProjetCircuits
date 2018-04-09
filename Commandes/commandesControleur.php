@@ -2,12 +2,10 @@
 	require_once("../includes/modele.inc.php");
 	$tabRes=array();
 
-	
 	function ajouterAuPanier(){
 		session_start();
-		//$_SESSION = array();
 		global $tabRes;	
-		$id=$_POST['numeroItem'];
+		$id=$_POST['idGroupeVoyage'];
 		$count=0;
 	
 		try{
@@ -75,14 +73,12 @@
 		}finally{
 			unset($unModele);
 		}
+		
 	}
-	
-	
-	
+
 
 	function ouvrirPanier(){
 		session_start();
-		//$_SESSION = array();
 		global $tabRes;
 		$items=array();
 		$tabRes['action']="ouvrirPanier";
@@ -105,8 +101,6 @@
 				}  
 				$tabRes['itemList']=$items;
 		}
-
-
 
 
 		function deleteItem(){
@@ -138,12 +132,27 @@
                     unset($_SESSION["trip_Summary"][$keys]);
                 }
 			}
-			
 			$itemCount=count($_SESSION["trip_Summary"]);
 			$tabRes['itemCount']=$itemCount;
+		    $tabRes['nbSummaryItems']=count($_SESSION["trip_Summary"]);
 		}
 	
 
+
+		function listerCommandes($idUtilisateur){
+			//http://localhost/CircuitVoyage/Commandes/commandesControleur.php?afficherCommandes&idUtilisateur=1
+			global $tabRes;
+			$idUtilisateur=$idUtilisateur;
+	
+			$requette="SELECT * FROM commande WHERE idUtilisateur = ? ";
+			$unModele=new circuitsModele($requette,array($idUtilisateur));
+			$stmt=$unModele->executer();
+
+			while($ligne=$stmt->fetch(PDO::FETCH_OBJ)){
+			    $tabRes['listeCommandes'][]=$ligne;
+			}
+			
+		}
 
 
 	function ficheReservation(){
@@ -156,7 +165,7 @@
 	
 
 		function afficherSommaire(){
-			session_start();
+		session_start();
 		global $tabRes;
 		$items=array();
 		
@@ -169,11 +178,15 @@
 						$items[$keys]["item_cout_unitaire"]=$values["item_cout_unitaire"];
 						$items[$keys]["item_circuit"]=$values["item_circuit"];
 						$items[$keys]["item_id"]=$values["item_id"];
+						$items[$keys]["item_dateDepart"]=$values["item_dateDepart"];
+						$items[$keys]["item_depotInitial"]=$values["item_depotInitial"];
 					 }  
 					 
 				}  
 				$tabRes['summaryList']=$items;
+				$tabRes['nbSummaryItems']=count($_SESSION["trip_Summary"]); 
 				$tabRes['action']="afficherSommaire";
+				
 		}
 	
 	
@@ -181,20 +194,8 @@
 			session_start();
 			global $tabRes;
 			$counter=$_POST['idCounter'];
-			$idcommande=$_POST['idCommandeVoyageur1'];
 			
-			// TODO : ajuster requete pour bon prix... voir circuitphp
-			// requete de circuitphp : 
-			// 		$requete="SELECT groupevoyage.capacite, groupevoyage.idGroupeVoyage, groupevoyage.nbInscrit, groupevoyage.dateDepart, groupevoyage.dateRetour, ROUND(groupevoyage.prixAdulte * (1 - promotion.rabaisAdulte/100), 2) AS prixAdulte, ROUND(groupevoyage.prixEnfant * (1 - promotion.rabaisEnfant/100), 2) AS prixEnfant, ROUND(groupevoyage.prixBebe * (1 - promotion.rabaisBebe/100), 2) AS prixBebe, promotion.description FROM groupevoyage, promotion WHERE groupevoyage.idpromotion = promotion.idpromotion AND groupevoyage.idCircuit=?";
-			// fin requete de circuitphp
-
-			$requette="SELECT groupevoyage.prixAdulte,groupevoyage.prixEnfant,groupevoyage.prixBebe,circuit.nom FROM groupevoyage,circuit WHERE groupevoyage.idGroupeVoyage = ? AND groupevoyage.idcircuit=circuit.idCircuit";
-			$unModele=new circuitsModele($requette,array($idcommande));
-			$stmt=$unModele->executer();
-			$ligne=$stmt->fetch(PDO::FETCH_OBJ);
-	
 			for( $i=0; $i<$counter;$i++){
-	
 				$j=$i+1;
 				$nom = $_POST['nomVoyageur'.$j];
 				$prenom=$_POST['prenomVoyageur'.$j];
@@ -204,14 +205,22 @@
 				$courriel=$_POST['courrielVoyageur'.$j];
 				$dateExpiration=$_POST['expirationPasseportVoyageur'.$j];
 				$idCategorie=$_POST['categorieVoyageur'.$j];
-				$idCommande=$_POST['idCommandeVoyageur1'];
+				$depotInitial=$_POST['depotVoyageur'.$j];
+				$idCommande=$_POST['idCommandeVoyageur'.$j];
 	
 				try{
-					
 					$count=0;
 					$categorie="";
 					$prixUnitaire="";
 					
+
+					$requette="SELECT ROUND(groupevoyage.prixAdulte * (1 - promotion.rabaisAdulte/100), 2) AS prixAdulte,groupevoyage.dateDepart,ROUND(groupevoyage.prixEnfant * (1 - promotion.rabaisEnfant/100), 2) AS prixEnfant,ROUND(groupevoyage.prixBebe * (1 - promotion.rabaisBebe/100), 2) AS prixBebe,circuit.nom FROM groupevoyage,circuit,promotion WHERE groupevoyage.idGroupeVoyage = ? AND groupevoyage.idcircuit=circuit.idCircuit AND groupevoyage.idpromotion = promotion.idpromotion";
+					$unModele=new circuitsModele($requette,array($idCommande));
+					$stmt=$unModele->executer();
+					$ligne=$stmt->fetch(PDO::FETCH_OBJ);
+
+
+
 					switch($idCategorie){
 					case "1":
 					$categorie="Adulte";
@@ -239,8 +248,10 @@
 									'item_name' => $nom,  
 									'item_prenom'=> $prenom,  
 									'item_categorie' => $categorie,  
-									'item_cout_unitaire' => $prixUnitaire
-									
+									'item_cout_unitaire' => $prixUnitaire,
+									'item_dateDepart'=>$ligne->dateDepart,
+									'item_depotInitial'=>$depotInitial,
+									'item_idGroupeVoyage'=>$idCommande
 								  );  
 								  $_SESSION["trip_Summary"][$count] = $item_array;  
 							 } else {  
@@ -256,7 +267,10 @@
 								'item_name' => $nom,  
 								'item_prenom'=> $prenom,  
 								'item_categorie' => $categorie,  
-								'item_cout_unitaire' =>$prixUnitaire
+								'item_cout_unitaire' =>$prixUnitaire,
+								'item_dateDepart'=>$ligne->dateDepart,
+								'item_depotInitial'=>$depotInitial,
+								'item_idGroupeVoyage'=>$idCommande
 							 );  
 							 $_SESSION["trip_Summary"][0] = $item_array;  
 						}  
@@ -265,17 +279,44 @@
 					}finally{
 						unset($unModele);
 					}
-
 					$tabRes['action']="creerSommaire";
 			}
-	
+			echo json_encode($tabRes);
 		}
 			
+
+
+
+
+
 	function enregistrerVoyageur(){
+		session_start();
+
 		global $tabRes;
+		$depotInitial=0;
 		$counter=$_POST['idCounter'];
-		$idcommande=$_POST['idCommandeVoyageur1'];
+		$lastId=0;
 	
+
+		$items=array();
+		$cout=array();
+
+		date_default_timezone_set('America/Montreal');
+		$today = date("y/m/d"); 
+		$idUtilisateur=$_SESSION['idUtilisateur'];
+		$ligneCapacite=0;
+		$ligneNbCommande=0;
+		$ligneRangCommande=1;
+		$nbInscription=0;
+
+
+		for( $i=0; $i<$counter;$i++){
+			$j=$i+1;
+			$idcommande=$_POST['idCommandeVoyageur'.$j];
+			array_push($items, $idcommande);
+		   $result=array_count_values($items);
+		}
+		
 		for( $i=0; $i<$counter;$i++){
 			$j=$i+1;
 			$nom = $_POST['nomVoyageur'.$j];
@@ -286,25 +327,84 @@
 			$courriel=$_POST['courrielVoyageur'.$j];
 			$dateExpiration=$_POST['expirationPasseportVoyageur'.$j];
 			$idCategorie=$_POST['categorieVoyageur'.$j];
-			$idCommande=$_POST['idCommandeVoyageur1'];
+			$depotInitial=$_POST['depotVoyageur'.$j];
+			$idCommande=$_POST['idCommandeVoyageur'.$j];
+		
+			$nbInscription=$result[$idCommande];
+			
+			if(!empty($_SESSION["trip_Summary"]))  
+			{  
+				foreach($_SESSION["trip_Summary"] as $keys => $values) {  
+					if($values["item_idGroupeVoyage"]==$idCommande){
+						$balance+=$values['item_cout_unitaire'];
+					}
+				}  
+			}  
+
+	
 
 			try{
+				$request="SELECT groupevoyage.capacite FROM groupevoyage  WHERE groupevoyage.idGroupeVoyage=?";
+				$unModele=new circuitsModele($request,array($idCommande));
+				$stmt=$unModele->executer();
+				if($ligne=$stmt->fetch(PDO::FETCH_OBJ)){
+					$ligneCapacite=$ligne->capacite;
+				}
+				
+			}catch(Exception $e){
+			}finally{
+				unset($unModele);
+			}
+
+
+			try{
+				$request="SELECT SUM(nbInscription) As inscrits FROM  commande WHERE commande.idGroupeVoyage=?";
+				$unModele=new circuitsModele($request,array($idCommande));
+				$stmt=$unModele->executer();
+				if($ligne=$stmt->fetch(PDO::FETCH_OBJ)){
+					$ligneNbCommande=$ligne->inscrits;
+				}
+			
+			}catch(Exception $e){
+			}finally{
+				unset($unModele);
+			}
+
+			if($ligneNbCommande<$ligneCapacite){
+
+				if(!$ligneNbCommande){
+
+					try{
+						$requette="INSERT INTO commande VALUES(0,?,?,?,?,?,?)";
+						$unModele=new circuitsModele($requette,array($nbInscription,$today,$balance,$idCommande,$idUtilisateur,$depotInitial));
+						$stmt=$unModele->executer();
+						$lastId=$unModele->LAST_ID;
+					}catch(Exception $e){
+					}finally{
+						unset($unModele);
+					}
+				}
+				
+			try{
 				$requete="INSERT INTO voyageur VALUES(0,?,?,?,?,?,?,?,?,?)";
-				$unModele=new circuitsModele($requete,array($courriel,$nom,$prenom,$idCategorie,$idSexe,$dateNaissance,$noPasseport,$dateExpiration,$idCommande));
+				$unModele=new circuitsModele($requete,array($courriel,$nom,$prenom,$idCategorie,$idSexe,$dateNaissance,$noPasseport,$dateExpiration,$lastId));
 				$stmt=$unModele->executer();
 				$tabRes['action']="enregistrerVoyageur";
 			}catch(Exception $e){
 			}finally{
 				unset($unModele);
+			}	
 			}
 		}
-
+		
 	}
 		
 
 
-	//******************************************************
+//******************************************************
 	//Contr�leur
+	if(isset($_POST['action'])){
+
 	$action=$_POST['action'];
 	switch($action){
 	case "ouvrirPanier" :
@@ -334,7 +434,40 @@
 	break;
 	case "supprimerVoyageur":
 	      supprimerVoyageur();
-    break;
+	break;
+	
 	}
-    echo json_encode($tabRes); // json_encode --> Retourne la représentation JSON d'une valeur 
+
+}else if(isset($_GET['action'])){
+	$action=$_GET['action'];
+	switch($action){
+	case "ouvrirPanier" :
+		      ouvrirPanier();
+		break;
+	case "ajouterAuPanier" :
+		      ajouterAuPanier();
+		break;
+
+		
+	case "enregisterVoyageur" :
+	      enregistrerVoyageur();
+	break;
+	case "creerSommaire" :
+	      creerSommaire();
+	break;
+		
+	case "deleteItem" :
+	       deleteItem();
+	break;
+		
+	case "afficherSommaire":
+	    afficherSommaire();
+	break;
+	case "supprimerVoyageur":
+	      supprimerVoyageur();
+	break;
+	
+	}
+}
+echo json_encode($tabRes); // json_encode --> Retourne la représentation JSON d'une valeur 
 ?>

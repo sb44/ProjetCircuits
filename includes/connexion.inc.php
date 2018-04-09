@@ -6,6 +6,7 @@ class Connexion{
 	private $baseDonnees;
 	private $connexion;
 	
+	
 	function __construct($serveur, $usager, $motPasse, $baseDonnees){
 		$this->serveur=$serveur;
 		$this->usager=$usager;
@@ -24,6 +25,7 @@ class Connexion{
 			PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
 		  );
 		  $this->connexion = new PDO( $dns, $this->usager, $this->motPasse, $options );
+		
 		} catch ( Exception $e ) {
 			//echo $e->getMessage();
 			echo "Probleme de connexion au serveur de bd";

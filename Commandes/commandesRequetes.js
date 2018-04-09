@@ -1,7 +1,8 @@
 function ajouterAuPanier(id) {
     var formFilm = new FormData();
     formFilm.append('action', 'ajouterAuPanier');
-    formFilm.append('numeroItem', id);
+    // formFilm.append('numeroItem', id);
+    formFilm.append('idGroupeVoyage', id);
 
     $.ajax({
         type: 'POST',
@@ -18,8 +19,6 @@ function ajouterAuPanier(id) {
     });
 
 }
-
-
 
 function ouvrirPanier() {
     var formFilm = new FormData();
@@ -40,10 +39,8 @@ function ouvrirPanier() {
 }
 
 
-
-
 function ficheReservation(idCommande) {
-    debugger;
+    //debugger;
     var formFilm = new FormData();
     formFilm.append('action', 'ficheReservation');
     formFilm.append('idCommande', idCommande);
@@ -55,16 +52,17 @@ function ficheReservation(idCommande) {
         processData: false,
         dataType: 'json',
         success: function(reponse) {
-            //alert(reponse);
+            // alert(reponse);
             commandesVue(reponse);
         },
         fail: function(err) {}
     });
 }
 
-function enregisterVoyageur() {
+function enregisterVoyageur(balance) {
     var formFilm = new FormData(document.getElementById('CreateCommandForm'));
     formFilm.append('action', 'enregisterVoyageur');
+    formFilm.append('balance', balance);
 
     $.ajax({
         type: 'POST',
@@ -102,8 +100,6 @@ function deleteItem(itemId) {
 }
 
 
-
-
 function supprimerVoyageur(id) {
     debugger;
     var formFilm = new FormData();
@@ -127,8 +123,10 @@ function supprimerVoyageur(id) {
 
 
 
-function creerSommaire() {
 
+
+
+function creerSommaire() {
     var formFilm = new FormData(document.getElementById('CreateCommandForm'));
     formFilm.append('action', 'creerSommaire');
 
