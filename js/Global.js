@@ -140,7 +140,8 @@ function validerConnexion() { // fonction qui retour true ou false
         return false;
     }
 }
-function twitter(){
+
+function twitter() {
     alert("twitter bouton");
 }
 /////////////////// Fin Validation connexion ///////////////////////
@@ -256,6 +257,8 @@ function hidePreviousForms() {
         $('#divVoyageur' + i).hide();
     }
 
+
+
 }
 
 
@@ -283,14 +286,15 @@ function hideAdminDiv() {
     $('#map').addClass("show").removeClass("hide");
     $('#consulterCircuitsContainer').addClass("show").removeClass("hide");
     $('#lesCards').addClass("show").removeClass("hide");
-    
+
     //$('#divDetailPanier').addClass("show").removeClass("hide");
     //$('#divDetailSommaire').addClass("show").removeClass("hide");
     //$('#divCreateCommandForm').addClass("show").removeClass("hide");
 
     $('#container-HQ').addClass("hide").removeClass("show");
 }
-function toutHide(){
+
+function toutHide() {
     //// sauf le header et footer
     $('#carouselExampleIndicators').addClass("hide").removeClass("show");
     $('#messages').addClass("hide").removeClass("show");
