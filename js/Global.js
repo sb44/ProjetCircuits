@@ -256,9 +256,6 @@ function hidePreviousForms() {
     for (var i = 0; i <= counter; i++) {
         $('#divVoyageur' + i).hide();
     }
-
-
-
 }
 
 
