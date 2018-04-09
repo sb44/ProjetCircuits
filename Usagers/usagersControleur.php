@@ -297,34 +297,30 @@
 				$header[$key]= $val;
 			}
 			$newUrl=$header["Referer"];
-			if( strpos( $newUrl, "denied" ) === false ) {
-				$joda=parse_url($newUrl, PHP_URL_QUERY);
-				$pairs = explode('&',$joda);
-				foreach ($pairs as $pair) {
-					$keyVal = explode('=',$pair);
-					$key = &$keyVal[0];
-					$val = urlencode($keyVal[1]);
-					$monArr[$key]=$val;
-				}
-				//necessary to get access token other wise u will not have permision to get user info
-				$params=array("oauth_verifier" => $monArr["oauth_verifier"],"oauth_token"=>$monArr["oauth_token"]);
-				$access_token = $connection->oauth("oauth/access_token", $params);
-				//now again create new instance using updated return oauth_token and oauth_token_secret because old one expired if u dont u this u will also get token expired error
-				$connection = new TwitterOAuth($consumer_key, $consumer_secret,$access_token['oauth_token'],$access_token['oauth_token_secret']);
-				$content = $connection->get("account/verify_credentials"); 
-	
-				$_SESSION['access_token']=$access_token;
-				
-				//$tabRes['msg1']="get kardam";
-				 $tabRes['msg2']=$content;
-				$tabRes['photoUrl'] = $content->profile_image_url;
-				$tabRes['nomUtilisateur'] = $content->name;
-				$_SESSION['nomUtilisateur']=$tabRes['nomUtilisateur'];
-				$_SESSION['url_twitter'] = 'https://twitter.com/'.$content->screen_name;
-				$tabRes['msg']="ok"; 
-			}else{
-				$tabRes['msg']="denied"; 
+			$joda=parse_url($newUrl, PHP_URL_QUERY);
+			$pairs = explode('&',$joda);
+			foreach ($pairs as $pair) {
+				$keyVal = explode('=',$pair);
+				$key = &$keyVal[0];
+				$val = urlencode($keyVal[1]);
+				$monArr[$key]=$val;
 			}
+			//necessary to get access token other wise u will not have permision to get user info
+			$params=array("oauth_verifier" => $monArr["oauth_verifier"],"oauth_token"=>$monArr["oauth_token"]);
+			$access_token = $connection->oauth("oauth/access_token", $params);
+			//now again create new instance using updated return oauth_token and oauth_token_secret because old one expired if u dont u this u will also get token expired error
+			$connection = new TwitterOAuth($consumer_key, $consumer_secret,$access_token['oauth_token'],$access_token['oauth_token_secret']);
+			$content = $connection->get("account/verify_credentials"); 
+
+			$_SESSION['access_token']=$access_token;
+			
+			//$tabRes['msg1']="get kardam";
+			$tabRes['msg2']=$content;
+			$tabRes['photoUrl'] = $content->profile_image_url;
+			$tabRes['nomUtilisateur'] = $content->name;
+			$_SESSION['nomUtilisateur']=$tabRes['nomUtilisateur'];
+			$_SESSION['url_twitter'] = 'https://twitter.com/'.$content->screen_name;
+			$tabRes['msg']="ok";
 		}catch(Exception $e){
 			$tabRes['msg']="non";
 		}
