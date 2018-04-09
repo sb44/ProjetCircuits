@@ -140,7 +140,7 @@ function connexionTwitter(reponse) {
         if (reponse.msg2 == "curl oui") {
             window.location.replace(reponse.msg3);
         } else {
-            alert("cUrl non installé");
+            alert("cUrl non installé sur le serveur");
         }
     } catch (error) {
         alert("probleme de cUrl avec Apache")
@@ -163,10 +163,16 @@ function ficheTwitter(reponse) {
     } else if(reponse.msg == "non") {
         alert("yejayi moshkele");
     }
-    
-   
+    else if(reponse.msg == "denied") {
+        alert("Vous n'avez pas autoriser le twitter");
+        $('#navEnregistrement').removeClass("hide");
+        $('#navConnexion').removeClass("hide");
+        
+        $('#navDeconnexion').addClass("hide");
+    }
             //window.location.replace(reponse.msg4);
 }
+
 function continueficheTwitter(reponse) {
     
     $('#navEnregistrement').addClass("hide");
