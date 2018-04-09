@@ -162,6 +162,12 @@ function ficheTwitter(reponse) {
 
     } else if(reponse.msg == "non") {
         alert("yejayi moshkele");
+    } else if(reponse.msg == "denied") {
+        alert("Vous n'avez pas autoriser le twitter");
+        $('#navEnregistrement').removeClass("hide");
+        $('#navConnexion').removeClass("hide");
+        
+        $('#navDeconnexion').addClass("hide");
     }
     
    
