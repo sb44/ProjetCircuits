@@ -7,15 +7,23 @@ http://localhost/Circuit/ProjetCircuits/services/trouvercircuit/3  // Un circuit
 http://localhost/Circuit/ProjetCircuits/services/groupes 		   // Tous les groupes	
 http://localhost/Circuit/ProjetCircuits/services/trouvergroupe/3   // Un groupe en particulier
 
-*/ 
+/* Exemples d'Utilisation serveur de tout les méthodes:
+
+https://touristia.000webhostapp.com/services/circuits          // Tous les circuits
+https://touristia.000webhostapp.com/services/trouvercircuit/3  // Un circuit en particulier 
+https://touristia.000webhostapp.com/services/groupes 		   // Tous les groupes	
+https://touristia.000webhostapp.com/services/trouvergroupe/3   // Un groupe en particulier
+
+*/
+
 class CircuitAPI extends REST {
 
 	public $donnees = "";
 	
-	const SERVEUR = "127.0.0.1";
-	const USAGER = "root";
-	const PASS = "";
-	const BD = "circuit";
+	private $SERVEUR = "";
+	private $USAGER = "";
+	private $PASS = "";
+	private $BD = ""; // NOM DE BD
 
 	private $bd = NULL;
 	private $connexion = NULL;
@@ -25,7 +33,21 @@ class CircuitAPI extends REST {
 	}
 	
 	private function dbConnect(){
-		$this->connexion = new mysqli(self::SERVEUR, self::USAGER, self::PASS, self::BD);
+		
+		if ($_SERVER['REMOTE_ADDR']=='127.0.0.1' || $_SERVER['REMOTE_ADDR']=="::1") { 
+			//pour local
+			$this->SERVEUR = "127.0.0.1";
+			$this->USAGER = "root";
+			$this->PASS = "";
+			$this->BD = "circuit";
+		} else {
+			//serveur 000webhost
+			$this->SERVEUR = "localhost";
+			$this->USAGER = "id5166593_root";
+			$this->PASS = "12345678";
+			$this->BD = "id5166593_circuitvoyage";
+		}
+		$this->connexion = new mysqli($this->SERVEUR, $this->USAGER, $this->PASS, $this->BD);
 		mysqli_set_charset($this->connexion, 'utf8'); //ajout SB
 	}
 	
