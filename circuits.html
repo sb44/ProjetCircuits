@@ -97,7 +97,7 @@
 
                 <ul class="navbar-nav">
                     <li class="nav-item hide" id="navConnecteAdmin">
-                        <a href="#" class="nav-link" onClick="showAdminDiv()"><span class="nav-link"><i class="fa fa-wrench"></i>Administration</span></a>
+                        <button type="button" id="boutonDeconnexion" class="btn btn-link text-white" title="Administration des circuits, départs et autres" onClick="showAdminDiv()"><span class="nav-link text-white"><i class="fa fa-wrench mr-1"></i>Administration</span></button>
                     </li>
 
                     <li class="nav-item hide" id="monProfile">
@@ -150,7 +150,12 @@
                                                 </a>
                                             </div> -->
                                             <!--  <div class="fb-login-button" data-max-rows="1" data-size="large" data-button-type="login_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="false" scope="public_profile,email" onlogin="checkLoginState();"></div> -->
-                                            <a href="#" class="nav-link" onClick="connUsagerTwitter();"><img src="images/twitter.png" alt="Tweeter"></a>
+                                            <!-- <a href="#" class="nav-link" onClick="connUsagerTwitter();"><img src="images/twitter.png" alt="Tweeter"></a> -->
+                                            
+                                            <div class="social-buttons">
+                                                <a href="#" class="btn btn-tw btn-block" onClick="connUsagerTwitter();"><i class="fa fa-twitter"></i> Connexion Twitter</a>
+                                            </div>
+
                                             <hr>
                                             <div class="form-group">
                                                 <input class="btn btn-outline-secondary" type="button" value="Recommencer" onclick="resetForm(formConn)">
@@ -254,7 +259,7 @@
                     <!-- modale pour déconnexion -->
                     <li class="nav-item hide" id="navDeconnexion">
                        <!-- <a href="#" id="boutonDeconnexion" class="nav-link" data-target=".bs-example-modal-sm" data-toggle="modal"><span class="nav-link"><i class="fa fa-sign-out"></i>Déconnexion</span></a> -->                       
-                       <button type="button" id="boutonDeconnexion" class="btn btn-link text-white" title="Déconnexion" style="background-color: #333333" data-target=".bs-example-modal-sm" data-toggle="modal"><span class="nav-link text-white"><i class="fa fa-sign-out mr-1"></i>Déconnexion</span></button>
+                       <button type="button" id="boutonDeconnexion" class="btn btn-link text-white" title="Déconnexion" data-target=".bs-example-modal-sm" data-toggle="modal"><span class="nav-link text-white"><i class="fa fa-sign-out mr-1"></i>Déconnexion</span></button>
                         
                         <div id="modaleDeconnexion" tabindex="-1" class="modal fade bs-example-modal-sm" role="dialog" aria-hidden="true">
                             <div class="modal-dialog modal-sm">

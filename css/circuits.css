@@ -148,7 +148,7 @@ label{
 	margin:12px 0    
 }
 .login-dp .social-buttons a{
-	width: 49%;
+    width: 100%;
 }
 .login-dp .form-group {
 	margin-bottom: 0.7rem;
