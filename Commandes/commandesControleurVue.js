@@ -42,7 +42,7 @@ function displaySummary(reponse) {
         for (var j = 0; j < groupeVoyages.length; j++) {
             input += "<div class=\"col-md-12 col-lg-10\"><table border=\"0\" class=\"table table-hover\">";
             input += "<tr><td><strong> Groupe Voyage:</strong> " + groupeVoyages[j] + "</td></tr>";
-            input += "<tr><th>Nom</th><th>Prénom</th><th>Catégorie</th><th>Coût unitaire</th><th>Dépot Initial</th><th></th><th></th><th></th></tr>";
+            input += "<tr><th>Nom</th><th>Prénom</th><th>Catégorie</th><th>Coût unitaire</th><th></th><th></th><th></th></tr>";
 
             for (var i = 0; i < sommaire.length; i++) {
 
@@ -51,7 +51,7 @@ function displaySummary(reponse) {
                     input += "<td>" + sommaire[i].item_prenom + "</td>";
                     input += "<td>" + sommaire[i].item_categorie + "</td>";
                     input += "<td>" + sommaire[i].item_cout_unitaire + " $</td>";
-                    input += "<td>" + sommaire[i].item_depotInitial + " $</td>";
+                    // input += "<td>" + sommaire[i].item_depotInitial + " $</td>";
                     input += "<td></td>";
                     input += "<td><form>";
                     input += "<input type=\"button\" name='supprimer' class='btn btn-outline-success' value=\"Supprimer \" onclick=\"supprimerVoyageur(" + sommaire[i].item_id + ");\">";
@@ -61,18 +61,18 @@ function displaySummary(reponse) {
                     sousTotal += parseFloat(sommaire[i].item_cout_unitaire);
                     sousTotalDepot += parseFloat(sommaire[i].item_depotInitial);
                     total += sousTotal;
-                    totalDepot += sousTotalDepot;
+                    // totalDepot += sousTotalDepot;
                 }
             }
 
-            sousBalance = sousTotal - sousTotalDepot;
-            input += "<tr><td colspan=\"3\"><strong>Sous Total</strong></td>  <td>" + sousTotal + " $</td><td>" + sousTotalDepot + " $</td><td></td><td><strong>Balance Partielle</strong></td><td><form>" + sousBalance + " $</td></tr>";
+            // sousBalance = sousTotal - sousTotalDepot;
+            input += "<tr><td colspan=\"3\"><strong>Sous Total</strong></td>  <td>" + sousTotal + " $</td>";
             sousTotal = 0;
-            sousTotalDepot = 0;
+            //sousTotalDepot = 0;
         }
 
-        balance = total - totalDepot
-        input += "<tr><td colspan=\"3\"><strong>Total</strong></td>  <td>" + total + " $</td><td>" + totalDepot + " $</td><td></td><td><strong>Balance Totale</strong></td><td><form>" + balance + " $</td></tr>";
+        //balance = total - totalDepot
+        input += "<tr><td colspan=\"3\"><strong>Total</strong></td><td>" + total + " $</td><td>";
 
         input += " </table> </div> </div>";
         input += "<input type=\"hidden\" name=\"idBalance\" id=\"idBalance\"  value=" + balance + ">";
@@ -256,12 +256,12 @@ function createReservationForm(reponse) {
     reservation += "</select></div></div>";
 
 
-    reservation += "<div class = \"form-group\">";
-    reservation += "<label for =\"depotVoyageur" + counter + "\"> Dépot Initial: </label>";
-    reservation += "<div class = \"col-xs-9\">";
-    reservation += "<input type = \"text\" class = \"form-control\" id = \"depotVoyageur" + counter + "\" name = \"depotVoyageur" + counter + "\">";
-    reservation += "<span id=\"errDepotVoyageur" + counter + "\"   style=\"display:none;\" class=\"text-danger\">" + errDepotVoyageur + "</span>\n";
-    reservation += "</div> </div>";
+    // reservation += "<div class = \"form-group\">";
+    // reservation += "<label for =\"depotVoyageur" + counter + "\"> Dépot Initial: </label>";
+    //reservation += "<div class = \"col-xs-9\">";
+    //reservation += "<input type = \"text\" class = \"form-control\" id = \"depotVoyageur" + counter + "\" name = \"depotVoyageur" + counter + "\">";
+    // reservation += "<span id=\"errDepotVoyageur" + counter + "\"   style=\"display:none;\" class=\"text-danger\">" + errDepotVoyageur + "</span>\n";
+    // reservation += "</div> </div>";
 
 
     reservation += "<br><input type = \"button\"   id = \"btnAjouterVoyageur" + counter + "\"  class = \"btn btn-primary\" value = \"Ajouter voyageur\" onclick = \"ficheReservation(" + idCommande + ")\;$(this).hide();hidePreviousForms();\">";

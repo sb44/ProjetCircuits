@@ -327,7 +327,7 @@
 			$courriel=$_POST['courrielVoyageur'.$j];
 			$dateExpiration=$_POST['expirationPasseportVoyageur'.$j];
 			$idCategorie=$_POST['categorieVoyageur'.$j];
-			$depotInitial=$_POST['depotVoyageur'.$j];
+		//	$depotInitial=$_POST['depotVoyageur'.$j];
 			$idCommande=$_POST['idCommandeVoyageur'.$j];
 		
 			$nbInscription=$result[$idCommande];
@@ -376,7 +376,7 @@
 
 					try{
 						$requette="INSERT INTO commande VALUES(0,?,?,?,?,?,?)";
-						$unModele=new circuitsModele($requette,array($nbInscription,$today,$balance,$idCommande,$idUtilisateur,$depotInitial));
+						$unModele=new circuitsModele($requette,array($nbInscription,$today,$balance,$idCommande,$idUtilisateur,0));
 						$stmt=$unModele->executer();
 						$lastId=$unModele->LAST_ID;
 					}catch(Exception $e){
