@@ -51,6 +51,7 @@
     <!-- CONTROLEUR Usager VUE -->
     <script language="javascript" type="text/javascript" src="Commandes/commandesControleurVue.js"></script>
 
+
     <!--		 				modèle.inc.php
 								^			v
 							circuitsControleur.php
@@ -486,9 +487,8 @@
     </div>
 
 
-    <div id="divCreateCommandForm" class="container " style="display:none; ">
+    <div id="divCreateCommandForm" class="container" style="display:none;">
         <form id="CreateCommandForm">
-
             <div id="btnSubmitVoyageur" class="form-group">
                 <div class="col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-6 offset-md-3">
                     <br>
@@ -499,13 +499,37 @@
         </form>
 
     </div>
+
+
+
+
+    <div id="divPaypal" class="container" style="display:none;">
+
+        <div class="container-fluid " id="divPaypalForm">
+
+
+            <form action="http://localhost/Circuit/ProjetCircuits/Commandes/commandesControleur.php?action=paypal" method="post" id="paypal_form" target="_blank ">
+            </form>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
     <!------------------     Fin Carles Kouaya -------------------------------->
 
     <!------------------     Haiqiang Xu  -------------------------------->
-    <div id="container-HQ" class="container row hide mt-4">
+    <div id="container-HQ " class="container row hide mt-4 ">
 
-        <div id="menuAdmin" class="col-sm-3">
-            <a href="javascript:void(0);" title="Retour au site visiteur et fermeture du panneau d'admnistration" onclick="hideAdminDiv();">Retour au site</a>
+        <div id="menuAdmin " class="col-sm-3 ">
+            <a href="javascript:void(0); " title="Retour au site visiteur et fermeture du panneau d 'admnistration" onclick="hideAdminDiv();">Retour au site</a>
 
             <ul class="list-group mt-2">
                 <a id="gestionCircuitA" href="#" class="list-group-item list-group-item-action list-group-item-dark" onclick="gestionCircuit()">Gestion de circuit</a>
@@ -612,16 +636,16 @@
                                     <option value="2">Circuit2</option-->
                                  </select>
                                 </td>
-                                <td><input id="dateDepartGroupe" name="dateDepartGroupe" type="text" class="dateDepart" style='width:90px'></intput>
+                                <td><input id="dateDepartGroupe" name="dateDepartGroupe" type="text" class="dateDepart" style='width:90px '></intput>
                                 </td>
-                                <td><input id="dateRetourGroupe" name="dateRetourGroupe" type="text" class="dateRetour" style='width:90px'></intput>
+                                <td><input id="dateRetourGroupe" name="dateRetourGroupe" type="text" class="dateRetour" style='width:90px '></intput>
                                 </td>
-                                <td><input id="capaciteGroupe" name="capaciteGroupe" type="text" style='width:30px'></td>
-                                <td><input id="prixAdulteGroupe" name="prixAdulteGroupe" type="text" style='width:80px'></intput>
+                                <td><input id="capaciteGroupe" name="capaciteGroupe" type="text" style='width:30px '></td>
+                                <td><input id="prixAdulteGroupe" name="prixAdulteGroupe" type="text" style='width:80px '></intput>
                                 </td>
-                                <td><input id="prixEnfantGroupe" name="prixEnfantGroupe" type="text" style='width:80px'></intput>
+                                <td><input id="prixEnfantGroupe" name="prixEnfantGroupe" type="text" style='width:80px '></intput>
                                 </td>
-                                <td><input id="prixBebeGroupe" name="prixBebeGroupe" type="text" style='width:80px'></td>
+                                <td><input id="prixBebeGroupe" name="prixBebeGroupe" type="text" style='width:80px '></td>
                                 <td>
                                     <select id="promotionGroupe" name="promotionGroupe">
                                     <!--option value="1">1:&nbsp 100%, 50%, 20%</option>
@@ -671,7 +695,7 @@
                         <td><button type="button" onclick=""><span class="oi oi-caret-bottom"></span></button></td>
                     </tr>
                     <tr id="promotion1" class="hide">
-                        <td colspan='5'></td>
+                        <td colspan='5 '></td>
                         <td>Rabais:</td>
                         <td>100%</td>
                         <td>50%</td>
@@ -705,11 +729,11 @@
                         <tbody>
                             <tr>
                                 <td><textarea id="descriptionPromotion" name="descriptionPromotion"></textarea></td>
-                                <td><input id="rabaisAdultePromotion" name="rabaisAdultePromotion" type="text" style='width:90px'>%</intput>
+                                <td><input id="rabaisAdultePromotion" name="rabaisAdultePromotion" type="text" style='width:90px '>%</intput>
                                 </td>
-                                <td><input id="rabaisEnfantPromotion" name="rabaisEnfantPromotion" type="text" style='width:90px'>%</intput>
+                                <td><input id="rabaisEnfantPromotion" name="rabaisEnfantPromotion" type="text" style='width:90px '>%</intput>
                                 </td>
-                                <td><input id="rabaisBebePromotion" name="rabaisBebePromotion" type="text" style='width:90px'>%</intput>
+                                <td><input id="rabaisBebePromotion" name="rabaisBebePromotion" type="text" style='width:90px '>%</intput>
                                 </td>
                                 <td><button id="btn-enregistrerPromotion" type="button" onclick="enregistrerPromotion(0)"><span class="oi oi-file"></span></button></td>
                                 <td><button id="btn-annulerPromotion" type="button" onclick="annuler(2)"><span class="oi oi-x"></span></button></td>
@@ -760,7 +784,7 @@
                     <label for="desCircuit" class="col-sm-2">Description:</label>
                     <div class="col-sm-10">
                         <div id="ckCircuit">
-                            <!--textarea class="form-control" id="desCircuit" name="desCircuit" onload="newEditor('desCircuit','ckCircuit')"></textarea-->
+                            <!--textarea class="form-control" id="desCircuit" name="desCircuit" onload="newEditor('desCircuit ','ckCircuit ')"></textarea-->
                         </div>
                     </div>
                 </div><br/>
@@ -802,7 +826,7 @@
                 <div class="form-group row">
                     <label for="photoCircuit" class="col-sm-2">Photo:</label>
                     <div class="col-sm-4">
-                        <input type="file" class="form-control" id="photoCircuit" name="photoCircuit" onchange="readURL(this, 'pochetteCircuit', 400, 120)"><br/>
+                        <input type="file" class="form-control" id="photoCircuit" name="photoCircuit" onchange="readURL(this, 'pochetteCircuit ', 400, 120)"><br/>
                         <img id="pochetteCircuit">
                     </div>
                     <div class="col-sm-6">
@@ -851,7 +875,7 @@
                             <div class="form-group row">
                                 <label for="paysEtape{{i}}" class="col-sm-2">Pays:</label>
                                 <div class="col-sm-3">
-                                    <input type="text" class="form-control" id="paysEtape{{i}}" name="paysEtape">
+                                    <!---   <input type="text" class="form-control" id="paysEtape{{i}}" name="paysEtape"> a remettre carles  -->
                                 </div>
                             </div><br/>
                             <div class="form-group row">
