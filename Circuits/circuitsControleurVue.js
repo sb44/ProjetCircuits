@@ -10,11 +10,14 @@ var MAPLINE;
 // Fin variables globales Pour maps
 
 function afficherCarteEnsemble(listeCircuits) {
+    
     //CIRCUITS.splice(0, CIRCUITS.length); //vider le tableau
     for (var x in listeCircuits) {
         CIRCUITS.push(listeCircuits[x]);
     }
+    $("#map").removeClass("show").addClass("hide");
     construireCarte(listeCircuits);
+ 
 }
 
 function filterThemeCircuits() {
@@ -38,11 +41,14 @@ function filterThemeCircuits() {
         });
     } else {
         lstCircuits = CIRCUITS;
-    }$("#map").hide(450, function() {
+    }
+    //if (!map) {
+    //    $("#map").hide(450, function() {
+    //        construireCarte(lstCircuits);
+    //    });
+    //} else {
         construireCarte(lstCircuits);
-    });
-
-
+    //}
 
     /*
      $("#map").hide(500, function() {
@@ -85,7 +91,9 @@ function afficherThemesSelectListAccueil(listeCircuits) {
 }
 
 //vue circuits
-function construireCarte(listeCircuits) {
+ function construireCarte(listeCircuits) {
+
+    debugger;
     //localistations lat et long.
     var centerMap = { lat: 45.870847, lng: -14.000323 };
     montreal = { lat: 45.50884, lng: -73.58781 };
@@ -143,6 +151,11 @@ function construireCarte(listeCircuits) {
     /* Push Legend to Right Top */
     //map.controls[google.maps.ControlPosition.RIGHT_TOP].push(legend);
     if (!map) {
+    //debugger;
+    //await createGoogleMap();
+
+    createGoogleMap();
+    function createGoogleMap() {
     map = new google.maps.Map(document.getElementById('map'), {
         zoom: 2,
         zoomControl: false,
@@ -345,15 +358,22 @@ function construireCarte(listeCircuits) {
             }
         ]
     });
+    
+    }
     }
     // TODO for looping fichier XML ou BD mysql...
     // addMarker(map, lasvegas, contentStringNY, google.maps.Animation.DROP, 'Las-Vegas (Courts-Séjours)', iconBase + 'sunny.png');
+    
 
     taille = listeCircuits.length;
     var contentString, localisation;
     //debugger;
+    //$("#map").show(450, function() {
     //Ajout de MTL:
-    addMarker(-1, map, montreal, contentStringMtl, google.maps.Animation.DROP, 'Montréal (Point de départ)', iconBase + 'airports.png');
+    addMarker(-1, map, montreal, contentStringMtl, null, 'Montréal (Point de départ)', iconBase + 'airports.png');
+    
+    $("#map").removeClass("hide").addClass("show");
+    
     for (var i = 0; i < taille; i++) {
         localisation = { lat: parseFloat(listeCircuits[i].latitude), lng: parseFloat(listeCircuits[i].longitude) };
         contentString = '<a href="javascript:void(0);" title="Consulter ce circuit!" onClick="afficherCardCircuit(' + listeCircuits[i].idCircuit + ');">' + '<span class="oi oi-eye"></span> ' + listeCircuits[i].nomCircuit + ' (' + listeCircuits[i].nomTheme + ')</a>';
@@ -380,13 +400,13 @@ function construireCarte(listeCircuits) {
 
         var marker = new google.maps.Marker({
             position: position,
+            //animation, animation,
             map: map,
             icon: icon,
             title: title
         });
         
         markersArray.push(marker);
-        debugger;
         marker.addListener('click', function() {
             debugger;
             if (infowindow) { // fermer le marker ouvert en clickant sur une autre https://stackoverflow.com/questions/4539905/cl
@@ -458,9 +478,9 @@ function construireCarte(listeCircuits) {
         }
     }
 
-    $("#map").show(450, function() {
     
-    });
+    //callback();
+    //});
 }
 function animateCircle(noCirc) {
 //debugger;
