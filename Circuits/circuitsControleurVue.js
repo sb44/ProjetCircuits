@@ -1,7 +1,12 @@
 // variables globales Pour maps
+var map;
 var infowindow = null; // info window open quand user click dessus. Global pour closer l'existant à chaque click sur autre ma
 var montreal = null;
 var CIRCUITS = [];
+var mapLines = [];
+var markersArray = [];
+var refreshIntervalId;
+var MAPLINE;
 // Fin variables globales Pour maps
 
 function afficherCarteEnsemble(listeCircuits) {
@@ -13,8 +18,34 @@ function afficherCarteEnsemble(listeCircuits) {
 }
 
 function filterThemeCircuits() {
-    //debugger;
-    $("#map").hide(500, function() {
+    //enlevé tout les markers existant:
+    for (var i = 0; i < markersArray.length; i++ ) {
+        markersArray[i].setMap(null);
+      }
+      markersArray.length = 0;
+    //enlevé tout les lignes existants:
+    for (i = 0; i < mapLines.length; i++) { 
+        mapLines[i].gObj.setMap(null)
+    }
+    mapLines.length = 0;
+
+    var selectionne = document.getElementById("themeCircuits").value;
+    if (selectionne != "0") {
+        var options = document.getElementById("themeCircuits").getElementsByTagName("option");
+        var optionHTML = options[document.getElementById("themeCircuits").selectedIndex].innerText;  
+        var lstCircuits = CIRCUITS.filter(function(el) {
+            return el.nomTheme == optionHTML;
+        });
+    } else {
+        lstCircuits = CIRCUITS;
+    }$("#map").hide(450, function() {
+        construireCarte(lstCircuits);
+    });
+
+
+
+    /*
+     $("#map").hide(500, function() {
         var selectionne = document.getElementById("themeCircuits").value;
         if (selectionne != "0") {
             var options = document.getElementById("themeCircuits").getElementsByTagName("option");
@@ -27,6 +58,7 @@ function filterThemeCircuits() {
         }
         construireCarte(lstCircuits);
     });
+    */
 }
 
 function isInArray(value, array) {
@@ -48,6 +80,7 @@ function afficherThemesSelectListAccueil(listeCircuits) {
         selectListAcc += "<option value=\"" + (i+1) + "\">" + themes[i] + "</option> ";
     }
     var w2 = document.getElementById('themeCircuits');
+    w2.innerHTML = "<option value=\"0\" selected>Tous</option>\"";
     w2.innerHTML += selectListAcc;
 }
 
@@ -109,8 +142,8 @@ function construireCarte(listeCircuits) {
      */
     /* Push Legend to Right Top */
     //map.controls[google.maps.ControlPosition.RIGHT_TOP].push(legend);
-
-    var map = new google.maps.Map(document.getElementById('map'), {
+    if (!map) {
+    map = new google.maps.Map(document.getElementById('map'), {
         zoom: 2,
         zoomControl: false,
         scaleControl: false,
@@ -312,29 +345,32 @@ function construireCarte(listeCircuits) {
             }
         ]
     });
+    }
     // TODO for looping fichier XML ou BD mysql...
     // addMarker(map, lasvegas, contentStringNY, google.maps.Animation.DROP, 'Las-Vegas (Courts-Séjours)', iconBase + 'sunny.png');
 
     taille = listeCircuits.length;
     var contentString, localisation;
-    debugger;
+    //debugger;
     //Ajout de MTL:
-    addMarker(map, montreal, contentStringMtl, google.maps.Animation.DROP, 'Montréal (Point de départ)', iconBase + 'airports.png');
+    addMarker(-1, map, montreal, contentStringMtl, google.maps.Animation.DROP, 'Montréal (Point de départ)', iconBase + 'airports.png');
     for (var i = 0; i < taille; i++) {
         localisation = { lat: parseFloat(listeCircuits[i].latitude), lng: parseFloat(listeCircuits[i].longitude) };
         contentString = '<a href="javascript:void(0);" title="Consulter ce circuit!" onClick="afficherCardCircuit(' + listeCircuits[i].idCircuit + ');">' + '<span class="oi oi-eye"></span> ' + listeCircuits[i].nomCircuit + ' (' + listeCircuits[i].nomTheme + ')</a>';
         //addMarker(map, position, contentString, animation, title, icon);
-        addMarker(map, localisation, contentString, google.maps.Animation.DROP, listeCircuits[i].nomCircuit, listeCircuits[i].iconUrl + '');
+        addMarker(listeCircuits[i].idCircuit, map, localisation, contentString, google.maps.Animation.DROP, listeCircuits[i].nomCircuit, listeCircuits[i].iconUrl + '');
     }
     //fin for looping
 
     /* Push Legend to Right Top */
-    map.controls[google.maps.ControlPosition.RIGHT_TOP].push(legend);
+    if (legend.style.visibility === "hidden") {
+        map.controls[google.maps.ControlPosition.RIGHT_TOP].push(legend);
+    }
     //Mettre la légend visible:
     legend.style.visibility = 'visible';
 
     // Adds a marker to the map.
-    function addMarker(map, position, contentString, animation, title, icon) {
+    function addMarker(noCirc, map, position, contentString, animation, title, icon) {
 
         //resize icon
         var icon = {
@@ -348,16 +384,47 @@ function construireCarte(listeCircuits) {
             icon: icon,
             title: title
         });
+        
+        markersArray.push(marker);
+        debugger;
         marker.addListener('click', function() {
+            debugger;
             if (infowindow) { // fermer le marker ouvert en clickant sur une autre https://stackoverflow.com/questions/4539905/cl
-                infowindow.close();
+                 handleCloseInfoWindow();
             }
+
+             animateCircle(noCirc);
+
             infowindow = new google.maps.InfoWindow({
                 content: contentString,
                 maxWidth: 200
             });
-            infowindow.open(map, marker)
+
+            google.maps.event.addListener(infowindow,'closeclick', function(){
+                 handleCloseInfoWindow();
+             });
+
+            infowindow.open(map, marker);
+
+            function handleCloseInfoWindow() {
+                if (infowindow) { // fermer le marker ouvert en clickant sur une autre https://stackoverflow.com/questions/4539905/cl
+                    infowindow.close();
+                }
+                if (MAPLINE) { // enlevé l'icone d'avion de la ligne
+                    var icons = MAPLINE.get('icons');
+                    icons[0].icon = "";
+                    icons[0].offset = "";
+                    MAPLINE.set('icons', icons);
+                }
+    
+                if (refreshIntervalId) { // arrêter le timer
+                    clearInterval(refreshIntervalId);
+                }
+
+            }
+
         });
+
 
 
         if (position != montreal) {
@@ -367,11 +434,13 @@ function construireCarte(listeCircuits) {
             var longit = position.lng;
             var curvLine = null;
             var montrealLatlng = new google.maps.LatLng(45.50884, -73.58781);
-            /* var lineSymbol = {
+/*
+             var lineSymbol = {
             	path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
             	scale: 4,
             	strokeColor: '#7B68EE'
-            }; */
+            };
+*/
             var line = new google.maps.Polyline({
                 path: [montrealLatlng, new google.maps.LatLng(latit, longit)],
                 strokeColor: "#1B48FF",
@@ -381,15 +450,51 @@ function construireCarte(listeCircuits) {
                 map: map,
                 icons: [{
                     //icon: lineSymbol,
-                    offset: '100%'
+                    //offset: '100%'
                 }],
             });
+            var lineObj = {gObj:line, idCircuit:listeCircuits[i].idCircuit};
+            mapLines.push(lineObj);
         }
     }
 
-    $("#map").show(500, function() {
-
+    $("#map").show(450, function() {
+    
     });
+}
+function animateCircle(noCirc) {
+//debugger;
+    for (i = 0; i < mapLines.length; i++) { 
+        if(mapLines[i].idCircuit == noCirc) {
+            MAPLINE = mapLines[i].gObj;
+            break;
+        }
+    }
+    if (MAPLINE == null)
+        return;
+
+
+    var lineSymbol = {
+        path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
+        scale: 4,
+        strokeColor: '#7B68EE'
+    };
+
+    var icons = MAPLINE.get('icons');
+    icons[0].icon = lineSymbol;
+    icons[0].offset = 100 + '%';
+
+    var count = 0;
+    refreshIntervalId = window.setInterval(function() {
+
+      count = (count + 1) % 200;
+
+      var icons = MAPLINE.get('icons');
+      icons[0].offset = (count / 2) + '%';
+      MAPLINE.set('icons', icons);
+
+  }, 20);
+
 }
 
 function afficherCardCircuit(noCircuit) {
@@ -581,7 +686,7 @@ function strip_html_tags(str)
 
 // ********************** selon l'action, on appelle la méthode concerné *******************
 var circuitsVue = function(reponse) {
-    debugger;
+    //debugger;
     var action = reponse.action;
     switch (action) {
         case "listerCarte":
