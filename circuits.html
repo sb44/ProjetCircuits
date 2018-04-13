@@ -98,17 +98,18 @@
 
                 <ul class="navbar-nav">
                     <li class="nav-item hide" id="navConnecteAdmin">
-                        <a href="#" class="nav-link" onClick="showAdminDiv()"><span class="nav-link"><i class="fa fa-wrench"></i>Administration</span></a>
+                        <button type="button" id="boutonDeconnexion" class="btn btn-link text-white" title="Administration des circuits, départs et autres" onClick="showAdminDiv()"><span class="nav-link text-white"><i class="fa fa-wrench mr-1"></i>Administration</span></button>
                     </li>
 
-                    <li class="nav-item hide " id="monProfile">
-                        <a href="#" class="nav-link" onClick="monProfile();"><strong><span class="nav-link" id="monProfMot"><img id="imgTwitter" src="" alt="" class    1#="hide img-fluid rounded mr-2"><i class="fa fa-pencil-square-o"></i></span></strong></a>
+                    <li class="nav-item hide" id="monProfile">
+                       <!-- <a href="#" class="nav-link" onClick="monProfile();"><strong><span class="nav-link" id="monProfMot"><img id="imgTwitter" src="" alt="" class    1#="hide img-fluid rounded-circle mr-2"><i class="fa fa-pencil-square-o"></i></span></strong></a> -->
+                       <button type="button" title="Consulter profil" class="btn btn-link text-white" onClick="monProfile();">
+                            <span class="nav-link text-white" id="monProfMot"><img id="imgTwitter" src="" alt="" class="hide rounded-circle mr-2" style="height: 30px;"><i class="fa fa-pencil-square-o mr-1"></i></span>
+                      </button>
                     </li>
 
                     <li class="nav-item hide" id="navPanier">
-                        <div title="Mon panier">
-                            <a href="#" class="nav-link" onClick="ouvrirPanier();"><span class="nav-link"><span class="oi oi-cart id" id="nbItemPanier"> (0)</span> Panier</span></a>
-                        </div>
+                            <button type="button" title="Mon panier" class="btn btn-link text-white" onClick="ouvrirPanier();"><span class="nav-link text-white"><span class="oi oi-cart id mr-1" id="nbItemPanier">(0)</span>Panier</span></button>
                         <form name="panier" action="serveur/gestionFilms.php" method="post">
                             <input type="hidden" name="monAction" value="panier">
                         </form>
@@ -150,7 +151,12 @@
                                                 </a>
                                             </div> -->
                                             <!--  <div class="fb-login-button" data-max-rows="1" data-size="large" data-button-type="login_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="false" scope="public_profile,email" onlogin="checkLoginState();"></div> -->
-                                            <a href="#" class="nav-link" onClick="connUsagerTwitter();"><img src="images/twitter.png" alt="Tweeter"></a>
+                                            <a href="#" class="nav-link" onClick="connUsagerTwitter();"><img src="images/twitter.png" alt="Tweeter"></a> 
+                                             <!--
+                                            <div class="social-buttons">
+                                                <a href="#" class="btn btn-tw btn-block" onClick="connUsagerTwitter();"><i class="fa fa-twitter"></i> Connexion Twitter</a>
+                                            </div>
+                                            -->
                                             <hr>
                                             <div class="form-group">
                                                 <input class="btn btn-outline-secondary" type="button" value="Recommencer" onclick="resetForm(formConn)">
@@ -253,7 +259,9 @@
                     </li>
                     <!-- modale pour déconnexion -->
                     <li class="nav-item hide" id="navDeconnexion">
-                        <a href="#" id="boutonDeconnexion" class="nav-link" data-target=".bs-example-modal-sm" data-toggle="modal"><span class="nav-link"><i class="fa fa-sign-out"></i>Déconnexion</span></a>
+                       <!-- <a href="#" id="boutonDeconnexion" class="nav-link" data-target=".bs-example-modal-sm" data-toggle="modal"><span class="nav-link"><i class="fa fa-sign-out"></i>Déconnexion</span></a> -->                       
+                       <button type="button" id="boutonDeconnexion" class="btn btn-link text-white" title="Déconnexion" data-target=".bs-example-modal-sm" data-toggle="modal"><span class="nav-link text-white"><i class="fa fa-sign-out mr-1"></i>Déconnexion</span></button>
+                        
                         <div id="modaleDeconnexion" tabindex="-1" class="modal fade bs-example-modal-sm" role="dialog" aria-hidden="true">
                             <div class="modal-dialog modal-sm">
                                 <div class="modal-content">
