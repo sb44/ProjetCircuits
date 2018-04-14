@@ -30,7 +30,7 @@ function displaySummary(reponse) {
         var sousBalance = 0;
         input += "<div class=\"row\"><span onClick=\"$('#divDetailSommaire').hide();\">X</span><h3> Sommaire des Coûts</h3>";
         //input += "<div class=\"col-md-12 col-lg-10\"><table border=\"0\" class=\"table table-hover\">";
-        // input += "<tr><th> Nom </th> <th> Prénom </th> <th> Catégorie</th> <th> Coût unitaire</th><th>Dépot Initial</th><th>Circuit</th><th></th><th></th></tr> ";
+        // input += "<tr><th> Nom </th> <th> Prénom </th> <th> Catégorie</th> <th> Coût unitaire</th><th>Dépot Initial</th><th>Circuit</th></tr> ";
 
         for (var i = 0; i < sommaire.length; i++) {
             if (groupeVoyages.indexOf(sommaire[i].item_circuit + "(" + sommaire[i].item_dateDepart + ")") == -1) {
@@ -40,9 +40,9 @@ function displaySummary(reponse) {
 
 
         for (var j = 0; j < groupeVoyages.length; j++) {
-            input += "<div class=\"col-md-12 col-lg-10\"><table border=\"0\" class=\"table table-hover\">";
+            input += "<div class=\"col-md-12 col-lg-10\"><table border=\"1\" class=\"table table-hover\">";
             input += "<tr><td><strong> Groupe Voyage:</strong> " + groupeVoyages[j] + "</td></tr>";
-            input += "<tr><th>Nom</th><th>Prénom</th><th>Catégorie</th><th>Coût unitaire</th><th></th><th></th><th></th></tr>";
+            input += "<tr><th>Nom</th><th>Prénom</th><th>Catégorie</th><th>Coût unitaire</th></tr>";
 
             for (var i = 0; i < sommaire.length; i++) {
 
@@ -52,7 +52,7 @@ function displaySummary(reponse) {
                     input += "<td>" + sommaire[i].item_categorie + "</td>";
                     input += "<td>" + sommaire[i].item_cout_unitaire + " $</td>";
                     // input += "<td>" + sommaire[i].item_depotInitial + " $</td>";
-                    input += "<td></td>";
+                    //input += "<td></td>";
                     input += "<td><form>";
                     input += "<input type=\"button\" name='supprimer' class='btn btn-outline-success' value=\"Supprimer \" onclick=\"supprimerVoyageur(" + sommaire[i].item_id + ");\">";
                     input += "<input type=\"hidden\" name=\"idCommand\" id=\"idCommand" + i + "\"  value=" + sommaire[i].item_id + ">";
@@ -62,11 +62,15 @@ function displaySummary(reponse) {
                     sousTotalDepot += parseFloat(sommaire[i].item_depotInitial);
                     total += sousTotal;
                     // totalDepot += sousTotalDepot;
+                    // sousBalance = sousTotal - sousTotalDepot;
+                    input += "<tr><td colspan=\"3\"><strong>Sous Total</strong></td>  <td>" + sousTotal + " $</td>";
+                    input += "<td><form>";
+                    input += "<input type=\"button\" name='Payer' class='btn btn-outline-success' value=\"Commander\" onclick=\"payer(" + sommaire[i].item_idGroupeVoyage + ");\">";
+                    input += "</form>";
+                    input += "</td></tr>";
                 }
             }
 
-            // sousBalance = sousTotal - sousTotalDepot;
-            input += "<tr><td colspan=\"3\"><strong>Sous Total</strong></td>  <td>" + sousTotal + " $</td>";
             sousTotal = 0;
             //sousTotalDepot = 0;
         }
@@ -74,7 +78,7 @@ function displaySummary(reponse) {
         //balance = total - totalDepot
         input += "<tr><td colspan=\"3\"><strong>Total</strong></td><td>" + total + " $</td><td>";
 
-        input += " </table> </div> </div>";
+        input += "</table> </div> </div>";
         input += "<input type=\"hidden\" name=\"idBalance\" id=\"idBalance\"  value=" + balance + ">";
         input += "<div class=\"row\">";
 
@@ -84,6 +88,33 @@ function displaySummary(reponse) {
     }
 
 }
+
+
+
+function pay(reponse) {
+    debugger;
+    var achats = reponse.listeAchat;
+    var input = "";
+
+    input += "<input type=\"hidden\" name=\"cmd\" value=\"_xclick\" />";
+    input += "<input type=\"hidden\" name=\"no_note\" value=\"1\"/>";
+    input += "<input type=\"hidden\" name=\"lc\" value=\"UK\" />";
+    input += "<input type=\"hidden\" name=\"currency_code\" value=\"GBP\" />";
+    input += "<input type=\"hidden\" name=\"bn\" value=\"PP-BuyNowBF:btn_buynow_LG.gif:NonHostedGuest\" />";
+    input += "<input type=\"hidden\" name=\"first_name\" value=\"Customer's First Name\" />";
+    input += "<input type=\"hidden\" name=\"last_name\" value=\"Customer's Last Name\" />";
+    input += "<input type=\"hidden\" name=\"payer_email\" value=\"customer@example.com\" />";
+    input += "<input type=\"hidden\" name=\"item_number\" value=\"123456\" />";
+    input += "<br><br>";
+    input += "<input type=\"image\" name=\"soumettre\" value=\"Submit Payment\" src='images/paypal.png' alt='PayPal'/>";
+
+
+    $('#paypal_form').html(input);
+    $('#divPaypal').show();
+
+}
+
+
 
 
 function register(reponse) {
@@ -164,6 +195,7 @@ function openCart(reponse) {
         input += "</td></tr>";
         total++;
     }
+
     input += "<tr><td colspan=\"3\"><strong>Total</strong></td>  <td><strong>" + total + " circuit(s)" + "</strong></td><td></td><td></td> <td><form>";
     input += "<input type=\"button\" name=\"btnEnregistrer\" id=\"btnEnregistrer\" class='btn btn-outline-success px-1 m-1' value=\"Enregistrer\" onclick=\"enregisterVoyageur($('#idBalance').val());\"></form>";
     input += "<form><input type=\"button\" name='Sommaire' class='btn btn-outline-success px-1 m-1' value=\"Sommaire des Coûts\" onclick=\"afficherSommaire();\">";
@@ -207,6 +239,8 @@ function createReservationForm(reponse) {
     reservation += "<input type = \"text\" class = \"form-control\" id = \"nomVoyageur" + counter + "\" name =\"nomVoyageur" + counter + "\">";
     reservation += "<span id=\"errNomVoyageur" + counter + "\" style=\"display:none;\" class=\"text-danger\">" + errNomVoyageur + "</span>\n";
     reservation += "</div> </div>";
+
+
     reservation += "<div class =\"form-group\" ><label for=\"prenomVoyageur" + counter + "\" > Prénom: </label>";
     reservation += "<div class = \"col-xs-9\">";
     reservation += "<input type =\"text\" class = \"form-control\"id =\"prenomVoyageur" + counter + "\" name = \"prenomVoyageur" + counter + "\">";
@@ -304,6 +338,11 @@ var commandesVue = function(reponse) {
         case "listerCommandes":
             displayOrders(reponse);
             break;
+
+        case "payer":
+            pay(reponse);
+            break;
+
         default:
             alert("Erreur. on doit définir l'action pour le fichier commandesControleurVue.js");
     }

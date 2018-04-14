@@ -205,7 +205,6 @@ function validerAjoutVoyageur(counter) { // fonction qui retour true ou false
         var noPassportVoyageur = document.getElementById('noPassportVoyageur' + j).value.trim();
         var courrielVoyageur = document.getElementById('courrielVoyageur' + j).value.trim();
         var expirationPasseportVoyageur = document.getElementById('expirationPasseportVoyageur' + j).value.trim();
-        var depotVoyageur = document.getElementById('depotVoyageur' + j).value.trim();
 
 
         var regex = new RegExp(REG_EMAIL);
@@ -240,10 +239,6 @@ function validerAjoutVoyageur(counter) { // fonction qui retour true ou false
         }
 
 
-        if (depotVoyageur == "") {
-            $('#errDepotVoyageur' + j).show();
-            estValide[i] = false;
-        }
 
         var regex = new RegExp(REG_NUMPASSEPORT);
         if (!regex.test(noPassportVoyageur)) {
