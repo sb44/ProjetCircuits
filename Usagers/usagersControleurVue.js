@@ -40,7 +40,7 @@ function seConnecter(reponse) {
         } else if(reponse.role == "utilisateur") {
             $('#navPanier').removeClass("hide");
             $('#monProfile').removeClass("hide");
-            $('#monProfMot').append('M. ' + reponse.nomUtilisateur);
+            $('#monProfMot').append(reponse.nomUtilisateur);
         }
 
     } else if (reponse.msg == "mdpIncorrecte") {
@@ -217,7 +217,7 @@ function miseAjourProfilUsager(reponse) {
         $("#inputCourModifInit").text(profileUser.courriel);
 
         $('#monProfMot').html("<img id=\"imgTwitter\" src=\"\" alt=\"\" class=\"hide rounded-circle mr-2\" style=\"height: 30px;\"><i class=\"fa fa-pencil-square-o mr-1\"></i>");
-        $('#monProfMot').append('M. ' + profileUser.nom);
+        $('#monProfMot').append(profileUser.nom);
 
         //afficher succès et effacer apres 4 secondes:
         $('#successModProfil').text("Profil modifié avec succès!");
@@ -225,7 +225,8 @@ function miseAjourProfilUsager(reponse) {
             $('#successModProfil').text("");
           }, 4500); 
     } else {
-
+        // erreur:
+        $('#errModProfil').text("Il y a eu un problème pour la modification de votre profile sur le server. Veuillez réeassayer plus tard. Communiquer avec le support de Touristia si le problème se répète.");
     }
 }
 
