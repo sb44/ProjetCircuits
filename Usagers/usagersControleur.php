@@ -39,6 +39,58 @@
 		}
 	}
 
+	//sb. N.B: utilisation modeleTranasctionnel
+	function miseAjourProfilUsager() {
+		global $tabRes;
+		$tabRes['action']="miseAjourProfilUsager";
+
+		$prenom=$_POST['inputPrenomModif'];
+		$nom=$_POST['inputNomModif'];
+		$dateNaissance=$_POST['inputDateNaissanceModif'];
+		$courriel=$_POST['inputCourModif'];
+		$idConnexion=$_POST['idConnexionModProf'];
+		$idUtilisateur=$_POST['idUsagerModProf'];
+		
+		if ($_SESSION['idConnexion'] != $idConnexion || $_SESSION['idUtilisateur'] != $idUtilisateur) {
+			//validation..
+			$tabRes['msg']="erreur";
+			return;
+		}
+
+		
+		$requete = array();
+		$params = array();
+
+		$requete[]="UPDATE connexion SET connexion.courriel = ? WHERE connexion.idConnexion = ?";
+		$params[] = array($courriel, $idConnexion);
+
+		$requete[]="UPDATE utilisateur SET utilisateur.nom = ?, utilisateur.prenom = ?, utilisateur.dateNaissance = ? WHERE utilisateur.idUtilisateur = ?";
+		$params[] = array($nom, $prenom, $dateNaissance, $idUtilisateur);
+
+		$requete[]="SELECT utilisateur.nom, utilisateur.prenom, utilisateur.dateNaissance, connexion.courriel FROM utilisateur, connexion WHERE utilisateur.idConnexion = connexion.idConnexion AND utilisateur.idUtilisateur = ? AND connexion.idConnexion = ?";
+		$params[] = array($idUtilisateur, $idConnexion);
+
+		try {
+			$unModele=new circuitsModeleTran($requete,$params);
+			$stmt=$unModele->executer();
+			
+			//Validation... dans le tryCatch du modèle, le "try" retourne un OBJET $stmt tandis que le "catch" retourne NULL
+			if ($stmt == null) {
+				$tabRes['msg']="erreur";
+				return;
+			}
+
+			if ($ligne=$stmt->fetch(PDO::FETCH_OBJ)){
+			   $tabRes['profileUser']=$ligne;
+			}
+
+			$tabRes['msg']="ok";
+		} catch(Exception $e) {
+			$tabRes['msg']="erreur";
+		} finally {
+			unset($unModele);
+		}
+	}
 
 	function connecter(){
 		global $tabRes;	
@@ -380,6 +432,8 @@
 		break;
 		case "continuProfileTwitter" :
 			continuTwitterProf();
+		case "miseAjourProfilUsager":
+			miseAjourProfilUsager();
 		break;
 	}
     echo json_encode($tabRes); // json_encode --> Retourne la représentation JSON d'une valeur 

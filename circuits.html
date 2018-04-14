@@ -130,7 +130,7 @@
                                             <input type="hidden" name="monAction" value="connexion">
                                             <label for="inputCourConn">Courriel</label>
                                             <div class="form-group">
-                                                <input type="text" class="form-control" id="inputCourConn" name="inputCourConn" placeholder="votreAdresse@courriel.com" onkeyup="validerCourrielConn(this);">
+                                                <input type="text" class="form-control" id="inputCourConn" name="inputCourConn" placeholder="votreAdresse@courriel.com" onkeyup="validerCourrielConn(this, document.getElementById('errCourConn'));">
                                                 <span id="errCourConn" class="text-danger"></span>
                                             </div>
                                             <div class="form-group">
@@ -205,7 +205,7 @@
                                                 <div class="col-6 nomP">
                                                     <div class="form-group">
                                                         <label for="inputDateNaissance">Date Naissance</label>
-                                                        <input type="date" class="form-control" id="inputDateNaissance" name="inputDateNaissance" placeholder="votre prénom" onkeyup="validerDate(this);">
+                                                        <input type="date" class="form-control" id="inputDateNaissance" name="inputDateNaissance" placeholder="votre prénom" onkeyup="validerDate(this, document.getElementById('errDateNaissance'));">
                                                         <span id="errDateNaissance" class="text-danger"></span>
                                                     </div>
                                                 </div>
@@ -434,52 +434,128 @@
     </div>
 
     <!------------------     ARASH profil -------------------------------->
-    <div id="monProf" class="container hide">
-        <br>
-        <h2 class="col-8 offset-2">Votre profil</h2>
-        <div class="col-md-12">
-            <div class="row">
-                <div class="col-8 offset-2 nomP">
-                    <div class="form-group">
-                        <label for="inputPrenom">Prénom</label>
-                        <input type="text" class="form-control" id="inputPrenomModif" name="inputPrenomModif" onkeyup="validerNom(this)" value="" disabled>
-                        <span id="errPrenom" class="text-danger"></span>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-8 offset-2 nomP">
-                    <div class="form-group">
-                        <label for="inputNom">Nom</label>
-                        <input type="text" class="form-control" id="inputNomModif" name="inputNomModif" onkeyup="validerNom(this)" value="" disabled>
-                        <span id="errNom" class="text-danger"></span>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-8 offset-2 nomP">
-                    <div class="form-group">
-                        <label for="inputDateNaissance">Date Naissance</label>
-                        <input type="date" class="form-control" id="inputDateNaissanceModif" name="inputDateNaissanceModif" onkeyup="validerDate(this);" value="" disabled>
-                        <span id="errDateNaissance" class="text-danger"></span>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-8 offset-2 nomP">
-                    <div class="form-group">
-                        <label for="inputCourEnr">Courriel</label>
-                        <input type="email" class="form-control" id="inputCourModif" name="inputCourModif" onkeyup="validerCourriel(this);" value="" disabled>
-                        <small><span id="errCourEnr" class="text-danger"></span></small>
-                    </div>
-                </div>
-            </div>
-            <div class="row ">
-                <div class="col-8 offset-2 nomP">
-                    <button type="button" class="btn btn-primary btn-block" onclick="modifierProf();">Retour</button>
-                </div>
-            </div>
+    <div id="monProf" class="container row hide mt-4">
+        <div id="menuUserGestion" class="col-sm-3 list-group">
+                <a href="javascript:void(0);" title="Retourner au site" onclick="modifierProf();">Retour au site</a>
+    
+                <ul class="list-group mt-2">
+                    <a id="gestionProfilUser" href="#" class="list-group-item list-group-item-action list-group-item-dark" onclick="$('#gestionDeProfil').addClass('show').removeClass('hide');$('#gestionDeCommandes').addClass('hide').removeClass('show');">Gestion de profil</a>
+                    <a id="gestionCommandes" href="#" class="list-group-item list-group-item-action list-group-item-dark" onclick="$('#btnMontrerModProfilUser').prop('disabled', false);$('#btnAnnulerModProfilUser').prop('disabled', true);$('#leProfile').addClass('hide').removeClass('show');$('#gestionDeCommandes').addClass('show').removeClass('hide');$('#gestionDeProfil').addClass('hide').removeClass('show');">Gestion de commandes</a>
+                </ul>
         </div>
+
+    
+                <div id="gestionDeProfil" class="col-sm-9 hide mt-4">
+                    <h4 class="mb-2">Gestion de profil</h4>
+                    
+                    <table id="t2" class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Prénom</th>
+                                    <th>Nom</th>
+                                    <th>Date Naissance</th>
+                                    <th>Courriel</th>
+                                    <th>Mot de passe</th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody id="w2w2ws">
+                                <tr id="fdasfdas">
+                                    <td id="inputPrenomModifInit"></td>
+                                    <td id="inputNomModifInit"></td>
+                                    <td id="inputDateNaissanceModifInit"></td>
+                                    <td id="inputCourModifInit"></td>
+                                    <td>********</td>
+                                    <td></td>
+                                    <td><button type="button" title="Modifer le profil" id="btnMontrerModProfilUser" class="show" onclick="$('#leProfile').addClass('show').removeClass('hide');$('#btnAnnulerModProfilUser').prop('disabled', false);$('#btnMontrerModProfilUser').prop('disabled', true);";><span class="oi oi-pencil"></span></button></td>
+                                    <td><button disabled type="button" title="Annuler les modifications au profil. N.B.: Les modifications déjà soumises ne peuvent être récupérées." id="btnAnnulerModProfilUser" class="show" onclick="$('#leProfile').addClass('hide').removeClass('show');$('#btnAnnulerModProfilUser').prop('disabled', true);$('#btnMontrerModProfilUser').prop('disabled', false);";><span class="oi oi oi-ban"></span></button></td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    
+                </div>
+                
+                <div id="gestionDeCommandes" class="col-sm-9 hide mt-4">
+                <h4 class="mb-2">Gestion de Commandes</h4>
+                
+                <table id="sgdfgdgsd" class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>No commande</th>
+                                <th>No départ</th>
+                                <th>Nombre inscriptions</th>
+                                <th>Date inscription</th>
+                                <th class="text-success">Cout total ($)</th>
+                                <th class="text-warning">Montant dépôt ($)</th> 
+                                <th class="text-danger">À payer ($)</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody id="gsgfsdgfsdfgd">
+                            <tr id="fadsfads">
+                                <td>1</td>
+                                <td>12</td>
+                                <td>1</td>
+                                <td>2018/10/10</td>
+                                <td>4000,00</td>
+                                <td>800,00</td>
+                                <td>3200,00</td>
+                                <td><button type="button" onclick="$('leProfile').addClass('show').removeClass('hide')";><span class="oi oi-pencil" title="Modifer le profil"></span></button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+            </div>
+            
+            <div class="col-sm-9 offset-sm-3 hide" id="leProfile">
+                <form class="form" role="form" id="formModUsager" name="formModUsager" method="POST" onsubmit="event.preventDefault(); validerModificationProfil();">
+                    <h5 class="mb-2"><span class="oi oi-pencil"></span> Modification de profil</h5>
+                    <h5><span id="errModProfil" class="text-danger"></span></h5>
+                        <div class="nomP">
+                            <div class="form-group">
+                                <label for="inputPrenomModif">Prénom</label>
+                                <input type="text" class="form-control" id="inputPrenomModif" name="inputPrenomModif" onkeyup="validerNom(this)" value="">
+                                <span id="errPrenomModif" name="errPrenomModif" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="nomP">
+                            <div class="form-group">
+                                <label for="inputNomModif">Nom</label>
+                                <input type="text" class="form-control" id="inputNomModif" name="inputNomModif" onkeyup="validerNom(this)" value="">
+                                <span id="errNomModif" name="errNomModif" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="nomP">
+                            <div class="form-group">
+                                <label for="inputDateNaissanceModif">Date Naissance</label>
+                                <input type="date" class="form-control" id="inputDateNaissanceModif" name="inputDateNaissanceModif" onkeyup="validerDate(this, document.getElementById('errDateNaissanceModif'));" value="">
+                                <span id="errDateNaissanceModif" name="errDateNaissanceModif" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="nomP">
+                            <div class="form-group">
+                                <label for="inputCourModif">Courriel</label>
+                                <input type="email" class="form-control" id="inputCourModif" name="inputCourModif" onkeyup="validerCourriel(this, document.getElementById('errCourEnrModif'));" value="">
+                                <span id="errCourEnrModif" name="errCourEnrModif" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="nomP">
+                            <div class="form-group">
+                                <span>
+                                    <input type="submit" class="btn btn-primary" value="Soumettre modifications">  | <button type="button" class="btn btn-outline-secondary" onclick="$('#inputPrenomModif').val($('#inputPrenomModifInit').text());$('#inputNomModif').val($('#inputNomModifInit').text());$('#inputDateNaissanceModif').val($('#inputDateNaissanceModifInit').text());$('#inputCourModif').val($('#inputCourModifInit').text());$('#errDateNaissanceModif').html('');$('#errCourEnrModif').html('');$('#errModProfil').html('');$('#successModProfil').text('');$('#inputPrenomModif').focus();">Recommencer</button>    
+                                </span>
+                            </div>
+                            <!-- hidden parametres... conn et usager -->
+                            <input type="hidden" class="form-control" id="idConnexionModProf" name="idConnexionModProf" value="">
+                            <input type="hidden" class="form-control" id="idUsagerModProf" name="idUsagerModProf" value="">
+
+                        </div>
+                </form>
+                <h5><span id="successModProfil" class="text-success"></span></h5>
+            </div>
     </div>
     <!------------------     Fin ARASH profil Kouaya -------------------------------->
 

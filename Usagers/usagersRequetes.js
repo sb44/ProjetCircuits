@@ -6,6 +6,29 @@ function checkLoginState() {
 	});
   } */
 
+function modifierUsager(){ // idUtilisateur, idConnexion
+	debugger;
+	var formModUsager = new FormData(document.getElementById('formModUsager'));
+	formModUsager.append('action','miseAjourProfilUsager');
+	$.ajax({
+		type : 'POST',
+		url : 'Usagers/usagersControleur.php',
+		data : formModUsager,
+		dataType : 'json', //text pour le voir en format de string
+		/* async : false, */
+		//cache : false,
+		contentType : false,
+		processData : false,
+		success : function (reponse){ //alert(reponse);
+			usagersVue(reponse); //appel de fonction javascript dans usagersControleurVue.js
+		},
+		fail : function (err){
+			alert(1111);
+		}
+	}); 
+}
+
+
 function enregUsager(){
 	var formUsager = new FormData(document.getElementById('formEnr'));
 	formUsager.append('action','enregistrer');

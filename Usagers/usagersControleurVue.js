@@ -40,7 +40,7 @@ function seConnecter(reponse) {
         } else if(reponse.role == "utilisateur") {
             $('#navPanier').removeClass("hide");
             $('#monProfile').removeClass("hide");
-            $('#monProfMot').append(reponse.nomUtilisateur);
+            $('#monProfMot').append('M. ' + reponse.nomUtilisateur);
         }
 
     } else if (reponse.msg == "mdpIncorrecte") {
@@ -62,8 +62,25 @@ function deconnexion(reponse) {
     }
 }
 function monProfileUs(reponse) {
+    debugger;
     if (reponse.msg == "OK") {
         var Usager=reponse.utilisateurs;
+        
+        //ajout sb mod profil
+        $("#inputPrenomModifInit").text(Usager.prenom);
+        $("#inputNomModifInit").text(Usager.nom);
+        $("#inputDateNaissanceModifInit").text(Usager.dateNaissance);
+        $("#inputCourModifInit").text(reponse.courriel);
+
+        $("#inputPrenomModif").val(Usager.prenom);
+        $("#inputNomModif").val(Usager.nom);
+        $("#inputDateNaissanceModif").val(Usager.dateNaissance);
+        $("#inputCourModif").val(reponse.courriel);
+        $("#idConnexionModProf").val(Usager.idConnexion);
+        $("#idUsagerModProf").val(Usager.idUtilisateur);
+        //$("#btnmodifierUsager").attr("onclick", "modifierUsager\(" + Usager.idUtilisateur + "," + Usager.idConnexion + "\)");
+        //fin ajout sb
+
         
         $("#inputPrenomModif").attr("placeholder",Usager.prenom);
         $("#inputNomModif").attr("placeholder",Usager.nom);
@@ -188,8 +205,33 @@ function continueficheTwitter(reponse) {
             //window.location.replace(reponse.msg4);
 }
 
+function miseAjourProfilUsager(reponse) {
+    debugger;
+    if (reponse.msg == "ok") {
+
+        var profileUser = reponse.profileUser;
+        //modifier l'affichage de base: 
+        $("#inputPrenomModifInit").text(profileUser.prenom);
+        $("#inputNomModifInit").text(profileUser.nom);
+        $("#inputDateNaissanceModifInit").text(profileUser.dateNaissance);
+        $("#inputCourModifInit").text(profileUser.courriel);
+
+        $('#monProfMot').html("<img id=\"imgTwitter\" src=\"\" alt=\"\" class=\"hide rounded-circle mr-2\" style=\"height: 30px;\"><i class=\"fa fa-pencil-square-o mr-1\"></i>");
+        $('#monProfMot').append('M. ' + profileUser.nom);
+
+        //afficher succès et effacer apres 4 secondes:
+        $('#successModProfil').text("Profil modifié avec succès!");
+        setTimeout(function() {
+            $('#successModProfil').text("");
+          }, 4500); 
+    } else {
+
+    }
+}
+
 // ********************** selon l'action, on appelle la méthode concerné *******************
 var usagersVue = function(reponse) {
+    debugger;
     var action = reponse.action;
     switch (action) {
         case "enregistrer":
@@ -219,6 +261,8 @@ var usagersVue = function(reponse) {
         case "continuTwitProf":
             continueficheTwitter(reponse);
             break;
-
+        case "miseAjourProfilUsager":
+            miseAjourProfilUsager(reponse);
+            break;
     }
 }

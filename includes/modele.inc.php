@@ -165,12 +165,13 @@ function executer(){
 	} catch(Exception $e) //en cas d'erreur
 	{
 		$this->connexion->rollback(); //on annule la transation
-		echo 'Tout ne s\'est pas bien passé, voir les erreurs ci-dessous<br />';
-		echo 'Erreur : '.$e->getMessage().'<br />';
-		echo 'N° : '.$e->getCode();
+		//echo 'Tout ne s\'est pas bien passé, voir les erreurs ci-dessous<br />';
+		//echo 'Erreur : '.$e->getMessage().'<br />';
+		//echo 'N° : '.$e->getCode();
 
 		//on arrête l'exécution s'il y a du code après
-		exit();
+		return;
+		//exit();
 	}
 }
 /*
