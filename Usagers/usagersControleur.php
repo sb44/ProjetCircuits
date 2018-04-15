@@ -327,8 +327,15 @@
 				}
 				//this code will return your valid url which u can use in iframe src to popup or can directly view the page as its happening in this example
 				$connection = new TwitterOAuth($consumer_key, $consumer_secret);
-				
-				$temporary_credentials = $connection->oauth('oauth/request_token', array("oauth_callback" =>'http://127.0.0.1/Circuit/ProjetCircuits/circuits.html'));
+				if ($_SERVER['REMOTE_ADDR']=='127.0.0.1' || $_SERVER['REMOTE_ADDR']=="::1") { 
+					//pour local
+					$temporary_credentials = $connection->oauth('oauth/request_token', array("oauth_callback" =>'http://127.0.0.1/Circuit/ProjetCircuits/circuits.html'));
+					
+				} else {
+					//serveur 000webhost
+					$temporary_credentials = $connection->oauth('oauth/request_token', array("oauth_callback" =>'https://touristia.000webhostapp.com/'));
+
+				}
 				
 				$_SESSION['oauth_token']=$temporary_credentials['oauth_token'];       
 				$_SESSION['oauth_token_secret']=$temporary_credentials['oauth_token_secret'];
@@ -376,7 +383,8 @@
 				$header[$key]= $val;
 			}
 			$newUrl=$header["Referer"];
-			if( strpos( $newUrl, "oauth_verifier" ) === true ) {
+			//$tabRes['msg4']=$headers;
+			if( strpos( $newUrl, "denied" ) === false ) {
 				$joda=parse_url($newUrl, PHP_URL_QUERY);
 				$pairs = explode('&',$joda);
 				foreach ($pairs as $pair) {
