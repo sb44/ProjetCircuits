@@ -10,8 +10,8 @@ var MAPLINE;
 // Fin variables globales Pour maps
 
 function afficherCarteEnsemble(listeCircuits) {
-    
-    //CIRCUITS.splice(0, CIRCUITS.length); //vider le tableau
+    debugger;
+    CIRCUITS.splice(0, CIRCUITS.length); //vider le tableau
     for (var x in listeCircuits) {
         CIRCUITS.push(listeCircuits[x]);
     }
@@ -21,6 +21,7 @@ function afficherCarteEnsemble(listeCircuits) {
 }
 
 function filterThemeCircuits() {
+    debugger;
     //enlevé tout les markers existant:
     for (var i = 0; i < markersArray.length; i++ ) {
         markersArray[i].setMap(null);
