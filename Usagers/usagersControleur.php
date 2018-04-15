@@ -53,9 +53,19 @@
 		
 		if ($_SESSION['idConnexion'] != $idConnexion || $_SESSION['idUtilisateur'] != $idUtilisateur) {
 			//validation..
-			$tabRes['msg']="erreur";
+			$tabRes['msg']="No d'identifiant de connexion et d'utitilisateur invalide";
 			return;
 		}
+
+		//Validation l'unicité du courriel (car pas géré par Unique Key)
+		$requete ="SELECT COUNT(connexion.courriel) AS nombre FROM connexion WHERE connexion.courriel = ? AND connexion.idConnexion != ?";
+		$unModele=new circuitsModele($requete,array($courriel, $idConnexion));
+		$stmt=$unModele->executer();
+		$ligne=$stmt->fetch(PDO::FETCH_OBJ);
+		if ($ligne->nombre != "0") {
+			$tabRes['msg']="Ce courriel existe déjà dans le système";
+			return;	
+		} // fin Validation l'unicité du courriel
 
 		
 		$requete = array();
@@ -76,7 +86,7 @@
 			
 			//Validation... dans le tryCatch du modèle, le "try" retourne un OBJET $stmt tandis que le "catch" retourne NULL
 			if ($stmt == null) {
-				$tabRes['msg']="erreur";
+				$tabRes['msg']="Erreur";
 				return;
 			}
 
@@ -86,7 +96,7 @@
 
 			$tabRes['msg']="ok";
 		} catch(Exception $e) {
-			$tabRes['msg']="erreur";
+			$tabRes['msg']="Erreur";
 		} finally {
 			unset($unModele);
 		}

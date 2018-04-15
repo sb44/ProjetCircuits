@@ -62,7 +62,7 @@ function deconnexion(reponse) {
     }
 }
 function monProfileUs(reponse) {
-    debugger;
+    //debugger;
     if (reponse.msg == "OK") {
         var Usager=reponse.utilisateurs;
         
@@ -226,7 +226,7 @@ function miseAjourProfilUsager(reponse) {
           }, 4500); 
     } else {
         // erreur:
-        $('#errModProfil').text("Il y a eu un problème pour la modification de votre profile sur le server. Veuillez réeassayer plus tard. Communiquer avec le support de Touristia si le problème se répète.");
+        $('#errModProfil').text("Il y a eu un problème pour la modification de votre profile sur le server : \"" + reponse.msg + "\". Veuillez réeassayer.");
     }
 }
 
