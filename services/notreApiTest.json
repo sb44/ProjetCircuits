@@ -1,0 +1,63 @@
+{
+    "posts": [{
+        "idCircuit": "2",
+        "nomCircuit": "Voyage organis\u00e9 en Tanzanie & Zanzibar",
+        "description": "<p><strong>En Afrique, la Tanzanie et l&rsquo;&icirc;le de Zanzibar concr&eacute;tiseront votre r&ecirc;ve de safaris au milieu d&rsquo;animaux aussi beaux qu&rsquo;exotiques et de rencontres avec des tribus masa&iuml; attach&eacute;es &agrave; des traditions ancestrales. C&rsquo;est en jeep que vous parcourrez ce pays in&eacute;dit et en campements de luxe que vous y s&eacute;journerez, entre autres. Finalement, vous serez charm&eacute; par tous les attraits qu&rsquo;offre Zanzibar. Une &eacute;vasion &agrave; vous offrir une fois dans votre vie! Voici cinq incontournables de cette destination.<\/strong><\/p>\r\n",
+        "capacite": "30",
+        "urlImage": "pochettes\/avatar.jpg",
+        "prix": "8995.00",
+        "idTheme": "1",
+        "nomTheme": "Safari",
+        "iconUrl": "https:\/\/maps.google.com\/mapfiles\/kml\/shapes\/horsebackriding.png",
+        "latitude": "-3.3869250000",
+        "longitude": "36.6829950000"
+    }, {
+        "idCircuit": "3",
+        "nomCircuit": "Voyage organis\u00e9 \u00e0 New York",
+        "description": "Escapade \u00e0 Manhattan. Ouest am\u00e9ricain: L\u2019Ouest am\u00e9ricain, que l\u2019on connait aussi sous le nom de Far West, est depuis toujours symbolis\u00e9 par des d\u00e9serts rouges et ocre s\u2019\u00e9tendant \u00e0 perte de vue, ainsi que des montagnes sculpt\u00e9es par l\u2019\u00e9rosion. La conqu\u00eate de l\u2019Ouest transforma grandement les [...]\r\n\r\nWashington: Voyages Traditours vous invite \u00e0 une escapade dans la capitale f\u00e9d\u00e9rale des \u00c9tats-Unis d\u2019Am\u00e9rique : Washington D.C. Voici une occasion unique de d\u00e9couvrir de grandes institutions am\u00e9ricaines, de [...]",
+        "capacite": "30",
+        "urlImage": "pochettes\/newyorkmain.jpg",
+        "prix": "4000.00",
+        "idTheme": "4",
+        "nomTheme": "Courts S\u00e9jours",
+        "iconUrl": "https:\/\/maps.google.com\/mapfiles\/kml\/shapes\/sunny.png",
+        "latitude": "38.9072140000",
+        "longitude": "-77.0368720000"
+    }, {
+        "idCircuit": "4",
+        "nomCircuit": "Voyage organis\u00e9 \u00e0 Washington",
+        "description": "Une ville riche en histoire. Ouest am\u00e9ricain: L\u2019Ouest am\u00e9ricain, que l\u2019on connait aussi sous le nom de Far West, est depuis toujours symbolis\u00e9 par des d\u00e9serts rouges et ocre s\u2019\u00e9tendant \u00e0 perte de vue, ainsi que des montagnes sculpt\u00e9es par l\u2019\u00e9rosion. La conqu\u00eate de l\u2019Ouest transforma grandement les [...]\r\n\r\nWashington: Voyages Traditours vous invite \u00e0 une escapade dans la capitale f\u00e9d\u00e9rale des \u00c9tats-Unis d\u2019Am\u00e9rique : Washington D.C. Voici une occasion unique de d\u00e9couvrir de grandes institutions am\u00e9ricaines, de [...]",
+        "capacite": "30",
+        "urlImage": "pochettes\/washingtonmain.jpg",
+        "prix": "5000.00",
+        "idTheme": "4",
+        "nomTheme": "Courts S\u00e9jours",
+        "iconUrl": "https:\/\/maps.google.com\/mapfiles\/kml\/shapes\/sunny.png",
+        "latitude": "36.1146470000",
+        "longitude": "-115.1728130000"
+    }, {
+        "idCircuit": "5",
+        "nomCircuit": "Voyage organis\u00e9 en Inde du Nord",
+        "description": "La plupart d\u2019entre nous ont entendu parler de l\u2019Inde gr\u00e2ce \u00e0 Mahatma Gandhi, M\u00e8re T\u00e9r\u00e9sa, l\u2019hindouisme, le Taj Mahal ou encore les vaches que l\u2019on retrouve partout et que personne ne touche, car elles sont sacr\u00e9es\u2026 Mais l\u2019Inde, c\u2019est d\u2019abord et avant tout l\u2019une des plus vieilles civilisations de la terre, avec une population totalisant aujourd\u2019hui pr\u00e8s de 1,2 milliard d\u2019habitants! L\u2019Inde, c\u2019est aussi un d\u00e9sert, des palais de maharajas, des temples hindous, une cuisine d\u00e9licieuse et \u00e9pic\u00e9e, et bien plus. C\u2019est la destination par excellence pour une exp\u00e9rience riche en contrastes et en \u00e9motions [...]",
+        "capacite": "30",
+        "urlImage": "pochettes\/indedunordmain.jpg",
+        "prix": "9500.00",
+        "idTheme": "2",
+        "nomTheme": "Yoga & M\u00e9ditation",
+        "iconUrl": "https:\/\/maps.google.com\/mapfiles\/kml\/shapes\/lodging.png",
+        "latitude": "20.5936840000",
+        "longitude": "78.9628800000"
+    }, {
+        "idCircuit": "6",
+        "nomCircuit": "Voyage Randonn\u00e9e en Espagne Atlantique",
+        "description": "Pour bien des voyageurs, l\u2019Espagne, c\u2019est entre autres les mus\u00e9es, les cath\u00e9drales, les fiestas, les pa\u00ebllas, les vignobles et la M\u00e9diterran\u00e9e. Mais l\u2019Espagne, c\u2019est aussi un ancien empire colonial dot\u00e9 d\u2019une incroyable richesse culturelle que l\u2019on a pu d\u00e9couvrir \u00e0 travers des artistes tels que Picasso, Dali, Vel\u00e1zquez et Goya.",
+        "capacite": "50",
+        "urlImage": "pochettes\/espagneatlmain.jpg",
+        "prix": "12500.00",
+        "idTheme": "3",
+        "nomTheme": "Voyages Randonn\u00e9es",
+        "iconUrl": "https:\/\/maps.google.com\/mapfiles\/kml\/shapes\/hiker.png",
+        "latitude": "40.4167750000",
+        "longitude": "-3.7037900000"
+    }]
+}

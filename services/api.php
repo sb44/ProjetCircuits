@@ -75,11 +75,12 @@ class CircuitAPI extends REST {
 			$listeCircuits = $this->connexion->query($requete);
 			if($listeCircuits->num_rows > 0){
 				$tab = array();
+				$tab["posts"]=array();
 				while($ligne = $listeCircuits->fetch_object()){
 					$ligne->urlImage = "pochettes/".$ligne->urlImage;
 					//if (strlen($ligne->titre)>28)
 						//$ligne->titre = substr($ligne->titre,0,28)."...";
-					$tab[] = $ligne;
+					$tab["posts"][] = $ligne;
 				}
 				mysqli_free_result($listeCircuits);
 				$this->response($this->json($tab), 200); // envoi des données

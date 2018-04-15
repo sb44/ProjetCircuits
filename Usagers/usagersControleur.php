@@ -303,24 +303,33 @@
 			////// pour verifier si le cUrl est installe ou non
 			if (in_array  ('curl', get_loaded_extensions())){
 				$tabRes['msg2']="curl oui";
+				//////////////////////////////////////////////////
+				// main startup code
+				if ($_SERVER['REMOTE_ADDR']=='127.0.0.1' || $_SERVER['REMOTE_ADDR']=="::1") { 
+					//pour local
+					$consumer_key = 'PEZYSRWGpIglJJ5WQfPBerN3b';
+					$consumer_secret = 'rrK0FElLtIFvshw0gdhwz64LV4osUMMIc5G1tOQ4V9sCZ10LOn';
+
+				} else {
+					//serveur 000webhost
+					$consumer_key = 'eZErnL15OoK3Q2L8Tf59hUPVZ';
+					$consumer_secret = 'kvswJiIbw79wxseBXokGP2t3BP2g0otiAsHYH2aqXMUj3dG1Ne';
+				}
+				//this code will return your valid url which u can use in iframe src to popup or can directly view the page as its happening in this example
+				$connection = new TwitterOAuth($consumer_key, $consumer_secret);
+				
+				$temporary_credentials = $connection->oauth('oauth/request_token', array("oauth_callback" =>'http://127.0.0.1/Circuit/ProjetCircuits/circuits.html'));
+				
+				$_SESSION['oauth_token']=$temporary_credentials['oauth_token'];       
+				$_SESSION['oauth_token_secret']=$temporary_credentials['oauth_token_secret'];
+				$url = $connection->url("oauth/authorize", array("oauth_token" => $temporary_credentials['oauth_token'])); 
+	
+				$tabRes['msg']="ok";
+				$tabRes['msg3']=$url;
+
 			}else{
 				$tabRes['msg2']="curl non";
 			}
-			//////////////////////////////////////////////////
-			// main startup code
-			$consumer_key = 'PEZYSRWGpIglJJ5WQfPBerN3b';
-			$consumer_secret = 'rrK0FElLtIFvshw0gdhwz64LV4osUMMIc5G1tOQ4V9sCZ10LOn';
-			//this code will return your valid url which u can use in iframe src to popup or can directly view the page as its happening in this example
-			$connection = new TwitterOAuth($consumer_key, $consumer_secret);
-			
-			$temporary_credentials = $connection->oauth('oauth/request_token', array("oauth_callback" =>'http://127.0.0.1/Circuit/ProjetCircuits/circuits.html'));
-			
-			$_SESSION['oauth_token']=$temporary_credentials['oauth_token'];       
-			$_SESSION['oauth_token_secret']=$temporary_credentials['oauth_token_secret'];
-			$url = $connection->url("oauth/authorize", array("oauth_token" => $temporary_credentials['oauth_token'])); 
-
-			$tabRes['msg']="ok";
-			$tabRes['msg3']=$url;
 		}catch(Exception $e){
 			$tabRes['msg']="non";
 
@@ -340,8 +349,16 @@
 
 			unset($_SESSION['oauth_token']);
 			unset($_SESSION['oauth_token_secret']);
-			$consumer_key = 'PEZYSRWGpIglJJ5WQfPBerN3b';
-			$consumer_secret = 'rrK0FElLtIFvshw0gdhwz64LV4osUMMIc5G1tOQ4V9sCZ10LOn';
+			if ($_SERVER['REMOTE_ADDR']=='127.0.0.1' || $_SERVER['REMOTE_ADDR']=="::1") { 
+				//pour local
+				$consumer_key = 'PEZYSRWGpIglJJ5WQfPBerN3b';
+				$consumer_secret = 'rrK0FElLtIFvshw0gdhwz64LV4osUMMIc5G1tOQ4V9sCZ10LOn';
+
+			} else {
+				//serveur 000webhost
+				$consumer_key = 'eZErnL15OoK3Q2L8Tf59hUPVZ';
+				$consumer_secret = 'kvswJiIbw79wxseBXokGP2t3BP2g0otiAsHYH2aqXMUj3dG1Ne';
+			}
 			$connection = new TwitterOAuth($consumer_key, $consumer_secret);
 			
 			$headers =  getallheaders();
@@ -349,7 +366,7 @@
 				$header[$key]= $val;
 			}
 			$newUrl=$header["Referer"];
-			if( strpos( $newUrl, "denied" ) === false ) {
+			if( strpos( $newUrl, "oauth_verifier" ) === true ) {
 				$joda=parse_url($newUrl, PHP_URL_QUERY);
 				$pairs = explode('&',$joda);
 				foreach ($pairs as $pair) {
@@ -387,8 +404,16 @@
 		require "../twitteroauth/autoload.php";
 		
 		$access_token = $_SESSION['access_token'];
-		$consumer_key = 'PEZYSRWGpIglJJ5WQfPBerN3b';
-		$consumer_secret = 'rrK0FElLtIFvshw0gdhwz64LV4osUMMIc5G1tOQ4V9sCZ10LOn';
+		if ($_SERVER['REMOTE_ADDR']=='127.0.0.1' || $_SERVER['REMOTE_ADDR']=="::1") { 
+			//pour local
+			$consumer_key = 'PEZYSRWGpIglJJ5WQfPBerN3b';
+			$consumer_secret = 'rrK0FElLtIFvshw0gdhwz64LV4osUMMIc5G1tOQ4V9sCZ10LOn';
+
+		} else {
+			//serveur 000webhost
+			$consumer_key = 'eZErnL15OoK3Q2L8Tf59hUPVZ';
+			$consumer_secret = 'kvswJiIbw79wxseBXokGP2t3BP2g0otiAsHYH2aqXMUj3dG1Ne';
+		}
 		$connection = new TwitterOAuth($consumer_key,$consumer_secret, $access_token['oauth_token'], $access_token['oauth_token_secret']);
 		$content = $connection->get("account/verify_credentials"); 
 		return $content;
