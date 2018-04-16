@@ -234,21 +234,21 @@ function enregistrerCircuit(id) {
 	circuitEnregistrer(id);
 }
 
-function enregistrerEtape(idCircuit) {
+async function enregistrerEtape(idCircuit) {
 	var nbEtape = document.getElementsByClassName("etape");
 	var lengthEtape = nbEtape.length;
 	for(i=1; i<lengthEtape; i++) {
 		//alert("nb etape:" + i);
-		etapeEnregistrer(idCircuit, i);
+		await etapeEnregistrer(idCircuit, i);
 	}
 }
 
-function enregistrerJour(idEtape, nbEtape) {
+async function enregistrerJour(idEtape, nbEtape) {
 	var nbJour = document.getElementsByClassName("jour etape"+ nbEtape);
 	var lengthJour = nbJour.length;
 	//alert("nbJour:" + lengthJour);
 	for(j=1; j<=lengthJour;j++) {
-		jourEnregistrer(idEtape, nbEtape, j);
+		await jourEnregistrer(idEtape, nbEtape, j);
 	} 
 }	
 
@@ -311,8 +311,8 @@ function addJour(id, data) {
 	  content1 = "";
 	  content2 = "";
   }		
-  newEditor('desJour'+ l, 'ckJour'+ nbJour, content1);
-  newEditor('desActivite'+ l, 'ckActivite'+ nbJour, content2);
+  newEditor('desJour'+ id + l, 'ckJour'+ nbJour, content1);
+  newEditor('desActivite'+ id + l, 'ckActivite'+ nbJour, content2);
   nbJour++;
   return l;
 }
