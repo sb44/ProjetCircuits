@@ -318,10 +318,11 @@ function addJour(id, data) {
 }
 
 function supprimerEtape(n) {
+debugger;
   $("#templateEtape" + n).remove();
   var nb = document.querySelectorAll(".etape");
   var l = nb.length;
-  for (p=n; p<l; p++) {
+  for (var p=n; p<l; p++) {
 	  q = p+1;
 	  $("#templateEtape" + q).attr("id", "templateEtape" + p);
 	  $("#sp" + q).html(p);
@@ -359,7 +360,7 @@ function updateJour(id) {
   //alert(id);
   id1 = id -1;
 
-  for (p=1; p<l; p++) {
+  for (var p=1; p<l; p++) {
 	  $("#templateJour" + id + p).attr("id", "templateJour" + id1 + p);
 	  $("#sp" + id + p).attr("id", "sp" + id1 + p);
 	  $("#jour" + id + p).attr("class", "jour etape" + id1);
@@ -388,18 +389,26 @@ function lireCircuit(op, id) {
 	}
 	if(id==0) {
 		$('#btn-enregistrer').attr('onclick','enregistrerCircuit(0)');
-		newEditor('descriptionCircuit','ckCircuit', "");		
+		$('#pochetteCircuit').removeAttr('width').removeAttr('height');
+		if (!(document.getElementById("descriptionCircuit"))) {
+			newEditor('descriptionCircuit','ckCircuit', "");
+		}
+					
 	} else {
 		$('#btn-enregistrer').attr('onclick','enregistrerCircuit(' + id + ')');	
+		$('#descriptionCircuit').remove();
 		circuitLire(id);	
 	} 
  
 }
 
 function afficherCircuit(data) {
-	//alert("nommmmm:" + data["nom"]);
+	//alert("nommmmm:" + data["nom"]);	
+	//alert('attendre');
+	//var editorcir = "descriptionCircuit";
+	//CKEDITOR.instances.editorcir.setData(data["description"]);
 	newEditor('descriptionCircuit','ckCircuit', data["description"]);
-	 $('#pochetteCircuit').attr('src','./pochettes/' + data["urlImage"]).attr('width', '400').attr('height','120');;
+	 $('#pochetteCircuit').attr('src','./pochettes/' + data["urlImage"]).attr('width', '400').attr('height','120');
 
   $('#nomCircuit').attr('value',data["nom"]);
   $('#nomCircuit').val(data["nom"]);
