@@ -96,14 +96,23 @@
                     </li>
 
                     <li class="nav-item hide" id="monProfile">
+<<<<<<< HEAD
+                        <!-- <a href="#" class="nav-link" onClick="monProfile();"><strong><span class="nav-link" id="monProfMot"><img id="imgTwitter" src="" alt="" class    1#="hide img-fluid rounded-circle mr-2"><i class="fa fa-pencil-square-o"></i></span></strong></a> -->
+                        <button type="button" title="Consulter profil" class="btn btn-link text-white" onClick="monProfile();">
+                            <span class="nav-link text-white" id="monProfMot"><img id="imgTwitter" src="" alt="" class="hide rounded-circle mr-2" style="height: 30px;"><i class="fa fa-pencil-square-o mr-1"></i></span>
+=======
                        <!-- <a href="#" class="nav-link" onClick="monProfile();"><strong><span class="nav-link" id="monProfMot"><img id="imgTwitter" src="" alt="" class    1#="hide img-fluid rounded-circle mr-2"><i class="fa fa-pencil-square-o"></i></span></strong></a> -->
                        <button type="button" title="Consulter profil" class="btn btn-link text-white" onClick="monProfile();">
                             <span class="nav-link text-white" id="monProfMot"><img id="imgTwitter" src="" alt="" class="hide rounded mr-2" style="height: 35px;"><i class="fa fa-pencil-square-o mr-1"></i></span>
+<<<<<<< HEAD
+>>>>>>> c6dd70247e0ec0e6accfb28ce4080b7229cf9535
+=======
+>>>>>>> c6dd70247e0ec0e6accfb28ce4080b7229cf9535
                       </button>
                     </li>
 
                     <li class="nav-item hide" id="navPanier">
-                            <button type="button" title="Mon panier" class="btn btn-link text-white" onClick="ouvrirPanier();"><span class="nav-link text-white"><span class="oi oi-cart id mr-1" id="nbItemPanier">(0)</span>Panier</span></button>
+                        <button type="button" title="Mon panier" class="btn btn-link text-white" onClick="ouvrirPanier();"><span class="nav-link text-white"><span class="oi oi-cart id mr-1" id="nbItemPanier">(0)</span>Panier</span></button>
                         <form name="panier" action="serveur/gestionFilms.php" method="post">
                             <input type="hidden" name="monAction" value="panier">
                         </form>
@@ -145,8 +154,8 @@
                                                 </a>
                                             </div> -->
                                             <!--  <div class="fb-login-button" data-max-rows="1" data-size="large" data-button-type="login_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="false" scope="public_profile,email" onlogin="checkLoginState();"></div> -->
-                                            <a href="#" class="nav-link" onClick="connUsagerTwitter();"><img src="images/twitter.png" alt="Tweeter"></a> 
-                                             <!--
+                                            <a href="#" class="nav-link" onClick="connUsagerTwitter();"><img src="images/twitter.png" alt="Tweeter"></a>
+                                            <!--
                                             <div class="social-buttons">
                                                 <a href="#" class="btn btn-tw btn-block" onClick="connUsagerTwitter();"><i class="fa fa-twitter"></i> Connexion Twitter</a>
                                             </div>
@@ -253,9 +262,9 @@
                     </li>
                     <!-- modale pour déconnexion -->
                     <li class="nav-item hide" id="navDeconnexion">
-                       <!-- <a href="#" id="boutonDeconnexion" class="nav-link" data-target=".bs-example-modal-sm" data-toggle="modal"><span class="nav-link"><i class="fa fa-sign-out"></i>Déconnexion</span></a> -->                       
-                       <button type="button" id="boutonDeconnexion" class="btn btn-link text-white" title="Déconnexion" data-target=".bs-example-modal-sm" data-toggle="modal"><span class="nav-link text-white"><i class="fa fa-sign-out mr-1"></i>Déconnexion</span></button>
-                        
+                        <!-- <a href="#" id="boutonDeconnexion" class="nav-link" data-target=".bs-example-modal-sm" data-toggle="modal"><span class="nav-link"><i class="fa fa-sign-out"></i>Déconnexion</span></a> -->
+                        <button type="button" id="boutonDeconnexion" class="btn btn-link text-white" title="Déconnexion" data-target=".bs-example-modal-sm" data-toggle="modal"><span class="nav-link text-white"><i class="fa fa-sign-out mr-1"></i>Déconnexion</span></button>
+
                         <div id="modaleDeconnexion" tabindex="-1" class="modal fade bs-example-modal-sm" role="dialog" aria-hidden="true">
                             <div class="modal-dialog modal-sm">
                                 <div class="modal-content">
@@ -583,11 +592,10 @@
 
     <div id="divPaypal" class="container" style="display:none;">
 
-        <div class="container-fluid " id="divPaypalForm">
+        <div class="container-fluid" id="divPaypalForm">
 
 
-            <form action="http://localhost/Circuit/ProjetCircuits/Commandes/commandesControleur.php?action=paypal" method="post" id="paypal_form" target="_blank ">
-            </form>
+
         </div>
     </div>
 

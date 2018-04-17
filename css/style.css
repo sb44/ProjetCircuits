@@ -1,0 +1,228 @@
+@import url(http://fonts.googleapis.com/css?family=Raleway);
+#main {
+    width: 960px;
+    margin: 50px auto;
+    font-family: raleway;
+}
+
+span {
+    color: red;
+}
+
+h2 {
+    background-color: #FEFFED;
+    text-align: center;
+    border-radius: 10px 10px 0 0;
+    margin: -10px -40px;
+    padding: 15px;
+}
+
+hr {
+    border: 0;
+    border-bottom: 1px solid #ccc;
+    margin: 10px -40px;
+    margin-bottom: 30px;
+}
+
+select {
+    width: 99.5%;
+    padding: 10px;
+    margin-top: 8px;
+    border: 1px solid #ccc;
+    padding-left: 5px;
+    font-size: 16px;
+    font-family: raleway;
+}
+
+#container {
+    width: 40%;
+    float: left;
+    border-radius: 10px;
+    font-family: raleway;
+    border: 2px solid #ccc;
+    padding: 10px 40px 25px;
+    margin-top: 20px;
+    margin-left: 25%;
+}
+
+input[type=submit] {
+    width: 100%;
+    background-color: #FFBC00;
+    color: white;
+    border: 2px solid #FFCB00;
+    padding: 10px;
+    font-size: 20px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+#pizza {
+    width: 378px;
+    height: 125px;
+    margin-left: 46px;
+    margin-top: -29px;
+}
+
+input[type=checkbox] {
+    display: none;
+}
+
+#chk {
+    float: left;
+    margin-right: 10px;
+}
+
+input.chk1+label.chk1 {
+    background: url(../image/onion.png) no-repeat;
+    box-shadow: rgb(153, 163, 173) 0px 5px 17px 1px, rgb(238, 238, 238) 0px 0px 40px;
+    background-size: 60px 60px;
+    height: 60px;
+    width: 60px;
+    display: inline-block;
+    padding: 0 0 0 0px;
+    cursor: pointer;
+    transition: all .2s ease-in-out;
+}
+
+input.chk1+label.chk1:hover {
+    transform: scale(1.1);
+}
+
+input.chk1:checked+label.chk1 {
+    background: url(../image/right.png) no-repeat;
+    background-size: 60px 60px;
+    height: 60px;
+    width: 60px;
+    display: inline-block;
+    padding: 0 0 0 0px;
+}
+
+input.chk2+label.chk2 {
+    background: url(../image/peppers.png) no-repeat;
+    box-shadow: rgb(153, 163, 173) 0px 5px 17px 1px, rgb(238, 238, 238) 0px 0px 40px;
+    background-size: 60px 60px;
+    height: 60px;
+    width: 60px;
+    display: inline-block;
+    padding: 0 0 0 0px;
+    cursor: pointer;
+    transition: all .2s ease-in-out;
+}
+
+input.chk2+label.chk2:hover {
+    transform: scale(1.1);
+}
+
+input.chk2:checked+label.chk2 {
+    background: url(../image/right.png) no-repeat;
+    background-size: 60px 60px;
+    height: 60px;
+    width: 60px;
+    display: inline-block;
+    padding: 0 0 0 0px;
+}
+
+input.chk3+label.chk3 {
+    background: url(../image/mushroom.png) no-repeat;
+    box-shadow: rgb(153, 163, 173) 0px 5px 17px 1px, rgb(238, 238, 238) 0px 0px 40px;
+    background-size: 60px 60px;
+    height: 60px;
+    width: 60px;
+    display: inline-block;
+    padding: 0 0 0 0px;
+    cursor: pointer;
+    transition: all .2s ease-in-out;
+}
+
+input.chk3+label.chk3:hover {
+    transform: scale(1.1);
+}
+
+input.chk3:checked+label.chk3 {
+    background: url(../image/right.png) no-repeat;
+    background-size: 60px 60px;
+    height: 60px;
+    width: 60px;
+    display: inline-block;
+    padding: 0 0 0 0px;
+}
+
+input.chk4+label.chk4 {
+    background: url(../image/cheese.png) no-repeat;
+    box-shadow: rgb(153, 163, 173) 0px 5px 17px 1px, rgb(238, 238, 238) 0px 0px 40px;
+    background-size: 60px 60px;
+    height: 60px;
+    width: 60px;
+    display: inline-block;
+    padding: 0 0 0 0px;
+    cursor: pointer;
+    transition: all .2s ease-in-out;
+}
+
+input.chk4+label.chk4:hover {
+    transform: scale(1.1);
+}
+
+input.chk4:checked+label.chk4 {
+    background: url(../image/right.png) no-repeat;
+    background-size: 60px 60px;
+    height: 60px;
+    width: 60px;
+    display: inline-block;
+    padding: 0 0 0 0px;
+}
+
+input.chk5+label.chk5 {
+    background: url(../image/zucchini.jpg) no-repeat;
+    box-shadow: rgb(153, 163, 173) 0px 5px 17px 1px, rgb(238, 238, 238) 0px 0px 40px;
+    background-size: 60px 60px;
+    height: 60px;
+    width: 60px;
+    display: inline-block;
+    padding: 0 0 0 0px;
+    cursor: pointer;
+    transition: all .2s ease-in-out;
+}
+
+input.chk5+label.chk5:hover {
+    transform: scale(1.1);
+}
+
+input.chk5:checked+label.chk5 {
+    background: url(../image/right.png) no-repeat;
+    background-size: 60px 60px;
+    height: 60px;
+    width: 60px;
+    display: inline-block;
+    padding: 0 0 0 0px;
+}
+
+img#paypal_logo {
+    float: right;
+    margin-top: 1PX;
+    margin-right: 248px;
+}
+
+p#total {
+    margin-top: 195px;
+    margin-bottom: 23px;
+    font-size: 18px;
+    font-weight: 600;
+    color: rgb(18, 136, 46);
+}
+
+img#pizza-success {
+    margin-left: 50px;
+}
+
+a#backTopizza {
+    width: 100%;
+    background-color: #FFBC00;
+    color: white;
+    border: 2px solid #FFCB00;
+    padding: 10px 46px;
+    font-size: 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    text-decoration: none;
+}
