@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="Sasha Bouchard, Carles Romuald, Arash Amiri, Hai Qiang Xu">
     <link rel="icon" href="images/favicon.png" />
-
+    
     <title>Circuits de voyage</title>
 
     <!-- Bootstrap CSS -->
@@ -79,9 +79,8 @@
                 <ul class="navbar-nav mx-auto">
                     <li class="nav-item dropdown ml-1 mr-4">
                         <a class="" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">
-
                             <!-- <span class="text-white">  FR</span> -->
-                            <button type="button" class="btn btn-link dropdown-toggle text-white"><img id="imgNavDeu" src="images/icon-francais.gif" alt="..." class="img-thumbnail icon-small mr-1"></img>FR</button></a>
+                            <button type="button" class="btn btn-link dropdown-toggle text-white" id="laLangueActuel"><img id="imgNavDeu" src="images/icon-francais.gif" alt="..." class="img-thumbnail icon-small mr-1"></img>FR</button></a>
                         </a>
                         <div id="google_translate_element" class="dropdown-menu langue-dp lang-list" aria-labelledby="navbarDropdownMenuLink">
                             <a id="navFr" href="#" class="lang-item default dropdown-item" data-lang="fr"><img id="imgNavFr" src="images/icon-francais.gif" alt="..." class="img-thumbnail icon-small mr-1"><span id="lanNavFr">Français</span></a>
@@ -1146,17 +1145,51 @@
 
 
 	<script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-	<script>
+	<script text="javascript">
 		var _gto;
+        var origValue1 = document.getElementById("btnEnregistrer").innerHTML; // écouteur pour modification de langue
+        var origValue2 = document.getElementById("laLangueActuel").innerHTML; // écouteur pour modification de langue
+        document.getElementById("btnEnregistrer").addEventListener("DOMSubtreeModified", translationCallback1, false);
+        document.getElementById("laLangueActuel").addEventListener("DOMSubtreeModified", translationCallback2, false); 
+           
+        function translationCallback1() {
+            var currentValue = document.getElementById("btnEnregistrer").innerHTML;
+            if (currentValue && currentValue.indexOf(origValue1) < 0) {
+                origValue1 = currentValue;
+                // enlever le style de google
+                $( "font" ).each(function( index ) {
+                    $(this).removeAttr("style");
+                })
+            }
+        }
+        function translationCallback2() {
+            var currentValue = document.getElementById("laLangueActuel").innerHTML;
+            if (currentValue && currentValue.indexOf(origValue2) < 0) {
+                origValue2 = currentValue;
+                // enlever le style de google
+                $( "font" ).each(function( index ) {
+                    $(this).removeAttr("style");
+                })
+                    
+                var lalanguee = $('#laLangueActuel').text();
+                if (lalanguee =='FR')
+                    $('#imgNavDeu').removeAttr('src').attr('src','images/icon-francais.gif');
+                else if (lalanguee =='EN')
+                    $('#imgNavDeu').removeAttr('src').attr('src','images/icon-anglais.gif');
+                else if (lalanguee =='ES')
+                    $('#imgNavDeu').removeAttr('src').attr('src','images/icon-espagnol.gif');
 
-		// appelé apres Google Translate SDK est load // https://stackoverflow.com/questions/17654458/how-to-make-an-reset-button-for-google-translate
+            }
+        }
+		// appelé apres Google Translate SDK est loadé
 		function googleTranslateElementInit() {
 			_gto = new google.translate.TranslateElement({
 				pageLanguage: 'fr',
 				includedLanguages: 'fr,en,es',
 				layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
 				autoDisplay: false
-			}, 'google_translate_element');
+            }, 'google_translate_element');
+            
 		}
 
 		$('.lang-item').on('click', function (e) {
@@ -1172,15 +1205,16 @@
 			$menuframe.contents().find('a span.text:contains("' + _gto.K[langcode] + '")').click();
             
             if (langcode == "fr") {
-                $('#imgNavDeu').removeAttr('src').attr('src','images/icon-francais.gif');
                 $menuframe.contents().find('a span.text:contains("' + _gto.K[langcode] + '")').click();
             } else if (langcode == 'en') {
-                $('#imgNavDeu').removeAttr('src').attr('src','images/icon-anglais.gif');
                 $menuframe.contents().find('a span.text:contains("' + _gto.K[langcode] + '")').click();
             } else if (langcode == 'es') {
-                $('#imgNavDeu').removeAttr('src').attr('src','images/icon-espagnol.gif');
                 $menuframe.contents().find('a span.text:contains("' + _gto.K[langcode] + '")').click();
             }
+            $( "font" ).each(function( index ) {
+                $(this).removeAttr("style");
+            })
+
 		});
 	</script>
 </body>
