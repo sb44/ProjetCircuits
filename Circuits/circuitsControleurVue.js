@@ -43,29 +43,9 @@ function filterThemeCircuits() {
     } else {
         lstCircuits = CIRCUITS;
     }
-    //if (!map) {
-    //    $("#map").hide(450, function() {
-    //        construireCarte(lstCircuits);
-    //    });
-    //} else {
-        construireCarte(lstCircuits);
-    //}
 
-    /*
-     $("#map").hide(500, function() {
-        var selectionne = document.getElementById("themeCircuits").value;
-        if (selectionne != "0") {
-            var options = document.getElementById("themeCircuits").getElementsByTagName("option");
-            var optionHTML = options[document.getElementById("themeCircuits").selectedIndex].innerText;  
-            var lstCircuits = CIRCUITS.filter(function(el) {
-                return el.nomTheme == optionHTML;
-            });
-        } else {
-            lstCircuits = CIRCUITS;
-        }
-        construireCarte(lstCircuits);
-    });
-    */
+    construireCarte(lstCircuits);
+
 }
 
 function isInArray(value, array) {
