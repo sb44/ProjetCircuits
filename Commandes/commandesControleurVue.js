@@ -14,7 +14,7 @@ function displayOrders(reponse) {}
 
 function displaySummary(reponse) {
     //  $('#btnEnregistrer').show();
-    //debugger
+    debugger
     var groupeVoyages = Array();
     var nbSummaryItems = reponse.nbSummaryItems;
 
@@ -29,8 +29,6 @@ function displaySummary(reponse) {
         var balance = 0;
         var sousBalance = 0;
         input += "<div class=\"row\"><span onClick=\"$('#divDetailSommaire').hide();\">X</span><h3> Sommaire des Coûts</h3>";
-        //input += "<div class=\"col-md-12 col-lg-10\"><table border=\"0\" class=\"table table-hover\">";
-        // input += "<tr><th> Nom </th> <th> Prénom </th> <th> Catégorie</th> <th> Coût unitaire</th><th>Dépot Initial</th><th>Circuit</th></tr> ";
 
         for (var i = 0; i < sommaire.length; i++) {
             if (groupeVoyages.indexOf(sommaire[i].item_circuit + "(" + sommaire[i].item_dateDepart + ")") == -1) {
@@ -51,71 +49,42 @@ function displaySummary(reponse) {
                     input += "<td>" + sommaire[i].item_prenom + "</td>";
                     input += "<td>" + sommaire[i].item_categorie + "</td>";
                     input += "<td>" + sommaire[i].item_cout_unitaire + " $</td>";
-                    // input += "<td>" + sommaire[i].item_depotInitial + " $</td>";
-                    //input += "<td></td>";
                     input += "<td><form>";
                     input += "<input type=\"button\" name='supprimer' class='btn btn-outline-success' value=\"Supprimer \" onclick=\"supprimerVoyageur(" + sommaire[i].item_id + ");\">";
                     input += "<input type=\"hidden\" name=\"idCommand\" id=\"idCommand" + i + "\"  value=" + sommaire[i].item_id + ">";
                     input += "</form>";
                     input += "</td></tr>";
                     sousTotal += parseFloat(sommaire[i].item_cout_unitaire);
-                    sousTotalDepot += parseFloat(sommaire[i].item_depotInitial);
                     total += sousTotal;
-                    // totalDepot += sousTotalDepot;
-                    // sousBalance = sousTotal - sousTotalDepot;
                     input += "<tr><td colspan=\"3\"><strong>Sous Total</strong></td>  <td>" + sousTotal + " $</td>";
-                    input += "<td><form>";
-                    input += "<input type=\"button\" name='Payer' class='btn btn-outline-success' value=\"Commander\" onclick=\"payer(" + sommaire[i].item_idGroupeVoyage + ");\">";
-                    input += "</form>";
-                    input += "</td></tr>";
                 }
+                sousTotal = 0;
             }
-
-            sousTotal = 0;
-            //sousTotalDepot = 0;
         }
-
-        //balance = total - totalDepot
-        input += "<tr><td colspan=\"3\"><strong>Total</strong></td><td>" + total + " $</td><td>";
-
+        input += "<tr><td colspan=\"2\"><strong>Total</strong></td><td>" + total + " $</td><td>";
+        input += "<td>";
+        input += "<form action=\"process.php\" method=\"post\">";
+        input += "<input type=\"hidden\" name=\"totalprice\" value=" + total + ">";
+        input += "<input type=\"submit\" class='btn btn-outline-success' value=\"Commander\" name=\"submit\">";
+        input += "</form>";
+        input += "</td></tr>";
         input += "</table> </div> </div>";
         input += "<input type=\"hidden\" name=\"idBalance\" id=\"idBalance\"  value=" + balance + ">";
         input += "<div class=\"row\">";
 
         $('#divDetailSommaire').html(input);
         $('#divDetailSommaire').show();
-
     }
 
 }
 
 
 
-function pay(reponse) {
-    debugger;
-    var achats = reponse.listeAchat;
-    var input = "";
 
-    input += "<input type=\"hidden\" name=\"cmd\" value=\"_xclick\" />";
-    input += "<input type=\"hidden\" name=\"no_note\" value=\"1\"/>";
-    input += "<input type=\"hidden\" name=\"lc\" value=\"UK\" />";
-    input += "<input type=\"hidden\" name=\"currency_code\" value=\"GBP\" />";
-    input += "<input type=\"hidden\" name=\"bn\" value=\"PP-BuyNowBF:btn_buynow_LG.gif:NonHostedGuest\" />";
-    input += "<input type=\"hidden\" name=\"first_name\" value=\"Customer's First Name\" />";
-    input += "<input type=\"hidden\" name=\"last_name\" value=\"Customer's Last Name\" />";
-    input += "<input type=\"hidden\" name=\"payer_email\" value=\"customer@example.com\" />";
-    input += "<input type=\"hidden\" name=\"item_number\" value=\"123456\" />";
-    input += "<br><br>";
-    input += "<input type=\"image\" name=\"soumettre\" value=\"Submit Payment\" src='images/paypal.png' alt='PayPal'/>";
+function registerDeparturexxx(reponse) {
 
-
-    $('#paypal_form').html(input);
-    $('#divPaypal').show();
 
 }
-
-
-
 
 function register(reponse) {
 
@@ -231,16 +200,12 @@ function createReservationForm(reponse) {
     var reservation = ""
     reservation = "<div id=\"divVoyageur" + counter + "\" class=\"row\">";
     reservation += "<div id=\"divnomVoyageur" + counter + "\" class=\"col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-6 offset-md-3\">";
-    //reservation += "<span onClick=\"$('#divnomVoyageur" + counter + "'\).hide();$('#btnActualiserVoyageur').hide();\">X</span><h3> Ajouter un Voyageur:</h3>";
     reservation += "<span onClick=\"$('#divnomVoyageur" + counter + "'\).remove();$('#btnActualiserVoyageur').hide();\">X</span><h3> Ajouter un Voyageur:</h3>";
-    //reservation += "<h4>Voyageur " + counter + ":</h4>";
     reservation += "<div class = \"form-group\">";
     reservation += "<label for = \"nomVoyageur" + counter + "\"> Nom:</label><div class =\"col-xs-9\">";
     reservation += "<input type = \"text\" class = \"form-control\" id = \"nomVoyageur" + counter + "\" name =\"nomVoyageur" + counter + "\">";
     reservation += "<span id=\"errNomVoyageur" + counter + "\" style=\"display:none;\" class=\"text-danger\">" + errNomVoyageur + "</span>\n";
     reservation += "</div> </div>";
-
-
     reservation += "<div class =\"form-group\" ><label for=\"prenomVoyageur" + counter + "\" > Prénom: </label>";
     reservation += "<div class = \"col-xs-9\">";
     reservation += "<input type =\"text\" class = \"form-control\"id =\"prenomVoyageur" + counter + "\" name = \"prenomVoyageur" + counter + "\">";
@@ -278,7 +243,6 @@ function createReservationForm(reponse) {
     reservation += "<div class =\"form-group\">";
     reservation += "<div class = \"col-xs-9\">";
     reservation += "<input type = \"hidden\" class =\"form-control\" id = \"idCommandeVoyageur" + counter + "\" name = \"idCommandeVoyageur" + counter + "\" value =" + idCommande + " >";
-    //reservation += "<input type = \"hidden\" class =\"form-control\" id = \"idGroupeVoyageur" + counter + "\" name = \"idGroupeVoyageur1\" value =" + idCommande + " >";
     reservation += "</div> </div>";
     reservation += "<div class = \"form-group\">";
     reservation += "<label for = \"categorieVoyageur" + counter + "\" > Catégorie: </label>";
@@ -288,16 +252,6 @@ function createReservationForm(reponse) {
     reservation += "<option value = \"2\"> Enfant </option>";
     reservation += "<option value = \"3\"> Bébé </option>";
     reservation += "</select></div></div>";
-
-
-    // reservation += "<div class = \"form-group\">";
-    // reservation += "<label for =\"depotVoyageur" + counter + "\"> Dépot Initial: </label>";
-    //reservation += "<div class = \"col-xs-9\">";
-    //reservation += "<input type = \"text\" class = \"form-control\" id = \"depotVoyageur" + counter + "\" name = \"depotVoyageur" + counter + "\">";
-    // reservation += "<span id=\"errDepotVoyageur" + counter + "\"   style=\"display:none;\" class=\"text-danger\">" + errDepotVoyageur + "</span>\n";
-    // reservation += "</div> </div>";
-
-
     reservation += "<br><input type = \"button\"   id = \"btnAjouterVoyageur" + counter + "\"  class = \"btn btn-primary\" value = \"Ajouter voyageur\" onclick = \"ficheReservation(" + idCommande + ")\;$(this).hide();hidePreviousForms();\">";
     reservation += "</div></div>";
 

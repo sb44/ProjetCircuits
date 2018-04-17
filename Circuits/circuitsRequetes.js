@@ -1,7 +1,7 @@
 //requ�tes Cicuirts
 
 function listerCarte() {
-    //debugger;
+    debugger;
     var formFilm = new FormData();
     formFilm.append('action', 'listerCarte'); //alert(formFilm.get("action"));
     $.ajax({

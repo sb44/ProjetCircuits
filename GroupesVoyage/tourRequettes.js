@@ -83,8 +83,8 @@ function etapeEnregistrer(idCircuit, nbEtape) {
 }
 
 function jourEnregistrer(idEtape, nbEtape, nbJour) {
-	var editor1 = 'desJour' + nbJour;
-	var editor2 = 'desActivite' + nbJour;
+	var editor1 = 'desJour' + nbEtape + nbJour;
+	var editor2 = 'desActivite' + nbEtape + nbJour;
 	var content1 = CKEDITOR.instances[editor1].getData();
 	var content2 = CKEDITOR.instances[editor2].getData();
  

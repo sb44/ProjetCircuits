@@ -39,6 +39,68 @@
 		}
 	}
 
+	//sb. N.B: utilisation modeleTranasctionnel
+	function miseAjourProfilUsager() {
+		global $tabRes;
+		$tabRes['action']="miseAjourProfilUsager";
+
+		$prenom=$_POST['inputPrenomModif'];
+		$nom=$_POST['inputNomModif'];
+		$dateNaissance=$_POST['inputDateNaissanceModif'];
+		$courriel=$_POST['inputCourModif'];
+		$idConnexion=$_POST['idConnexionModProf'];
+		$idUtilisateur=$_POST['idUsagerModProf'];
+		
+		if ($_SESSION['idConnexion'] != $idConnexion || $_SESSION['idUtilisateur'] != $idUtilisateur) {
+			//validation..
+			$tabRes['msg']="No d'identifiant de connexion et d'utitilisateur invalide";
+			return;
+		}
+
+		//Validation l'unicité du courriel (car pas géré par Unique Key)
+		$requete ="SELECT COUNT(connexion.courriel) AS nombre FROM connexion WHERE connexion.courriel = ? AND connexion.idConnexion != ?";
+		$unModele=new circuitsModele($requete,array($courriel, $idConnexion));
+		$stmt=$unModele->executer();
+		$ligne=$stmt->fetch(PDO::FETCH_OBJ);
+		if ($ligne->nombre != "0") {
+			$tabRes['msg']="Ce courriel existe déjà dans le système";
+			return;	
+		} // fin Validation l'unicité du courriel
+
+		
+		$requete = array();
+		$params = array();
+
+		$requete[]="UPDATE connexion SET connexion.courriel = ? WHERE connexion.idConnexion = ?";
+		$params[] = array($courriel, $idConnexion);
+
+		$requete[]="UPDATE utilisateur SET utilisateur.nom = ?, utilisateur.prenom = ?, utilisateur.dateNaissance = ? WHERE utilisateur.idUtilisateur = ?";
+		$params[] = array($nom, $prenom, $dateNaissance, $idUtilisateur);
+
+		$requete[]="SELECT utilisateur.nom, utilisateur.prenom, utilisateur.dateNaissance, connexion.courriel FROM utilisateur, connexion WHERE utilisateur.idConnexion = connexion.idConnexion AND utilisateur.idUtilisateur = ? AND connexion.idConnexion = ?";
+		$params[] = array($idUtilisateur, $idConnexion);
+
+		try {
+			$unModele=new circuitsModeleTran($requete,$params);
+			$stmt=$unModele->executer();
+			
+			//Validation... dans le tryCatch du modèle, le "try" retourne un OBJET $stmt tandis que le "catch" retourne NULL
+			if ($stmt == null) {
+				$tabRes['msg']="Erreur";
+				return;
+			}
+
+			if ($ligne=$stmt->fetch(PDO::FETCH_OBJ)){
+			   $tabRes['profileUser']=$ligne;
+			}
+
+			$tabRes['msg']="ok";
+		} catch(Exception $e) {
+			$tabRes['msg']="Erreur";
+		} finally {
+			unset($unModele);
+		}
+	}
 
 	function connecter(){
 		global $tabRes;	
@@ -251,24 +313,40 @@
 			////// pour verifier si le cUrl est installe ou non
 			if (in_array  ('curl', get_loaded_extensions())){
 				$tabRes['msg2']="curl oui";
+				//////////////////////////////////////////////////
+				// main startup code
+				if ($_SERVER['REMOTE_ADDR']=='127.0.0.1' || $_SERVER['REMOTE_ADDR']=="::1") { 
+					//pour local
+					$consumer_key = 'PEZYSRWGpIglJJ5WQfPBerN3b';
+					$consumer_secret = 'rrK0FElLtIFvshw0gdhwz64LV4osUMMIc5G1tOQ4V9sCZ10LOn';
+
+				} else {
+					//serveur 000webhost
+					$consumer_key = 'eZErnL15OoK3Q2L8Tf59hUPVZ';
+					$consumer_secret = 'kvswJiIbw79wxseBXokGP2t3BP2g0otiAsHYH2aqXMUj3dG1Ne';
+				}
+				//this code will return your valid url which u can use in iframe src to popup or can directly view the page as its happening in this example
+				$connection = new TwitterOAuth($consumer_key, $consumer_secret);
+				if ($_SERVER['REMOTE_ADDR']=='127.0.0.1' || $_SERVER['REMOTE_ADDR']=="::1") { 
+					//pour local
+					$temporary_credentials = $connection->oauth('oauth/request_token', array("oauth_callback" =>'http://127.0.0.1/Circuit/ProjetCircuits/circuits.html'));
+					
+				} else {
+					//serveur 000webhost
+					$temporary_credentials = $connection->oauth('oauth/request_token', array("oauth_callback" =>'https://touristia.000webhostapp.com/'));
+
+				}
+				
+				$_SESSION['oauth_token']=$temporary_credentials['oauth_token'];       
+				$_SESSION['oauth_token_secret']=$temporary_credentials['oauth_token_secret'];
+				$url = $connection->url("oauth/authorize", array("oauth_token" => $temporary_credentials['oauth_token'])); 
+	
+				$tabRes['msg']="ok";
+				$tabRes['msg3']=$url;
+
 			}else{
 				$tabRes['msg2']="curl non";
 			}
-			//////////////////////////////////////////////////
-			// main startup code
-			$consumer_key = 'PEZYSRWGpIglJJ5WQfPBerN3b';
-			$consumer_secret = 'rrK0FElLtIFvshw0gdhwz64LV4osUMMIc5G1tOQ4V9sCZ10LOn';
-			//this code will return your valid url which u can use in iframe src to popup or can directly view the page as its happening in this example
-			$connection = new TwitterOAuth($consumer_key, $consumer_secret);
-			
-			$temporary_credentials = $connection->oauth('oauth/request_token', array("oauth_callback" =>'http://127.0.0.1/Circuit/ProjetCircuits/circuits.html'));
-			
-			$_SESSION['oauth_token']=$temporary_credentials['oauth_token'];       
-			$_SESSION['oauth_token_secret']=$temporary_credentials['oauth_token_secret'];
-			$url = $connection->url("oauth/authorize", array("oauth_token" => $temporary_credentials['oauth_token'])); 
-
-			$tabRes['msg']="ok";
-			$tabRes['msg3']=$url;
 		}catch(Exception $e){
 			$tabRes['msg']="non";
 
@@ -288,8 +366,16 @@
 
 			unset($_SESSION['oauth_token']);
 			unset($_SESSION['oauth_token_secret']);
-			$consumer_key = 'PEZYSRWGpIglJJ5WQfPBerN3b';
-			$consumer_secret = 'rrK0FElLtIFvshw0gdhwz64LV4osUMMIc5G1tOQ4V9sCZ10LOn';
+			if ($_SERVER['REMOTE_ADDR']=='127.0.0.1' || $_SERVER['REMOTE_ADDR']=="::1") { 
+				//pour local
+				$consumer_key = 'PEZYSRWGpIglJJ5WQfPBerN3b';
+				$consumer_secret = 'rrK0FElLtIFvshw0gdhwz64LV4osUMMIc5G1tOQ4V9sCZ10LOn';
+
+			} else {
+				//serveur 000webhost
+				$consumer_key = 'eZErnL15OoK3Q2L8Tf59hUPVZ';
+				$consumer_secret = 'kvswJiIbw79wxseBXokGP2t3BP2g0otiAsHYH2aqXMUj3dG1Ne';
+			}
 			$connection = new TwitterOAuth($consumer_key, $consumer_secret);
 			
 			$headers =  getallheaders();
@@ -297,6 +383,7 @@
 				$header[$key]= $val;
 			}
 			$newUrl=$header["Referer"];
+			//$tabRes['msg4']=$headers;
 			if( strpos( $newUrl, "denied" ) === false ) {
 				$joda=parse_url($newUrl, PHP_URL_QUERY);
 				$pairs = explode('&',$joda);
@@ -335,8 +422,16 @@
 		require "../twitteroauth/autoload.php";
 		
 		$access_token = $_SESSION['access_token'];
-		$consumer_key = 'PEZYSRWGpIglJJ5WQfPBerN3b';
-		$consumer_secret = 'rrK0FElLtIFvshw0gdhwz64LV4osUMMIc5G1tOQ4V9sCZ10LOn';
+		if ($_SERVER['REMOTE_ADDR']=='127.0.0.1' || $_SERVER['REMOTE_ADDR']=="::1") { 
+			//pour local
+			$consumer_key = 'PEZYSRWGpIglJJ5WQfPBerN3b';
+			$consumer_secret = 'rrK0FElLtIFvshw0gdhwz64LV4osUMMIc5G1tOQ4V9sCZ10LOn';
+
+		} else {
+			//serveur 000webhost
+			$consumer_key = 'eZErnL15OoK3Q2L8Tf59hUPVZ';
+			$consumer_secret = 'kvswJiIbw79wxseBXokGP2t3BP2g0otiAsHYH2aqXMUj3dG1Ne';
+		}
 		$connection = new TwitterOAuth($consumer_key,$consumer_secret, $access_token['oauth_token'], $access_token['oauth_token_secret']);
 		$content = $connection->get("account/verify_credentials"); 
 		return $content;
@@ -380,6 +475,8 @@
 		break;
 		case "continuProfileTwitter" :
 			continuTwitterProf();
+		case "miseAjourProfilUsager":
+			miseAjourProfilUsager();
 		break;
 	}
     echo json_encode($tabRes); // json_encode --> Retourne la représentation JSON d'une valeur 

@@ -13,7 +13,14 @@ function __construct($requete=null,$params=null){
 }
 	
 function obtenirConnexion(){
-	$maConnexion = new Connexion("localhost", "root", "", "circuit");
+
+	if ($_SERVER['REMOTE_ADDR']=='127.0.0.1' || $_SERVER['REMOTE_ADDR']=="::1") { 
+		// pour serveur local dev
+		$maConnexion = new Connexion("localhost", "root", "", "circuit");
+	} else { 
+		// pour serveur production
+		$maConnexion = new Connexion("localhost", "id5166593_root", "12345678", "id5166593_circuitvoyage");
+	}
 	$maConnexion->connecter();
 	return $maConnexion->getConnexion();
 }
@@ -116,7 +123,13 @@ function __construct($requete=null,$params=null){
 }
 	
 function obtenirConnexion(){
-	$maConnexion = new Connexion("localhost", "root", "", "circuit");
+	if ($_SERVER['REMOTE_ADDR']=='127.0.0.1' || $_SERVER['REMOTE_ADDR']=="::1") { 
+		// pour serveur local dev
+		$maConnexion = new Connexion("localhost", "root", "", "circuit");
+	} else { 
+		// pour serveur production
+		$maConnexion = new Connexion("localhost", "id5166593_root", "12345678", "id5166593_circuitvoyage");
+	}
 	$maConnexion->connecter();
 	return $maConnexion->getConnexion();
 }
@@ -165,12 +178,13 @@ function executer(){
 	} catch(Exception $e) //en cas d'erreur
 	{
 		$this->connexion->rollback(); //on annule la transation
-		echo 'Tout ne s\'est pas bien passé, voir les erreurs ci-dessous<br />';
-		echo 'Erreur : '.$e->getMessage().'<br />';
-		echo 'N° : '.$e->getCode();
+		//echo 'Tout ne s\'est pas bien passé, voir les erreurs ci-dessous<br />';
+		//echo 'Erreur : '.$e->getMessage().'<br />';
+		//echo 'N° : '.$e->getCode();
 
 		//on arrête l'exécution s'il y a du code après
-		exit();
+		return;
+		//exit();
 	}
 }
 /*

@@ -38,8 +38,8 @@ function validerNom(txt) {
     txt.value = txt.value.replace(/[^a-zA-Z-'\n\r.]+/g, '');
 }
 
-function validerCourriel(courriel) {
-    var msg = document.getElementById("errCourEnr");
+function validerCourriel(courriel, idErr) {
+    var msg = idErr; //var msg = document.getElementById("errCourEnr");
     if (REG_EMAIL.test(courriel.value) == false && courriel.value != "") {
         msg.innerHTML = "Adresse courriel non-valide";
         msg.className = "text-danger";
@@ -48,8 +48,8 @@ function validerCourriel(courriel) {
     }
 }
 
-function validerDate(date) {
-    var msg = document.getElementById("errDateNaissance");
+function validerDate(date, idErr) {
+    var msg = idErr;  //var msg = document.getElementById("errDateNaissance");
     var d = date.value
     var bday = d.split("-");
     var annee = bday[0];
@@ -137,6 +137,24 @@ function validerConnexion() { // fonction qui retour true ou false
         return true;
     } else {
         document.getElementById('errConn').innerHTML = "Il y un probleme de formulaire";
+        return false;
+    }
+}
+
+function validerModificationProfil() {
+    debugger;
+
+    var courriel = document.getElementById('inputCourModif').value.trim();
+    var errCourConn = document.getElementById('errCourEnrModif').innerHTML;
+
+    var dateNaiss = document.getElementById('inputDateNaissanceModif').value.trim();
+    var errDateNaiss = document.getElementById('errDateNaissanceModif').innerHTML;
+
+    if (errCourConn == "" && courriel !== "" && errDateNaiss == "" && dateNaiss !== "") {
+        modifierUsager();
+        return true;
+    } else {
+        document.getElementById('errModProfil').innerHTML = "Il y un probleme de formulaire";
         return false;
     }
 }

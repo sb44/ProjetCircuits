@@ -123,9 +123,6 @@ function supprimerVoyageur(id) {
 
 
 
-
-
-
 function creerSommaire() {
     var formFilm = new FormData(document.getElementById('CreateCommandForm'));
     formFilm.append('action', 'creerSommaire');
@@ -148,28 +145,6 @@ function creerSommaire() {
 function afficherSommaire() {
     var formFilm = new FormData();
     formFilm.append('action', 'afficherSommaire');
-
-    $.ajax({
-        type: 'POST',
-        url: 'Commandes/commandesControleur.php',
-        data: formFilm,
-        contentType: false,
-        processData: false,
-        dataType: 'json',
-        success: function(reponse) {
-            //alert(reponse);
-            commandesVue(reponse);
-        },
-        fail: function(err) {}
-    });
-}
-
-
-function payer(idGroupeVoyage) {
-    debugger;
-    var formFilm = new FormData();
-    formFilm.append('action', 'payer');
-    formFilm.append('idVoyage', idGroupeVoyage);
 
     $.ajax({
         type: 'POST',
