@@ -23,11 +23,6 @@
     <link href="https://fonts.googleapis.com/css?family=Work+Sans:600" rel="stylesheet" type="text/css">
     <!--  <link rel="stylesheet" href="library/font-awesome/css/font-awesome.min.css"> -->
 
-    <!-- Latest compiled and minified CSS ... https://silviomoreto.github.io/bootstrap-select/ -->
-    <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css"> -->
-    <!-- https://github.com/silviomoreto/bootstrap-select/issues/1135 -->
-    <!--<link rel="stylesheet" href="https://cdn.rawgit.com/infostreams/bootstrap-select/fd227d46de2afed300d97fd0962de80fa71afb3b/dist/css/bootstrap-select.min.css" /> -->
-
     <style type="text/css">
 
     </style>
@@ -50,7 +45,7 @@
     <script language="javascript" type="text/javascript" src="Commandes/commandesRequetes.js"></script>
     <!-- CONTROLEUR Usager VUE -->
     <script language="javascript" type="text/javascript" src="Commandes/commandesControleurVue.js"></script>
-
+   
 
     <!--		 				modèle.inc.php
 								^			v
@@ -88,10 +83,10 @@
                             <!-- <span class="text-white">  FR</span> -->
                             <button type="button" class="btn btn-link dropdown-toggle text-white"><img id="imgNavDeu" src="images/icon-francais.gif" alt="..." class="img-thumbnail icon-small mr-1"></img>FR</button></a>
                         </a>
-                        <div class="dropdown-menu langue-dp" aria-labelledby="navbarDropdownMenuLink">
-                            <a id="navFr" href="#" class="dropdown-item"><img id="imgNavDeu" src="images/icon-francais.gif" alt="..." class="img-thumbnail icon-small mr-1"><span id="lanNavFr">Francais</span></a>
-                            <a id="navAng" href="#" class="dropdown-item"><img id="imgNavFra" src="images/icon-anglais.gif" alt="..." class="img-thumbnail icon-small mr-1"><span id="lanNavang">Anglais</span></a>
-                            <a id="navEsp" href="#" class="dropdown-item"><img id="imgNavEng" src="images/icon-espagnol.gif" alt="..." class="img-thumbnail icon-small mr-1"><span id="lanNavEsp">Espagnole</span></a>
+                        <div id="google_translate_element" class="dropdown-menu langue-dp lang-list" aria-labelledby="navbarDropdownMenuLink">
+                            <a id="navFr" href="#" class="lang-item default dropdown-item" data-lang="fr"><img id="imgNavDeu" src="images/icon-francais.gif" alt="..." class="img-thumbnail icon-small mr-1"><span id="lanNavFr">Français</span></a>
+                            <a id="navAng" href="#" class="lang-item dropdown-item" data-lang="en"><img id="imgNavFra" src="images/icon-anglais.gif" alt="..." class="img-thumbnail icon-small mr-1"><span id="lanNavang">Anglais</span></a>
+                            <a id="navEsp" href="#" class="lang-item dropdown-item" data-lang="es"><img id="imgNavEng" src="images/icon-espagnol.gif" alt="..." class="img-thumbnail icon-small mr-1"><span id="lanNavEsp">Espagnol</span></a>
                         </div>
                     </li>
                 </ul>
@@ -1150,12 +1145,34 @@
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCwcI1pUmRdfxrdGid6Lb9S_jz6fduMZkA&libraries=geometry"></script>
 
 
-    <!-- https://silviomoreto.github.io/bootstrap-select/ -->
-    <!-- Latest compiled and minified JavaScript -->
-    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script> -->
-    <!-- https://github.com/silviomoreto/bootstrap-select/issues/1135 -->
-    <!--<script src="https://cdn.rawgit.com/infostreams/bootstrap-select/fd227d46de2afed300d97fd0962de80fa71afb3b/dist/js/bootstrap-select.min.js"></script> -->
+	<script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+	<script>
+		var _gto;
 
+		// appelé apres Google Translate SDK est load // https://stackoverflow.com/questions/17654458/how-to-make-an-reset-button-for-google-translate
+		function googleTranslateElementInit() {
+			_gto = new google.translate.TranslateElement({
+				pageLanguage: 'fr',
+				includedLanguages: 'fr,en,es',
+				layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+				autoDisplay: false
+			}, 'google_translate_element');
+		}
+
+		$('.lang-item').on('click', function (e) {
+			e.preventDefault();
+
+			var $menuframe = $('.goog-te-menu-frame:first'),
+				// Google iframe that will be invoked after user has selected an language
+				$bannerframe,
+				// button reference to reset language to default
+				$bannerframerestore,
+				langcode = $(this).data('lang');
+
+			$menuframe.contents().find('a span.text:contains("' + _gto.K[langcode] + '")').click();
+	
+		});
+	</script>
 </body>
 
 </html>
