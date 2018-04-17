@@ -84,9 +84,9 @@
                             <button type="button" class="btn btn-link dropdown-toggle text-white"><img id="imgNavDeu" src="images/icon-francais.gif" alt="..." class="img-thumbnail icon-small mr-1"></img>FR</button></a>
                         </a>
                         <div id="google_translate_element" class="dropdown-menu langue-dp lang-list" aria-labelledby="navbarDropdownMenuLink">
-                            <a id="navFr" href="#" class="lang-item default dropdown-item" data-lang="fr"><img id="imgNavDeu" src="images/icon-francais.gif" alt="..." class="img-thumbnail icon-small mr-1"><span id="lanNavFr">Français</span></a>
-                            <a id="navAng" href="#" class="lang-item dropdown-item" data-lang="en"><img id="imgNavFra" src="images/icon-anglais.gif" alt="..." class="img-thumbnail icon-small mr-1"><span id="lanNavang">Anglais</span></a>
-                            <a id="navEsp" href="#" class="lang-item dropdown-item" data-lang="es"><img id="imgNavEng" src="images/icon-espagnol.gif" alt="..." class="img-thumbnail icon-small mr-1"><span id="lanNavEsp">Espagnol</span></a>
+                            <a id="navFr" href="#" class="lang-item default dropdown-item" data-lang="fr"><img id="imgNavFr" src="images/icon-francais.gif" alt="..." class="img-thumbnail icon-small mr-1"><span id="lanNavFr">Français</span></a>
+                            <a id="navAng" href="#" class="lang-item dropdown-item" data-lang="en"><img id="imgNavEng" src="images/icon-anglais.gif" alt="..." class="img-thumbnail icon-small mr-1"><span id="lanNavang">Anglais</span></a>
+                            <a id="navEsp" href="#" class="lang-item dropdown-item" data-lang="es"><img id="imgNavEsp" src="images/icon-espagnol.gif" alt="..." class="img-thumbnail icon-small mr-1"><span id="lanNavEsp">Espagnol</span></a>
                         </div>
                     </li>
                 </ul>
@@ -1168,9 +1168,19 @@
 				// button reference to reset language to default
 				$bannerframerestore,
 				langcode = $(this).data('lang');
-
+            
 			$menuframe.contents().find('a span.text:contains("' + _gto.K[langcode] + '")').click();
-	
+            
+            if (langcode == "fr") {
+                $('#imgNavDeu').removeAttr('src').attr('src','images/icon-francais.gif');
+                $menuframe.contents().find('a span.text:contains("' + _gto.K[langcode] + '")').click();
+            } else if (langcode == 'en') {
+                $('#imgNavDeu').removeAttr('src').attr('src','images/icon-anglais.gif');
+                $menuframe.contents().find('a span.text:contains("' + _gto.K[langcode] + '")').click();
+            } else if (langcode == 'es') {
+                $('#imgNavDeu').removeAttr('src').attr('src','images/icon-espagnol.gif');
+                $menuframe.contents().find('a span.text:contains("' + _gto.K[langcode] + '")').click();
+            }
 		});
 	</script>
 </body>
