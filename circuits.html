@@ -112,7 +112,7 @@
 
                     <li class="nav-item dropdown ml-1" id="navConnexion">
                         <a data-target="#" id="connect" class="nav-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">
-                            <button type="button" class="btn btn-link dropdown-toggle text-white"><i class="fa fa-user mr-1"></i>Se connecter</button></a>
+                            <button type="button" id="seConnecterBtn" class="btn btn-link dropdown-toggle text-white"><i class="fa fa-user mr-1"></i>Se connecter</button></a>
                         <ul id="connexion-dropdown" class="dropdown-menu dropdown-menu-right login-dp" aria-labelledby="navbarDropdownMenuLink">
                             <li>
                                 <div class="row">
@@ -1146,25 +1146,37 @@
 
 	<script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 	<script text="javascript">
-		var _gto;
-        var origValue1 = document.getElementById("btnEnregistrer").innerHTML; // écouteur pour modification de langue
-        var origValue2 = document.getElementById("laLangueActuel").innerHTML; // écouteur pour modification de langue
+        /* Gestion internationalisation */
+        var _gto;
+        
+        // On utilise 2 écouteurs dans le DOM pour ajuster le style HTML imposé par l'API google seConnecterBtn
+        var origValue1 = document.getElementById("btnEnregistrer").innerHTML; // écouteur pour modification de langue    btnEnregistrer
+        //var origValue2 = document.getElementById("laLangueActuel").innerHTML; // écouteur pour modification de langue
         document.getElementById("btnEnregistrer").addEventListener("DOMSubtreeModified", translationCallback1, false);
-        document.getElementById("laLangueActuel").addEventListener("DOMSubtreeModified", translationCallback2, false); 
+        //document.getElementById("laLangueActuel").addEventListener("DOMSubtreeModified", translationCallback2, false); 
            
         function translationCallback1() {
             var currentValue = document.getElementById("btnEnregistrer").innerHTML;
             if (currentValue && currentValue.indexOf(origValue1) < 0) {
+                //alert("translationCallback1");
                 origValue1 = currentValue;
                 // enlever le style de google
                 $( "font" ).each(function( index ) {
                     $(this).removeAttr("style");
                 })
+                var lalanguee = $('#laLangueActuel').text();
+                if (lalanguee =='FR')
+                    $('#imgNavDeu').removeAttr('src').attr('src','images/icon-francais.gif');
+                else if (lalanguee =='EN')
+                    $('#imgNavDeu').removeAttr('src').attr('src','images/icon-anglais.gif');
+                else if (lalanguee =='ES')
+                    $('#imgNavDeu').removeAttr('src').attr('src','images/icon-espagnol.gif');
             }
         }
-        function translationCallback2() {
+        /* function translationCallback2() {
             var currentValue = document.getElementById("laLangueActuel").innerHTML;
             if (currentValue && currentValue.indexOf(origValue2) < 0) {
+                alert("translationCallback2");
                 origValue2 = currentValue;
                 // enlever le style de google
                 $( "font" ).each(function( index ) {
@@ -1181,6 +1193,7 @@
 
             }
         }
+        */
 		// appelé apres Google Translate SDK est loadé
 		function googleTranslateElementInit() {
 			_gto = new google.translate.TranslateElement({
@@ -1211,11 +1224,12 @@
             } else if (langcode == 'es') {
                 $menuframe.contents().find('a span.text:contains("' + _gto.K[langcode] + '")').click();
             }
-            $( "font" ).each(function( index ) {
+           /* $( "font" ).each(function( index ) {
                 $(this).removeAttr("style");
-            })
+            }) */
 
-		});
+        });
+        /* Fin gestion internationalisation */
 	</script>
 </body>
 
