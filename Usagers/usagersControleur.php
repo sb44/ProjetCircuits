@@ -438,6 +438,8 @@
 				$tabRes['nomUtilisateur'] = $content->name;
 				$_SESSION['nomUtilisateur']=$tabRes['nomUtilisateur'];
 				$_SESSION['url_twitter'] = 'https://twitter.com/'.$content->screen_name;
+				//header("location:circuits.html");
+
 				$tabRes['msg']="ok"; 
 			}else{
 				$tabRes['msg']="denied"; 

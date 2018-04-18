@@ -427,7 +427,7 @@ function connexionTwitter(reponse) {
 }
 function ficheTwitter(reponse) {
     if (reponse.msg == "ok") {
-        
+        window.location="http://127.0.0.1/Circuit/ProjetCircuits/circuits.html";
         $('#navEnregistrement').addClass("hide");
         $('#navConnexion').addClass("hide");
         
