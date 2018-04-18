@@ -202,8 +202,7 @@ function getCommandesUsager(reponse) {
                 //on ajoute voyageur à la commande existante
 
                 //voyageur i + 1
-                $('#comm' + lstCommandes[i-1].idCommande + (i-1) + 'voy' + '').after(
-                    +'<tr class="" id=comm' + lstCommandes[i].idCommande + i + 'voy' + '>'
+                $('#comm' + lstCommandes[i-1].idCommande + (i-1) + 'voy' + '').after('<tr class="" id=comm' + lstCommandes[i].idCommande + i + 'voy' + '>'
                     +'<td></td>'
                     +'<td></td>'
                     +'<td>'+ ++noVoy +'</td>'
