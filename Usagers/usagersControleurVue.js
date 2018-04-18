@@ -137,11 +137,27 @@ function getCommandesUsager(reponse) {
                     +'<tr>'
                     +'<td></td>'
                     +'<td></td>'
+                    +'<td colspan="4" style="border-top: 2px solid #ADAFB1"><strong>Coût total ($) <small><strong>(Toutes taxes inclues)</strong></small></strong></td>'
+                    +'<td class="text-success" style="border-top: 2px solid #ADAFB1"><strong>'+ lstCommandes[i].prixTotal + '$</strong></td>'
                     +'<td></td>'
                     +'<td></td>'
                     +'<td></td>'
                     +'<td></td>'
+                    +'</tr>'
+                    +'<tr>'
                     +'<td></td>'
+                    +'<td></td>'
+                    +'<td colspan="3" style="border-top: 2px solid #ADAFB1"></td>'
+                    +'<td colspan="2" style="border-top: 2px solid #ADAFB1"><button class="btnPayPalSB" name=' + lstCommandes[i].montantApayer + '>Payer la balance de ' + lstCommandes[i].montantApayer + ' $ maintenant</button></td>'
+                    +'<td></td>'
+                    +'<td></td>'
+                    +'<td></td>'
+                    +'<td></td>'
+                    +'</tr>'
+                    +'<tr>'
+                    +'<td></td>'
+                    +'<td></td>'
+                    +'<td colspan="5" style="border-top: 2px solid #ADAFB1"></td>'
                     +'<td></td>'
                     +'<td></td>'
                     +'<td></td>'
@@ -149,7 +165,8 @@ function getCommandesUsager(reponse) {
                     +'</tr>'
                     +'<tr bgcolor="#C6C8CA">'
                     +'<td style="border-bottom: 1px solid #CD5AB3;"></td>'
-                    +'<td colspan="8" style="border-bottom: 1px solid #CD5AB3;">Circuit : '+ lstCommandes[i].nomCircuit + '</td>'
+                    +'<td style="border-bottom: 1px solid #CD5AB3;"></td>'
+                    +'<td colspan="7" style="border-bottom: 1px solid #CD5AB3;"><strong>Bon voyage!</strong></td>'
                     +'<td style="border-bottom: 1px solid #CD5AB3;"></td>'
                     +'<td style="border-bottom: 1px solid #CD5AB3;"><button type="button" onclick="cacherVoyageursDeComm(' + lstCommandes[i].idCommande + ')";><span class="oi oi-caret-top" title="Cacher ces détails de circuit"></span></button></td>'
                     +'</tr>');
@@ -170,10 +187,20 @@ function getCommandesUsager(reponse) {
                         +'</tr>');
                     
                     // header voyageurs
-                    $('#comm' + lstCommandes[i].idCommande + i + 'vide').after('<tr class="" id=comm' + lstCommandes[i].idCommande + i + 'entete' + '>'
+                    $('#comm' + lstCommandes[i].idCommande + i + 'vide').after(''
+                    +'<tr>'
+                    +'<td></td>'
+                    +'<td></td>'
+                    +'<td colspan="5"><strong>Items de la commande no ' + lstCommandes[i].idCommande + ' (' + lstCommandes[i].nomCircuit + ')</strong></td>'
+                    +'<td></td>'
+                    +'<td></td>'
+                    +'<td></td>'
+                    +'<td></td>'
+                    +'</tr>'
+                    +'<tr class="" id=comm' + lstCommandes[i].idCommande + i + 'entete' + '>'
                         +'<td></td>'
                         +'<td></td>'
-                        +'<td style="border-bottom: 2px solid #ADAFB1; border-top: 2px solid #ADAFB1;"><strong>Voyageur no</strong></td>'
+                        +'<td style="border-bottom: 2px solid #ADAFB1; border-top: 2px solid #ADAFB1;"><strong>No voyageur</strong></td>'
                         +'<td style="border-bottom: 2px solid #ADAFB1; border-top: 2px solid #ADAFB1;"><strong>Nom voyageur</strong></td>'
                         +'<td style="border-bottom: 2px solid #ADAFB1; border-top: 2px solid #ADAFB1;"><strong>Prénom voyageur</strong></td>'
                         +'<td style="border-bottom: 2px solid #ADAFB1; border-top: 2px solid #ADAFB1;"><strong>Type voyageur</strong></td>'
@@ -231,7 +258,25 @@ function getCommandesUsager(reponse) {
                 $(this).removeAttr('name');
           });
 
+        // disablé les boutons (gros)
+        $( ".btnPayPalSB" ).each(function( index ) {
+            debugger;    
+            var latrib = $(this).attr('name');
+            if (latrib == "0.00") {
+                $(this).removeAttr('name').prop("disabled",true);
+                $(this).attr('title', 'Cette balance de commande est réglé!');
+            }else
+                $(this).removeAttr('name');
+          });
 
+          //cacher les rows 
+            var comman = "";
+            for (var i = 0; i < lstCommandes.length; i++) { 
+                if (lstCommandes[i].idCommande != comman) {
+                    cacherVoyageursDeComm(lstCommandes[i].idCommande);
+                }
+                comman = lstCommandes[i].idCommande;
+            }
     }
 
     /*
@@ -270,6 +315,52 @@ function getCommandesUsager(reponse) {
     ...ensuite commande 3... etc.
     */
 }
+function afficheVoyageursDeComm(noCommande) {
+    //on loop tout les rows  
+    // (notre row d'index 2 correspond à notre plus récente commande)
+    // stratégie: on trouve notre row d'index "noCommande" et on trouve la row "Bon voyage!""
+    //debugger;
+    var rowIndex = $('#comm' + noCommande +'').index(); //notre row d'index "noCommande"
+
+    var table = document.getElementById('sgdfgdgsd');
+    var rowLength = table.rows.length;
+    var finalRow = rowLength;
+    for(var i=rowIndex; i<rowLength; i+=1){
+        var row = table.rows[i];
+        row.style.display = '';
+        //var cellLength = row.cells.length;
+        //for(var y=0; y<cellLength; y+=1){
+            var cell = row.cells[2];
+            if (cell.innerText == "Bon voyage!") {
+                finalRow = i;
+                break;
+            }
+    }           
+
+
+
+
+}
+function cacherVoyageursDeComm(noCommande) {
+    //debugger;
+    var rowIndex = $('#comm' + noCommande +'').index(); //notre row d'index "noCommande"
+    rowIndex +=2; //pour éviter de cacher la 1e
+    var table = document.getElementById('sgdfgdgsd');
+    var rowLength = table.rows.length;
+    var finalRow = rowLength;
+    for(var i=rowIndex; i<rowLength; i+=1){
+        var row = table.rows[i];
+        row.style.display = 'none';
+        //var cellLength = row.cells.length;
+        //for(var y=0; y<cellLength; y+=1){
+            var cell = row.cells[2];
+            if (cell.innerText == "Bon voyage!") {
+                finalRow = i;
+                break;
+            }
+    }  
+}
+
 function connecterValide(reponse) {
     if (reponse.msg == "ok") {
         $('#navDeconnexion').removeClass("hide");
