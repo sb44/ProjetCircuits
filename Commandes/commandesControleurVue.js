@@ -79,16 +79,9 @@ function displaySummary(reponse) {
 }
 
 
+function registerDeparturexxx(reponse) {}
 
-
-function registerDeparturexxx(reponse) {
-
-
-}
-
-function register(reponse) {
-
-}
+function register(reponse) {}
 
 function retirer(reponse) {
     $('#nbItemPanier').text("(" + reponse.itemCount + ")");
@@ -166,7 +159,6 @@ function openCart(reponse) {
     }
 
     input += "<tr><td colspan=\"3\"><strong>Total</strong></td>  <td><strong>" + total + " circuit(s)" + "</strong></td><td></td><td></td> <td><form>";
-    input += "<input type=\"button\" name=\"btnEnregistrer\" id=\"btnEnregistrer\" class='btn btn-outline-success px-1 m-1' value=\"Enregistrer\" onclick=\"enregisterVoyageur($('#idBalance').val());\"></form>";
     input += "<form><input type=\"button\" name='Sommaire' class='btn btn-outline-success px-1 m-1' value=\"Sommaire des Coûts\" onclick=\"afficherSommaire();\">";
     input += "</form></tr>";
     input += " </table> </div> </div>";
@@ -187,10 +179,9 @@ function createReservationForm(reponse) {
     var errNomVoyageur = "Vous devez entrez un nom.";
     var errNaissanceVoyageur = "Vous devez entrez un courriel valide.";
     var errPrenomVoyageur = "Vous devez entrez un prénom.";
-    var errNoPassportVoyageur = "Vous devez entrez un numéro de passeport à huit chiffres.";
+    var errNoPassportVoyageur = "Vous devez entrez un numéro de passeport valide.";
     var errCourrielVoyageur = "Vous devez entrez un courriel valide.";
-    var errExpirationPasseportVoyageur = "Vous devez entrez un date valide et posterieurea votre naissance.";
-    var errDepotVoyageur = "Vous devez entrez un montant de depot";
+    var errExpirationPasseportVoyageur = "Vous devez entrez un date valide et postérieure à votre naissance.";
     var idCommande = reponse.idCommande;
 
     if ($('#idCommandeVoyageur1').val()) {
@@ -217,7 +208,7 @@ function createReservationForm(reponse) {
     reservation += "<span id=\"errNaissanceVoyageur" + counter + "\"     style=\"display:none;\" class=\"text-danger\">" + errNaissanceVoyageur + "</span>\n";
     reservation += "</div> </div>";
     reservation += "<div class = \"form-group\" ><label for =\"noPassportVoyageur" + counter + "\" > Numéro Passeport: </label> <div class = \"col-xs-9\">";
-    reservation += "<input type = \"text\"class =\"form-control\" id = \"noPassportVoyageur" + counter + "\"name = \"noPassportVoyageur" + counter + "\" >";
+    reservation += "<input type = \"text\"class =\"form-control\" id = \"noPassportVoyageur" + counter + "\"   placeholder=\"exemple:A7705811\"  name = \"noPassportVoyageur" + counter + "\" >";
     reservation += "<span id=\"errNoPassportVoyageur" + counter + "\"  style=\"display:none;\" class=\"text-danger\">" + errNoPassportVoyageur + "</span>\n";
     reservation += "</div> </div>";
     reservation += "<div class =\"form-group\" >";
@@ -231,7 +222,7 @@ function createReservationForm(reponse) {
     reservation += "<div class = \"form-group\">";
     reservation += "<label for =\"courrielVoyageur" + counter + "\"> Courriel: </label>";
     reservation += "<div class = \"col-xs-9\">";
-    reservation += "<input type = \"text\" class = \"form-control\" id = \"courrielVoyageur" + counter + "\" name = \"courrielVoyageur" + counter + "\">";
+    reservation += "<input type = \"text\" class = \"form-control\" id = \"courrielVoyageur" + counter + "\" placeholder=\"exemple:exemple@gmail.com\"   name = \"courrielVoyageur" + counter + "\">";
     reservation += "<span id=\"errCourrielVoyageur" + counter + "\"   style=\"display:none;\" class=\"text-danger\">" + errCourrielVoyageur + "</span>\n";
     reservation += "</div> </div>";
     reservation += "<div class = \"form-group\">";
@@ -291,10 +282,6 @@ var commandesVue = function(reponse) {
             break;
         case "listerCommandes":
             displayOrders(reponse);
-            break;
-
-        case "payer":
-            pay(reponse);
             break;
 
         default:

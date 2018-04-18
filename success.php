@@ -5,9 +5,9 @@
 </head>
 <body>
 <div id="main">
-<center><h1> Order Receipt</h1></center>
+<center><h1> Accusé de Reception</h1></center>
 <div id="container">
-<h2>Order Status</h2>
+<h2>Status de la Commande</h2>
 <hr/>
 <!-- checking success details by PHP $_REQUEST array -->
 <img id="pizza-success" src="images/merci.jpg">
@@ -47,7 +47,6 @@ require_once("./includes/modele.inc.php");
 		$nbInscription=0;
 
 		for( $i=0; $i<$counter;$i++){
-			
 			$nom = $_SESSION["trip_Summary"][$i]['item_name'];
 			$prenom=$_SESSION["trip_Summary"][$i]['item_prenom'];
 			$dateNaissance=$_SESSION["trip_Summary"][$i]['item_naissanceVoyageur'];
@@ -83,8 +82,6 @@ require_once("./includes/modele.inc.php");
 					}
 				}  
 			}  
-
-	
 
 			try{
 				$request="SELECT groupevoyage.capacite FROM groupevoyage  WHERE groupevoyage.idGroupeVoyage=?";
@@ -157,7 +154,7 @@ if($groupeVoyageId){
 <center><h3 style="color:red;"><?php echo $msg?></h3></center>
 
 <br><br>
-<center><a id="backTopizza" href="circuits.html" ><< Back to Merchant</a></center>
+<center><a id="backTopizza" href="circuits.html" ><< Retour au Marchand</a></center>
 <br><br>
 </div>
 

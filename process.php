@@ -5,16 +5,16 @@ if (isset($_POST['submit'])) {
 $paypal_url = 'https://www.sandbox.paypal.com/cgi-bin/webscr';
 // Add merchant's email id
 //$merchant_email = 'sobhagya1411@gmail.com';
-$merchant_email = 'touristia.inc@gmail.com';
+$merchant_email = 'touristiaVoyage.inc@gmail.com';
 // Add retun URL for your website
 $cancel_return = "http://localhost/Circuit/ProjetCircuits/circuits.html";
 // Add success page URL for your website, this will call when customer done PayPal payment process
 $success_return = "http://localhost/Circuit/ProjetCircuits/success.php";
 
 
-$price = $_POST['totalprice'];
+//$price = $_POST['totalprice'];
 
-//$price=1.00;
+$price=1.00;
 
 $currency = 'USD';
 
