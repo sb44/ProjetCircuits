@@ -253,7 +253,9 @@ function connUsagerTwitter(){
 }
 
 function getCommandesProfilUsager() {
-	debugger;
+	//reset html de la table avant requete
+	$('#tbodyGestCommandes').html('<tr id="fadsfads" class="hide"><td colspan="11"></td></tr>');
+	
 	var formCommandesUsager = new FormData();
 	formCommandesUsager.append('action','getCommandesUsager');
 	$.ajax({
