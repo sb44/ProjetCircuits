@@ -148,7 +148,7 @@ function getCommandesUsager(reponse) {
                     +'<td></td>'
                     +'<td></td>'
                     +'<td colspan="3" style="border-top: 2px solid #ADAFB1"></td>'
-                    +'<td colspan="2" style="border-top: 2px solid #ADAFB1"><button class="btnPayPalSB" name=' + lstCommandes[i].montantApayer + '>Payer la balance de ' + lstCommandes[i].montantApayer + ' $ maintenant</button></td>'
+                    +'<td colspan="2" style="border-top: 2px solid #ADAFB1"><button onclick="payerLaBalance(' + lstCommandes[i].idCommande + "," + lstCommandes[i].idUtilisateur + ')" class="btnPayPalSB" name=' + lstCommandes[i].montantApayer + '>Payer la balance de ' + lstCommandes[i].montantApayer + ' $ maintenant</button></td>'
                     +'<td></td>'
                     +'<td></td>'
                     +'<td></td>'
