@@ -131,7 +131,7 @@ function getCommandesUsager(reponse) {
                     +'<td style="border-top: 1px solid #CD5AB3;" class="text-success"><strong>'+ lstCommandes[i].prixTotal + '</strong></td>'
                     +'<td style="border-top: 1px solid #CD5AB3; color: #CD5AB3;"><strong>'+ lstCommandes[i].montantDepot + '</strong></td>'
                     +'<td style="border-top: 1px solid #CD5AB3;" class="text-danger"><strong>'+ lstCommandes[i].montantApayer + '</strong></td>'
-                    +'<td style="border-top: 1px solid #CD5AB3;"><button type="button" onclick="payerLaBalance(' + lstCommandes[i].idCommande + ')";><span class="oi oi-dollar" title="Régler votre balance à payer par PayPal maintenant!"></span></button></td>'
+                    +'<td style="border-top: 1px solid #CD5AB3;"><button type="button" class="payerLaBalance" name=' + lstCommandes[i].montantApayer + ' onclick="payerLaBalance(' + lstCommandes[i].idCommande + "," + lstCommandes[i].idUtilisateur + ')";><span class="oi oi-dollar" title="Régler votre balance à payer par PayPal maintenant!"></span></button></td>'
                     +'<td style="border-top: 1px solid #CD5AB3;"><button type="button" onclick="afficheVoyageursDeComm(' + lstCommandes[i].idCommande + ')";><span class="oi oi-caret-bottom" title="Afficher détails voyageurs"></span></button></td>'
                     +'</tr>'
                     +'<tr>'
@@ -221,6 +221,18 @@ function getCommandesUsager(reponse) {
             noCommande = lstCommandes[i].idCommande;
         }
         
+        //disablé les boutons où montant à payer est nul:
+        $( ".payerLaBalance" ).each(function( index ) {
+            debugger;    
+            var latrib = $(this).attr('name');
+            if (latrib == "0.00") {
+                $(this).removeAttr('name').prop("disabled",true);
+                $(this).attr('title', 'Cette balance de commande est réglé!');
+            }else
+                $(this).removeAttr('name');
+          });
+
+
     }
 
     /*
