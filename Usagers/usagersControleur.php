@@ -38,6 +38,36 @@
 			unset($unModele);
 		}
 	}
+	// SB: Fonction qui retourne info de tout les commandes d'un utilisateur
+	//     avec sa liste de voyageurs de tout ses commandes, le groupevoyage(départ) associé et le circuit 
+	function getCommandesUsager() {
+		global $tabRes;
+		$tabRes['action']="getCommandesUsager";
+
+		if (empty($_SESSION['idConnexion']) || empty($_SESSION['idUtilisateur'])) {
+			//validation..
+			$tabRes['msg']="Vous devez être connecté pour accéder à cet information!";
+			return;
+		}
+
+		try{
+		  $requete="SELECT commande.idCommande, groupevoyage.idGroupeVoyage, circuit.nom AS 'nomCircuit', groupevoyage.nbInscrit, groupevoyage.capacite, commande.datePayment AS 'dateInscription', groupevoyage.dateDepart, groupevoyage.dateRetour, ROUND((commande.prixTotal),2) AS prixTotal, ROUND((commande.montantDepot),2) AS montantDepot, ROUND((commande.prixTotal - commande.montantDepot),2) AS montantApayer , voyageur.nom AS nomVoyageur, voyageur.prenom AS prenomVoyageur, categorie.nom AS 'typeVoyageur', IF(categorie.nom = 'Adulte', ROUND((groupevoyage.prixAdulte * (1 - promotion.rabaisAdulte/100)),2), IF(categorie.nom = 'Enfant', ROUND((groupevoyage.prixEnfant * (1 - promotion.rabaisEnfant/100)),2), ROUND((groupevoyage.prixBebe* (1 - promotion.rabaisEnfant/100)),2))) AS 'coutVoyageur' FROM commande, voyageur, groupevoyage, circuit, categorie, promotion WHERE promotion.idpromotion = groupevoyage.idpromotion AND categorie.idCategorie = voyageur.idCategorie AND commande.idCommande = voyageur.idCommande AND commande.idGroupeVoyage = groupevoyage.idGroupeVoyage AND groupevoyage.idCircuit = circuit.idCircuit AND commande.idUtilisateur = ?";
+		  $unModele=new circuitsModele($requete,array($_SESSION['idUtilisateur'], ));
+		  $stmt=$unModele->executer();
+		  $tabRes['listeCommandes']=array();
+		  while($ligne=$stmt->fetch(PDO::FETCH_OBJ)){
+			 $tabRes['listeCommandes'][]=$ligne;
+		  }
+		  $tabRes['msg']="ok";
+	  }catch(Exception $e){
+		  $tabRes['msg']="erreur";
+	  }finally{
+		  unset($unModele);
+	  }
+
+
+	}
+
 
 	//sb. N.B: utilisation modeleTranasctionnel
 	function miseAjourProfilUsager() {
@@ -477,6 +507,8 @@
 			continuTwitterProf();
 		case "miseAjourProfilUsager":
 			miseAjourProfilUsager();
+		case "getCommandesUsager":
+			getCommandesUsager();
 		break;
 	}
     echo json_encode($tabRes); // json_encode --> Retourne la représentation JSON d'une valeur 

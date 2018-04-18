@@ -98,7 +98,167 @@ function monProfileUs(reponse) {
         alert("problème de trouver votre profil");
     }
 }
+function getCommandesUsager(reponse) {
+    debugger;
+    if (reponse.msg == "ok") {
+        var lstCommandes = reponse.listeCommandes;
+        var noCommande;
+        var noVoy= 0;
+        //afficher tout les commandes ainsi que tout les utilisateurs
+        for (var i = 0; i < lstCommandes.length; i++) {
+            if (noCommande != lstCommandes[i].idCommande) { // nouvelle commande
+                noVoy = 1;
+                $('#fadsfads').after('<tr>'
+                    +'<td></td>'
+                    +'<td></td>'
+                    +'<td></td>'
+                    +'<td></td>'
+                    +'<td></td>'
+                    +'<td></td>'
+                    +'<td></td>'
+                    +'<td></td>'
+                    +'<td></td>'
+                    +'<td></td>'
+                    +'<td></td>'
+                    +'</tr>'
+                    +'<tr bgcolor="#C6C8CA" id=comm' + lstCommandes[i].idCommande + '>'
+                    +'<td style="border-top: 1px solid #CD5AB3;">'+ lstCommandes[i].idCommande + '</td>'
+                    +'<td style="border-top: 1px solid #CD5AB3;">'+ lstCommandes[i].idGroupeVoyage +'</td>'
+                    +'<td style="border-top: 1px solid #CD5AB3;">'+ lstCommandes[i].nbInscrit + ' / ' + lstCommandes[i].capacite  +'</td>'
+                    +'<td style="border-top: 1px solid #CD5AB3;">'+ lstCommandes[i].dateInscription + '</td>'
+                    +'<td style="border-top: 1px solid #CD5AB3;">'+ lstCommandes[i].dateDepart + '</td>'
+                    +'<td style="border-top: 1px solid #CD5AB3;">'+ lstCommandes[i].dateRetour + '</td>'
+                    +'<td style="border-top: 1px solid #CD5AB3;" class="text-success"><strong>'+ lstCommandes[i].prixTotal + '</strong></td>'
+                    +'<td style="border-top: 1px solid #CD5AB3; color: #CD5AB3;"><strong>'+ lstCommandes[i].montantDepot + '</strong></td>'
+                    +'<td style="border-top: 1px solid #CD5AB3;" class="text-danger"><strong>'+ lstCommandes[i].montantApayer + '</strong></td>'
+                    +'<td style="border-top: 1px solid #CD5AB3;"><button type="button" onclick="payerLaBalance(' + lstCommandes[i].idCommande + ')";><span class="oi oi-dollar" title="Régler votre balance à payer par PayPal maintenant!"></span></button></td>'
+                    +'<td style="border-top: 1px solid #CD5AB3;"><button type="button" onclick="afficheVoyageursDeComm(' + lstCommandes[i].idCommande + ')";><span class="oi oi-caret-bottom" title="Afficher détails voyageurs"></span></button></td>'
+                    +'</tr>'
+                    +'<tr>'
+                    +'<td></td>'
+                    +'<td></td>'
+                    +'<td></td>'
+                    +'<td></td>'
+                    +'<td></td>'
+                    +'<td></td>'
+                    +'<td></td>'
+                    +'<td></td>'
+                    +'<td></td>'
+                    +'<td></td>'
+                    +'<td></td>'
+                    +'</tr>'
+                    +'<tr bgcolor="#C6C8CA">'
+                    +'<td style="border-bottom: 1px solid #CD5AB3;"></td>'
+                    +'<td colspan="8" style="border-bottom: 1px solid #CD5AB3;">Circuit : '+ lstCommandes[i].nomCircuit + '</td>'
+                    +'<td style="border-bottom: 1px solid #CD5AB3;"></td>'
+                    +'<td style="border-bottom: 1px solid #CD5AB3;"><button type="button" onclick="cacherVoyageursDeComm(' + lstCommandes[i].idCommande + ')";><span class="oi oi-caret-top" title="Cacher ces détails de circuit"></span></button></td>'
+                    +'</tr>');
+                    
+                    //ligne vide avant d'afficher header voyageurs
+                    $('#comm' + lstCommandes[i].idCommande + '').after('<tr class="" id=comm' + lstCommandes[i].idCommande + i + 'vide' + '>'
+                        +'<td></td>'
+                        +'<td></td>'
+                        +'<td></td>'
+                        +'<td></td>'
+                        +'<td></td>'
+                        +'<td></td>'
+                        +'<td></td>'
+                        +'<td></td>'
+                        +'<td></td>'
+                        +'<td></td>'
+                        +'<td></td>'
+                        +'</tr>');
+                    
+                    // header voyageurs
+                    $('#comm' + lstCommandes[i].idCommande + i + 'vide').after('<tr class="" id=comm' + lstCommandes[i].idCommande + i + 'entete' + '>'
+                        +'<td></td>'
+                        +'<td></td>'
+                        +'<td style="border-bottom: 2px solid #ADAFB1; border-top: 2px solid #ADAFB1;"><strong>Voyageur no</strong></td>'
+                        +'<td style="border-bottom: 2px solid #ADAFB1; border-top: 2px solid #ADAFB1;"><strong>Nom voyageur</strong></td>'
+                        +'<td style="border-bottom: 2px solid #ADAFB1; border-top: 2px solid #ADAFB1;"><strong>Prénom voyageur</strong></td>'
+                        +'<td style="border-bottom: 2px solid #ADAFB1; border-top: 2px solid #ADAFB1;"><strong>Type voyageur</strong></td>'
+                        +'<td style="border-bottom: 2px solid #ADAFB1; border-top: 2px solid #ADAFB1;"><strong>Coût unitaire</strong></td>'
+                        +'<td></td>'
+                        +'<td></td>'
+                        +'<td></td>'
+                        +'<td></td>'
+                        +'</tr>');
 
+                    //voyageur 1
+                    $('#comm' + lstCommandes[i].idCommande + i + 'entete').after('<tr class="" id=comm' + lstCommandes[i].idCommande + i + 'voy' + '>'
+                        +'<td></td>'
+                        +'<td></td>'
+                        +'<td>1</td>'
+                        +'<td>'+ lstCommandes[i].nomVoyageur + '</td>'
+                        +'<td>'+ lstCommandes[i].prenomVoyageur + '</td>'
+                        +'<td>'+ lstCommandes[i].typeVoyageur + '</td>'
+                        +'<td class="text-success">'+ lstCommandes[i].coutVoyageur + '</td>'
+                        +'<td></td>'
+                        +'<td></td>'
+                        +'<td></td>'
+                        +'<td></td>'
+                        +'</tr>');
+            } else { 
+                //on ajoute voyageur à la commande existante
+
+                //voyageur i + 1
+                $('#comm' + lstCommandes[i-1].idCommande + (i-1) + 'voy' + '').after(
+                    +'<tr class="" id=comm' + lstCommandes[i].idCommande + i + 'voy' + '>'
+                    +'<td></td>'
+                    +'<td></td>'
+                    +'<td>'+ ++noVoy +'</td>'
+                    +'<td>'+ lstCommandes[i].nomVoyageur + '</td>'
+                    +'<td>'+ lstCommandes[i].prenomVoyageur + '</td>'
+                    +'<td>'+ lstCommandes[i].typeVoyageur + '</td>'
+                    +'<td class="text-success">'+ lstCommandes[i].coutVoyageur + '</td>'
+                    +'<td></td>'
+                    +'<td></td>'
+                    +'<td></td>'
+                    +'<td></td>'
+                    +'</tr>'); 
+
+            }
+            noCommande = lstCommandes[i].idCommande;
+        }
+        
+    }
+
+    /*
+    idCommande:"2"
+    idGroupeVoyage:"1"
+    nomCircuit:"Voyage organisé en Tanzanie & Zanzibar"
+    nbInscrit:"2"
+    capacite:"40"
+    dateInscription:"2018-04-17"
+    dateDepart:"2018-09-16"
+    dateRetour:"2018-10-03"
+    prixTotal:"4"
+    montantDepot:"4"
+    montantApayer:"0.00"
+    nomVoyageur:"bouchard" ****************
+    prenomVoyageur:"sasha" ****************
+    typeVoyageur:"Adulte" ****************
+    coutVoyageur:"2.00" ****************
+
+    idCommande:"2"
+    idGroupeVoyage:"1"
+    nomCircuit:"Voyage organisé en Tanzanie & Zanzibar"
+    nbInscrit:"2"
+    capacite:"40"
+    dateInscription:"2018-04-17"
+    dateDepart:"2018-09-16"
+    dateRetour:"2018-10-03"
+    prixTotal:"4"
+    montantDepot:"4"
+    montantApayer:"0.00"
+    nomVoyageur:"amiri" ****************
+    prenomVoyageur:"arash" ****************
+    typeVoyageur:"Adulte" ****************
+    coutVoyageur:"2.00" ****************
+
+    ...ensuite commande 3... etc.
+    */
+}
 function connecterValide(reponse) {
     if (reponse.msg == "ok") {
         $('#navDeconnexion').removeClass("hide");
@@ -264,6 +424,9 @@ var usagersVue = function(reponse) {
             break;
         case "miseAjourProfilUsager":
             miseAjourProfilUsager(reponse);
+            break;
+        case "getCommandesUsager":
+            getCommandesUsager(reponse);
             break;
     }
 }

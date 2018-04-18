@@ -436,7 +436,7 @@
     
                 <ul class="list-group mt-2">
                     <a id="gestionProfilUser" href="#" class="list-group-item list-group-item-action list-group-item-dark" onclick="$('#gestionDeProfil').addClass('show').removeClass('hide');$('#gestionDeCommandes').addClass('hide').removeClass('show');">Gestion de profil</a>
-                    <a id="gestionCommandes" href="#" class="list-group-item list-group-item-action list-group-item-dark" onclick="$('#btnMontrerModProfilUser').prop('disabled', false);$('#btnAnnulerModProfilUser').prop('disabled', true);$('#leProfile').addClass('hide').removeClass('show');$('#gestionDeCommandes').addClass('show').removeClass('hide');$('#gestionDeProfil').addClass('hide').removeClass('show');">Gestion de commandes</a>
+                    <a id="gestionCommandes" href="#" class="list-group-item list-group-item-action list-group-item-dark" onclick="getCommandesProfilUsager();$('#btnMontrerModProfilUser').prop('disabled', false);$('#btnAnnulerModProfilUser').prop('disabled', true);$('#leProfile').addClass('hide').removeClass('show');$('#gestionDeCommandes').addClass('show').removeClass('hide');$('#gestionDeProfil').addClass('hide').removeClass('show');">Gestion de commandes</a>
                 </ul>
         </div>
 
@@ -476,34 +476,57 @@
                 </div>
                 
                 <div id="gestionDeCommandes" class="col-sm-9 hide mt-4">
-                <h4 class="mb-2">Gestion de Commandes</h4>
-                
+                <h4 class="mb-2">Gestion de commandes</h4>
+                <br>
+                <h6><span class="oi oi-dollar"> </span> Régler votre commande maintenanent en appuyant sur le bouton "<span class="oi oi-dollar"> </span>"</h6> 
                 <table id="sgdfgdgsd" class="table table-hover">
                         <thead>
                             <tr>
                                 <th>No commande</th>
                                 <th>No départ</th>
-                                <th>Nombre inscriptions</th>
+                                <th>Nb inscriptions</th>
                                 <th>Date inscription</th>
+                                <th>Date départ</th>
+                                <th>Date retour</th>
                                 <th class="text-success">Cout total ($)</th>
-                                <th class="text-warning">Montant dépôt ($)</th> 
-                                <th class="text-danger">À payer ($)</th>
+                                <th style="color: #CD5AB3;">Montant dépôt ($)</th> 
+                                <th class="text-danger">Montant à payer ($)</th>
+                                <th></th>
                                 <th></th>
                             </tr>
                         </thead>
-                        <tbody id="gsgfsdgfsdfgd">
+                        <tbody id="tbodyGestCommandes">
+                                <tr id="fadsfads" class="hide">
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                        </tbody>
+                    </table>
+                                                <!--
                             <tr id="fadsfads">
                                 <td>1</td>
                                 <td>12</td>
                                 <td>1</td>
                                 <td>2018/10/10</td>
+                                <td>2018/10/31</td>
+                                <td>2018/11/25</td>
                                 <td>4000,00</td>
                                 <td>800,00</td>
                                 <td>3200,00</td>
-                                <td><button type="button" onclick="$('leProfile').addClass('show').removeClass('hide')";><span class="oi oi-pencil" title="Modifer le profil"></span></button></td>
+                                <td><button type="button" onclick="";><span class="oi oi-dollar" title="Régler votre balance à payer par PayPal maintenant!"></span></button></td>
+                                <td><button type="button" onclick="";><span class="oi oi-caret-bottom" title="Afficher détails voyageurs"></span></button></td>
                             </tr>
-                        </tbody>
-                    </table>
+                            -->
+                    <small class="text-muted">&nbsp;&nbsp;&nbsp;&nbsp;<span class="oi oi-info">&nbsp;&nbsp;</span>La commande doit être réglée pour confirmer votre départ pour un circuit. <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Consulter votre courriel de confirmation pour les détails complets relatifs à votre commande. <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Pour tout information supplémentaire, contactez-nous!<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;L'équipe de Touristia est là pour vous!</small>
             </div>
             
             <div class="col-sm-9 offset-sm-3 col-md-8 col-lg-6 hide" id="leProfile">

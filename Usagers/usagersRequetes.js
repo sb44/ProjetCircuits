@@ -251,6 +251,29 @@ function connUsagerTwitter(){
 		}
 	});
 }
+
+function getCommandesProfilUsager() {
+	debugger;
+	var formCommandesUsager = new FormData();
+	formCommandesUsager.append('action','getCommandesUsager');
+	$.ajax({
+		type : 'POST',
+		url : 'Usagers/usagersControleur.php',
+		data : formCommandesUsager,
+		/* async : false, */
+ 		contentType : false,
+		processData : false, 
+		dataType : 'json', //text pour le voir en format de string
+		success : function (reponse){//alert(reponse);
+				debugger;
+				usagersVue(reponse);
+		},
+		fail : function (err){
+			alert("1111");
+		}
+	});
+}
+
 function modifierProf(){
  $("#monProf").addClass("hide");
  $('#carouselExampleIndicators').addClass("show").removeClass("hide");
