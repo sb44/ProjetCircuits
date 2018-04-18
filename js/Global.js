@@ -6,7 +6,7 @@ var REG_DUREE = /^[0-9]{2,3}$/;
 var REG_URL = /[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi;
 var REG_PRIX = /^\d{1,3}\.\d{2}\s*$/;
 var REG_NOM = /^[a-zA-Z]+\s*$/;
-var REG_NUMPASSEPORT = /^[0-9]{8}\s*$/;
+var REG_NUMPASSEPORT = /^[a-zA-Z][0-9]{7}\s*$/;
 var REG_DATE = /^\d{4}-\d{2}-\d{2}$/;
 //-FIN EXPRESSIONSRÉGULIÈRES
 //var FILMS = [];
@@ -49,7 +49,7 @@ function validerCourriel(courriel, idErr) {
 }
 
 function validerDate(date, idErr) {
-    var msg = idErr;  //var msg = document.getElementById("errDateNaissance");
+    var msg = idErr; //var msg = document.getElementById("errDateNaissance");
     var d = date.value
     var bday = d.split("-");
     var annee = bday[0];
